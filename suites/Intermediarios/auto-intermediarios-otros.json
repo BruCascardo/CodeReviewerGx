@@ -1,0 +1,2554 @@
+{
+  "nombre": "Auto - Intermediarios.Otros",
+  "kb": "Intermediarios",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "intermediarios-avisos-avisoscontrolacciones",
+      "nombre": "Intermediarios.Avisos.AvisosControlAcciones (datos de COTIZACION.cthAviso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Avisos.AvisosControlAcciones",
+          "entrada": {
+            "Accion": "MODINM",
+            "sdtAviso": {
+              "AviPolizaNumero": 4073818,
+              "AviTomadorId": 1788184,
+              "AviProcesado": false,
+              "AviPremioVariacion": 7.0533,
+              "AviFechaVencimiento": "0000-00-00",
+              "AviSupNuevo": 0,
+              "Rama": {
+                "Nombre": "",
+                "Class": "",
+                "Id": 0
+              },
+              "AviPremioCotizadoOri": "135247.32",
+              "AviVisible": true,
+              "AviCompCobJerActual": 0,
+              "AviTomadorNombreCompleto": "DIAZ, MARIO CESAR",
+              "AviSupMovSubTipoNombre": "RENOVACION",
+              "AviBloqueado": "NINGUN",
+              "AviCompSumaAsegVariacion": 0,
+              "BienAsegurado": "TOYOTA HILUX SW4 TD SRV CUERO AUT",
+              "AviSoporteId": "0",
+              "AviFechaFin": "2026-09-30",
+              "AviEstadoNombreCompleto": "",
+              "AviIntTipo": 4,
+              "CotRamaCfgSec": 0,
+              "AviAccion": "MODINM",
+              "PolizaDescripcion": "",
+              "AviCompCobJerAnterior": 0,
+              "AviOperacionNumero": 7788183,
+              "AviPremioCotizadoMod": "135247.32",
+              "AviId": "714086",
+              "AviFechaFinAnterior": "2025-09-30",
+              "AviCotizable": true,
+              "MultiplesComponentes": false,
+              "CoberturaActual": "",
+              "AviEstadoMensaje": "",
+              "AviSupMovSubTipoId": 0,
+              "AviOpeNueva": 8311343,
+              "AviCotNumeroOriginal": 2860311,
+              "AviArticuloId": 0,
+              "AviIntNombreCompleto": "NANINI, MARCELA BEATRIZ",
+              "AviRamaId": 4,
+              "Persona": {
+                "FechaNacimiento": "0000-00-00",
+                "TipoDocumento": 0,
+                "Tipo": "",
+                "Email": "",
+                "Telefono": "",
+                "NombreCompleto": "",
+                "Id": 0,
+                "NumeroDocumento": ""
+              },
+              "AviFechaProceso": "2025-09-17T10:32:30",
+              "AviFechaHastaFacturado": "2026-01-30",
+              "AviVencido": false,
+              "AviPremioOriginal": "135247.33",
+              "AviTipo": "REN",
+              "AviAccionNombre": "",
+              "AviSuperpoliza": 0,
+              "AviReemplazado": false,
+              "AviEstadoPublico": "EMI",
+              "AviEmpresaId": "N",
+              "AviCoberturaActual": "",
+              "AviSupMovTipoId": 2,
+              "AviCompPlanCobVariacion": 0,
+              "AviCotNumeroModificado": 2947619,
+              "AviEstado": "EMI",
+              "AviMonedaId": 0,
+              "Selected": false,
+              "AviDeudaImporte": "0",
+              "AviReduccionAdicional": false,
+              "Intermediario": {
+                "Nombre": "",
+                "Numero": 0,
+                "Productor": "",
+                "Tipo": 0,
+                "Matricula": 0,
+                "OrganizadorNombre": "",
+                "Organizador": "",
+                "OrganizadorNumero": 0
+              },
+              "AviPremioAnterior": "126336.38",
+              "AviPremioCotizado": "135247.32",
+              "AviSucursalId": "CC",
+              "AviIntNumero": 3041,
+              "AviCoberturaAnterior": "",
+              "AviRamaNombre": "AUTOMOTORES",
+              "AviFechaIngreso": "2025-09-30",
+              "SumaAseguradaActual": "",
+              "AviModificado": false,
+              "AviFechaInicio": "2025-09-30",
+              "AviReduccionCobertura": false
+            }
+          },
+          "lineaBase": {
+            "Permitido": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-avisos-tagvariacion",
+      "nombre": "Intermediarios.Avisos.TagVariacion (datos de COTIZACION.cthAviso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Avisos.TagVariacion",
+          "entrada": {
+            "Variacion": 7.0533,
+            "IncluirValor": false,
+            "extraStyle": ""
+          },
+          "lineaBase": {
+            "html": "<span class=\"badge\" style=\"padding: 4px 3px; border-radius: 4px; color: #17C653; font-weight: 700; border: none; background-color: #DFFFEA; \"><i class=\"fa-sharp fa-light fa-chevron-up\" style=\"font-weight: 600;\"></i></span>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-avisos-tagvariacion-vacia",
+      "nombre": "Intermediarios.Avisos.TagVariacion (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Avisos.TagVariacion",
+          "entrada": {
+            "Variacion": 0,
+            "IncluirValor": false,
+            "extraStyle": ""
+          },
+          "lineaBase": {
+            "html": "<span class=\"badge\" style=\"padding: 4px 3px; border-radius: 4px; color: #808080; font-weight: 700; border: none; background-color: #f5f5f5; \"><i class=\"fa-sharp fa-light fa-equals\" style=\"font-weight: 600;\"></i></span>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-checkpermiso-vacia",
+      "nombre": "Intermediarios.CheckPermiso (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.CheckPermiso",
+          "entrada": {
+            "PermissionName": ""
+          },
+          "lineaBase": {
+            "TienePermiso": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cobranzas-categoriaordenultimo",
+      "nombre": "Intermediarios.Cobranzas.CategoriaOrdenUltimo (datos de INTERMEDIARIOS.intGrupo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cobranzas.CategoriaOrdenUltimo",
+          "entrada": {
+            "GrupoId": 1
+          },
+          "lineaBase": {
+            "GrupoCatOrden": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cobranzas-conceptos_armarnombre",
+      "nombre": "Intermediarios.Cobranzas.Conceptos_ArmarNombre (datos de SERVICIOS.svhSupHistorial)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cobranzas.Conceptos_ArmarNombre",
+          "entrada": {
+            "CuotaTipo": "",
+            "RamaId": 4,
+            "PolizaNumero": 139332,
+            "Suplemento": 1,
+            "CuotaNumero": 0,
+            "SolicitudNumero": 0,
+            "TextoReferencia": ""
+          },
+          "lineaBase": {
+            "Concepto": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cobranzas-dpcobranzatagsasegurado",
+      "nombre": "Intermediarios.Cobranzas.DPCobranzaTagsAsegurado (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cobranzas.DPCobranzaTagsAsegurado",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cobranzas-rechazosww_daterangepickeroptions",
+      "nombre": "Intermediarios.Cobranzas.RechazosWW_DateRangePickerOptions (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cobranzas.RechazosWW_DateRangePickerOptions",
+          "entrada": {},
+          "lineaBase": {
+            "WWPDateRangePickerOptions": {
+              "Locale": {
+                "Format": "DD/MM/YYYY",
+                "Id": ""
+              },
+              "Ranges": [
+                {
+                  "StartDate": "1970-01-01T00:00:00",
+                  "DisplayName": "Pasado",
+                  "EndDate": "2026-10-03T00:00:00"
+                },
+                {
+                  "StartDate": "2026-10-03T00:00:00",
+                  "DisplayName": "Ayer",
+                  "EndDate": "2026-10-03T00:00:00"
+                },
+                {
+                  "StartDate": "2026-10-04T00:00:00",
+                  "DisplayName": "Hoy",
+                  "EndDate": "2026-10-04T00:00:00"
+                },
+                {
+                  "StartDate": "2026-09-27T00:00:00",
+                  "DisplayName": "Semana pasada",
+                  "EndDate": "2026-10-03T00:00:00"
+                },
+                {
+                  "StartDate": "2026-09-01T00:00:00",
+                  "DisplayName": "Mes pasado",
+                  "EndDate": "2026-09-30T00:00:00"
+                },
+                {
+                  "StartDate": "2026-10-04T00:00:00",
+                  "DisplayName": "Esta semana",
+                  "EndDate": "2026-10-10T00:00:00"
+                },
+                {
+                  "StartDate": "2026-10-01T00:00:00",
+                  "DisplayName": "Este mes",
+                  "EndDate": "2026-10-31T00:00:00"
+                }
+              ],
+              "PickerType": "custom",
+              "MaxDate": "2026-10-04T00:00:00",
+              "ShowCustomRangeLabel": true,
+              "MinDate": "2026-07-06T00:00:00",
+              "DatePicker": {
+                "ShowWeekNumbers": false,
+                "Show": true,
+                "ShowDropdowns": false
+              }
+            }
+          },
+          "volatiles": [
+            "WWPDateRangePickerOptions.MaxDate",
+            "WWPDateRangePickerOptions.Ranges[*].EndDate",
+            "WWPDateRangePickerOptions.Ranges[*].StartDate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-comisiones-comisionesfiltrofechasrango",
+      "nombre": "Intermediarios.Comisiones.ComisionesFiltroFechasRango (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Comisiones.ComisionesFiltroFechasRango",
+          "entrada": {},
+          "lineaBase": {
+            "PickerOptions": {
+              "Locale": {
+                "Format": "DD/MM/YYYY",
+                "Id": "Spanish"
+              },
+              "TimePicker": {
+                "Hour24": false,
+                "Show": false,
+                "ShowSeconds": false
+              },
+              "Ranges": [
+                {
+                  "StartDate": "2026-10-01T00:00:00",
+                  "DisplayName": "OCTUBRE 2026",
+                  "EndDate": "2026-10-31T00:00:00"
+                },
+                {
+                  "StartDate": "2026-09-01T00:00:00",
+                  "DisplayName": "SEPTIEMBRE 2026",
+                  "EndDate": "2026-09-30T00:00:00"
+                },
+                {
+                  "StartDate": "2026-08-01T00:00:00",
+                  "DisplayName": "AGOSTO 2026",
+                  "EndDate": "2026-08-31T00:00:00"
+                },
+                {
+                  "StartDate": "2026-07-01T00:00:00",
+                  "DisplayName": "JULIO 2026",
+                  "EndDate": "2026-07-31T00:00:00"
+                },
+                {
+                  "StartDate": "2026-06-01T00:00:00",
+                  "DisplayName": "JUNIO 2026",
+                  "EndDate": "2026-06-30T00:00:00"
+                },
+                {
+                  "StartDate": "2026-05-01T00:00:00",
+                  "DisplayName": "MAYO 2026",
+                  "EndDate": "2026-05-31T00:00:00"
+                }
+              ],
+              "PickerType": "custom",
+              "Advanced": {
+                "AutoApply": true,
+                "OpenLocation": "center",
+                "AutoUpdateInput": true
+              },
+              "ShowCustomRangeLabel": true,
+              "DatePicker": {
+                "ShowWeekNumbers": true,
+                "LinkedCalendars": false,
+                "Show": true,
+                "ShowDropdowns": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-configuracion-validaexisteusuario",
+      "nombre": "Intermediarios.Configuracion.ValidaExisteUsuario (datos de SISTEMA.sitLogGrupoEmail)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Configuracion.ValidaExisteUsuario",
+          "entrada": {
+            "Usuario": "",
+            "Email": "adistefano@xiku.io"
+          },
+          "lineaBase": {
+            "Ok": true,
+            "MessagesJson": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-diagnostico-dummy",
+      "nombre": "Intermediarios.Diagnostico.Dummy (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Diagnostico.Dummy",
+          "entrada": {},
+          "lineaBase": {
+            "FechaHora": "2026-10-04T21:56:12"
+          },
+          "volatiles": [
+            "FechaHora"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-claselink-vacia",
+      "nombre": "Intermediarios.Documentacion.ClaseLink (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Documentacion.ClaseLink",
+          "entrada": {
+            "TipoLink": ""
+          },
+          "lineaBase": {
+            "Clase": "fas fa-file"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-dpcomprobantetipos",
+      "nombre": "Intermediarios.dpComprobanteTipos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.dpComprobanteTipos",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "Adicional": "",
+                "Descripcion": "FACTURA A",
+                "idNum": "1",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "RECIBO A",
+                "idNum": "2",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "FACTURA C",
+                "idNum": "3",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "RECIBO C",
+                "idNum": "4",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "FACTURA DE CRÉDITO ELECTRÓNICA MiPyMEs (FCE) A",
+                "idNum": "5",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "FACTURA M",
+                "idNum": "6",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "FACTURA DE CRÉDITO ELECTRÓNICA MiPyMEs (FCE) C",
+                "idNum": "7",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "FACTURA B",
+                "idNum": "8",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "NOTA DE CREDITO A",
+                "idNum": "9",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "NOTA DE CREDITO B",
+                "idNum": "10",
+                "idChar": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-dpusuarios",
+      "nombre": "Intermediarios.dpUsuarios (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.dpUsuarios",
+          "entrada": {},
+          "comparar": "estructura",
+          "lineaBase": {
+            "Salida": [
+              {
+                "Adicional": "",
+                "Descripcion": "SCHONBAUM, ANDRES ESTEBAN CESAR TOMAS J.",
+                "idNum": "0",
+                "idChar": "1b21b606-85ca-41e9-8c88-9154e7bf3022"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "RAMAZZOTTI, ROBERT MARIO",
+                "idNum": "0",
+                "idChar": "f5e221a2-e4e2-48a4-8468-bfe5b806fb24"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "AMBROSIO, DIEGO SEBASTIAN",
+                "idNum": "0",
+                "idChar": "b8ed3b0b-5512-40c6-b0e7-471cea23f81f"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "DIESO, RUBEN ORFILIO",
+                "idNum": "0",
+                "idChar": "f1834747-4e87-492c-92db-733fe2e6d7fb"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "MINGUEZ, CLAUDIA FABIANA",
+                "idNum": "0",
+                "idChar": "94bcd027-37ff-4bd4-b442-56ad94d07b78"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "DEMARCHI, ANALIA VERONICA",
+                "idNum": "0",
+                "idChar": "257f7265-8418-4d73-8b4a-3d4a465e4cfe"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "MADERA, MARIA CECILIA",
+                "idNum": "0",
+                "idChar": "385a13f4-e73b-4836-b797-9eade6a6bdee"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Torno, Lucila",
+                "idNum": "0",
+                "idChar": "b56536ab-c50a-44a6-8d33-3f09d0d25a3a"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Medrano, Gaston",
+                "idNum": "0",
+                "idChar": "1bb7057b-158b-49b8-a639-f6afc9004f84"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "PI, ADMIN",
+                "idNum": "0",
+                "idChar": "811de2fa-768a-4426-8f0a-dcaefa6033c1"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "GARAVANO VIOTTI, ALEJANDRO",
+                "idNum": "0",
+                "idChar": "007aa042-d6b7-4549-b45a-d310b4ae298d"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Garavano 2, Alejandro",
+                "idNum": "0",
+                "idChar": "66ae1eeb-2aeb-46e5-8652-4afa09ee9e94"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Garavano 3, Alejandro",
+                "idNum": "0",
+                "idChar": "43e028ac-3057-4f13-8791-6adb1f33e089"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Garavano, Alejandro",
+                "idNum": "0",
+                "idChar": "f538da60-19b9-4914-ba8b-790cc8c07ec4"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Garavano Viotti, Alejandro",
+                "idNum": "0",
+                "idChar": "ae1717f1-d1ef-4dd5-9108-451f89eb9fec"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Albertengo, Mauro",
+                "idNum": "0",
+                "idChar": "ab383f3a-2eec-41b3-8d23-35bc2614195d"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Dante, Ayu",
+                "idNum": "0",
+                "idChar": "f4ba8d2f-7947-487d-92cd-3dd1a730f2f2"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, b2busuariopruebamail",
+                "idNum": "0",
+                "idChar": "7bfb1a78-5b56-422e-b61e-12ef267bbffe"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "APP_Cobranza, NOM_Bandeja",
+                "idNum": "0",
+                "idChar": "315f8d15-e60e-4e18-bdcb-c2e14ea2b540"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "AP_Emision, NOM_Bandeja",
+                "idNum": "0",
+                "idChar": "3cdd34bc-24c1-4cd4-88d2-6589b020bba7"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Bischoff, Bruno",
+                "idNum": "0",
+                "idChar": "2485cd00-0d33-4629-a50c-ece08a41eb6d"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Cascardo, Bruno",
+                "idNum": "0",
+                "idChar": "17d1b69a-b3ec-4622-b9fa-578525dcba61"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Asociado, Belen",
+                "idNum": "0",
+                "idChar": "1ec280b0-c138-425f-a2f5-c50b416188a6"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Asociado, Belen",
+                "idNum": "0",
+                "idChar": "dda85030-47e1-40ca-80bd-2e3f43193120"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Asociado2, Belen",
+                "idNum": "0",
+                "idChar": "82aa479d-594d-431a-a4ba-6333ff46cb80"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "INTERMEDIARIO, BELEN",
+                "idNum": "0",
+                "idChar": "05a49135-e6ca-4aa7-b9b4-ef3acd4de6dc"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "User, Comercial",
+                "idNum": "0",
+                "idChar": "5626c850-095d-422d-9653-3239edeb38f1"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "TINTE, CAMILA",
+                "idNum": "0",
+                "idChar": "684963a8-9f46-488d-b36d-e930e3c10b4a"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Togachensko, Dani",
+                "idNum": "0",
+                "idChar": "b69f8e9e-82c8-41d3-b814-caa38246f73b"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Directos Empleados, Seguros",
+                "idNum": "0",
+                "idChar": "3e9029e3-4616-48d2-94ce-e6bfd2747e12"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Togachensko, Daniela",
+                "idNum": "0",
+                "idChar": "b8a4519e-42fc-4190-8fbd-d92588924be7"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "marketing, equipo",
+                "idNum": "0",
+                "idChar": "ce97a783-7513-4ce5-9122-b04cbd2305d9"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Bruno, Ing. Francisco",
+                "idNum": "0",
+                "idChar": "1bfe0096-64ae-452b-95a0-6378a0c30364"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "uno, Comisiones 1",
+                "idNum": "0",
+                "idChar": "0a5a18df-d439-45c8-9b56-68380775262d"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Cerroni, Florencia",
+                "idNum": "0",
+                "idChar": "d57408da-573b-4f06-9c05-262fc87ed5c0"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Asociada, Florencia",
+                "idNum": "0",
+                "idChar": "9b3ceefd-1109-4473-b8c1-3a62157fd832"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Comisiones4, Florencia4",
+                "idNum": "0",
+                "idChar": "fff4aae5-2b0c-4c73-bab5-2edf1a851249"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Comisiones 5, Florencia 5",
+                "idNum": "0",
+                "idChar": "b64e4315-097d-4dc5-9e24-522bf15d06cb"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Mestre, Federico",
+                "idNum": "0",
+                "idChar": "23c234b3-4011-4e47-975c-7f37b329e08e"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Champaña, Gaspar",
+                "idNum": "0",
+                "idChar": "a3b0841c-d8af-4c5d-a9cf-adb3a337f55c"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Medrano, Gatson",
+                "idNum": "0",
+                "idChar": "8bd03725-05d7-431f-ae8a-e280e466ee55"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "med, gas",
+                "idNum": "0",
+                "idChar": "483ba2d7-2329-4123-a46f-b3a7b2d6f8c6"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Donati, Gastón",
+                "idNum": "0",
+                "idChar": "05b47f15-9601-4a95-93ac-ca957b44d423"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "MEDRANO, GASTON",
+                "idNum": "0",
+                "idChar": "6079ce14-f4d8-48be-9964-ba88a31b0947"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Medrano, Gaston",
+                "idNum": "0",
+                "idChar": "b5234b54-c54f-437b-b29f-edf98389b23e"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Ojeda, Guido",
+                "idNum": "0",
+                "idChar": "980800c1-164a-42dc-96ea-a5689fb9c091"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Ojeda, Guido",
+                "idNum": "0",
+                "idChar": "7a08f734-79e7-4a2c-bf72-446933a81990"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Diaz, Ignacio",
+                "idNum": "0",
+                "idChar": "2f68ebef-9c00-4a0b-9e1f-7409ab897a2a"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "CI Intermediario, Lara",
+                "idNum": "0",
+                "idChar": "adf6b681-d6e4-4cba-973d-66cf1845b9f6"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "intranet, intranet",
+                "idNum": "0",
+                "idChar": "28c04411-ef09-4632-b498-913c7cc19eab"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Admin, Juan Francisco Alaniz",
+                "idNum": "0",
+                "idChar": "04fdd73e-000a-452d-b2c6-dfd107b2426d"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "ALANIZ, JUAN FRANCISCO",
+                "idNum": "0",
+                "idChar": "99accd6d-8ab0-49bf-9301-d182dfb11270"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "FERREYRA, JOHANA",
+                "idNum": "0",
+                "idChar": "93f445ef-b2f3-4350-a7aa-46be34aaec25"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Prueba, JohaPru",
+                "idNum": "0",
+                "idChar": "134ea650-13c4-4bc5-8bc4-d9fd494a54a5"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Esteche, Javier",
+                "idNum": "0",
+                "idChar": "31338048-751c-43af-946d-e5d4cd120bf4"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Manuel, Joaquin",
+                "idNum": "0",
+                "idChar": "00e8adb4-5358-48a5-b566-47c523e0ec76"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Ferreyra, Joha",
+                "idNum": "0",
+                "idChar": "43a6c669-13cf-48b8-a1af-a33a721d2e44"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "FERREYRA, JOHANA",
+                "idNum": "0",
+                "idChar": "2419d963-e36f-49a4-8111-d6abd09da884"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Prueba, Johana",
+                "idNum": "0",
+                "idChar": "e2c5b76d-1180-4fd4-9887-485ffbceacca"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Felizia, Josefina",
+                "idNum": "0",
+                "idChar": "cd6c7ca3-b556-4329-9232-ab1aea026346"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Cobranzas, Lara Cobranzas",
+                "idNum": "0",
+                "idChar": "82d63de3-885b-44a9-9ec7-c5b7146bfe14"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Productor, Lisandro",
+                "idNum": "0",
+                "idChar": "86b4d22c-6c02-4c6d-90e7-f7ac1014b674"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "ISAAC-ADMIN, LARA",
+                "idNum": "0",
+                "idChar": "83eb0834-a8e6-465f-b889-891a4ea0d44c"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "PRUEBA, MACA",
+                "idNum": "0",
+                "idChar": "7d297c42-905d-4c93-9e26-06cf32066f62"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "PUCHETA, MACARENA",
+                "idNum": "0",
+                "idChar": "8111d379-1fb2-4f4a-8a6d-b72a6e84f96c"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Albertengo, Mauro",
+                "idNum": "0",
+                "idChar": "9c0cb615-5e90-4ea4-bb08-882e854b8035"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "mama, mama",
+                "idNum": "0",
+                "idChar": "b63aafd7-e229-4c7b-bf05-45d29647f6b3"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Mongelos, Manuel",
+                "idNum": "0",
+                "idChar": "0fc4d1f4-e654-4b43-91f5-801cd0d02fdf"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "jota, maria",
+                "idNum": "0",
+                "idChar": "fbe4c0fb-61b7-4046-a2f7-7a77c9586a73"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "leo, mar",
+                "idNum": "0",
+                "idChar": "a5a0a4ce-03b5-4d4d-8b3a-75b27a62cc44"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "leonel, martin",
+                "idNum": "0",
+                "idChar": "9cb5b3dc-dd33-4525-8acc-1f58eb4c8fb2"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "leo, mar",
+                "idNum": "0",
+                "idChar": "52cfc284-6a61-40c0-9fc4-a83ddc7e53f9"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "MINGUEZ, CLAUDIA FABIANA",
+                "idNum": "0",
+                "idChar": "174cb48b-c4db-40fb-99ae-7c29b4e96557"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "p, martin",
+                "idNum": "0",
+                "idChar": "3e3fc472-9cbb-4cc4-a7cc-a79ddbab81f2"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Gomez, Mauricio",
+                "idNum": "0",
+                "idChar": "5c7a8f5d-267f-4c1d-8757-7592ced45d55"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "F, MATÍAS",
+                "idNum": "0",
+                "idChar": "cb8c0893-57e5-4a7b-be0e-ecb7081bab24"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Pereyra, Martin",
+                "idNum": "0",
+                "idChar": "fa691789-3882-4fe2-a10b-a6ec8742c116"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Pucheta, Maca",
+                "idNum": "0",
+                "idChar": "05433d2d-6b4a-4e79-8662-6810489d6e39"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "r, n",
+                "idNum": "0",
+                "idChar": "e810ea28-98a7-4f50-918e-9384ca2aea66"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Cesar Jose, Neme",
+                "idNum": "0",
+                "idChar": "3e9c3327-49ff-496d-bdc4-76e75bca2a86"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "ramirez, n",
+                "idNum": "0",
+                "idChar": "9fb0e5ef-31a3-4eef-9149-aed0953ffe3d"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "R, N",
+                "idNum": "0",
+                "idChar": "9b92c298-9d89-46e9-8aea-ed0590ed1acf"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Clavito, Pablito",
+                "idNum": "0",
+                "idChar": "3cc584d7-37fb-4993-a589-8053da5f3109"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Rol Comercial, Prueba",
+                "idNum": "0",
+                "idChar": "77b60365-f501-4377-b700-2dd696cd02c5"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Rol Comun, Prueba",
+                "idNum": "0",
+                "idChar": "0afdac21-b50c-4987-a864-1d76f2a829ad"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "pepe, pepe",
+                "idNum": "0",
+                "idChar": "7e51b5df-51ac-422d-826e-cec702e05640"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Intermediario, Prueba",
+                "idNum": "0",
+                "idChar": "fe58e98f-d6a2-41a8-97de-2647d0cdedfc"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "FELIZIA, JOSEFINA",
+                "idNum": "0",
+                "idChar": "00bf2769-2cb0-421b-9428-bf21e85b0ceb"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "User, Productor",
+                "idNum": "0",
+                "idChar": "cb569ec0-5ad8-4d94-ad3e-a380608c3cb5"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "B2B, Prueba",
+                "idNum": "0",
+                "idChar": "6eff4250-6b32-42e5-81d1-92fa9bd1d2f9"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "1, pruebab2b_1",
+                "idNum": "0",
+                "idChar": "1230e1a9-042c-4664-b660-bf8ff00d636c"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "dsfg, pruebab2b_21",
+                "idNum": "0",
+                "idChar": "ef97a8d3-46ad-442f-b460-18653f8035e0"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": ", PruebaB2B_Autorizado",
+                "idNum": "0",
+                "idChar": "0ab33401-69dc-4c3d-bb7d-40ba6fed44a7"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": ",",
+                "idNum": "0",
+                "idChar": "301c8407-d40b-43c8-a555-b5be27a92eee"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "prod, prueba",
+                "idNum": "0",
+                "idChar": "42bc66bf-d423-4757-90e4-ccc56ec36bb3"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, pruebaOrganizadores",
+                "idNum": "0",
+                "idChar": "1d9fa502-907e-4dbf-916e-888f6fb45bd4"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "pruebab2b, pruebab2b",
+                "idNum": "0",
+                "idChar": "d1c3c2fa-9f9f-4e97-9a70-c3701c4fd149"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "PUCHETA, MACARENA",
+                "idNum": "0",
+                "idChar": "5d4ad5bb-b469-4ebe-b9de-4649e3ba780a"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Asociado, Regina",
+                "idNum": "0",
+                "idChar": "874db623-2052-4233-8ccf-b6929c19015a"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Diodati, Regina",
+                "idNum": "0",
+                "idChar": "1a6e4a3f-2bd1-4388-9458-a0e5979c58e0"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "asociado, Regina",
+                "idNum": "0",
+                "idChar": "72f8abac-a4fe-4226-b52b-8c3b4929ec9a"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Intermediario, Regina",
+                "idNum": "0",
+                "idChar": "b3c774da-208e-4515-9908-01d1fed28996"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Aso2, Regina",
+                "idNum": "0",
+                "idChar": "1efaedf0-b8f4-408c-ad62-37b364bfda29"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Morel, Rodrigo",
+                "idNum": "0",
+                "idChar": "a673074d-811a-4361-94c8-6b530938f354"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "rmm-apellido1, rmm-nombre1",
+                "idNum": "0",
+                "idChar": "8f0187ba-b34d-4901-a278-106b4c69d8cb"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "rmm-apellido2, rmm-nombre2",
+                "idNum": "0",
+                "idChar": "13dba2f8-3ff6-4c68-98e3-00490e3eb702"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Solis, Roberto",
+                "idNum": "0",
+                "idChar": "d2590178-cebc-4539-9a0d-ebcaae978493"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Seba, Seba",
+                "idNum": "0",
+                "idChar": "78adc9c2-c7ef-4b03-81e5-8db03eedcce4"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Lucero, Sebastián",
+                "idNum": "0",
+                "idChar": "668bcbcc-f543-4beb-9ad1-1af6d2e99f38"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Lucero, Sebastian",
+                "idNum": "0",
+                "idChar": "69240d94-7ee0-4bf3-ba42-bc7819f6b188"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "User, Secretario",
+                "idNum": "0",
+                "idChar": "ffb81f6d-7475-4be7-a51f-41e6ef31fa90"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "LUCERO, SEBASTIAN",
+                "idNum": "0",
+                "idChar": "ffd6a2c8-14eb-4d3e-b167-7764cbbb918f"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Test, Test",
+                "idNum": "0",
+                "idChar": "91bdd261-076c-4555-8cac-984dea3c529d"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "p, tincho",
+                "idNum": "0",
+                "idChar": "20f2fe6f-82d9-4687-86a8-2a9e4e72388a"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "20141772954, asociado",
+                "idNum": "0",
+                "idChar": "c3db1489-5043-4b73-bedc-66578e2d2e27"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, asd",
+                "idNum": "0",
+                "idChar": "1ef546c8-5fe6-49cd-a80a-f5e8a9ad7d0e"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "usuariob2b1, usuariob2b1",
+                "idNum": "0",
+                "idChar": "fe6666a6-5b22-44d0-bfa5-cb15c6248f05"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, usuariob2b",
+                "idNum": "0",
+                "idChar": "f16d17bc-865c-44f1-ba71-0397828e8b18"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "usuariob2b2, usuariob2b2",
+                "idNum": "0",
+                "idChar": "8882a501-18ab-4f40-92d9-98d00e570497"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "usuariob2b3, usuariob2b3",
+                "idNum": "0",
+                "idChar": "ff1c7a94-9f66-4843-b5a9-45b67890b8f9"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "usuariob2b4, usuariob2b4",
+                "idNum": "0",
+                "idChar": "96a160d3-087f-4972-bb96-6ed76536a92f"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "usuariob2b5, usuariob2b5",
+                "idNum": "0",
+                "idChar": "da43bf32-e422-471a-8d66-b686607b6589"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, usuariob2b50",
+                "idNum": "0",
+                "idChar": "14454df6-8408-4a33-8b99-86824bd96ce0"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, ubuariob2b51",
+                "idNum": "0",
+                "idChar": "2fdbc472-6282-44bf-8d70-bbe610231d56"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, usuariob2b52",
+                "idNum": "0",
+                "idChar": "7793b232-31a2-4151-946f-b74489bfef84"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, usuariob2b53",
+                "idNum": "0",
+                "idChar": "b81a2391-23cd-49dc-9a00-2348cae02e2f"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, usuariob2b54",
+                "idNum": "0",
+                "idChar": "9da6624f-bce3-45db-94b8-a381c6b2f87b"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, usuariob2b55",
+                "idNum": "0",
+                "idChar": "88b730f1-217d-4921-b224-e306fbea8211"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "usuariob2b6, usuariob2b6",
+                "idNum": "0",
+                "idChar": "4ffd8c28-af6a-41fe-a16d-fe44e9b21391"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "usuariob2b7, usuariob2b7",
+                "idNum": "0",
+                "idChar": "8a355d1a-1443-4912-b078-dd99d53bf69c"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "usuariob2b8, usuariob2b8",
+                "idNum": "0",
+                "idChar": "c40c4393-d0b3-4177-a686-5cc1db81d468"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "usuariob2b9, usuariob2b9",
+                "idNum": "0",
+                "idChar": "c5348a4b-cce2-4ca9-98c0-32c2d9dd21d9"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, usuarioB2BFull",
+                "idNum": "0",
+                "idChar": "f74327d9-8602-488b-9bec-922218674ff5"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, usuariob2b_",
+                "idNum": "0",
+                "idChar": "51c00274-0d80-4272-8251-e2efdbc75c67"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "admin, usuariob2b",
+                "idNum": "0",
+                "idChar": "d3db7eec-3798-4120-b11a-0657d72ae89e"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-fontface",
+      "nombre": "Intermediarios.FontFace (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.FontFace",
+          "entrada": {},
+          "lineaBase": {
+            "style": "<style>@font-face{    font-family: 'Source Sans Pro';    font-weight: 200;    font-style: normal;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-ExtraLight.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 200;    font-style: italic;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-ExtraLightIt.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 300;    font-style: normal;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-Light.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 300;    font-style: italic;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-LightIt.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 400;    font-style: normal;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-Regular.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 400;    font-style: italic;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-It.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 600;    font-style: normal;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-Semibold.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 600;    font-style: italic;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-SemiboldIt.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 700;    font-style: normal;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-Bold.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 700;    font-style: italic;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-BoldIt.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 900;    font-style: normal;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-Black.ttf.woff2') format('woff2');}@font-face{    font-family: 'Source Sans Pro';    font-weight: 900;    font-style: italic;    font-stretch: normal;    src: url('/IntermediariosJavaEnvironment/static/Resources/Spanish/SourceSansPro-BlackIt.ttf.woff2') format('woff2');}</style>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-getcardbackurl",
+      "nombre": "Intermediarios.GetCardBackUrl (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.GetCardBackUrl",
+          "entrada": {},
+          "lineaBase": {
+            "Resource": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-masterpagemenu",
+      "nombre": "Intermediarios.MasterPageMenu (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.MasterPageMenu",
+          "entrada": {},
+          "lineaBase": {
+            "Menu": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-persona-gruposdeaseguradossegunpersona",
+      "nombre": "Intermediarios.Persona.GruposDeAseguradosSegunPersona (datos de INTERMEDIARIOS.intGrupoTomDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Persona.GruposDeAseguradosSegunPersona",
+          "entrada": {
+            "PersonaId": 1166120,
+            "Grupoid": 17
+          },
+          "lineaBase": {
+            "GrupoTomadorId": [
+              1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-persona-gruposdeaseguradossegunpersona-vacia",
+      "nombre": "Intermediarios.Persona.GruposDeAseguradosSegunPersona (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Persona.GruposDeAseguradosSegunPersona",
+          "entrada": {
+            "PersonaId": 0,
+            "Grupoid": 0
+          },
+          "lineaBase": {
+            "GrupoTomadorId": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-persona-personassegungruposasegurados",
+      "nombre": "Intermediarios.Persona.PersonasSegunGruposAsegurados (datos de INTERMEDIARIOS.intGrupo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Persona.PersonasSegunGruposAsegurados",
+          "entrada": {
+            "GrupoId": 1,
+            "GrupoTomadoresIdTxt": ""
+          },
+          "lineaBase": {
+            "PersonaFinal": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-persona-tagsporgrupo",
+      "nombre": "Intermediarios.Persona.TagsPorGrupo (datos de INTERMEDIARIOS.intGrupoTomDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Persona.TagsPorGrupo",
+          "entrada": {
+            "PersonaId": 1166120,
+            "GrupoId": 17
+          },
+          "lineaBase": {
+            "TagsLista": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-seguimientos-listakeycache",
+      "nombre": "Intermediarios.Siniestros.Seguimientos.ListaKeyCache (datos de SERVICIOS.svtRamaParte)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Siniestros.Seguimientos.ListaKeyCache",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "PortalConsulta": "",
+              "Usuarios": [
+                {
+                  "Usuario": "",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 0
+                }
+              ],
+              "SiniestroNumero": 0,
+              "RamaId": 1,
+              "Productores": [
+                0
+              ]
+            }
+          },
+          "lineaBase": {
+            "Key": "SINIESTROS_SINIESTROS_SEGUIMIENTOS_LISTA_1_0_0_[0]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-seguimientos-listakeycache-vacia",
+      "nombre": "Intermediarios.Siniestros.Seguimientos.ListaKeyCache (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Siniestros.Seguimientos.ListaKeyCache",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "PortalConsulta": "",
+              "Usuarios": [
+                {
+                  "Usuario": "",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 0
+                }
+              ],
+              "SiniestroNumero": 0,
+              "RamaId": 0,
+              "Productores": [
+                0
+              ]
+            }
+          },
+          "lineaBase": {
+            "Key": "SINIESTROS_SINIESTROS_SEGUIMIENTOS_LISTA_0_0_0_[0]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuarios_lista-vacia",
+      "nombre": "Intermediarios.Usuarios_Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuarios_Lista",
+          "entrada": {
+            "RolNombre": "",
+            "Activado": false,
+            "Bloqueado": false
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "OutListaUsuarios": {
+              "Usuarios": [
+                {
+                  "UserName": "20141772954",
+                  "Activo": true,
+                  "GUID": "1b21b606-85ca-41e9-8c88-9154e7bf3022",
+                  "NombreCompleto": "SCHONBAUM, ANDRES ESTEBAN CESAR TOMAS J.",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "20178361725",
+                  "Activo": true,
+                  "GUID": "f5e221a2-e4e2-48a4-8468-bfe5b806fb24",
+                  "NombreCompleto": "RAMAZZOTTI, ROBERT MARIO",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "20301043725",
+                  "Activo": true,
+                  "GUID": "b8ed3b0b-5512-40c6-b0e7-471cea23f81f",
+                  "NombreCompleto": "AMBROSIO, DIEGO SEBASTIAN",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "23106134669",
+                  "Activo": true,
+                  "GUID": "f1834747-4e87-492c-92db-733fe2e6d7fb",
+                  "NombreCompleto": "DIESO, RUBEN ORFILIO",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "27149347408",
+                  "Activo": true,
+                  "GUID": "94bcd027-37ff-4bd4-b442-56ad94d07b78",
+                  "NombreCompleto": "MINGUEZ, CLAUDIA FABIANA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "27216545376",
+                  "Activo": true,
+                  "GUID": "257f7265-8418-4d73-8b4a-3d4a465e4cfe",
+                  "NombreCompleto": "DEMARCHI, ANALIA VERONICA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "27285650114",
+                  "Activo": true,
+                  "GUID": "385a13f4-e73b-4836-b797-9eade6a6bdee",
+                  "NombreCompleto": "MADERA, MARIA CECILIA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "27287761746",
+                  "Activo": true,
+                  "GUID": "b56536ab-c50a-44a6-8d33-3f09d0d25a3a",
+                  "NombreCompleto": "Torno, Lucila",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "39718596",
+                  "Activo": true,
+                  "GUID": "1bb7057b-158b-49b8-a639-f6afc9004f84",
+                  "NombreCompleto": "Medrano, Gaston",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "admin",
+                  "Activo": true,
+                  "GUID": "811de2fa-768a-4426-8f0a-dcaefa6033c1",
+                  "NombreCompleto": "PI, ADMIN",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agaravano",
+                  "Activo": true,
+                  "GUID": "007aa042-d6b7-4549-b45a-d310b4ae298d",
+                  "NombreCompleto": "GARAVANO VIOTTI, ALEJANDRO",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agaravano2@xiku.io",
+                  "Activo": true,
+                  "GUID": "66ae1eeb-2aeb-46e5-8652-4afa09ee9e94",
+                  "NombreCompleto": "Garavano 2, Alejandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agaravano3@xiku.io",
+                  "Activo": true,
+                  "GUID": "43e028ac-3057-4f13-8791-6adb1f33e089",
+                  "NombreCompleto": "Garavano 3, Alejandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agaravano@xiku.io",
+                  "Activo": true,
+                  "GUID": "f538da60-19b9-4914-ba8b-790cc8c07ec4",
+                  "NombreCompleto": "Garavano, Alejandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agaravanousr",
+                  "Activo": true,
+                  "GUID": "ae1717f1-d1ef-4dd5-9108-451f89eb9fec",
+                  "NombreCompleto": "Garavano Viotti, Alejandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "albertengomauro@gmail.com",
+                  "Activo": true,
+                  "GUID": "ab383f3a-2eec-41b3-8d23-35bc2614195d",
+                  "NombreCompleto": "Albertengo, Mauro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "ayu dante",
+                  "Activo": true,
+                  "GUID": "f4ba8d2f-7947-487d-92cd-3dd1a730f2f2",
+                  "NombreCompleto": "Dante, Ayu",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2busuariopruebamail",
+                  "Activo": true,
+                  "GUID": "7bfb1a78-5b56-422e-b61e-12ef267bbffe",
+                  "NombreCompleto": "admin, b2busuariopruebamail",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "bandejacobranza",
+                  "Activo": true,
+                  "GUID": "315f8d15-e60e-4e18-bdcb-c2e14ea2b540",
+                  "NombreCompleto": "APP_Cobranza, NOM_Bandeja",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "bandejaemision",
+                  "Activo": true,
+                  "GUID": "3cdd34bc-24c1-4cd4-88d2-6589b020bba7",
+                  "NombreCompleto": "AP_Emision, NOM_Bandeja",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "bbischoff",
+                  "Activo": true,
+                  "GUID": "2485cd00-0d33-4629-a50c-ece08a41eb6d",
+                  "NombreCompleto": "Bischoff, Bruno",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "bcascardo",
+                  "Activo": true,
+                  "GUID": "17d1b69a-b3ec-4622-b9fa-578525dcba61",
+                  "NombreCompleto": "Cascardo, Bruno",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "btomas-asociado",
+                  "Activo": true,
+                  "GUID": "1ec280b0-c138-425f-a2f5-c50b416188a6",
+                  "NombreCompleto": "Asociado, Belen",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "btomas-asociado1",
+                  "Activo": true,
+                  "GUID": "dda85030-47e1-40ca-80bd-2e3f43193120",
+                  "NombreCompleto": "Asociado, Belen",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "btomas-asociado2",
+                  "Activo": true,
+                  "GUID": "82aa479d-594d-431a-a4ba-6333ff46cb80",
+                  "NombreCompleto": "Asociado2, Belen",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "btomas-intermediario",
+                  "Activo": true,
+                  "GUID": "05a49135-e6ca-4aa7-b9b4-ef3acd4de6dc",
+                  "NombreCompleto": "INTERMEDIARIO, BELEN",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "comercial",
+                  "Activo": true,
+                  "GUID": "5626c850-095d-422d-9653-3239edeb38f1",
+                  "NombreCompleto": "User, Comercial",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "ctinte",
+                  "Activo": true,
+                  "GUID": "684963a8-9f46-488d-b36d-e930e3c10b4a",
+                  "NombreCompleto": "TINTE, CAMILA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "dani",
+                  "Activo": true,
+                  "GUID": "b69f8e9e-82c8-41d3-b814-caa38246f73b",
+                  "NombreCompleto": "Togachensko, Dani",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "directosempleados",
+                  "Activo": true,
+                  "GUID": "3e9029e3-4616-48d2-94ce-e6bfd2747e12",
+                  "NombreCompleto": "Directos Empleados, Seguros",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "dtogachensko",
+                  "Activo": true,
+                  "GUID": "b8a4519e-42fc-4190-8fbd-d92588924be7",
+                  "NombreCompleto": "Togachensko, Daniela",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "equipomkt",
+                  "Activo": true,
+                  "GUID": "ce97a783-7513-4ce5-9122-b04cbd2305d9",
+                  "NombreCompleto": "marketing, equipo",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "fbruno",
+                  "Activo": true,
+                  "GUID": "1bfe0096-64ae-452b-95a0-6378a0c30364",
+                  "NombreCompleto": "Bruno, Ing. Francisco",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "fcerroni-comisiones-1",
+                  "Activo": true,
+                  "GUID": "0a5a18df-d439-45c8-9b56-68380775262d",
+                  "NombreCompleto": "uno, Comisiones 1",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "fcerroni-suscripcion",
+                  "Activo": true,
+                  "GUID": "d57408da-573b-4f06-9c05-262fc87ed5c0",
+                  "NombreCompleto": "Cerroni, Florencia",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "florencia-asociada",
+                  "Activo": true,
+                  "GUID": "9b3ceefd-1109-4473-b8c1-3a62157fd832",
+                  "NombreCompleto": "Asociada, Florencia",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "florencia-comisiones4",
+                  "Activo": true,
+                  "GUID": "fff4aae5-2b0c-4c73-bab5-2edf1a851249",
+                  "NombreCompleto": "Comisiones4, Florencia4",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "florencia-comisiones5",
+                  "Activo": true,
+                  "GUID": "b64e4315-097d-4dc5-9e24-522bf15d06cb",
+                  "NombreCompleto": "Comisiones 5, Florencia 5",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "fmestre",
+                  "Activo": true,
+                  "GUID": "23c234b3-4011-4e47-975c-7f37b329e08e",
+                  "NombreCompleto": "Mestre, Federico",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gaspar",
+                  "Activo": true,
+                  "GUID": "a3b0841c-d8af-4c5d-a9cf-adb3a337f55c",
+                  "NombreCompleto": "Champaña, Gaspar",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gaston",
+                  "Activo": true,
+                  "GUID": "8bd03725-05d7-431f-ae8a-e280e466ee55",
+                  "NombreCompleto": "Medrano, Gatson",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gastonmedrano",
+                  "Activo": true,
+                  "GUID": "483ba2d7-2329-4123-a46f-b3a7b2d6f8c6",
+                  "NombreCompleto": "med, gas",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gdonati",
+                  "Activo": true,
+                  "GUID": "05b47f15-9601-4a95-93ac-ca957b44d423",
+                  "NombreCompleto": "Donati, Gastón",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gmedrano",
+                  "Activo": true,
+                  "GUID": "6079ce14-f4d8-48be-9964-ba88a31b0947",
+                  "NombreCompleto": "MEDRANO, GASTON",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gmedrano2",
+                  "Activo": true,
+                  "GUID": "b5234b54-c54f-437b-b29f-edf98389b23e",
+                  "NombreCompleto": "Medrano, Gaston",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gojeda",
+                  "Activo": true,
+                  "GUID": "980800c1-164a-42dc-96ea-a5689fb9c091",
+                  "NombreCompleto": "Ojeda, Guido",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gojeda_1",
+                  "Activo": true,
+                  "GUID": "7a08f734-79e7-4a2c-bf72-446933a81990",
+                  "NombreCompleto": "Ojeda, Guido",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "ignacio@xiku.io",
+                  "Activo": true,
+                  "GUID": "2f68ebef-9c00-4a0b-9e1f-7409ab897a2a",
+                  "NombreCompleto": "Diaz, Ignacio",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "intlaraci",
+                  "Activo": true,
+                  "GUID": "adf6b681-d6e4-4cba-973d-66cf1845b9f6",
+                  "NombreCompleto": "CI Intermediario, Lara",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "intranet",
+                  "Activo": true,
+                  "GUID": "28c04411-ef09-4632-b498-913c7cc19eab",
+                  "NombreCompleto": "intranet, intranet",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "jalaniz",
+                  "Activo": true,
+                  "GUID": "04fdd73e-000a-452d-b2c6-dfd107b2426d",
+                  "NombreCompleto": "Admin, Juan Francisco Alaniz",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "jalaniz2",
+                  "Activo": true,
+                  "GUID": "99accd6d-8ab0-49bf-9301-d182dfb11270",
+                  "NombreCompleto": "ALANIZ, JUAN FRANCISCO",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "jef",
+                  "Activo": true,
+                  "GUID": "93f445ef-b2f3-4350-a7aa-46be34aaec25",
+                  "NombreCompleto": "FERREYRA, JOHANA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "jefpru",
+                  "Activo": true,
+                  "GUID": "134ea650-13c4-4bc5-8bc4-d9fd494a54a5",
+                  "NombreCompleto": "Prueba, JohaPru",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "jesteche",
+                  "Activo": true,
+                  "GUID": "31338048-751c-43af-946d-e5d4cd120bf4",
+                  "NombreCompleto": "Esteche, Javier",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "jmanuel",
+                  "Activo": true,
+                  "GUID": "00e8adb4-5358-48a5-b566-47c523e0ec76",
+                  "NombreCompleto": "Manuel, Joaquin",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "joha",
+                  "Activo": true,
+                  "GUID": "43a6c669-13cf-48b8-a1af-a33a721d2e44",
+                  "NombreCompleto": "Ferreyra, Joha",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "johaint",
+                  "Activo": true,
+                  "GUID": "2419d963-e36f-49a4-8111-d6abd09da884",
+                  "NombreCompleto": "FERREYRA, JOHANA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "johaprueba",
+                  "Activo": true,
+                  "GUID": "e2c5b76d-1180-4fd4-9887-485ffbceacca",
+                  "NombreCompleto": "Prueba, Johana",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "josefina@xiku.io",
+                  "Activo": true,
+                  "GUID": "cd6c7ca3-b556-4329-9232-ab1aea026346",
+                  "NombreCompleto": "Felizia, Josefina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "laracobranzas",
+                  "Activo": true,
+                  "GUID": "82d63de3-885b-44a9-9ec7-c5b7146bfe14",
+                  "NombreCompleto": "Cobranzas, Lara Cobranzas",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "lifp",
+                  "Activo": true,
+                  "GUID": "86b4d22c-6c02-4c6d-90e7-f7ac1014b674",
+                  "NombreCompleto": "Productor, Lisandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "lisaac-admin",
+                  "Activo": true,
+                  "GUID": "83eb0834-a8e6-465f-b889-891a4ea0d44c",
+                  "NombreCompleto": "ISAAC-ADMIN, LARA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "macaprueba",
+                  "Activo": true,
+                  "GUID": "7d297c42-905d-4c93-9e26-06cf32066f62",
+                  "NombreCompleto": "PRUEBA, MACA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "macarena",
+                  "Activo": true,
+                  "GUID": "8111d379-1fb2-4f4a-8a6d-b72a6e84f96c",
+                  "NombreCompleto": "PUCHETA, MACARENA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "malbertengo",
+                  "Activo": true,
+                  "GUID": "9c0cb615-5e90-4ea4-bb08-882e854b8035",
+                  "NombreCompleto": "Albertengo, Mauro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mamma",
+                  "Activo": true,
+                  "GUID": "b63aafd7-e229-4c7b-bf05-45d29647f6b3",
+                  "NombreCompleto": "mama, mama",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "manuel",
+                  "Activo": true,
+                  "GUID": "0fc4d1f4-e654-4b43-91f5-801cd0d02fdf",
+                  "NombreCompleto": "Mongelos, Manuel",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mariaj",
+                  "Activo": true,
+                  "GUID": "fbe4c0fb-61b7-4046-a2f7-7a77c9586a73",
+                  "NombreCompleto": "jota, maria",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "marleo23",
+                  "Activo": true,
+                  "GUID": "a5a0a4ce-03b5-4d4d-8b3a-75b27a62cc44",
+                  "NombreCompleto": "leo, mar",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "marleo23_1",
+                  "Activo": true,
+                  "GUID": "9cb5b3dc-dd33-4525-8acc-1f58eb4c8fb2",
+                  "NombreCompleto": "leonel, martin",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "marleo23_2",
+                  "Activo": true,
+                  "GUID": "52cfc284-6a61-40c0-9fc4-a83ddc7e53f9",
+                  "NombreCompleto": "leo, mar",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "martin1234",
+                  "Activo": true,
+                  "GUID": "174cb48b-c4db-40fb-99ae-7c29b4e96557",
+                  "NombreCompleto": "MINGUEZ, CLAUDIA FABIANA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "martinp",
+                  "Activo": true,
+                  "GUID": "3e3fc472-9cbb-4cc4-a7cc-a79ddbab81f2",
+                  "NombreCompleto": "p, martin",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mauricio@xiku.io",
+                  "Activo": true,
+                  "GUID": "5c7a8f5d-267f-4c1d-8757-7592ced45d55",
+                  "NombreCompleto": "Gomez, Mauricio",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mfrias",
+                  "Activo": true,
+                  "GUID": "cb8c0893-57e5-4a7b-be0e-ecb7081bab24",
+                  "NombreCompleto": "F, MATÍAS",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mlp",
+                  "Activo": true,
+                  "GUID": "fa691789-3882-4fe2-a10b-a6ec8742c116",
+                  "NombreCompleto": "Pereyra, Martin",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mpucheta",
+                  "Activo": true,
+                  "GUID": "05433d2d-6b4a-4e79-8662-6810489d6e39",
+                  "NombreCompleto": "Pucheta, Maca",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mramirez",
+                  "Activo": true,
+                  "GUID": "e810ea28-98a7-4f50-918e-9384ca2aea66",
+                  "NombreCompleto": "r, n",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "ncesar",
+                  "Activo": true,
+                  "GUID": "3e9c3327-49ff-496d-bdc4-76e75bca2a86",
+                  "NombreCompleto": "Cesar Jose, Neme",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "nramierz",
+                  "Activo": true,
+                  "GUID": "9fb0e5ef-31a3-4eef-9149-aed0953ffe3d",
+                  "NombreCompleto": "ramirez, n",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "nrm",
+                  "Activo": true,
+                  "GUID": "9b92c298-9d89-46e9-8aea-ed0590ed1acf",
+                  "NombreCompleto": "R, N",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pablito",
+                  "Activo": true,
+                  "GUID": "3cc584d7-37fb-4993-a589-8053da5f3109",
+                  "NombreCompleto": "Clavito, Pablito",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pcomercial",
+                  "Activo": true,
+                  "GUID": "77b60365-f501-4377-b700-2dd696cd02c5",
+                  "NombreCompleto": "Rol Comercial, Prueba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pcomun",
+                  "Activo": true,
+                  "GUID": "0afdac21-b50c-4987-a864-1d76f2a829ad",
+                  "NombreCompleto": "Rol Comun, Prueba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pepe",
+                  "Activo": true,
+                  "GUID": "7e51b5df-51ac-422d-826e-cec702e05640",
+                  "NombreCompleto": "pepe, pepe",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pintermediario",
+                  "Activo": true,
+                  "GUID": "fe58e98f-d6a2-41a8-97de-2647d0cdedfc",
+                  "NombreCompleto": "Intermediario, Prueba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "prodjose",
+                  "Activo": true,
+                  "GUID": "00bf2769-2cb0-421b-9428-bf21e85b0ceb",
+                  "NombreCompleto": "FELIZIA, JOSEFINA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "productor",
+                  "Activo": true,
+                  "GUID": "cb569ec0-5ad8-4d94-ad3e-a380608c3cb5",
+                  "NombreCompleto": "User, Productor",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pruebab2b",
+                  "Activo": true,
+                  "GUID": "6eff4250-6b32-42e5-81d1-92fa9bd1d2f9",
+                  "NombreCompleto": "B2B, Prueba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pruebab2b_1",
+                  "Activo": true,
+                  "GUID": "1230e1a9-042c-4664-b660-bf8ff00d636c",
+                  "NombreCompleto": "1, pruebab2b_1",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pruebab2b_21",
+                  "Activo": true,
+                  "GUID": "ef97a8d3-46ad-442f-b460-18653f8035e0",
+                  "NombreCompleto": "dsfg, pruebab2b_21",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pruebab2b_autorizado",
+                  "Activo": true,
+                  "GUID": "0ab33401-69dc-4c3d-bb7d-40ba6fed44a7",
+                  "NombreCompleto": ", PruebaB2B_Autorizado",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pruebab2b_conautorizacion",
+                  "Activo": true,
+                  "GUID": "301c8407-d40b-43c8-a555-b5be27a92eee",
+                  "NombreCompleto": ", ",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pruebamlp",
+                  "Activo": true,
+                  "GUID": "42bc66bf-d423-4757-90e4-ccc56ec36bb3",
+                  "NombreCompleto": "prod, prueba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pruebaorganizadores",
+                  "Activo": true,
+                  "GUID": "1d9fa502-907e-4dbf-916e-888f6fb45bd4",
+                  "NombreCompleto": "admin, pruebaOrganizadores",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "prueba_b2b_20",
+                  "Activo": true,
+                  "GUID": "d1c3c2fa-9f9f-4e97-9a70-c3701c4fd149",
+                  "NombreCompleto": "pruebab2b, pruebab2b",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "puchetaprueba",
+                  "Activo": true,
+                  "GUID": "5d4ad5bb-b469-4ebe-b9de-4649e3ba780a",
+                  "NombreCompleto": "PUCHETA, MACARENA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rdiodat",
+                  "Activo": true,
+                  "GUID": "874db623-2052-4233-8ccf-b6929c19015a",
+                  "NombreCompleto": "Asociado, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rdiodati",
+                  "Activo": true,
+                  "GUID": "1a6e4a3f-2bd1-4388-9458-a0e5979c58e0",
+                  "NombreCompleto": "Diodati, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rdiodati_asociado",
+                  "Activo": true,
+                  "GUID": "72f8abac-a4fe-4226-b52b-8c3b4929ec9a",
+                  "NombreCompleto": "asociado, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rdiodati_int",
+                  "Activo": true,
+                  "GUID": "b3c774da-208e-4515-9908-01d1fed28996",
+                  "NombreCompleto": "Intermediario, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rd_aso2",
+                  "Activo": true,
+                  "GUID": "1efaedf0-b8f4-408c-ad62-37b364bfda29",
+                  "NombreCompleto": "Aso2, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rmorel@xiku.io",
+                  "Activo": true,
+                  "GUID": "a673074d-811a-4361-94c8-6b530938f354",
+                  "NombreCompleto": "Morel, Rodrigo",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rmorel_asist1",
+                  "Activo": true,
+                  "GUID": "8f0187ba-b34d-4901-a278-106b4c69d8cb",
+                  "NombreCompleto": "rmm-apellido1, rmm-nombre1",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rmorel_asist2",
+                  "Activo": true,
+                  "GUID": "13dba2f8-3ff6-4c68-98e3-00490e3eb702",
+                  "NombreCompleto": "rmm-apellido2, rmm-nombre2",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "roberto",
+                  "Activo": true,
+                  "GUID": "d2590178-cebc-4539-9a0d-ebcaae978493",
+                  "NombreCompleto": "Solis, Roberto",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "seba",
+                  "Activo": true,
+                  "GUID": "78adc9c2-c7ef-4b03-81e5-8db03eedcce4",
+                  "NombreCompleto": "Seba, Seba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "sebastian.o.lucero@gmail.com",
+                  "Activo": true,
+                  "GUID": "668bcbcc-f543-4beb-9ad1-1af6d2e99f38",
+                  "NombreCompleto": "Lucero, Sebastián",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "secretaria",
+                  "Activo": true,
+                  "GUID": "69240d94-7ee0-4bf3-ba42-bc7819f6b188",
+                  "NombreCompleto": "Lucero, Sebastian",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "secretario",
+                  "Activo": true,
+                  "GUID": "ffb81f6d-7475-4be7-a51f-41e6ef31fa90",
+                  "NombreCompleto": "User, Secretario",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "slucero",
+                  "Activo": true,
+                  "GUID": "ffd6a2c8-14eb-4d3e-b167-7764cbbb918f",
+                  "NombreCompleto": "LUCERO, SEBASTIAN",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "test",
+                  "Activo": true,
+                  "GUID": "91bdd261-076c-4555-8cac-984dea3c529d",
+                  "NombreCompleto": "Test, Test",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "tinchop",
+                  "Activo": true,
+                  "GUID": "20f2fe6f-82d9-4687-86a8-2a9e4e72388a",
+                  "NombreCompleto": "p, tincho",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usu",
+                  "Activo": true,
+                  "GUID": "c3db1489-5043-4b73-bedc-66578e2d2e27",
+                  "NombreCompleto": "20141772954, asociado",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuario de prueba",
+                  "Activo": true,
+                  "GUID": "1ef546c8-5fe6-49cd-a80a-f5e8a9ad7d0e",
+                  "NombreCompleto": "admin, asd",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b1",
+                  "Activo": true,
+                  "GUID": "fe6666a6-5b22-44d0-bfa5-cb15c6248f05",
+                  "NombreCompleto": "usuariob2b1, usuariob2b1",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b1234",
+                  "Activo": true,
+                  "GUID": "f16d17bc-865c-44f1-ba71-0397828e8b18",
+                  "NombreCompleto": "admin, usuariob2b",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b2",
+                  "Activo": true,
+                  "GUID": "8882a501-18ab-4f40-92d9-98d00e570497",
+                  "NombreCompleto": "usuariob2b2, usuariob2b2",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b3",
+                  "Activo": true,
+                  "GUID": "ff1c7a94-9f66-4843-b5a9-45b67890b8f9",
+                  "NombreCompleto": "usuariob2b3, usuariob2b3",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b4",
+                  "Activo": true,
+                  "GUID": "96a160d3-087f-4972-bb96-6ed76536a92f",
+                  "NombreCompleto": "usuariob2b4, usuariob2b4",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b5",
+                  "Activo": true,
+                  "GUID": "da43bf32-e422-471a-8d66-b686607b6589",
+                  "NombreCompleto": "usuariob2b5, usuariob2b5",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b50",
+                  "Activo": true,
+                  "GUID": "14454df6-8408-4a33-8b99-86824bd96ce0",
+                  "NombreCompleto": "admin, usuariob2b50",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b51",
+                  "Activo": true,
+                  "GUID": "2fdbc472-6282-44bf-8d70-bbe610231d56",
+                  "NombreCompleto": "admin, ubuariob2b51",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b52",
+                  "Activo": true,
+                  "GUID": "7793b232-31a2-4151-946f-b74489bfef84",
+                  "NombreCompleto": "admin, usuariob2b52",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b53",
+                  "Activo": true,
+                  "GUID": "b81a2391-23cd-49dc-9a00-2348cae02e2f",
+                  "NombreCompleto": "admin, usuariob2b53",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b54",
+                  "Activo": true,
+                  "GUID": "9da6624f-bce3-45db-94b8-a381c6b2f87b",
+                  "NombreCompleto": "admin, usuariob2b54",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b55",
+                  "Activo": true,
+                  "GUID": "88b730f1-217d-4921-b224-e306fbea8211",
+                  "NombreCompleto": "admin, usuariob2b55",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b6",
+                  "Activo": true,
+                  "GUID": "4ffd8c28-af6a-41fe-a16d-fe44e9b21391",
+                  "NombreCompleto": "usuariob2b6, usuariob2b6",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b7",
+                  "Activo": true,
+                  "GUID": "8a355d1a-1443-4912-b078-dd99d53bf69c",
+                  "NombreCompleto": "usuariob2b7, usuariob2b7",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b8",
+                  "Activo": true,
+                  "GUID": "c40c4393-d0b3-4177-a686-5cc1db81d468",
+                  "NombreCompleto": "usuariob2b8, usuariob2b8",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b9",
+                  "Activo": true,
+                  "GUID": "c5348a4b-cce2-4ca9-98c0-32c2d9dd21d9",
+                  "NombreCompleto": "usuariob2b9, usuariob2b9",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2bfull",
+                  "Activo": true,
+                  "GUID": "f74327d9-8602-488b-9bec-922218674ff5",
+                  "NombreCompleto": "admin, usuarioB2BFull",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b_",
+                  "Activo": true,
+                  "GUID": "51c00274-0d80-4272-8251-e2efdbc75c67",
+                  "NombreCompleto": "admin, usuariob2b_",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b_mismomail",
+                  "Activo": true,
+                  "GUID": "d3db7eec-3798-4120-b11a-0657d72ae89e",
+                  "NombreCompleto": "admin, usuariob2b",
+                  "Bloqueado": false
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

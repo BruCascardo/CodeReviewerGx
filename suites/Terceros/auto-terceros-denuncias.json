@@ -1,0 +1,450 @@
+{
+  "nombre": "Auto - Terceros.Denuncias",
+  "kb": "Terceros",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "terceros-denuncias-configuracion-causa_get",
+      "nombre": "Terceros.Denuncias.Configuracion.Causa_Get (datos de TERCEROS.sntRamaCauArticulo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.Configuracion.Causa_Get",
+          "entrada": {
+            "inCausa_Get": {
+              "RamaId": 12,
+              "Id": 0
+            }
+          },
+          "lineaBase": {
+            "outCausa_Get": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-configuracion-danio_get",
+      "nombre": "Terceros.Denuncias.Configuracion.Danio_Get (datos de TERCEROS.sntRamaCauDanio)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.Configuracion.Danio_Get",
+          "entrada": {
+            "inDanio_Get": {
+              "RamaId": 1,
+              "CausaId": 1,
+              "DanioId": 1
+            }
+          },
+          "lineaBase": {
+            "outDanio_Get": {
+              "Danio": {
+                "Nombre": "Incendio",
+                "Equivalente": "GENER  ",
+                "RamaId": 1,
+                "Id": 1,
+                "Causa": {
+                  "Id": 1
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-configuracion-danio_get-vacia",
+      "nombre": "Terceros.Denuncias.Configuracion.Danio_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.Configuracion.Danio_Get",
+          "entrada": {
+            "inDanio_Get": {
+              "RamaId": 0,
+              "CausaId": 0,
+              "DanioId": 0
+            }
+          },
+          "lineaBase": {
+            "outDanio_Get": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-denarchtipoid_autonumerador",
+      "nombre": "Terceros.Denuncias.DenArchTipoId_Autonumerador (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.DenArchTipoId_Autonumerador",
+          "entrada": {},
+          "lineaBase": {
+            "DenArchTipoId": 39
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-dennumeroobtenersiguiente",
+      "nombre": "Terceros.Denuncias.DenNumeroObtenerSiguiente (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.DenNumeroObtenerSiguiente",
+          "entrada": {},
+          "lineaBase": {
+            "DenNumero": 1335
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-denrclblob_ambito",
+      "nombre": "Terceros.Denuncias.DenRclBlob_Ambito (datos de TERCEROS.sntDenArchTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.DenRclBlob_Ambito",
+          "entrada": {
+            "DenArchTipoId": 2
+          },
+          "lineaBase": {
+            "DenArchTipoAmbito": "DAN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-denrclblob_ambito-vacia",
+      "nombre": "Terceros.Denuncias.DenRclBlob_Ambito (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.DenRclBlob_Ambito",
+          "entrada": {
+            "DenArchTipoId": 0
+          },
+          "lineaBase": {
+            "DenArchTipoAmbito": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-denrclnumero_get",
+      "nombre": "Terceros.Denuncias.DenRclNumero_Get (datos de TERCEROS.snhDenuncia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.DenRclNumero_Get",
+          "entrada": {
+            "DenNumero": 1
+          },
+          "lineaBase": {
+            "DenRclNumero": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-denrclnumero_get-vacia",
+      "nombre": "Terceros.Denuncias.DenRclNumero_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.DenRclNumero_Get",
+          "entrada": {
+            "DenNumero": 0
+          },
+          "lineaBase": {
+            "DenRclNumero": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-denunciaarchivosextensionesvalidas",
+      "nombre": "Terceros.Denuncias.DenunciaArchivosExtensionesValidas (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.DenunciaArchivosExtensionesValidas",
+          "entrada": {},
+          "lineaBase": {
+            "extensiones": ".jpeg, .jpg, .pdf, .doc, .docx, .xls, .xlsx"
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-denunciaarchivospesomaximo",
+      "nombre": "Terceros.Denuncias.DenunciaArchivosPesoMaximo (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.DenunciaArchivosPesoMaximo",
+          "entrada": {},
+          "lineaBase": {
+            "pesoMaximo": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-denunciadatosasolicitar-vacia",
+      "nombre": "Terceros.Denuncias.DenunciaDatosASolicitar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.DenunciaDatosASolicitar",
+          "entrada": {
+            "WebSessionKey": ""
+          },
+          "lineaBase": {
+            "sdtDenDatosASolicitar": {
+              "Ubicacion": false,
+              "UbicacionOrigen": false,
+              "UbicacionDestino": false,
+              "DescHecho": false,
+              "Testigos": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-permitevarioscomponentes",
+      "nombre": "Terceros.Denuncias.PermiteVariosComponentes (datos de TERCEROS.snhDenuncia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.PermiteVariosComponentes",
+          "entrada": {
+            "inPermiteVariosComponentes": {
+              "SuplementoNumero": 0,
+              "SucursalId": "CC",
+              "RamaId": 10,
+              "Portal": "",
+              "PolizaNumero": 47400,
+              "OperacionNumero": 0,
+              "EmpresaId": "N",
+              "ArticuloId": 10001,
+              "Superpoliza": 21550
+            }
+          },
+          "lineaBase": {
+            "outPermiteVariosComponentes": {
+              "Habilita": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-permitevarioscomponentes-vacia",
+      "nombre": "Terceros.Denuncias.PermiteVariosComponentes (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.PermiteVariosComponentes",
+          "entrada": {
+            "inPermiteVariosComponentes": {
+              "SuplementoNumero": 0,
+              "SucursalId": "",
+              "RamaId": 0,
+              "Portal": "",
+              "PolizaNumero": 0,
+              "OperacionNumero": 0,
+              "EmpresaId": "",
+              "ArticuloId": 0,
+              "Superpoliza": 0
+            }
+          },
+          "lineaBase": {
+            "outPermiteVariosComponentes": {
+              "Habilita": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-ramadanionombre_get",
+      "nombre": "Terceros.Denuncias.RamaDanioNombre_Get (datos de TERCEROS.sntRamaCauDanio)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.RamaDanioNombre_Get",
+          "entrada": {
+            "RamaId": 1,
+            "RamaCausaId": 1,
+            "RamaDanioId": 1
+          },
+          "lineaBase": {
+            "RamaDanioNombre": "Incendio"
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-ramadanionombre_get-vacia",
+      "nombre": "Terceros.Denuncias.RamaDanioNombre_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.RamaDanioNombre_Get",
+          "entrada": {
+            "RamaId": 0,
+            "RamaCausaId": 0,
+            "RamaDanioId": 0
+          },
+          "lineaBase": {
+            "RamaDanioNombre": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-seguimientos-listakeycache",
+      "nombre": "Terceros.Denuncias.Seguimientos.ListaKeyCache (datos de TERCEROS.sntRamaCauArticulo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.Seguimientos.ListaKeyCache",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "PortalConsulta": "",
+              "Usuarios": [
+                {
+                  "Usuario": "",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 0
+                }
+              ],
+              "SiniestroNumero": 0,
+              "RamaId": 12,
+              "Productores": [
+                0
+              ]
+            }
+          },
+          "lineaBase": {
+            "Key": "SINIESTROS_SINIESTROS_SEGUIMIENTOS_LISTA_12_0_0"
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-seguimientos-listakeycache-vacia",
+      "nombre": "Terceros.Denuncias.Seguimientos.ListaKeyCache (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Denuncias.Seguimientos.ListaKeyCache",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "PortalConsulta": "",
+              "Usuarios": [
+                {
+                  "Usuario": "",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 0
+                }
+              ],
+              "SiniestroNumero": 0,
+              "RamaId": 0,
+              "Productores": [
+                0
+              ]
+            }
+          },
+          "lineaBase": {
+            "Key": "SINIESTROS_SINIESTROS_SEGUIMIENTOS_LISTA_0_0_0"
+          }
+        }
+      ]
+    }
+  ]
+}

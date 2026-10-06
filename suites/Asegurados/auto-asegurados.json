@@ -1,0 +1,223 @@
+{
+  "nombre": "Auto - Asegurados",
+  "kb": "Asegurados",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "asegurados-checkpermiso-vacia",
+      "nombre": "Asegurados.CheckPermiso (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.CheckPermiso",
+          "entrada": {
+            "PermissionName": ""
+          },
+          "lineaBase": {
+            "TienePermiso": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-esusuariomigrado",
+      "nombre": "Asegurados.esUsuarioMigrado (datos de SISTEMA.sihCasoRevision)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.esUsuarioMigrado",
+          "entrada": {
+            "UserName": "admin"
+          },
+          "lineaBase": {
+            "usrMigrado": false,
+            "usrBloqueado": false,
+            "sdtUsrRegistroJson": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-getuserpersonaperid",
+      "nombre": "Asegurados.getUserPersonaPerId (datos de ASEGURADOS.UserPersona)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.getUserPersonaPerId",
+          "entrada": {
+            "UserPersonaGUID": "0377b2b5-cec9-487c-8fc1-8d359b6214fa"
+          },
+          "lineaBase": {
+            "UserPersonaPerId_Col": [
+              1875900
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-getuserpersonaperid-vacia",
+      "nombre": "Asegurados.getUserPersonaPerId (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.getUserPersonaPerId",
+          "entrada": {
+            "UserPersonaGUID": ""
+          },
+          "lineaBase": {
+            "UserPersonaPerId_Col": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-masterpagemenu",
+      "nombre": "Asegurados.MasterPageMenu (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.MasterPageMenu",
+          "entrada": {},
+          "lineaBase": {
+            "Menu": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-poliza_detalle_cachedel",
+      "nombre": "Asegurados.Poliza_Detalle_CacheDel (datos de ASEGURADOS.UserPersona)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Poliza_Detalle_CacheDel",
+          "entrada": {
+            "UserPersonaPerId": 1875900
+          },
+          "lineaBase": {
+            "CacheOK": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-recuperausuario",
+      "nombre": "Asegurados.recuperaUsuario (datos de SISTEMA.sihCasoRevision)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.recuperaUsuario",
+          "entrada": {
+            "UserName": "admin"
+          },
+          "lineaBase": {
+            "usrMigrado": false,
+            "usrBloqueado": false,
+            "usrActivo": true,
+            "UserEmail": "mpereyra@xiku.io",
+            "sdtUsrRegistroJson": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-recuperausuario-vacia",
+      "nombre": "Asegurados.recuperaUsuario (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.recuperaUsuario",
+          "entrada": {
+            "UserName": ""
+          },
+          "lineaBase": {
+            "usrMigrado": false,
+            "usrBloqueado": false,
+            "usrActivo": true,
+            "UserEmail": "",
+            "sdtUsrRegistroJson": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-recuperausuario2",
+      "nombre": "Asegurados.recuperaUsuario2 (datos de SISTEMA.sihCasoRevision)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.recuperaUsuario2",
+          "entrada": {
+            "UserName": "admin"
+          },
+          "lineaBase": {
+            "sdtUsrRegistroJson": "{\"usrGUID\":\"a2d964b3-914d-4178-a780-0c0b471533f5\",\"usrPerTipo\":\"\",\"usrDocTipoId\":0,\"usrDocNumero\":\"admin\",\"usrDocNumeroNum\":\"0\",\"usrTelCelNumero\":\"\",\"usrTelCelNumeroNacional\":\"\",\"usrRazonSocial\":\"\",\"usrNombre\":\"ADMIN\",\"usrApellido\":\"PA\",\"usrEmail\":\"mpereyra@xiku.io\",\"usrNumeroPoliza\":0,\"usrDocTipoIdTomador\":0,\"usrDocNumeroTomador\":\"\",\"usrDocNumeroTomadorNum\":\"0\",\"usrRamaId\":0,\"usrPass\":\"\",\"usrMigrado\":false,\"usrPerId\":21982}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-recuperausuario2-vacia",
+      "nombre": "Asegurados.recuperaUsuario2 (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.recuperaUsuario2",
+          "entrada": {
+            "UserName": ""
+          },
+          "lineaBase": {
+            "sdtUsrRegistroJson": null
+          }
+        }
+      ]
+    }
+  ]
+}

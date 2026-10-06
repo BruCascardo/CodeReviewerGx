@@ -1,0 +1,1894 @@
+{
+  "nombre": "Auto - Servicios",
+  "kb": "Servicios_Fixesv22r000m0000",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "servicios-aseguradootraspolizas",
+      "nombre": "Servicios.AseguradoOtrasPolizas (datos de SERVICIOS.svhSupHistorial)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.AseguradoOtrasPolizas",
+          "entrada": {
+            "sdtPolizaParametros": {
+              "ProductorEmail": "",
+              "RamaId": 12,
+              "MonedaSimbolo": "",
+              "OperacionNumero": 0,
+              "RamaTipo": "",
+              "Superpoliza": "3675",
+              "MonedaId": 0,
+              "SuplementoNumero": 0,
+              "SucursalId": "CC",
+              "UltimoSuplemento": 0,
+              "AseguradoTelefono": "",
+              "AseguradoId": 0,
+              "SeleccionarTodo": false,
+              "PolizaNumero": "296660",
+              "AseguradoEmail": "",
+              "SuplementoDescripcion": "",
+              "ProductorTelefono": "",
+              "EmpresaId": "N",
+              "VigenciaEstado": "",
+              "ComponenteNumero": 0,
+              "ArticuloId": 12004
+            },
+            "outLista": {
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ],
+              "Tomadores": [
+                {
+                  "DomicilioCompleto": "",
+                  "NombreCompleto": "",
+                  "Id": 0,
+                  "Polizas": [
+                    {
+                      "Numero": 0,
+                      "FechaInicio": "0000-00-00",
+                      "Rama": {
+                        "Nombre": "",
+                        "ClassSD": "",
+                        "Tipo": "",
+                        "Color": "",
+                        "Class": "",
+                        "Id": 0,
+                        "ClassSDUnicode": ""
+                      },
+                      "Informacion": {
+                        "Detalle": "",
+                        "Descripcion": "",
+                        "Pago": ""
+                      },
+                      "Vendedor": {
+                        "Nombre": "",
+                        "Numero": 0,
+                        "Tipo": 0
+                      },
+                      "FechaHoraFin": "0000-00-00T00:00:00",
+                      "OperacionNumero": 0,
+                      "Componentes": [
+                        {
+                          "Numero": 0,
+                          "Detalle": "",
+                          "Descripcion": "",
+                          "Vehiculo": {
+                            "Tipo": {
+                              "Nombre": ""
+                            },
+                            "ChasisNumero": "",
+                            "Patente": "",
+                            "MotorNumero": "",
+                            "Anio": 0
+                          }
+                        }
+                      ],
+                      "Superpoliza": 3675,
+                      "FechaFin": "0000-00-00",
+                      "Tipo": "",
+                      "SucursalId": "CC",
+                      "EmpresaId": "N",
+                      "FechaHoraInicio": "0000-00-00T00:00:00",
+                      "ArticuloId": 12004
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "lineaBase": {
+            "sdtOtrasPolizas": {
+              "Polizas": [
+                {
+                  "RamaClassSD": "",
+                  "Rama": "",
+                  "Detalle": "",
+                  "Vigencia": "Vigencia /  / - /  /",
+                  "RamaId": 0,
+                  "OperacionNumero": 0,
+                  "CantidadComponentes": 1,
+                  "Superpoliza": 3675,
+                  "RamaColor": "",
+                  "Poliza": "PÓLIZA N° 0-0",
+                  "SucursalId": "CC",
+                  "RamaClass": "",
+                  "RamaClassSDUnicode": "",
+                  "Descripcion": "",
+                  "PolizaNumero": 0,
+                  "EmpresaId": "N",
+                  "ComponenteNumero": 0,
+                  "ArticuloId": 12004
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-aseguradootraspolizas-vacia",
+      "nombre": "Servicios.AseguradoOtrasPolizas (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.AseguradoOtrasPolizas",
+          "entrada": {
+            "sdtPolizaParametros": {
+              "ProductorEmail": "",
+              "RamaId": 0,
+              "MonedaSimbolo": "",
+              "OperacionNumero": 0,
+              "RamaTipo": "",
+              "Superpoliza": "0",
+              "MonedaId": 0,
+              "SuplementoNumero": 0,
+              "SucursalId": "",
+              "UltimoSuplemento": 0,
+              "AseguradoTelefono": "",
+              "AseguradoId": 0,
+              "SeleccionarTodo": false,
+              "PolizaNumero": "0",
+              "AseguradoEmail": "",
+              "SuplementoDescripcion": "",
+              "ProductorTelefono": "",
+              "EmpresaId": "",
+              "VigenciaEstado": "",
+              "ComponenteNumero": 0,
+              "ArticuloId": 0
+            },
+            "outLista": {
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ],
+              "Tomadores": [
+                {
+                  "DomicilioCompleto": "",
+                  "NombreCompleto": "",
+                  "Id": 0,
+                  "Polizas": [
+                    {
+                      "Numero": 0,
+                      "FechaInicio": "0000-00-00",
+                      "Rama": {
+                        "Nombre": "",
+                        "ClassSD": "",
+                        "Tipo": "",
+                        "Color": "",
+                        "Class": "",
+                        "Id": 0,
+                        "ClassSDUnicode": ""
+                      },
+                      "Informacion": {
+                        "Detalle": "",
+                        "Descripcion": "",
+                        "Pago": ""
+                      },
+                      "Vendedor": {
+                        "Nombre": "",
+                        "Numero": 0,
+                        "Tipo": 0
+                      },
+                      "FechaHoraFin": "0000-00-00T00:00:00",
+                      "OperacionNumero": 0,
+                      "Componentes": [
+                        {
+                          "Numero": 0,
+                          "Detalle": "",
+                          "Descripcion": "",
+                          "Vehiculo": {
+                            "Tipo": {
+                              "Nombre": ""
+                            },
+                            "ChasisNumero": "",
+                            "Patente": "",
+                            "MotorNumero": "",
+                            "Anio": 0
+                          }
+                        }
+                      ],
+                      "Superpoliza": 0,
+                      "FechaFin": "0000-00-00",
+                      "Tipo": "",
+                      "SucursalId": "",
+                      "EmpresaId": "",
+                      "FechaHoraInicio": "0000-00-00T00:00:00",
+                      "ArticuloId": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "lineaBase": {
+            "sdtOtrasPolizas": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-cargasdtcuentacorriente_agrupado",
+      "nombre": "Servicios.cargaSdtCuentaCorriente_agrupado (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.cargaSdtCuentaCorriente_agrupado",
+          "entrada": {
+            "TipoVistaSupFecha": "",
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ]
+          },
+          "lineaBase": {
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              },
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 1,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              },
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 2,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "TOTAL",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-cargasdtcuentacorriente_agrupado-vacia",
+      "nombre": "Servicios.cargaSdtCuentaCorriente_agrupado (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.cargaSdtCuentaCorriente_agrupado",
+          "entrada": {
+            "TipoVistaSupFecha": "",
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ]
+          },
+          "lineaBase": {
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              },
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 1,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              },
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 2,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "TOTAL",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-cargasdtpolizas_suplemento",
+      "nombre": "Servicios.cargaSdtPolizas_Suplemento (datos de COTIZACION.cthCotizacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.cargaSdtPolizas_Suplemento",
+          "entrada": {
+            "Suplemento": {
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ],
+              "Suplemento": {
+                "Numero": 0,
+                "MedioPago": {
+                  "Nombre": "",
+                  "Tipo": "",
+                  "Referencia": ""
+                },
+                "Moneda": {
+                  "Nombre": "",
+                  "Id": "",
+                  "Cotizacion": "0.000000"
+                },
+                "Entrega": {
+                  "Tipo": "",
+                  "Errores": [
+                    {
+                      "Mensaje": "",
+                      "Id": 0
+                    }
+                  ],
+                  "Digital": {
+                    "NotifFechaHoraAcceso": "0000-00-00T00:00:00",
+                    "NotifId": "0",
+                    "NotifFechaHora": "0000-00-00T00:00:00",
+                    "Direcciones": [
+                      ""
+                    ]
+                  },
+                  "Impresion": {
+                    "UltimoLote": 0
+                  }
+                },
+                "Movimiento": {
+                  "SubTipoId": 0,
+                  "TipoNombre": "",
+                  "TipoId": 0,
+                  "SubTipoNombre": ""
+                },
+                "FechaEmision": "0000-00-00",
+                "CUIP": "",
+                "FechaVigenciaPago": "0000-00-00",
+                "Prima": "7908.15",
+                "PrimaSubTotal": "0.00",
+                "Impuestos": "40.53",
+                "Coasegurado": false,
+                "Premio": "10140.43",
+                "BonifPorcentaje": 0,
+                "FechaFin": "2026-12-31",
+                "BonifImporte": "0.00",
+                "FechaVigenciaCertificado": "0000-00-00",
+                "FechaHastaFacturado": "2026-10-15",
+                "Cobrado": "0.00",
+                "EndosoNumero": 0,
+                "FechaHoraInicio": "0000-00-00T00:00:00",
+                "FechaInicio": "2026-04-19",
+                "Anticipo": "0.00",
+                "Ajustes": "0.00",
+                "FechaHoraFin": "0000-00-00T00:00:00",
+                "Periodo": 0,
+                "Pagador": {
+                  "NombreExtension": "",
+                  "NombreCompleto": "CERRONI PODESTA, FLORENCIA INES",
+                  "CondicionIVA": {
+                    "Nombre": "",
+                    "NombreCorto": "",
+                    "Id": 0
+                  },
+                  "Id": 0
+                },
+                "TEA": 0,
+                "ComprobantesFiscales": [
+                  {
+                    "Numero": 0,
+                    "QR": "",
+                    "CAENumero": "0",
+                    "CAEFechaVencimiento": "0000-00-00",
+                    "Equivalente": "",
+                    "Tipo": {
+                      "Nombre": "",
+                      "AFIP": "",
+                      "Letra": "",
+                      "Id": 0
+                    },
+                    "FechaEmision": "0000-00-00",
+                    "Id": "0",
+                    "PuntoVenta": 0,
+                    "Estado": ""
+                  }
+                ],
+                "Contado": {
+                  "RecargoPercIVA": "0.00",
+                  "Importe": "0.00",
+                  "RecargoIVA": "0.00",
+                  "FacturaNumero": 0,
+                  "Descuento": "0.00",
+                  "ReferenciaBarcode": "",
+                  "Referencia": "",
+                  "FechaPago": "0000-00-00",
+                  "RecargoFinanciero": "197.7"
+                },
+                "FacturaNumero": 0,
+                "Saldo": "0.00",
+                "Recargos": "0.00",
+                "FechaAnualidad": "0000-00-00",
+                "PrimaComercial": "0.00",
+                "Facturacion": {
+                  "Nombre": "",
+                  "Id": 0
+                }
+              }
+            },
+            "sdtPolizas": {
+              "Solicitud": {
+                "Numero": "0",
+                "Links": {
+                  "Core": ""
+                },
+                "Emisor": "",
+                "Cotizacion": "0"
+              },
+              "Poliza": {
+                "FechaFinVigencia": "",
+                "Articulo": "",
+                "MedioDePago": "",
+                "Moneda": {
+                  "Nombre": "",
+                  "Simbolo": ""
+                },
+                "FechaVigencia": "",
+                "Rama": {
+                  "ClassSD": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "ClassUnicode": ""
+                },
+                "Detalle": "",
+                "PolizaDigital": "True",
+                "Vigencia": "",
+                "EstadoPago": "",
+                "Titulo": "",
+                "Superpoliza": "22508",
+                "EstadoContratoCodigo": "",
+                "Seccion": "",
+                "MedioDePagoTipo": "",
+                "EstadoContrato": "",
+                "FechaInicioVigencia": "",
+                "Descripcion": "",
+                "PolizaDigitalFechaEnvio": "",
+                "EstadoPagoCodigo": 0,
+                "VigenciaEstado": "",
+                "PolizaDigitalAdherido": false
+              },
+              "Productor": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0,
+                "Email": "fcerroni@xiku.io",
+                "Telefono": ""
+              },
+              "Organizador": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0
+              },
+              "Pagador": {
+                "Nombre": "",
+                "CondicionIVA": "",
+                "Id": 0
+              },
+              "Suplemento": {
+                "FechaFinVigencia": "",
+                "FechaVigencia": "",
+                "Prima": "7908.15",
+                "Impuestos": "40.53",
+                "Premio": "10140.43",
+                "EstadoPago": "",
+                "FechaDeEmision": "",
+                "BonifPorcentaje": "",
+                "FechaFacturadoHasta": "",
+                "Cobrado": "",
+                "Saldo": "",
+                "Datos": {
+                  "BonificacionPorcentaje": 0
+                },
+                "FechaInicioVigencia": "",
+                "Recargos": ""
+              },
+              "Asegurado": {
+                "Nombre": "",
+                "Email": "fcerroni@xiku.io",
+                "Telefono": "",
+                "Direccion": "",
+                "CondicionIVA": "",
+                "Id": 0,
+                "Documento": "",
+                "DireccionLink": ""
+              }
+            }
+          },
+          "lineaBase": {
+            "sdtPolizas": {
+              "Solicitud": {
+                "Numero": "0",
+                "Links": {
+                  "Core": ""
+                },
+                "Emisor": "",
+                "Cotizacion": "0"
+              },
+              "Poliza": {
+                "FechaFinVigencia": "",
+                "Articulo": "",
+                "MedioDePago": "",
+                "Moneda": {
+                  "Nombre": "",
+                  "Simbolo": ""
+                },
+                "FechaVigencia": "",
+                "Rama": {
+                  "ClassSD": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "ClassUnicode": ""
+                },
+                "Detalle": "",
+                "PolizaDigital": "True",
+                "Vigencia": "",
+                "EstadoPago": "",
+                "Titulo": "",
+                "Superpoliza": "22508",
+                "EstadoContratoCodigo": "",
+                "Seccion": "",
+                "MedioDePagoTipo": "",
+                "EstadoContrato": "",
+                "FechaInicioVigencia": "",
+                "Descripcion": "",
+                "PolizaDigitalFechaEnvio": "",
+                "EstadoPagoCodigo": 0,
+                "VigenciaEstado": "",
+                "PolizaDigitalAdherido": false
+              },
+              "Productor": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0,
+                "Email": "fcerroni@xiku.io",
+                "Telefono": ""
+              },
+              "Organizador": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0
+              },
+              "Pagador": {
+                "Nombre": "",
+                "CondicionIVA": "",
+                "Id": 0
+              },
+              "Suplemento": {
+                "FechaFinVigencia": "Vigente hasta 31/12/2026",
+                "FechaVigencia": "Vigencia 19/04/2026 - 31/12/2026",
+                "Prima": "Prima  0,00",
+                "Impuestos": "Impuestos  40,53",
+                "Premio": "Premio  10.140,43",
+                "EstadoPago": "",
+                "FechaDeEmision": "Emisión   /  /    ",
+                "BonifPorcentaje": "0.0000%",
+                "FechaFacturadoHasta": "Facturado hasta 15/10/2026",
+                "Cobrado": "Cobrado  0,00",
+                "Saldo": "Saldo  0,00",
+                "Datos": {
+                  "BonificacionPorcentaje": 0
+                },
+                "FechaInicioVigencia": "Vigente desde 19/04/2026",
+                "Recargos": "Recargos  0,00"
+              },
+              "Asegurado": {
+                "Nombre": "",
+                "Email": "fcerroni@xiku.io",
+                "Telefono": "",
+                "Direccion": "",
+                "CondicionIVA": "",
+                "Id": 0,
+                "Documento": "",
+                "DireccionLink": ""
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-cargasdtpolizas_suplemento-vacia",
+      "nombre": "Servicios.cargaSdtPolizas_Suplemento (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.cargaSdtPolizas_Suplemento",
+          "entrada": {
+            "Suplemento": {
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ],
+              "Suplemento": {
+                "Numero": 0,
+                "MedioPago": {
+                  "Nombre": "",
+                  "Tipo": "",
+                  "Referencia": ""
+                },
+                "Moneda": {
+                  "Nombre": "",
+                  "Id": "",
+                  "Cotizacion": "0.000000"
+                },
+                "Entrega": {
+                  "Tipo": "",
+                  "Errores": [
+                    {
+                      "Mensaje": "",
+                      "Id": 0
+                    }
+                  ],
+                  "Digital": {
+                    "NotifFechaHoraAcceso": "0000-00-00T00:00:00",
+                    "NotifId": "0",
+                    "NotifFechaHora": "0000-00-00T00:00:00",
+                    "Direcciones": [
+                      ""
+                    ]
+                  },
+                  "Impresion": {
+                    "UltimoLote": 0
+                  }
+                },
+                "Movimiento": {
+                  "SubTipoId": 0,
+                  "TipoNombre": "",
+                  "TipoId": 0,
+                  "SubTipoNombre": ""
+                },
+                "FechaEmision": "0000-00-00",
+                "CUIP": "",
+                "FechaVigenciaPago": "0000-00-00",
+                "Prima": "0.00",
+                "PrimaSubTotal": "0.00",
+                "Impuestos": "0.00",
+                "Coasegurado": false,
+                "Premio": "0.00",
+                "BonifPorcentaje": 0,
+                "FechaFin": "0000-00-00",
+                "BonifImporte": "0.00",
+                "FechaVigenciaCertificado": "0000-00-00",
+                "FechaHastaFacturado": "0000-00-00",
+                "Cobrado": "0.00",
+                "EndosoNumero": 0,
+                "FechaHoraInicio": "0000-00-00T00:00:00",
+                "FechaInicio": "0000-00-00",
+                "Anticipo": "0.00",
+                "Ajustes": "0.00",
+                "FechaHoraFin": "0000-00-00T00:00:00",
+                "Periodo": 0,
+                "Pagador": {
+                  "NombreExtension": "",
+                  "NombreCompleto": "",
+                  "CondicionIVA": {
+                    "Nombre": "",
+                    "NombreCorto": "",
+                    "Id": 0
+                  },
+                  "Id": 0
+                },
+                "TEA": 0,
+                "ComprobantesFiscales": [
+                  {
+                    "Numero": 0,
+                    "QR": "",
+                    "CAENumero": "0",
+                    "CAEFechaVencimiento": "0000-00-00",
+                    "Equivalente": "",
+                    "Tipo": {
+                      "Nombre": "",
+                      "AFIP": "",
+                      "Letra": "",
+                      "Id": 0
+                    },
+                    "FechaEmision": "0000-00-00",
+                    "Id": "0",
+                    "PuntoVenta": 0,
+                    "Estado": ""
+                  }
+                ],
+                "Contado": {
+                  "RecargoPercIVA": "0.00",
+                  "Importe": "0.00",
+                  "RecargoIVA": "0.00",
+                  "FacturaNumero": 0,
+                  "Descuento": "0.00",
+                  "ReferenciaBarcode": "",
+                  "Referencia": "",
+                  "FechaPago": "0000-00-00",
+                  "RecargoFinanciero": "0.00"
+                },
+                "FacturaNumero": 0,
+                "Saldo": "0.00",
+                "Recargos": "0.00",
+                "FechaAnualidad": "0000-00-00",
+                "PrimaComercial": "0.00",
+                "Facturacion": {
+                  "Nombre": "",
+                  "Id": 0
+                }
+              }
+            },
+            "sdtPolizas": {
+              "Solicitud": {
+                "Numero": "0",
+                "Links": {
+                  "Core": ""
+                },
+                "Emisor": "",
+                "Cotizacion": "0"
+              },
+              "Poliza": {
+                "FechaFinVigencia": "",
+                "Articulo": "",
+                "MedioDePago": "",
+                "Moneda": {
+                  "Nombre": "",
+                  "Simbolo": ""
+                },
+                "FechaVigencia": "",
+                "Rama": {
+                  "ClassSD": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "ClassUnicode": ""
+                },
+                "Detalle": "",
+                "PolizaDigital": "",
+                "Vigencia": "",
+                "EstadoPago": "",
+                "Titulo": "",
+                "Superpoliza": "",
+                "EstadoContratoCodigo": "",
+                "Seccion": "",
+                "MedioDePagoTipo": "",
+                "EstadoContrato": "",
+                "FechaInicioVigencia": "",
+                "Descripcion": "",
+                "PolizaDigitalFechaEnvio": "",
+                "EstadoPagoCodigo": 0,
+                "VigenciaEstado": "",
+                "PolizaDigitalAdherido": false
+              },
+              "Productor": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0,
+                "Email": "",
+                "Telefono": ""
+              },
+              "Organizador": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0
+              },
+              "Pagador": {
+                "Nombre": "",
+                "CondicionIVA": "",
+                "Id": 0
+              },
+              "Suplemento": {
+                "FechaFinVigencia": "",
+                "FechaVigencia": "",
+                "Prima": "",
+                "Impuestos": "",
+                "Premio": "",
+                "EstadoPago": "",
+                "FechaDeEmision": "",
+                "BonifPorcentaje": "",
+                "FechaFacturadoHasta": "",
+                "Cobrado": "",
+                "Saldo": "",
+                "Datos": {
+                  "BonificacionPorcentaje": 0
+                },
+                "FechaInicioVigencia": "",
+                "Recargos": ""
+              },
+              "Asegurado": {
+                "Nombre": "",
+                "Email": "",
+                "Telefono": "",
+                "Direccion": "",
+                "CondicionIVA": "",
+                "Id": 0,
+                "Documento": "",
+                "DireccionLink": ""
+              }
+            }
+          },
+          "lineaBase": {
+            "sdtPolizas": {
+              "Solicitud": {
+                "Numero": "0",
+                "Links": {
+                  "Core": ""
+                },
+                "Emisor": "",
+                "Cotizacion": "0"
+              },
+              "Poliza": {
+                "FechaFinVigencia": "",
+                "Articulo": "",
+                "MedioDePago": "",
+                "Moneda": {
+                  "Nombre": "",
+                  "Simbolo": ""
+                },
+                "FechaVigencia": "",
+                "Rama": {
+                  "ClassSD": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "ClassUnicode": ""
+                },
+                "Detalle": "",
+                "PolizaDigital": "",
+                "Vigencia": "",
+                "EstadoPago": "",
+                "Titulo": "",
+                "Superpoliza": "",
+                "EstadoContratoCodigo": "",
+                "Seccion": "",
+                "MedioDePagoTipo": "",
+                "EstadoContrato": "",
+                "FechaInicioVigencia": "",
+                "Descripcion": "",
+                "PolizaDigitalFechaEnvio": "",
+                "EstadoPagoCodigo": 0,
+                "VigenciaEstado": "",
+                "PolizaDigitalAdherido": false
+              },
+              "Productor": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0,
+                "Email": "",
+                "Telefono": ""
+              },
+              "Organizador": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0
+              },
+              "Pagador": {
+                "Nombre": "",
+                "CondicionIVA": "",
+                "Id": 0
+              },
+              "Suplemento": {
+                "FechaFinVigencia": "Vigente hasta   /  /    ",
+                "FechaVigencia": "Vigencia /  / - /  /",
+                "Prima": "Prima  0,00",
+                "Impuestos": "Impuestos  0,00",
+                "Premio": "Premio  0,00",
+                "EstadoPago": "",
+                "FechaDeEmision": "Emisión   /  /    ",
+                "BonifPorcentaje": "0.0000%",
+                "FechaFacturadoHasta": "Facturado hasta   /  /    ",
+                "Cobrado": "Cobrado  0,00",
+                "Saldo": "Saldo  0,00",
+                "Datos": {
+                  "BonificacionPorcentaje": 0
+                },
+                "FechaInicioVigencia": "Vigente desde   /  /    ",
+                "Recargos": "Recargos  0,00"
+              },
+              "Asegurado": {
+                "Nombre": "",
+                "Email": "",
+                "Telefono": "",
+                "Direccion": "",
+                "CondicionIVA": "",
+                "Id": 0,
+                "Documento": "",
+                "DireccionLink": ""
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-dpgrupo-vacia",
+      "nombre": "Servicios.dpGrupo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.dpGrupo",
+          "entrada": {
+            "inLista": {
+              "Tipo": ""
+            }
+          },
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "",
+                "IdNum": "10",
+                "Descripcion": "10 - AGENCIA SAN FRANCISCO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "15",
+                "Descripcion": "15 - CASA CENTRAL"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "20",
+                "Descripcion": "20 - AGENCIA BUENOS AIRES"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "30",
+                "Descripcion": "30 - AGENCIA CÓRDOBA"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "50",
+                "Descripcion": "50 - AGENCIA RAFAELA"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "60",
+                "Descripcion": "60 - AGENCIA RIO CUARTO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "70",
+                "Descripcion": "70 - AGENCIA ROSARIO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "80",
+                "Descripcion": "80 - AGENCIA SANTA FE"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "90",
+                "Descripcion": "90 - AGENCIA VILLA MARÍA"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "100",
+                "Descripcion": "100 - AGENCIA TUCUMAN"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "110",
+                "Descripcion": "110 - AGENCIA JUNÍN"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "120",
+                "Descripcion": "120 - AGENCIA POSADAS"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "130",
+                "Descripcion": "130 - BANCOS"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "150",
+                "Descripcion": "150 - AGENCIA BARILOCHE"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "160",
+                "Descripcion": "160 - AGENCIA PARANÁ"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "180",
+                "Descripcion": "180 - AGENCIA RESISTENCIA"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "190",
+                "Descripcion": "190 - AGENCIA SALTA"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-masterpagemenu",
+      "nombre": "Servicios.MasterPageMenu (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.MasterPageMenu",
+          "entrada": {},
+          "lineaBase": {
+            "Menu": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-menudesglosar",
+      "nombre": "Servicios.MenuDesglosar (datos de TERCEROS.trtDanio)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.MenuDesglosar",
+          "entrada": {
+            "In_DVelop_Menu": [
+              {
+                "authorizationKey": "",
+                "subItems": [
+                  {
+                    "authorizationKey": "",
+                    "subItems": [
+                      {
+                        "authorizationKey": "",
+                        "subItems": [
+                          {
+                            "authorizationKey": "",
+                            "subItems": [
+                              {
+                                "authorizationKey": "",
+                                "subItems": [
+                                  {
+                                    "authorizationKey": "",
+                                    "subItems": [],
+                                    "linkTarget": "",
+                                    "tooltip": "",
+                                    "link": "",
+                                    "caption": "",
+                                    "submenuImage": "",
+                                    "id": "",
+                                    "additionalData": "",
+                                    "submenuImage_GXI": "",
+                                    "iconClass": "fas fa-car"
+                                  }
+                                ],
+                                "linkTarget": "",
+                                "tooltip": "",
+                                "link": "",
+                                "caption": "",
+                                "submenuImage": "",
+                                "id": "",
+                                "additionalData": "",
+                                "submenuImage_GXI": "",
+                                "iconClass": "fas fa-car"
+                              }
+                            ],
+                            "linkTarget": "",
+                            "tooltip": "",
+                            "link": "",
+                            "caption": "",
+                            "submenuImage": "",
+                            "id": "",
+                            "additionalData": "",
+                            "submenuImage_GXI": "",
+                            "iconClass": "fas fa-car"
+                          }
+                        ],
+                        "linkTarget": "",
+                        "tooltip": "",
+                        "link": "",
+                        "caption": "",
+                        "submenuImage": "",
+                        "id": "",
+                        "additionalData": "",
+                        "submenuImage_GXI": "",
+                        "iconClass": "fas fa-car"
+                      }
+                    ],
+                    "linkTarget": "",
+                    "tooltip": "",
+                    "link": "",
+                    "caption": "",
+                    "submenuImage": "",
+                    "id": "",
+                    "additionalData": "",
+                    "submenuImage_GXI": "",
+                    "iconClass": "fas fa-car"
+                  }
+                ],
+                "linkTarget": "",
+                "tooltip": "",
+                "link": "",
+                "caption": "",
+                "submenuImage": "",
+                "id": "",
+                "additionalData": "",
+                "submenuImage_GXI": "",
+                "iconClass": "fas fa-car"
+              }
+            ],
+            "SecuenciaMenu": ""
+          },
+          "lineaBase": {
+            "Out_DVelop_Menu": [
+              {
+                "authorizationKey": "",
+                "subItems": [],
+                "linkTarget": "",
+                "tooltip": "",
+                "link": "",
+                "caption": "",
+                "submenuImage": "",
+                "id": "",
+                "additionalData": "<i class=\"fas fa-car\"></i> > <i class=\"fas fa-car\"></i> > <i class=\"fas fa-car\"></i> > <i class=\"fas fa-car\"></i> > <i class=\"fas fa-car\"></i> > <i class=\"fas fa-car\"></i> ",
+                "submenuImage_GXI": "",
+                "iconClass": "fas fa-car"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-menudesglosar-vacia",
+      "nombre": "Servicios.MenuDesglosar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.MenuDesglosar",
+          "entrada": {
+            "In_DVelop_Menu": [
+              {
+                "authorizationKey": "",
+                "subItems": [
+                  {
+                    "authorizationKey": "",
+                    "subItems": [
+                      {
+                        "authorizationKey": "",
+                        "subItems": [
+                          {
+                            "authorizationKey": "",
+                            "subItems": [
+                              {
+                                "authorizationKey": "",
+                                "subItems": [
+                                  {
+                                    "authorizationKey": "",
+                                    "subItems": [],
+                                    "linkTarget": "",
+                                    "tooltip": "",
+                                    "link": "",
+                                    "caption": "",
+                                    "submenuImage": "",
+                                    "id": "",
+                                    "additionalData": "",
+                                    "submenuImage_GXI": "",
+                                    "iconClass": ""
+                                  }
+                                ],
+                                "linkTarget": "",
+                                "tooltip": "",
+                                "link": "",
+                                "caption": "",
+                                "submenuImage": "",
+                                "id": "",
+                                "additionalData": "",
+                                "submenuImage_GXI": "",
+                                "iconClass": ""
+                              }
+                            ],
+                            "linkTarget": "",
+                            "tooltip": "",
+                            "link": "",
+                            "caption": "",
+                            "submenuImage": "",
+                            "id": "",
+                            "additionalData": "",
+                            "submenuImage_GXI": "",
+                            "iconClass": ""
+                          }
+                        ],
+                        "linkTarget": "",
+                        "tooltip": "",
+                        "link": "",
+                        "caption": "",
+                        "submenuImage": "",
+                        "id": "",
+                        "additionalData": "",
+                        "submenuImage_GXI": "",
+                        "iconClass": ""
+                      }
+                    ],
+                    "linkTarget": "",
+                    "tooltip": "",
+                    "link": "",
+                    "caption": "",
+                    "submenuImage": "",
+                    "id": "",
+                    "additionalData": "",
+                    "submenuImage_GXI": "",
+                    "iconClass": ""
+                  }
+                ],
+                "linkTarget": "",
+                "tooltip": "",
+                "link": "",
+                "caption": "",
+                "submenuImage": "",
+                "id": "",
+                "additionalData": "",
+                "submenuImage_GXI": "",
+                "iconClass": ""
+              }
+            ],
+            "SecuenciaMenu": ""
+          },
+          "lineaBase": {
+            "Out_DVelop_Menu": [
+              {
+                "authorizationKey": "",
+                "subItems": [],
+                "linkTarget": "",
+                "tooltip": "",
+                "link": "",
+                "caption": "",
+                "submenuImage": "",
+                "id": "",
+                "additionalData": "",
+                "submenuImage_GXI": "",
+                "iconClass": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-polsupcomisioneswccalcgrptot",
+      "nombre": "Servicios.PolSupComisionesWCCalcGrpTot (datos de SERVICIOS.emhModificacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.PolSupComisionesWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupComisioness": [
+              {
+                "Moneda": {
+                  "Nombre": "",
+                  "Id": "",
+                  "Cotizacion": "0"
+                },
+                "SuplementoNumero": "1",
+                "BaseCalculo": "0.00",
+                "Intermediario": {
+                  "Nombre": "",
+                  "Numero": "",
+                  "Tipo": {
+                    "Nombre": "",
+                    "Id": ""
+                  }
+                },
+                "Importe": "0.00",
+                "Porcentaje": ""
+              }
+            ],
+            "GroupsdtPolSupComisionessSuplementoNumero": "",
+            "sdtPolizaParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Importe": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-polsupcuentacorrienteccgfwccalcgrptot",
+      "nombre": "Servicios.PolSupCuentaCorrienteCCGFWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.PolSupCuentaCorrienteCCGFWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosPeriodo": "",
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Cuota": "0,00",
+            "TotValue_Pago": "",
+            "TotValue_Saldo": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-polsupcuentacorrienteccgswccalcgrptot",
+      "nombre": "Servicios.PolSupCuentaCorrienteCCGSWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.PolSupCuentaCorrienteCCGSWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosSuplementoNumero": 0,
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Cuota": "0,00",
+            "TotValue_Pago": "",
+            "TotValue_Saldo": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-polsupcuentacorrientecpgfcuotaswccalcgrptot",
+      "nombre": "Servicios.PolSupCuentaCorrienteCPGFCuotasWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.PolSupCuentaCorrienteCPGFCuotasWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientosCuotas": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosCuotasPeriodo": "",
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Cuota": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-polsupcuentacorrientecpgfpagoswccalcgrptot",
+      "nombre": "Servicios.PolSupCuentaCorrienteCPGFPagosWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.PolSupCuentaCorrienteCPGFPagosWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientosPagos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosPagosPeriodo": "",
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Pago": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-polsupcuentacorrientecpgscuotaswccalcgrptot",
+      "nombre": "Servicios.PolSupCuentaCorrienteCPGSCuotasWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.PolSupCuentaCorrienteCPGSCuotasWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientosCuotas": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosCuotasSuplementoNumero": 0,
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Cuota": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-polsupcuentacorrientecpgspagoswccalcgrptot",
+      "nombre": "Servicios.PolSupCuentaCorrienteCPGSPagosWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.PolSupCuentaCorrienteCPGSPagosWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientosPagos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosPagosSuplementoNumero": 0,
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Pago": ""
+          }
+        }
+      ]
+    }
+  ]
+}

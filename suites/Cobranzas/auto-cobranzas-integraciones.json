@@ -1,0 +1,2140 @@
+{
+  "nombre": "Auto - Cobranzas.Integraciones",
+  "kb": "Cobranzas",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cobranzas-integraciones-interfases-get",
+      "nombre": "Cobranzas.Integraciones.Interfases.Get (datos de GENERALES.gntInterfase)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Get",
+          "entrada": {
+            "ItfId": 1
+          },
+          "lineaBase": {
+            "sdtInterfase": {
+              "Nombre": "PAGO MIS CUENTAS",
+              "CampoDelimitador": ";",
+              "NumNegFormato": "PRI   ",
+              "Formato": "F",
+              "DecimalSeparador": " ",
+              "UsaIdentificador": true,
+              "PrimeraFila": 0,
+              "Tipo": "S",
+              "Ambito": "COB       ",
+              "FechaSeparador": " ",
+              "Id": 1,
+              "FormatoFecha3": "dd  ",
+              "FormatoFecha1": "aaaa",
+              "TextoDelimitador": " ",
+              "FormatoFecha2": "mm  "
+            },
+            "sdtOutput": {
+              "Messages": [],
+              "Log": "",
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-get-vacia",
+      "nombre": "Cobranzas.Integraciones.Interfases.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Get",
+          "entrada": {
+            "ItfId": 0
+          },
+          "lineaBase": {
+            "sdtInterfase": {
+              "Nombre": "",
+              "CampoDelimitador": "",
+              "NumNegFormato": "",
+              "Formato": "",
+              "DecimalSeparador": "",
+              "UsaIdentificador": false,
+              "PrimeraFila": 0,
+              "Tipo": "",
+              "Ambito": "",
+              "FechaSeparador": "",
+              "Id": 0,
+              "FormatoFecha3": "",
+              "FormatoFecha1": "",
+              "TextoDelimitador": "",
+              "FormatoFecha2": ""
+            },
+            "sdtOutput": {
+              "Messages": [
+                {
+                  "Type": 1,
+                  "Params": {},
+                  "Origen": "Generales.Interfases.Get",
+                  "Code": "NO_EXISTE",
+                  "Texto": "Interfase 0 no encontrada."
+                }
+              ],
+              "Log": "",
+              "Ok": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-lista",
+      "nombre": "Cobranzas.Integraciones.Interfases.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Lista",
+          "entrada": {},
+          "lineaBase": {
+            "Interfases": [
+              {
+                "Nombre": "PAGO MIS CUENTAS",
+                "CampoDelimitador": ";",
+                "NumNegFormato": "PRI   ",
+                "Formato": "F",
+                "DecimalSeparador": " ",
+                "UsaIdentificador": true,
+                "PrimeraFila": 0,
+                "Tipo": "S",
+                "Ambito": "COB       ",
+                "FechaSeparador": " ",
+                "Id": 1,
+                "FormatoFecha3": "dd  ",
+                "FormatoFecha1": "aaaa",
+                "TextoDelimitador": " ",
+                "FormatoFecha2": "mm  "
+              },
+              {
+                "Nombre": "PAGO MIS CUENTAS COBRANZAS",
+                "CampoDelimitador": ";",
+                "NumNegFormato": "PRI   ",
+                "Formato": "F",
+                "DecimalSeparador": " ",
+                "UsaIdentificador": true,
+                "PrimeraFila": 0,
+                "Tipo": "E",
+                "Ambito": "COB       ",
+                "FechaSeparador": " ",
+                "Id": 72,
+                "FormatoFecha3": "dd  ",
+                "FormatoFecha1": "aaaa",
+                "TextoDelimitador": " ",
+                "FormatoFecha2": "mm  "
+              },
+              {
+                "Nombre": "PRUEBA ENVIARLOTE DEBITO",
+                "CampoDelimitador": ",",
+                "NumNegFormato": "PRI   ",
+                "Formato": "F",
+                "DecimalSeparador": " ",
+                "UsaIdentificador": true,
+                "PrimeraFila": 1,
+                "Tipo": "S",
+                "Ambito": "COB       ",
+                "FechaSeparador": " ",
+                "Id": 71,
+                "FormatoFecha3": "dd  ",
+                "FormatoFecha1": "aaaa",
+                "TextoDelimitador": " ",
+                "FormatoFecha2": "mm  "
+              }
+            ],
+            "sdtOutput": {
+              "Messages": [],
+              "Log": "",
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-registros-campos-get",
+      "nombre": "Cobranzas.Integraciones.Interfases.Registros.Campos.Get (datos de GENERALES.gntItfRegCampo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Registros.Campos.Get",
+          "entrada": {
+            "ItfId": 1,
+            "RegTipo": "CABECERA",
+            "CampoId": 1
+          },
+          "lineaBase": {
+            "sdtCampo": {
+              "Nombre": "Id",
+              "TipoDato": "NUM ",
+              "PosHasta": 1,
+              "RegTipo": "CABECERA  ",
+              "PosDesde": 1,
+              "Orden": 1,
+              "RellenoEspacios": "NO ",
+              "Atributo": "Cabecera.Id",
+              "Constante": "",
+              "RellenoCeros": "NO ",
+              "EsId": true,
+              "ItfId": 1,
+              "Mapeo": "ATR",
+              "Delimitador": " ",
+              "Decimales": 0,
+              "Divisor": 0,
+              "Propiedad": 0,
+              "Id": 1
+            },
+            "sdtOutput": {
+              "Messages": [],
+              "Log": "",
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-registros-campos-get-vacia",
+      "nombre": "Cobranzas.Integraciones.Interfases.Registros.Campos.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Registros.Campos.Get",
+          "entrada": {
+            "ItfId": 0,
+            "RegTipo": "",
+            "CampoId": 0
+          },
+          "lineaBase": {
+            "sdtCampo": {
+              "Nombre": "",
+              "TipoDato": "",
+              "PosHasta": 0,
+              "RegTipo": "",
+              "PosDesde": 0,
+              "Orden": 0,
+              "RellenoEspacios": "",
+              "Atributo": "",
+              "Constante": "",
+              "RellenoCeros": "",
+              "EsId": false,
+              "ItfId": 0,
+              "Mapeo": "",
+              "Delimitador": "",
+              "Decimales": 0,
+              "Divisor": 0,
+              "Propiedad": 0,
+              "Id": 0
+            },
+            "sdtOutput": {
+              "Messages": [
+                {
+                  "Type": 1,
+                  "Params": {},
+                  "Origen": "Generales.Interfases.Registro.Campo.Get",
+                  "Code": "NO_EXISTE",
+                  "Texto": "Campo 0 del registro '' de la interfase 0 no encontrado."
+                }
+              ],
+              "Log": "",
+              "Ok": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-registros-campos-lista",
+      "nombre": "Cobranzas.Integraciones.Interfases.Registros.Campos.Lista (datos de GENERALES.gntItfRegistro)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Registros.Campos.Lista",
+          "entrada": {
+            "ItfId": 1,
+            "RegTipo": "CABECERA"
+          },
+          "lineaBase": {
+            "Campos": [
+              {
+                "Nombre": "Id",
+                "TipoDato": "NUM ",
+                "PosHasta": 1,
+                "RegTipo": "CABECERA  ",
+                "PosDesde": 1,
+                "Orden": 1,
+                "RellenoEspacios": "NO ",
+                "Atributo": "Cabecera.Id",
+                "Constante": "",
+                "RellenoCeros": "NO ",
+                "EsId": true,
+                "ItfId": 1,
+                "Mapeo": "ATR",
+                "Delimitador": " ",
+                "Decimales": 0,
+                "Divisor": 0,
+                "Propiedad": 0,
+                "Id": 1
+              },
+              {
+                "Nombre": "Referencia",
+                "TipoDato": "NUM ",
+                "PosHasta": 4,
+                "RegTipo": "CABECERA  ",
+                "PosDesde": 2,
+                "Orden": 2,
+                "RellenoEspacios": "NO ",
+                "Atributo": "Cabecera.Referencia",
+                "Constante": "",
+                "RellenoCeros": "IZQ",
+                "EsId": false,
+                "ItfId": 1,
+                "Mapeo": "ATR",
+                "Delimitador": " ",
+                "Decimales": 0,
+                "Divisor": 0,
+                "Propiedad": 0,
+                "Id": 2
+              },
+              {
+                "Nombre": "Empresa",
+                "TipoDato": "NUM ",
+                "PosHasta": 8,
+                "RegTipo": "CABECERA  ",
+                "PosDesde": 5,
+                "Orden": 3,
+                "RellenoEspacios": "NO ",
+                "Atributo": "Cabecera.Empresa",
+                "Constante": "",
+                "RellenoCeros": "IZQ",
+                "EsId": false,
+                "ItfId": 1,
+                "Mapeo": "ATR",
+                "Delimitador": " ",
+                "Decimales": 0,
+                "Divisor": 0,
+                "Propiedad": 0,
+                "Id": 3
+              },
+              {
+                "Nombre": "Fecha",
+                "TipoDato": "DATE",
+                "PosHasta": 16,
+                "RegTipo": "CABECERA  ",
+                "PosDesde": 9,
+                "Orden": 4,
+                "RellenoEspacios": "NO ",
+                "Atributo": "Cabecera.Fecha",
+                "Constante": "",
+                "RellenoCeros": "IZQ",
+                "EsId": false,
+                "ItfId": 1,
+                "Mapeo": "ATR",
+                "Delimitador": " ",
+                "Decimales": 0,
+                "Divisor": 0,
+                "Propiedad": 0,
+                "Id": 4
+              },
+              {
+                "Nombre": "Filler",
+                "TipoDato": "NUM ",
+                "PosHasta": 280,
+                "RegTipo": "CABECERA  ",
+                "PosDesde": 17,
+                "Orden": 5,
+                "RellenoEspacios": "NO ",
+                "Atributo": "",
+                "Constante": "",
+                "RellenoCeros": "IZQ",
+                "EsId": false,
+                "ItfId": 1,
+                "Mapeo": "CON",
+                "Delimitador": " ",
+                "Decimales": 0,
+                "Divisor": 0,
+                "Propiedad": 0,
+                "Id": 5
+              }
+            ],
+            "sdtOutput": {
+              "Messages": [],
+              "Log": "",
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-registros-campos-lista-vacia",
+      "nombre": "Cobranzas.Integraciones.Interfases.Registros.Campos.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Registros.Campos.Lista",
+          "entrada": {
+            "ItfId": 0,
+            "RegTipo": ""
+          },
+          "lineaBase": {
+            "Campos": [],
+            "sdtOutput": {
+              "Messages": [
+                {
+                  "Type": 1,
+                  "Params": {},
+                  "Origen": "Generales.Interfases.Registro.Campo.List",
+                  "Code": "NO_EXISTE",
+                  "Texto": "Registro '' de la interfase 0 no encontrado."
+                }
+              ],
+              "Log": "",
+              "Ok": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-registros-get",
+      "nombre": "Cobranzas.Integraciones.Interfases.Registros.Get (datos de GENERALES.gntItfRegistro)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Registros.Get",
+          "entrada": {
+            "ItfId": 1,
+            "RegTipo": "CABECERA"
+          },
+          "lineaBase": {
+            "sdtRegistro": {
+              "Nombre": "HEADER",
+              "Tipo": "CABECERA  ",
+              "Orden": 1,
+              "Longitud": 280,
+              "Contexto": "LOTE_CABECERA",
+              "Fin": "CRLF",
+              "ValorId": "0                                                 ",
+              "ItfId": 1
+            },
+            "sdtOutput": {
+              "Messages": [],
+              "Log": "",
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-registros-get-vacia",
+      "nombre": "Cobranzas.Integraciones.Interfases.Registros.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Registros.Get",
+          "entrada": {
+            "ItfId": 0,
+            "RegTipo": ""
+          },
+          "lineaBase": {
+            "sdtRegistro": {
+              "Nombre": "",
+              "Tipo": "",
+              "Orden": 0,
+              "Longitud": 0,
+              "Contexto": "",
+              "Fin": "",
+              "ValorId": "",
+              "ItfId": 0
+            },
+            "sdtOutput": {
+              "Messages": [
+                {
+                  "Type": 1,
+                  "Params": {},
+                  "Origen": "Generales.Interfases.Registro.Get",
+                  "Code": "NO_EXISTE",
+                  "Texto": "Registro '' de la interfase 0 no encontrado."
+                }
+              ],
+              "Log": "",
+              "Ok": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-registros-lista",
+      "nombre": "Cobranzas.Integraciones.Interfases.Registros.Lista (datos de GENERALES.gntInterfase)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Registros.Lista",
+          "entrada": {
+            "ItfId": 1
+          },
+          "lineaBase": {
+            "Registros": [
+              {
+                "Nombre": "HEADER",
+                "Tipo": "CABECERA  ",
+                "Orden": 1,
+                "Longitud": 280,
+                "Contexto": "LOTE_CABECERA",
+                "Fin": "CRLF",
+                "ValorId": "0                                                 ",
+                "ItfId": 1
+              },
+              {
+                "Nombre": "DETALLE",
+                "Tipo": "DETALLE   ",
+                "Orden": 2,
+                "Longitud": 280,
+                "Contexto": "LOTE_DETALLES",
+                "Fin": "CRLF",
+                "ValorId": "5                                                 ",
+                "ItfId": 1
+              },
+              {
+                "Nombre": "TRAILER",
+                "Tipo": "PIE       ",
+                "Orden": 3,
+                "Longitud": 280,
+                "Contexto": "LOTE_CABECERA",
+                "Fin": "CRLF",
+                "ValorId": "9                                                 ",
+                "ItfId": 1
+              }
+            ],
+            "sdtOutput": {
+              "Messages": [],
+              "Log": "",
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-registros-lista-vacia",
+      "nombre": "Cobranzas.Integraciones.Interfases.Registros.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Interfases.Registros.Lista",
+          "entrada": {
+            "ItfId": 0
+          },
+          "lineaBase": {
+            "Registros": [],
+            "sdtOutput": {
+              "Messages": [
+                {
+                  "Type": 1,
+                  "Params": {},
+                  "Origen": "Generales.Interfases.Registro.List",
+                  "Code": "NO_EXISTE",
+                  "Texto": "Interfase 0 no encontrada."
+                }
+              ],
+              "Log": "",
+              "Ok": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-contexto-cabecera-atributos",
+      "nombre": "Cobranzas.Integraciones.Lotes.Contexto.Cabecera.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.Contexto.Cabecera.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Id de lote",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Sentido",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Sentido",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Id de origen",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.IdOrigen",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Estado",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Id de entidad recaudadora",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.RecId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Entidad recaudadora: Canal/Rol",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.RecCanalRol",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Hash",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Hash",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Identificador de lote",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Identificador",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Fecha",
+                "TipoDato": "DATE",
+                "Uso": "TOD",
+                "Id": "Cabecera.Fecha",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Fecha de corte",
+                "TipoDato": "DATE",
+                "Uso": "TOD",
+                "Id": "Cabecera.FechaCorte",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Fecha de proceso",
+                "TipoDato": "DATE",
+                "Uso": "TOD",
+                "Id": "Cabecera.FechaProceso",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Id de interfase",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.ItfId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Blob Id",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.BlobId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cantidad de registros",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.CantRegistros",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Importe total",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.ImporteTotal",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-contexto-cabecera-datos",
+      "nombre": "Cobranzas.Integraciones.Lotes.Contexto.Cabecera.Datos (datos de COBRANZAS.cbhLote)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.Contexto.Cabecera.Datos",
+          "entrada": {
+            "inDatos": {
+              "LoteId": "1"
+            }
+          },
+          "lineaBase": {
+            "sdtDatos": {
+              "Cabecera": {
+                "Nombre": "",
+                "FechaCorte": "2026-11-02",
+                "Hash": "",
+                "ItfId": 1,
+                "IdOrigen": "0",
+                "Estado": "GEN",
+                "Tipo": "DEB",
+                "Fecha": "2026-10-02",
+                "ImporteTotal": "0.00",
+                "RecId": 1,
+                "Id": "1",
+                "FechaProcesoDesde": "2026-10-02",
+                "Identificador": "3609",
+                "BlobId": "0",
+                "CantRegistros": 0,
+                "Sentido": "SAL",
+                "RecCanalRol": "PRE"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-contexto-cabecera-datos-vacia",
+      "nombre": "Cobranzas.Integraciones.Lotes.Contexto.Cabecera.Datos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.Contexto.Cabecera.Datos",
+          "entrada": {
+            "inDatos": {
+              "LoteId": "0"
+            }
+          },
+          "lineaBase": {
+            "sdtDatos": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-contexto-detalles-atributos",
+      "nombre": "Cobranzas.Integraciones.Lotes.Contexto.Detalles.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.Contexto.Detalles.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Id de lote",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Detalle.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Id Secuencial del detalle",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Detalle.DetSec",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Id de Cupón",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Detalle.CuponId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Importe del detalle",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Detalle.DetImporte",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tipo de novedad",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Detalle.DetNovedadTipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Importe del primer vencimiento",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Detalle.ImporteVto1",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Fecha del primer vencimiento",
+                "TipoDato": "DATE",
+                "Uso": "TOD",
+                "Id": "Detalle.FechaVto1",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Importe del segundo vencimiento",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Detalle.ImporteVto2",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Fecha del segundo vencimiento",
+                "TipoDato": "DATE",
+                "Uso": "TOD",
+                "Id": "Detalle.FechaVto2",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Importe del tercer vencimiento",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Detalle.ImporteVto3",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Fecha del tercer vencimiento",
+                "TipoDato": "DATE",
+                "Uso": "TOD",
+                "Id": "Detalle.FechaVto3",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-contexto-detalles-datos_col",
+      "nombre": "Cobranzas.Integraciones.Lotes.Contexto.Detalles.Datos_Col (datos de COBRANZAS.cbhLoteDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.Contexto.Detalles.Datos_Col",
+          "entrada": {
+            "inDatos": {
+              "LoteDetSec": 1,
+              "LoteId": "1"
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "sdtDatos_Col": [
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              },
+              {
+                "Detalle": {
+                  "DetSec": 59,
+                  "FechaVto1": "2026-11-01",
+                  "DetImporte": "1085274.00",
+                  "FechaVto3": "0000-00-00",
+                  "FechaVto2": "0000-00-00",
+                  "DetNovedadTipo": "ALT",
+                  "Id": "1",
+                  "ImporteVto3": "0.00",
+                  "CuponId": "59",
+                  "ImporteVto2": "0.00",
+                  "ImporteVto1": "1085274.00"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-contexto-detalles-datos_col-vacia",
+      "nombre": "Cobranzas.Integraciones.Lotes.Contexto.Detalles.Datos_Col (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.Contexto.Detalles.Datos_Col",
+          "entrada": {
+            "inDatos": {
+              "LoteDetSec": 0,
+              "LoteId": "0"
+            }
+          },
+          "lineaBase": {
+            "sdtDatos_Col": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-contexto_atributos",
+      "nombre": "Cobranzas.Integraciones.Lotes.Contexto_Atributos (datos de GENERALES.gntItfRegistro)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.Contexto_Atributos",
+          "entrada": {
+            "Contexto": "LOTE_CABECERA"
+          },
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Id de lote",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Sentido",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Sentido",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Id de origen",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.IdOrigen",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Estado",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Id de entidad recaudadora",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.RecId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Entidad recaudadora: Canal/Rol",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.RecCanalRol",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Hash",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Hash",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Identificador de lote",
+                "TipoDato": "CHAR",
+                "Uso": "TOD",
+                "Id": "Cabecera.Identificador",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Fecha",
+                "TipoDato": "DATE",
+                "Uso": "TOD",
+                "Id": "Cabecera.Fecha",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Fecha de corte",
+                "TipoDato": "DATE",
+                "Uso": "TOD",
+                "Id": "Cabecera.FechaCorte",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Fecha de proceso",
+                "TipoDato": "DATE",
+                "Uso": "TOD",
+                "Id": "Cabecera.FechaProceso",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Id de interfase",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.ItfId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Blob Id",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.BlobId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cantidad de registros",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.CantRegistros",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Importe total",
+                "TipoDato": "NUM",
+                "Uso": "TOD",
+                "Id": "Cabecera.ImporteTotal",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-contexto_atributos-vacia",
+      "nombre": "Cobranzas.Integraciones.Lotes.Contexto_Atributos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.Contexto_Atributos",
+          "entrada": {
+            "Contexto": ""
+          },
+          "lineaBase": {
+            "Atributos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-dpatributos",
+      "nombre": "Cobranzas.Integraciones.Lotes.dpAtributos (datos de GENERALES.gntItfRegistro)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.dpAtributos",
+          "entrada": {
+            "Contexto": "LOTE_CABECERA"
+          },
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "Cabecera.Id",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Id de lote"
+              },
+              {
+                "IdChar": "Cabecera.Tipo",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Tipo"
+              },
+              {
+                "IdChar": "Cabecera.Nombre",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Nombre"
+              },
+              {
+                "IdChar": "Cabecera.Sentido",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Sentido"
+              },
+              {
+                "IdChar": "Cabecera.IdOrigen",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Id de origen"
+              },
+              {
+                "IdChar": "Cabecera.Estado",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Estado"
+              },
+              {
+                "IdChar": "Cabecera.RecId",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Id de entidad recaudadora"
+              },
+              {
+                "IdChar": "Cabecera.RecCanalRol",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Entidad recaudadora: Canal/Rol"
+              },
+              {
+                "IdChar": "Cabecera.Hash",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Hash"
+              },
+              {
+                "IdChar": "Cabecera.Identificador",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Identificador de lote"
+              },
+              {
+                "IdChar": "Cabecera.Fecha",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Fecha"
+              },
+              {
+                "IdChar": "Cabecera.FechaCorte",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Fecha de corte"
+              },
+              {
+                "IdChar": "Cabecera.FechaProceso",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Fecha de proceso"
+              },
+              {
+                "IdChar": "Cabecera.ItfId",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Id de interfase"
+              },
+              {
+                "IdChar": "Cabecera.BlobId",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Blob Id"
+              },
+              {
+                "IdChar": "Cabecera.CantRegistros",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Cantidad de registros"
+              },
+              {
+                "IdChar": "Cabecera.ImporteTotal",
+                "IdNum": "0",
+                "Adicional": "",
+                "Descripcion": "Importe total"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-dpatributos-vacia",
+      "nombre": "Cobranzas.Integraciones.Lotes.dpAtributos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Integraciones.Lotes.dpAtributos",
+          "entrada": {
+            "Contexto": ""
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    }
+  ]
+}

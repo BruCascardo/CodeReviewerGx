@@ -1,0 +1,1228 @@
+{
+  "nombre": "Auto - Sistema.Comprobantes",
+  "kb": "Sistema",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "sistema-comprobantes-arreglospendientes",
+      "nombre": "Sistema.Comprobantes.ArreglosPendientes (datos de SISTEMA.sihCompFiscalAsociado)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.ArreglosPendientes",
+          "entrada": {
+            "PuntoVenta": 11
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-asociado-get",
+      "nombre": "Sistema.Comprobantes.Asociado.Get (datos de SISTEMA.sihCompFiscalAsociado)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Asociado.Get",
+          "entrada": {
+            "inGet": {
+              "CompIdAsoc": "93789",
+              "CompId": "93790"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompIdAsoc": "93789",
+              "CompAsocEmiCUIT": "",
+              "CompAsocNumero": 0,
+              "CompAsocPuntoVenta": 11,
+              "CompTipoId": 10,
+              "CompId": "93790",
+              "CompAsocFecha": "2026-07-02"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-asociado-get-vacia",
+      "nombre": "Sistema.Comprobantes.Asociado.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Asociado.Get",
+          "entrada": {
+            "inGet": {
+              "CompIdAsoc": "0",
+              "CompId": "0"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompIdAsoc": "0",
+              "CompAsocEmiCUIT": "",
+              "Errores": [
+                {
+                  "Mensaje": "No existe comprobante asociado",
+                  "Id": 0
+                }
+              ],
+              "CompAsocNumero": 0,
+              "CompAsocPuntoVenta": 0,
+              "CompTipoId": 0,
+              "CompId": "0",
+              "CompAsocFecha": "0000-00-00"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-asociado-lista",
+      "nombre": "Sistema.Comprobantes.Asociado.Lista (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Asociado.Lista",
+          "entrada": {
+            "inLista": {
+              "CompId": "1"
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-comprobante_buscar",
+      "nombre": "Sistema.Comprobantes.Comprobante_Buscar (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Comprobante_Buscar",
+          "entrada": {
+            "inBuscar": {
+              "CompFechaEmision": "2023-12-05",
+              "CompTipoId": 1,
+              "CompRecPerId": 18175,
+              "CompEmiPerId": 1820365
+            }
+          },
+          "lineaBase": {
+            "outBuscar": {
+              "Comprobantes": [
+                {
+                  "CompCAEFechaVencimiento": "2023-12-15",
+                  "CompTipoAFIP": "001",
+                  "CompPuntoVenta": 4,
+                  "CompId": "1",
+                  "CompTotal": "129574.37",
+                  "CompUsrUpd": "",
+                  "CompCAINumero": "0",
+                  "CompNumero": 4615,
+                  "CompFechaDesde": "0000-00-00",
+                  "CompFechaVencPago": "2023-12-10",
+                  "CompUsrIns": "admin",
+                  "CompCAENumero": "73493393991723",
+                  "CompTipoLetra": "A",
+                  "CompBlobId": "0",
+                  "ComprobanteDetalle": [
+                    {
+                      "CompDetSec": 1,
+                      "CompDetDateUpd": "0000-00-00T00:00:00",
+                      "CompDetUsrIns": "admin",
+                      "CompDetUsrUpd": "",
+                      "CompDetBonifPorcentaje": 0,
+                      "CompDetDescripcion": "Comisiones 11-2023",
+                      "CompDetSubtotal": "106645.57",
+                      "CompDetDateIns": "2024-05-28T16:03:54",
+                      "CompDetCantidad": 1,
+                      "CompDetUnidadMedida": "U",
+                      "CompDetCodigo": "c",
+                      "CompDetPrecioUnitario": "106645.57",
+                      "CompDetBonifImporte": "0.00"
+                    }
+                  ],
+                  "CompDateIns": "2024-05-28T16:03:54",
+                  "CompReferencia": "",
+                  "CompTipoId": 1,
+                  "CompRecPerId": 18175,
+                  "CompCAIFechaVencimiento": "0000-00-00",
+                  "CompImpuestos": "22395.57",
+                  "CompFechaHasta": "0000-00-00",
+                  "CompDateUpd": "0000-00-00T00:00:00",
+                  "CompFechaEmision": "2023-12-05",
+                  "CompPlaId": "0d716110-df6c-45cb-b25d-fe8b88ab8426",
+                  "CompSubtotal": "106645.57",
+                  "CompRecCondIVA": 1,
+                  "CompEmiPerId": 1820365
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-comprobante_get",
+      "nombre": "Sistema.Comprobantes.Comprobante_Get (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Comprobante_Get",
+          "entrada": {
+            "inGet": {
+              "Parametros": {
+                "Impuestos": false,
+                "Observaciones": false,
+                "Asociados": false
+              },
+              "CompId": "1"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompCAEFechaVencimiento": "2023-12-15",
+              "CompCAEFechaProceso": "0000-00-00T00:00:00",
+              "CompTipoAFIP": "001",
+              "CompPuntoVenta": 4,
+              "CompId": "1",
+              "CompTotal": "129574.37",
+              "CompUsrUpd": "",
+              "CompCAINumero": "0",
+              "CompNumero": 4615,
+              "CompFechaDesde": "0000-00-00",
+              "CompCantMisMonExt": "",
+              "CompFechaVencPago": "2023-12-10",
+              "CompUsrIns": "admin",
+              "CompEmiCUIT": "",
+              "CompCAENumero": "73493393991723",
+              "CompConcepto": 0,
+              "CompTipoLetra": "A",
+              "CompRecPerDocNumero": "",
+              "CompBlobId": "0",
+              "CompOtrosConceptos": "0.00",
+              "ComprobanteDetalle": [
+                {
+                  "CompDetSec": 1,
+                  "CompDetDateUpd": "0000-00-00T00:00:00",
+                  "CompDetUsrIns": "admin",
+                  "CompDetUsrUpd": "",
+                  "CompDetBonifPorcentaje": 0,
+                  "CompDetDescripcion": "Comisiones 11-2023",
+                  "CompDetSubtotal": "106645.57",
+                  "CompDetDateIns": "2024-05-28T16:03:54",
+                  "CompDetCantidad": 1,
+                  "CompDetUnidadMedida": "U",
+                  "CompDetCodigo": "c",
+                  "CompDetPrecioUnitario": "106645.57",
+                  "CompDetBonifImporte": "0.00"
+                }
+              ],
+              "CompMonCotizacion": 0,
+              "CompEmiActividadId": 0,
+              "CompDateIns": "2024-05-28T16:03:54",
+              "CompReferencia": "",
+              "CompTipoId": 1,
+              "CompRecPerId": 18175,
+              "CompCAIFechaVencimiento": "0000-00-00",
+              "CompImpuestos": "22395.57",
+              "CompFechaHasta": "0000-00-00",
+              "CompEstado": "",
+              "CompDateUpd": "0000-00-00T00:00:00",
+              "CompFechaEmision": "2023-12-05",
+              "CompPlaId": "0d716110-df6c-45cb-b25d-fe8b88ab8426",
+              "CompSubtotal": "106645.57",
+              "CompMonId": "",
+              "CompRecPerDocTipoId": 0,
+              "CompOrigen": "",
+              "CompRecCondIVA": 1,
+              "CompEmiPerId": 1820365
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-comprobante_get-vacia",
+      "nombre": "Sistema.Comprobantes.Comprobante_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Comprobante_Get",
+          "entrada": {
+            "inGet": {
+              "Parametros": {
+                "Impuestos": false,
+                "Observaciones": false,
+                "Asociados": false
+              },
+              "CompId": "0"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompCAEFechaVencimiento": "0000-00-00",
+              "CompCAEFechaProceso": "0000-00-00T00:00:00",
+              "CompTipoAFIP": "",
+              "CompPuntoVenta": 0,
+              "Errores": [
+                {
+                  "Mensaje": "No existe comprobante",
+                  "Id": 0
+                }
+              ],
+              "CompId": "0",
+              "CompTotal": "0.00",
+              "CompUsrUpd": "",
+              "CompCAINumero": "0",
+              "CompNumero": 0,
+              "CompFechaDesde": "0000-00-00",
+              "CompCantMisMonExt": "",
+              "CompFechaVencPago": "0000-00-00",
+              "CompUsrIns": "",
+              "CompEmiCUIT": "",
+              "CompCAENumero": "0",
+              "CompConcepto": 0,
+              "CompTipoLetra": "",
+              "CompRecPerDocNumero": "",
+              "CompBlobId": "0",
+              "CompOtrosConceptos": "0.00",
+              "CompMonCotizacion": 0,
+              "CompEmiActividadId": 0,
+              "CompDateIns": "0000-00-00T00:00:00",
+              "CompReferencia": "",
+              "CompTipoId": 0,
+              "CompRecPerId": 0,
+              "CompCAIFechaVencimiento": "0000-00-00",
+              "CompImpuestos": "0.00",
+              "CompFechaHasta": "0000-00-00",
+              "CompEstado": "",
+              "CompDateUpd": "0000-00-00T00:00:00",
+              "CompFechaEmision": "0000-00-00",
+              "CompPlaId": "",
+              "CompSubtotal": "0.00",
+              "CompMonId": "",
+              "CompRecPerDocTipoId": 0,
+              "CompOrigen": "",
+              "CompRecCondIVA": 0,
+              "CompEmiPerId": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-creararca_validar",
+      "nombre": "Sistema.Comprobantes.CrearARCA_Validar (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.CrearARCA_Validar",
+          "entrada": {
+            "inCrearARCA": {
+              "CompConcepto": 2,
+              "CompRecPerDocNumero": "20269121700",
+              "CompPuntoVenta": 4,
+              "CompMonCotizacion": 1,
+              "CompEmiActividadId": 651220,
+              "Impuestos": [
+                {
+                  "CompImpId": 0,
+                  "CompImpTipo": "",
+                  "CompImpAlicuota": 0,
+                  "CompImpBaseImponible": "0.00",
+                  "CompImpDescripcion": "",
+                  "CompImpImporte": "0.00"
+                }
+              ],
+              "ComprobantesAsociados": [
+                {
+                  "CompIdAsoc": "0",
+                  "CompAsocEmiCUIT": "",
+                  "CompAsocNumero": 0,
+                  "CompAsocPuntoVenta": 0,
+                  "CompAsocFecha": "0000-00-00"
+                }
+              ],
+              "CompTipoId": 8,
+              "CompRecPerId": 310796,
+              "CompFechaHasta": "2026-08-19",
+              "CompNumero": 1,
+              "CompFechaDesde": "2026-04-19",
+              "CompCantMisMonExt": "N",
+              "CompFechaEmision": "2026-05-29",
+              "CompMonId": "PES",
+              "CompFechaVencPago": "2026-04-19",
+              "CompRecPerDocTipoId": 80,
+              "CompOrigen": "INT",
+              "Detalles": [
+                {
+                  "CompDetUnidadMedida": "",
+                  "CompDetCodigo": "",
+                  "CompDetPrecioUnitario": "0.00",
+                  "CompDetBonifPorcentaje": 0,
+                  "CompDetDescripcion": "",
+                  "CompDetSubtotal": "0.00",
+                  "CompDetCantidad": 0,
+                  "CompDetBonifImporte": "0.00"
+                }
+              ],
+              "CompRecCondIVA": 5
+            }
+          },
+          "lineaBase": {
+            "sdtError": {
+              "Mensaje": "",
+              "Id": 0
+            },
+            "Ok": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-creararca_validar-vacia",
+      "nombre": "Sistema.Comprobantes.CrearARCA_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.CrearARCA_Validar",
+          "entrada": {
+            "inCrearARCA": {
+              "CompConcepto": 0,
+              "CompRecPerDocNumero": "",
+              "CompPuntoVenta": 0,
+              "CompMonCotizacion": 0,
+              "CompEmiActividadId": 0,
+              "Impuestos": [
+                {
+                  "CompImpId": 0,
+                  "CompImpTipo": "",
+                  "CompImpAlicuota": 0,
+                  "CompImpBaseImponible": "0.00",
+                  "CompImpDescripcion": "",
+                  "CompImpImporte": "0.00"
+                }
+              ],
+              "ComprobantesAsociados": [
+                {
+                  "CompIdAsoc": "0",
+                  "CompAsocEmiCUIT": "",
+                  "CompAsocNumero": 0,
+                  "CompAsocPuntoVenta": 0,
+                  "CompAsocFecha": "0000-00-00"
+                }
+              ],
+              "CompTipoId": 0,
+              "CompRecPerId": 0,
+              "CompFechaHasta": "0000-00-00",
+              "CompNumero": 0,
+              "CompFechaDesde": "0000-00-00",
+              "CompCantMisMonExt": "",
+              "CompFechaEmision": "0000-00-00",
+              "CompMonId": "",
+              "CompFechaVencPago": "0000-00-00",
+              "CompRecPerDocTipoId": 0,
+              "CompOrigen": "",
+              "Detalles": [
+                {
+                  "CompDetUnidadMedida": "",
+                  "CompDetCodigo": "",
+                  "CompDetPrecioUnitario": "0.00",
+                  "CompDetBonifPorcentaje": 0,
+                  "CompDetDescripcion": "",
+                  "CompDetSubtotal": "0.00",
+                  "CompDetCantidad": 0,
+                  "CompDetBonifImporte": "0.00"
+                }
+              ],
+              "CompRecCondIVA": 0
+            }
+          },
+          "lineaBase": {
+            "sdtError": {
+              "Mensaje": "El tipo de comprobante no existe, o no tiene identificador de AFIP.",
+              "Id": 400
+            },
+            "Ok": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-detalle-get",
+      "nombre": "Sistema.Comprobantes.Detalle.Get (datos de SISTEMA.sihCompFiscalDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Detalle.Get",
+          "entrada": {
+            "inGet": {
+              "CompDetSec": 1,
+              "CompId": "1"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompDetSec": 1,
+              "CompDetUnidadMedida": "U",
+              "CompDetCodigo": "c",
+              "CompDetPrecioUnitario": "106645.57",
+              "CompDetBonifPorcentaje": 0,
+              "CompDetDescripcion": "Comisiones 11-2023",
+              "CompDetSubtotal": "106645.57",
+              "CompId": "1",
+              "CompDetCantidad": 1,
+              "CompDetBonifImporte": "0.00"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-detalle-get-vacia",
+      "nombre": "Sistema.Comprobantes.Detalle.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Detalle.Get",
+          "entrada": {
+            "inGet": {
+              "CompDetSec": 0,
+              "CompId": "0"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompDetSec": 0,
+              "CompDetUnidadMedida": "",
+              "CompDetCodigo": "",
+              "CompDetPrecioUnitario": "0.00",
+              "Errores": [
+                {
+                  "Mensaje": "No existe detalle",
+                  "Id": 0
+                }
+              ],
+              "CompDetBonifPorcentaje": 0,
+              "CompDetDescripcion": "",
+              "CompDetSubtotal": "0.00",
+              "CompId": "0",
+              "CompDetCantidad": 0,
+              "CompDetBonifImporte": "0.00"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-detalle-lista",
+      "nombre": "Sistema.Comprobantes.Detalle.Lista (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Detalle.Lista",
+          "entrada": {
+            "inLista": {
+              "CompId": "1"
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "Detalles": [
+                {
+                  "CompDetSec": 1,
+                  "CompDetUnidadMedida": "U",
+                  "CompDetCodigo": "c",
+                  "CompDetPrecioUnitario": "106645.57",
+                  "CompDetBonifPorcentaje": 0,
+                  "CompDetDescripcion": "Comisiones 11-2023",
+                  "CompDetSubtotal": "106645.57",
+                  "CompId": "1",
+                  "CompDetCantidad": 1,
+                  "CompDetBonifImporte": "0.00"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-detalle-lista-vacia",
+      "nombre": "Sistema.Comprobantes.Detalle.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Detalle.Lista",
+          "entrada": {
+            "inLista": {
+              "CompId": "0"
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-factura_buscacancelaciones",
+      "nombre": "Sistema.Comprobantes.Factura_BuscaCancelaciones (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Factura_BuscaCancelaciones",
+          "entrada": {
+            "CompId": 1,
+            "CompTipoDocumento": ""
+          },
+          "lineaBase": {
+            "ImporteCancelado": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-impuesto-get",
+      "nombre": "Sistema.Comprobantes.Impuesto.Get (datos de SISTEMA.sihCompFiscalImpuesto)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Impuesto.Get",
+          "entrada": {
+            "inGet": {
+              "CompImpSec": 1,
+              "CompId": "71285"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompImpSec": 1,
+              "ImpId": 0,
+              "CompImpId": 2,
+              "CompImpTipo": "OTR",
+              "CompImpAlicuota": 2.11,
+              "CompImpBaseImponible": "22728.98",
+              "CompImpDescripcion": "SELLADO RIESGO",
+              "CompImpImporte": "480.00",
+              "CompId": "71285"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-impuesto-get-vacia",
+      "nombre": "Sistema.Comprobantes.Impuesto.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Impuesto.Get",
+          "entrada": {
+            "inGet": {
+              "CompImpSec": 0,
+              "CompId": "0"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompImpSec": 0,
+              "ImpId": 0,
+              "CompImpId": 0,
+              "CompImpTipo": "",
+              "CompImpAlicuota": 0,
+              "CompImpBaseImponible": "0.00",
+              "CompImpDescripcion": "",
+              "Errores": [
+                {
+                  "Mensaje": "No existe impuesto",
+                  "Id": 0
+                }
+              ],
+              "CompImpImporte": "0.00",
+              "CompId": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-impuesto-lista",
+      "nombre": "Sistema.Comprobantes.Impuesto.Lista (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Impuesto.Lista",
+          "entrada": {
+            "inLista": {
+              "CompId": "1"
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-listadeevaluacion",
+      "nombre": "Sistema.Comprobantes.ListaDeEvaluacion (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.ListaDeEvaluacion",
+          "entrada": {
+            "inListaDeEvaluacion": {
+              "CompPuntoVenta": 4,
+              "CompTipoId": 1
+            }
+          },
+          "lineaBase": {
+            "outListaDeEvaluacion": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-observacion-get",
+      "nombre": "Sistema.Comprobantes.Observacion.Get (datos de SISTEMA.sihCompFiscalObservacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Observacion.Get",
+          "entrada": {
+            "inGet": {
+              "CompObsSec": 1,
+              "CompId": "71299"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompObsMensaje": "DocTipo: 80, DocNro 30716889633 - La CUIT receptora que ingresaste no existe. Tenes que emitir una Nota de Credito o anular la operacion, segun corresponda.",
+              "CompObsSec": 1,
+              "CompObsCodigo": "10238",
+              "CompObsEstado": "PEN",
+              "CompId": "71299"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-observacion-get-vacia",
+      "nombre": "Sistema.Comprobantes.Observacion.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Observacion.Get",
+          "entrada": {
+            "inGet": {
+              "CompObsSec": 0,
+              "CompId": "0"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompObsMensaje": "",
+              "Errores": [
+                {
+                  "Mensaje": "No existe observación",
+                  "Id": 0
+                }
+              ],
+              "CompObsSec": 0,
+              "CompObsCodigo": "",
+              "CompObsEstado": "",
+              "CompId": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-observacion-lista",
+      "nombre": "Sistema.Comprobantes.Observacion.Lista (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Observacion.Lista",
+          "entrada": {
+            "inLista": {
+              "CompId": "1"
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-tipos-compfiscaltipoparser_ultorden",
+      "nombre": "Sistema.Comprobantes.Tipos.CompFiscalTipoParser_UltOrden (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Tipos.CompFiscalTipoParser_UltOrden",
+          "entrada": {},
+          "lineaBase": {
+            "MayorOrdenLista": 13
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-tipos-comprobantetipo_buscar",
+      "nombre": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Buscar (datos de SISTEMA.sitCompFiscalTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Buscar",
+          "entrada": {
+            "inBuscar": {
+              "CompTipoLetra": "A",
+              "CompTipoDocumento": "FAC"
+            }
+          },
+          "lineaBase": {
+            "outBuscar": {
+              "CompTipoParserSugerido": "ojgjvyqgfdcu",
+              "CompTipoLetra": "A",
+              "CompTipoMiPyme": false,
+              "CompTipoAFIP": "001",
+              "CompTipoDocumento": "FAC ",
+              "CompTipoDateIns": "2024-05-28T10:20:56",
+              "CompTipoId": 1,
+              "CompTipoDateUpd": "2026-05-05T15:25:33",
+              "CompTipoParserOrden": 1,
+              "CompTipoNombre": "FACTURA A",
+              "CompTipoUsrIns": "admin",
+              "CompTipoOperacion": "CRE",
+              "CompTipoNombreCorto": "FAC A",
+              "CompTipoUsrUpd": "admin"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-tipos-comprobantetipo_buscar-vacia",
+      "nombre": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Buscar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Buscar",
+          "entrada": {
+            "inBuscar": {
+              "CompTipoLetra": "",
+              "CompTipoDocumento": ""
+            }
+          },
+          "lineaBase": {
+            "outBuscar": {
+              "CompTipoParserSugerido": "",
+              "CompTipoLetra": "",
+              "CompTipoMiPyme": false,
+              "CompTipoAFIP": "",
+              "Errores": [
+                {
+                  "Mensaje": "No existe comprobante",
+                  "Id": 0
+                }
+              ],
+              "CompTipoDocumento": "",
+              "CompTipoDateIns": "0000-00-00T00:00:00",
+              "CompTipoId": 0,
+              "CompTipoDateUpd": "0000-00-00T00:00:00",
+              "CompTipoParserOrden": 0,
+              "CompTipoNombre": "",
+              "CompTipoUsrIns": "",
+              "CompTipoOperacion": "",
+              "CompTipoNombreCorto": "",
+              "CompTipoUsrUpd": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-tipos-comprobantetipo_get",
+      "nombre": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Get (datos de SISTEMA.sitCompFiscalTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Get",
+          "entrada": {
+            "inGet": {
+              "CompTipoId": 1
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompTipoParserSugerido": "ojgjvyqgfdcu",
+              "CompTipoLetra": "A",
+              "CompTipoMiPyme": false,
+              "CompTipoAFIP": "001",
+              "CompTipoDocumento": "FAC ",
+              "CompTipoDateIns": "2024-05-28T10:20:56",
+              "CompTipoId": 1,
+              "CompTipoDateUpd": "2026-05-05T15:25:33",
+              "CompTipoParserOrden": 1,
+              "CompTipoNombre": "FACTURA A",
+              "CompTipoUsrIns": "admin",
+              "CompTipoOperacion": "CRE",
+              "CompTipoNombreCorto": "FAC A",
+              "CompTipoUsrUpd": "admin"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-tipos-comprobantetipo_get-vacia",
+      "nombre": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Get",
+          "entrada": {
+            "inGet": {
+              "CompTipoId": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "CompTipoParserSugerido": "",
+              "CompTipoLetra": "",
+              "CompTipoMiPyme": false,
+              "CompTipoAFIP": "",
+              "Errores": [
+                {
+                  "Mensaje": "No existe comprobante",
+                  "Id": 0
+                }
+              ],
+              "CompTipoDocumento": "",
+              "CompTipoDateIns": "0000-00-00T00:00:00",
+              "CompTipoId": 0,
+              "CompTipoDateUpd": "0000-00-00T00:00:00",
+              "CompTipoParserOrden": 0,
+              "CompTipoNombre": "",
+              "CompTipoUsrIns": "",
+              "CompTipoOperacion": "",
+              "CompTipoNombreCorto": "",
+              "CompTipoUsrUpd": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-tipos-comprobantetipo_lista",
+      "nombre": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Comprobantes.Tipos.ComprobanteTipo_Lista",
+          "entrada": {},
+          "lineaBase": {
+            "outLista": {
+              "Comprobantes": [
+                {
+                  "CompTipoParserSugerido": "ojgjvyqgfdcu",
+                  "CompTipoLetra": "A",
+                  "CompTipoMiPyme": false,
+                  "CompTipoAFIP": "001",
+                  "CompTipoDocumento": "FAC ",
+                  "CompTipoDateIns": "2024-05-28T10:20:56",
+                  "CompTipoId": 1,
+                  "CompTipoDateUpd": "2026-05-05T15:25:33",
+                  "CompTipoParserOrden": 1,
+                  "CompTipoOrden": 1,
+                  "CompTipoNombre": "FACTURA A",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "CRE",
+                  "CompTipoNombreCorto": "FAC A",
+                  "CompTipoUsrUpd": "admin"
+                },
+                {
+                  "CompTipoParserSugerido": "albcxhedjrxn",
+                  "CompTipoLetra": "A",
+                  "CompTipoMiPyme": false,
+                  "CompTipoAFIP": "004",
+                  "CompTipoDocumento": "REC ",
+                  "CompTipoDateIns": "2024-05-28T10:23:23",
+                  "CompTipoId": 2,
+                  "CompTipoDateUpd": "2026-04-24T15:33:47",
+                  "CompTipoParserOrden": 4,
+                  "CompTipoOrden": 2,
+                  "CompTipoNombre": "RECIBO A",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "CRE",
+                  "CompTipoNombreCorto": "REC A",
+                  "CompTipoUsrUpd": "fcp"
+                },
+                {
+                  "CompTipoParserSugerido": "agfhjqfrrvub",
+                  "CompTipoLetra": "C",
+                  "CompTipoMiPyme": false,
+                  "CompTipoAFIP": "011",
+                  "CompTipoDocumento": "FAC ",
+                  "CompTipoDateIns": "2024-06-11T12:34:21",
+                  "CompTipoId": 3,
+                  "CompTipoDateUpd": "2026-04-24T15:33:49",
+                  "CompTipoParserOrden": 5,
+                  "CompTipoOrden": 3,
+                  "CompTipoNombre": "FACTURA C",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "CRE",
+                  "CompTipoNombreCorto": "FAC C",
+                  "CompTipoUsrUpd": "fcp"
+                },
+                {
+                  "CompTipoParserSugerido": "blzeprfixkcj",
+                  "CompTipoLetra": "C",
+                  "CompTipoMiPyme": false,
+                  "CompTipoAFIP": "015",
+                  "CompTipoDocumento": "REC ",
+                  "CompTipoDateIns": "2024-06-11T12:36:44",
+                  "CompTipoId": 4,
+                  "CompTipoDateUpd": "2026-04-24T15:33:52",
+                  "CompTipoParserOrden": 9,
+                  "CompTipoOrden": 4,
+                  "CompTipoNombre": "RECIBO C",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "CRE",
+                  "CompTipoNombreCorto": "REC C",
+                  "CompTipoUsrUpd": "fcp"
+                },
+                {
+                  "CompTipoParserSugerido": "hfulrvinegmj",
+                  "CompTipoLetra": "A",
+                  "CompTipoMiPyme": true,
+                  "CompTipoAFIP": "201",
+                  "CompTipoDocumento": "FAC ",
+                  "CompTipoDateIns": "2024-06-11T12:38:15",
+                  "CompTipoId": 5,
+                  "CompTipoDateUpd": "2026-04-24T15:33:40",
+                  "CompTipoParserOrden": 2,
+                  "CompTipoOrden": 5,
+                  "CompTipoNombre": "FACTURA DE CRÉDITO ELECTRÓNICA MiPyMEs (FCE) A",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "CRE",
+                  "CompTipoNombreCorto": "FAC A MP",
+                  "CompTipoUsrUpd": "fcp"
+                },
+                {
+                  "CompTipoParserSugerido": "yrbkggepjqat",
+                  "CompTipoLetra": "M",
+                  "CompTipoMiPyme": false,
+                  "CompTipoAFIP": "051",
+                  "CompTipoDocumento": "FAC ",
+                  "CompTipoDateIns": "2024-06-11T12:39:31",
+                  "CompTipoId": 6,
+                  "CompTipoDateUpd": "2026-05-05T15:25:41",
+                  "CompTipoParserOrden": 10,
+                  "CompTipoOrden": 6,
+                  "CompTipoNombre": "FACTURA M",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "CRE",
+                  "CompTipoNombreCorto": "FAC M",
+                  "CompTipoUsrUpd": "admin"
+                },
+                {
+                  "CompTipoParserSugerido": "fqnsikmbgnlq",
+                  "CompTipoLetra": "C",
+                  "CompTipoMiPyme": true,
+                  "CompTipoAFIP": "211",
+                  "CompTipoDocumento": "FAC ",
+                  "CompTipoDateIns": "2024-08-07T11:22:48",
+                  "CompTipoId": 7,
+                  "CompTipoDateUpd": "2026-04-24T15:33:50",
+                  "CompTipoParserOrden": 8,
+                  "CompTipoOrden": 7,
+                  "CompTipoNombre": "FACTURA DE CRÉDITO ELECTRÓNICA MiPyMEs (FCE) C",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "CRE",
+                  "CompTipoNombreCorto": "FAC C MP",
+                  "CompTipoUsrUpd": "fcp"
+                },
+                {
+                  "CompTipoParserSugerido": "",
+                  "CompTipoLetra": "B",
+                  "CompTipoMiPyme": false,
+                  "CompTipoAFIP": "006",
+                  "CompTipoDocumento": "FAC ",
+                  "CompTipoDateIns": "2026-05-05T15:22:31",
+                  "CompTipoId": 8,
+                  "CompTipoDateUpd": "0000-00-00T00:00:00",
+                  "CompTipoParserOrden": 11,
+                  "CompTipoOrden": 0,
+                  "CompTipoNombre": "FACTURA B",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "CRE",
+                  "CompTipoNombreCorto": "FAB B",
+                  "CompTipoUsrUpd": ""
+                },
+                {
+                  "CompTipoParserSugerido": "",
+                  "CompTipoLetra": "A",
+                  "CompTipoMiPyme": false,
+                  "CompTipoAFIP": "003",
+                  "CompTipoDocumento": "NC  ",
+                  "CompTipoDateIns": "2026-05-14T15:22:57",
+                  "CompTipoId": 9,
+                  "CompTipoDateUpd": "0000-00-00T00:00:00",
+                  "CompTipoParserOrden": 12,
+                  "CompTipoOrden": 0,
+                  "CompTipoNombre": "NOTA DE CREDITO A",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "DEB",
+                  "CompTipoNombreCorto": "NC A",
+                  "CompTipoUsrUpd": ""
+                },
+                {
+                  "CompTipoParserSugerido": "",
+                  "CompTipoLetra": "B",
+                  "CompTipoMiPyme": false,
+                  "CompTipoAFIP": "008",
+                  "CompTipoDocumento": "NC  ",
+                  "CompTipoDateIns": "2026-05-14T15:23:46",
+                  "CompTipoId": 10,
+                  "CompTipoDateUpd": "0000-00-00T00:00:00",
+                  "CompTipoParserOrden": 13,
+                  "CompTipoOrden": 0,
+                  "CompTipoNombre": "NOTA DE CREDITO B",
+                  "CompTipoUsrIns": "admin",
+                  "CompTipoOperacion": "CRE",
+                  "CompTipoNombreCorto": "NC B",
+                  "CompTipoUsrUpd": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

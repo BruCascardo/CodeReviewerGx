@@ -1,0 +1,1067 @@
+{
+  "nombre": "Auto - Asegurados.Contexto",
+  "kb": "Asegurados",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "asegurados-contexto-contexto_atributos",
+      "nombre": "Asegurados.Contexto.Contexto_Atributos (datos de SISTEMA.sitCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Contexto_Atributos",
+          "entrada": {
+            "Contexto": "COMP"
+          },
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Poliza: Tomador - Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Poliza.Tomador.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Poliza: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Poliza.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Descripción",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Descripcion",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Vehiculo - Patente",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Patente",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Marca del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Marca.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Marca del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Marca.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Modelo del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Modelo.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Modelo del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Modelo.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: SubModelo del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.SubModelo.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: SubModelo del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.SubModelo.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Tipo de Vehículo",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Tipo.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Tipo de Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Tipo.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Uso del Vehículo",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Uso.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Uso del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Uso.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Carroceria del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Carroceria.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Carroceria del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Carroceria.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Patente",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Patente",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Chasis",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.ChasisNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Motor",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.MotorNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: 0Km",
+                "TipoDato": "BOOL",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Es0Km",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Año",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Anio",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Cantidad de puertas de Vehículo",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Puertas",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Franquicia",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Franquicia",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Ajuste Automático",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.AjusteAutomatico",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Asistencia",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Asistencia.Nombre",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-contexto_atributos-vacia",
+      "nombre": "Asegurados.Contexto.Contexto_Atributos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Contexto_Atributos",
+          "entrada": {
+            "Contexto": ""
+          },
+          "lineaBase": {
+            "Atributos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-cuit_validar-vacia",
+      "nombre": "Asegurados.Contexto.CUIT_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.CUIT_Validar",
+          "entrada": {
+            "cuitStr": ""
+          },
+          "lineaBase": {
+            "sdtError": {
+              "Mensaje": "El CUIT debe tener 11 dígitos",
+              "Id": 100
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-dpplantillas",
+      "nombre": "Asegurados.Contexto.dpPlantillas (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.dpPlantillas",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "",
+                "IdNum": "25",
+                "Descripcion": "DATOS DE POLIZA"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-dpplantillas-vacia",
+      "nombre": "Asegurados.Contexto.dpPlantillas (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.dpPlantillas",
+          "entrada": {
+            "ContextoId": ""
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-dpremitentes",
+      "nombre": "Asegurados.Contexto.dpRemitentes (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.dpRemitentes",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "",
+                "IdNum": "1",
+                "Descripcion": "NO RESPONDER CI"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "2",
+                "Descripcion": "AWS SES NO RESPONDER"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-mercadopago-atributos",
+      "nombre": "Asegurados.Contexto.MercadoPago.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.MercadoPago.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Preference: PreferenceId",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Preference.PreferenceId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: PaymentId",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.PaymentId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: OrderId",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.OrderId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: ExternalReference",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Preference.ExternalReference",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Estado",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Preference.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: UserGUID",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Preference.UserGUID",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: UserName",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Preference.UserName",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: DateIns",
+                "TipoDato": "DTIME",
+                "Uso": "PLA",
+                "Id": "Preference.DateIns",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: DateUpd",
+                "TipoDato": "DTIME",
+                "Uso": "PLA",
+                "Id": "Preference.DateUpd",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: ImporteTotal",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.ImporteTotal",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: CantidadCuotas",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.CantidadCuotas",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuotas",
+                "TipoDato": "COL",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota EmpresaId",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.EmpresaId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: SucursalId",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.SucursalId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota RamaId",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.RamaId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota PolizaNumero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.PolizaNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota OperacionNumero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.OperacionNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota ArticuloId",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.ArticuloId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota Superpoliza",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.Superpoliza",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota SuplementoNumero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.SuplementoNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota Importe",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.Importe",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Preference: Cuota Tipo",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Preference.Cuotas[0].Cuota.Tipo",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-mercadopago-datos",
+      "nombre": "Asegurados.Contexto.MercadoPago.Datos (datos de ASEGURADOS.ashMPPreference)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.MercadoPago.Datos",
+          "entrada": {
+            "PreferenceId": "1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1"
+          },
+          "lineaBase": {
+            "sdtPreference": {
+              "Preference": {
+                "Cuotas": [
+                  {
+                    "Numero": 3,
+                    "Tipo": "CUO",
+                    "SuplementoNumero": 17,
+                    "SucursalId": "CC",
+                    "Importe": "61.00",
+                    "RamaId": 22,
+                    "PolizaNumero": 10127,
+                    "OperacionNumero": 1505017,
+                    "EmpresaId": "N",
+                    "ArticuloId": 608,
+                    "Superpoliza": 1086
+                  }
+                ],
+                "UserName": "admin",
+                "ExternalReference": "PA-13",
+                "DateUpd": "2023-04-04T14:16:48",
+                "UserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "CantidadCuotas": 1,
+                "PaymentId": "0",
+                "ImporteTotal": "61.00",
+                "PreferenceId": "1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1",
+                "OrderId": "0",
+                "Estado": "CAN",
+                "DateIns": "2023-04-04T14:16:42"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-mercadopago-datos-vacia",
+      "nombre": "Asegurados.Contexto.MercadoPago.Datos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.MercadoPago.Datos",
+          "entrada": {
+            "PreferenceId": ""
+          },
+          "lineaBase": {
+            "sdtPreference": {
+              "Preference": {
+                "UserName": "",
+                "ExternalReference": "",
+                "DateUpd": "0000-00-00T00:00:00",
+                "UserGUID": "",
+                "CantidadCuotas": 0,
+                "PaymentId": "0",
+                "ImporteTotal": "0.00",
+                "PreferenceId": "",
+                "OrderId": "0",
+                "Estado": "",
+                "DateIns": "0000-00-00T00:00:00"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-plantillas_listafiltrada",
+      "nombre": "Asegurados.Contexto.Plantillas_ListaFiltrada (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Plantillas_ListaFiltrada",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "outPlantillas_ListaFinal": {
+              "Plantillas": [
+                {
+                  "Nombre": "DATOS DE POLIZA",
+                  "Tipo": "EMAIL",
+                  "AplicacionId": "ASE  ",
+                  "ContextoId": "COMP",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 25,
+                  "TextoId": "709"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-plantillas_listafiltrada-vacia",
+      "nombre": "Asegurados.Contexto.Plantillas_ListaFiltrada (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Plantillas_ListaFiltrada",
+          "entrada": {
+            "ContextoId": ""
+          },
+          "lineaBase": {
+            "outPlantillas_ListaFinal": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-poliza-atributos",
+      "nombre": "Asegurados.Contexto.Poliza.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Poliza.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Poliza: Tomador - Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Poliza.Tomador.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Poliza: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Poliza.Numero",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-poliza-componente-atributos",
+      "nombre": "Asegurados.Contexto.Poliza.Componente.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Poliza.Componente.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Poliza: Tomador - Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Poliza.Tomador.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Poliza: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Poliza.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Descripción",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Descripcion",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Vehiculo - Patente",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Patente",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Marca del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Marca.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Marca del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Marca.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Modelo del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Modelo.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Modelo del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Modelo.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: SubModelo del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.SubModelo.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: SubModelo del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.SubModelo.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Tipo de Vehículo",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Tipo.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Tipo de Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Tipo.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Uso del Vehículo",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Uso.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Uso del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Uso.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Carroceria del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Carroceria.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Carroceria del Vehículo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Carroceria.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Patente",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Patente",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Chasis",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.ChasisNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Motor",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.MotorNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: 0Km",
+                "TipoDato": "BOOL",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Es0Km",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Año",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Anio",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Cantidad de puertas de Vehículo",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Puertas",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Franquicia",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Franquicia",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Ajuste Automático",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.AjusteAutomatico",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Asistencia",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Asistencia.Nombre",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-poliza-suplemento-atributos",
+      "nombre": "Asegurados.Contexto.Poliza.Suplemento.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Poliza.Suplemento.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Poliza: Tomador - Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Poliza.Tomador.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Poliza: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Poliza.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Suplemento: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Suplemento.Numero",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-poliza-suplemento-componente-atributos",
+      "nombre": "Asegurados.Contexto.Poliza.Suplemento.Componente.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Poliza.Suplemento.Componente.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Poliza: Tomador - Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Poliza.Tomador.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Poliza: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Poliza.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Suplemento: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Suplemento.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Numero",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Componente.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Descripción",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Descripcion",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Vehiculo - Patente",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Componente.Vehiculo.Patente",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-usuario-atributos",
+      "nombre": "Asegurados.Contexto.Usuario.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Usuario.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Usuario: Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Usuario.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Email",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Usuario.Email",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Usuario",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Usuario.Usuario",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Link",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Usuario.Link",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: CodigoVerificacion",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Usuario.CodigoVerificacion",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-contexto-usuario-datos",
+      "nombre": "Asegurados.Contexto.Usuario.Datos (datos de SISTEMA.sihAccesoLog)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Contexto.Usuario.Datos",
+          "entrada": {
+            "UserGUID": "ece2aa29-e61a-41b6-999b-2478883a3a9c",
+            "Link": ""
+          },
+          "lineaBase": {
+            "sdtUsuario": {
+              "Usuario": {
+                "Nombre": ",",
+                "CodigoVerificacion": "",
+                "Email": "",
+                "Usuario": "",
+                "Link": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

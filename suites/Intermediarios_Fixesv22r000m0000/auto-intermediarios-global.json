@@ -1,0 +1,425 @@
+{
+  "nombre": "Auto - Intermediarios.Global",
+  "kb": "Intermediarios_Fixesv22r000m0000",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "intermediarios-global-codetelefono_validar-vacia",
+      "nombre": "Intermediarios.Global.codeTelefono_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.codeTelefono_Validar",
+          "entrada": {
+            "PaisISO2": "",
+            "Numero": "",
+            "Tipo": ""
+          },
+          "lineaBase": {
+            "EsValido": false,
+            "CodigoPais": 0,
+            "NumeroStandard": "",
+            "NumeroNacional": "",
+            "MensajeError": "El número  no parece ser un número de teléfono"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-fechanacimientocontrol",
+      "nombre": "Intermediarios.Global.FechaNacimientoControl (datos de COTIZACION.cthCotNomBeneficiario)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.FechaNacimientoControl",
+          "entrada": {
+            "FechaNacimiento": "1000-01-01"
+          },
+          "lineaBase": {
+            "ok": false,
+            "Mensaje": "Fecha de Nacimiento no puede ser mayor al dia de hoy."
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-fechanacimientocontrol-vacia",
+      "nombre": "Intermediarios.Global.FechaNacimientoControl (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.FechaNacimientoControl",
+          "entrada": {
+            "FechaNacimiento": ""
+          },
+          "lineaBase": {
+            "ok": true,
+            "Mensaje": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-generarrandomalfanumerico",
+      "nombre": "Intermediarios.Global.GenerarRandomAlfanumerico (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.GenerarRandomAlfanumerico",
+          "entrada": {},
+          "lineaBase": {
+            "CodigoGenerado": "2C9E1D"
+          },
+          "volatiles": [
+            "CodigoGenerado"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-llenasdtusuario",
+      "nombre": "Intermediarios.Global.LlenaSdtUsuario (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.LlenaSdtUsuario",
+          "entrada": {},
+          "lineaBase": {
+            "sdtUsuario": {
+              "UserName": "",
+              "UserGUID": "",
+              "UserAplicacion": "INT",
+              "UserEmail": "",
+              "UserFullName": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-mensajeswp_lista",
+      "nombre": "Intermediarios.Global.MensajesWP_Lista (datos de SISTEMA.sihConversacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.MensajesWP_Lista",
+          "entrada": {
+            "inMensajesWP_Lista": {
+              "Tipo": "",
+              "Texto": "",
+              "SoloPendiente": false,
+              "Entidad": "SOL"
+            }
+          },
+          "lineaBase": {
+            "sdtMensajesWP": [],
+            "sdtOutput": {
+              "Errores": [],
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-milisegundos_get",
+      "nombre": "Intermediarios.Global.Milisegundos_Get (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.Milisegundos_Get",
+          "entrada": {},
+          "lineaBase": {
+            "Milisegundos": 1791162722467
+          },
+          "volatiles": [
+            "Milisegundos"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-modificarparticipantes_lista",
+      "nombre": "Intermediarios.Global.ModificarParticipantes_Lista (datos de SISTEMA.sihConversacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.ModificarParticipantes_Lista",
+          "entrada": {
+            "CnvId": 1,
+            "Busqueda": ""
+          },
+          "lineaBase": {
+            "sdtModificarParticipantes_Lista": [
+              {
+                "Nombre": "admin ",
+                "Usuario": "admin",
+                "Tipo": "INT",
+                "Activo": true,
+                "CnvId": "1",
+                "GUID": "03c41c46-b08b-47d8-b250-8a2268f69c6d",
+                "Id": 1,
+                "FechaHoraIngreso": "2023-12-14T15:22:32",
+                "RepositoryId": 2,
+                "EsParticipante": true,
+                "RepositoryGUID": "3d6f97a2-9bd1-4fb9-9a0b-7af13b75784d"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-modificarparticipantes_lista-vacia",
+      "nombre": "Intermediarios.Global.ModificarParticipantes_Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.ModificarParticipantes_Lista",
+          "entrada": {
+            "CnvId": 0,
+            "Busqueda": ""
+          },
+          "lineaBase": {
+            "sdtModificarParticipantes_Lista": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-participantes-vacia",
+      "nombre": "Intermediarios.Global.Participantes (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.Participantes",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-persona_extraercelular",
+      "nombre": "Intermediarios.Global.Persona_ExtraerCelular (datos de COTIZACION.cttCnlPrfMedioPago)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.Persona_ExtraerCelular",
+          "entrada": {
+            "Telefonos": [
+              {
+                "Numero": "",
+                "Tipo": "",
+                "Preferente": true,
+                "PaisISO2": "",
+                "DependenciaId": 0,
+                "NumeroNacional": "",
+                "CodigoPais": 0,
+                "Id": 0
+              }
+            ]
+          },
+          "lineaBase": {
+            "Celular": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-persona_extraeremail",
+      "nombre": "Intermediarios.Global.Persona_ExtraerEmail (datos de SISTEMA.IttRemitente)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.Persona_ExtraerEmail",
+          "entrada": {
+            "Emails": [
+              {
+                "Preferente": false,
+                "DependenciaId": 0,
+                "EmailSiniestros": false,
+                "Direccion": "noresponder-ci@xiku.io",
+                "Id": 0,
+                "EmailEmision": false,
+                "EmailEgresos": false,
+                "EmailCobranzas": false
+              }
+            ]
+          },
+          "lineaBase": {
+            "DireccionEmail": "noresponder-ci@xiku.io"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-persona_extraeremail-vacia",
+      "nombre": "Intermediarios.Global.Persona_ExtraerEmail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.Persona_ExtraerEmail",
+          "entrada": {
+            "Emails": [
+              {
+                "Preferente": false,
+                "DependenciaId": 0,
+                "EmailSiniestros": false,
+                "Direccion": "",
+                "Id": 0,
+                "EmailEmision": false,
+                "EmailEgresos": false,
+                "EmailCobranzas": false
+              }
+            ]
+          },
+          "lineaBase": {
+            "DireccionEmail": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-ramadescripcion_get",
+      "nombre": "Intermediarios.Global.RamaDescripcion_Get (datos de SERVICIOS.svtRamaParte)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.RamaDescripcion_Get",
+          "entrada": {
+            "outLista": {
+              "Ramas": [
+                {
+                  "Nombre": "",
+                  "ClassSD": "",
+                  "Equivalente": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "Id": 0,
+                  "ClassSDUnicode": ""
+                }
+              ],
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ]
+            },
+            "RamaId": 1
+          },
+          "lineaBase": {
+            "Descripcion": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-ramadescripcion_get-vacia",
+      "nombre": "Intermediarios.Global.RamaDescripcion_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Global.RamaDescripcion_Get",
+          "entrada": {
+            "outLista": {
+              "Ramas": [
+                {
+                  "Nombre": "",
+                  "ClassSD": "",
+                  "Equivalente": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "Id": 0,
+                  "ClassSDUnicode": ""
+                }
+              ],
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ]
+            },
+            "RamaId": 0
+          },
+          "lineaBase": {
+            "Descripcion": "0 - "
+          }
+        }
+      ]
+    }
+  ]
+}

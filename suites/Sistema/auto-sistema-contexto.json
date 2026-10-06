@@ -1,0 +1,1403 @@
+{
+  "nombre": "Auto - Sistema.Contexto",
+  "kb": "Sistema",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "sistema-contexto-caso-atributos",
+      "nombre": "Sistema.Contexto.Caso.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Caso.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Caso: Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: BandejaId",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.BandejaId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Descripción",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Descripcion",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: AplicacionId",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.AplicacionId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Link",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Link",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: UserGUID",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.UserGUID",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: UserName",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.UserName",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Usuario Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.UserNombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Key",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Key",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Estado",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: ConversacionId",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.ConversacionId",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-caso-conversacion-atributos",
+      "nombre": "Sistema.Contexto.Caso.Conversacion.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Caso.Conversacion.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Caso: Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: BandejaId",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.BandejaId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Descripción",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Descripcion",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: AplicacionId",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.AplicacionId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Link",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Link",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: UserGUID",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.UserGUID",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: UserName",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.UserName",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Usuario Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.UserNombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Key",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Key",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Estado",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: ConversacionId",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.ConversacionId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Conversacion: Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Conversacion",
+                "Id": "Conversacion.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Conversacion: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Conversacion",
+                "Id": "Conversacion.Tipo",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-caso-conversacion-mensaje-atributos",
+      "nombre": "Sistema.Contexto.Caso.Conversacion.Mensaje.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Caso.Conversacion.Mensaje.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Caso: Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: BandejaId",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.BandejaId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Descripción",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Descripcion",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: AplicacionId",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.AplicacionId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Link",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Link",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: UserGUID",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.UserGUID",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: UserName",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.UserName",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Usuario Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.UserNombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Key",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Key",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: Estado",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Caso: ConversacionId",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Caso",
+                "Id": "Caso.ConversacionId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Conversacion: Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Conversacion",
+                "Id": "Conversacion.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Conversacion: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Conversacion",
+                "Id": "Conversacion.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mensaje: Secuencial",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Mensaje",
+                "Id": "Mensaje.Secuencial",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mensaje: Texto",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Mensaje",
+                "Id": "Mensaje.Texto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mensaje: Fecha/hora",
+                "TipoDato": "DTIME",
+                "Uso": "AMB",
+                "Grupo": "Mensaje",
+                "Id": "Mensaje.FechaHora",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mensaje: Origen",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Mensaje",
+                "Id": "Mensaje.Origen",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mensaje: BlobId",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Mensaje",
+                "Id": "Mensaje.BlobId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mensaje: Emisor",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Mensaje",
+                "Id": "Mensaje.EmisorId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mensaje: Citado",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Mensaje",
+                "Id": "Mensaje.CitadoId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Emisor: Nombre",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Emisor",
+                "Id": "Mensaje.Emisor.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Emisor: Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Emisor",
+                "Id": "Mensaje.Emisor.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Emisor: Usuario",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Emisor",
+                "Id": "Mensaje.Emisor.Usuario",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Emisor: GUID",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Emisor",
+                "Id": "Mensaje.Emisor.UserGUID",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Emisor: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Emisor",
+                "Id": "Mensaje.Emisor.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Emisor: Repositorio ID",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Emisor",
+                "Id": "Mensaje.Emisor.RepositorioId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Emisor: Repositorio GUID",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Emisor",
+                "Id": "Mensaje.Emisor.RepositorioGUID",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Emisor: Fecha/hora ingreso",
+                "TipoDato": "DTIME",
+                "Uso": "AMB",
+                "Grupo": "Emisor",
+                "Id": "Mensaje.Emisor.FechaHoraIngreso",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Emisor: Activo",
+                "TipoDato": "BOOL",
+                "Uso": "AMB",
+                "Grupo": "Emisor",
+                "Id": "Mensaje.Emisor.Activo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Citado: Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Citado",
+                "Id": "Mensaje.Citado.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Citado: Texto",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Citado",
+                "Id": "Mensaje.Citado.Texto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Citado: Fecha/hora",
+                "TipoDato": "DTIME",
+                "Uso": "AMB",
+                "Grupo": "Citado",
+                "Id": "Mensaje.Citado.FechaHora",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Citado: Origen",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Citado",
+                "Id": "Mensaje.Citado.Origen",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Citado: Emisor",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Citado",
+                "Id": "Mensaje.Citado.Emisor",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Citado: Citado",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Citado",
+                "Id": "Mensaje.Citado.Citado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Citado: Blob id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Citado",
+                "Id": "Mensaje.Citado.BlobId",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-caso-conversacion-mensaje-mencion-atributos",
+      "nombre": "Sistema.Contexto.Caso.Conversacion.Mensaje.Mencion.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Caso.Conversacion.Mensaje.Mencion.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Conversacion: Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Conversacion",
+                "Id": "Conversacion.CnvId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mensaje: Secuencial",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Mensaje",
+                "Id": "Mensaje.CnvMsjSec",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mencion: Participante",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Mensaje",
+                "Id": "Mencion.CnvPartMencionado",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-codefreemarker-vacia",
+      "nombre": "Sistema.Contexto.codeFreeMarker (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.codeFreeMarker",
+          "entrada": {
+            "inFreeMarker": {
+              "Plantilla": "",
+              "Data": ""
+            }
+          },
+          "lineaBase": {
+            "outFreeMarker": {
+              "Resultado": "",
+              "Error": {
+                "Mensaje": "",
+                "Fila": 0,
+                "Columna": 0
+              },
+              "OK": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-comunes-atributos",
+      "nombre": "Sistema.Contexto.Comunes.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Comunes.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Comunes: Logo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "Comunes",
+                "Id": "Comunes.Logo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Comunes: Firma",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "Comunes",
+                "Id": "Comunes.Firma",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Comunes: Path",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "Comunes",
+                "Id": "Comunes.Path",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Comunes: URL de Recursos",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "Comunes",
+                "Id": "Comunes.URL",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-condiciones-condicion_get",
+      "nombre": "Sistema.Contexto.Condiciones.Condicion_Get (datos de SISTEMA.sitCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Condiciones.Condicion_Get",
+          "entrada": {
+            "inCondicion_get": {
+              "CondId": 1
+            }
+          },
+          "lineaBase": {
+            "outCondicion_Get": {
+              "CondBajaLogica": true,
+              "CondAplicacion": "SER  ",
+              "CondExpresion": "iif((Poliza.Pagador.CondicionIVA.NombreCorto != '2') AND (Poliza.Tomador.Domicilio.Localidad.CodigoPostal = 2000),1,0)",
+              "CondQuery": "IF (Poliza.Pagador.CondicionIVA.NombreCorto != '2' AND Poliza.Tomador.Domicilio.Localidad.CodigoPostal = 2000)",
+              "CondJSON": "{\n  \"condition\": \"AND\",\n  \"rules\": [\n    {\n      \"id\": \"Poliza.Pagador.CondicionIVA.NombreCorto\",\n      \"field\": \"Poliza.Pagador.CondicionIVA.NombreCorto\",\n      \"type\": \"string\",\n      \"input\": \"text\",\n      \"operator\": \"not_equal\",\n      \"value\": \"2\"\n    },\n    {\n      \"id\": \"Poliza.Tomador.Domicilio.Localidad.CodigoPostal\",\n      \"field\": \"Poliza.Tomador.Domicilio.Localidad.CodigoPostal\",\n      \"type\": \"integer\",\n      \"input\": \"number\",\n      \"operator\": \"equal\",\n      \"value\": 2000\n    }\n  ],\n  \"flags\": {\n    \"no_sortable\": true\n  },\n  \"valid\": true\n}",
+              "CondDateIns": "2023-05-19T11:39:55",
+              "CondNombre": "Cond1",
+              "CondUsrIns": "ece2aa29-e61a-41b6-999b-2478883a3a9c",
+              "CondDateUpd": "2023-05-19T11:39:55",
+              "CondId": 1,
+              "CondContexto": "SUP",
+              "CondUsrUpd": "ece2aa29-e61a-41b6-999b-2478883a3a9c",
+              "CondBloqueado": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-condiciones-condicion_get-vacia",
+      "nombre": "Sistema.Contexto.Condiciones.Condicion_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Condiciones.Condicion_Get",
+          "entrada": {
+            "inCondicion_get": {
+              "CondId": 0
+            }
+          },
+          "lineaBase": {
+            "outCondicion_Get": {
+              "CondBajaLogica": false,
+              "CondAplicacion": "COT  ",
+              "CondExpresion": "iif((Componente.Granizo.Cultivo = '106') AND (Componente.Granizo.PrecioUnitario > 0) AND ( ( ((Componente.Granizo.PrecioUnitario < 150000) OR (Componente.Granizo.PrecioUnitario > 1500000)) AND ( (Componente.ProvinciaId = 1) OR (Componente.ProvinciaId = 6) OR (Componente.ProvinciaId = 13) OR (Componente.Granizo.DepartamentoId = 202) OR (Componente.Granizo.DepartamentoId = 212) OR (Componente.Granizo.DepartamentoId = 213) OR (Componente.Granizo.DepartamentoId = 214) OR (Componente.Granizo.DepartamentoId = 215) )  )  OR ( ((Componente.Granizo.PrecioUnitario < 150000) OR (Componente.Granizo.PrecioUnitario > 1350000)) AND ( (Componente.ProvinciaId = 4) AND (Componente.Granizo.DepartamentoId != 202) AND (Componente.Granizo.DepartamentoId != 212) AND (Componente.Granizo.DepartamentoId != 213) AND (Componente.Granizo.DepartamentoId != 214) AND (Componente.Granizo.DepartamentoId != 215) )  )  )  AND (Componente.Granizo.Contratacion = 'P'),1,0)",
+              "CondQuery": "IF (Componente.Granizo.Cultivo = '106' AND Componente.Granizo.PrecioUnitario > 0 AND ( ( Componente.Granizo.PrecioUnitario NOT BETWEEN 150000 AND 1500000 AND ( Componente.ProvinciaId = 1 OR Componente.ProvinciaId = 6 OR Componente.ProvinciaId = 13 OR Componente.Granizo.DepartamentoId = 202 OR Componente.Granizo.DepartamentoId = 212 OR Componente.Granizo.DepartamentoId = 213 OR Componente.Granizo.DepartamentoId = 214 OR Componente.Granizo.DepartamentoId = 215 ) ) OR ( Componente.Granizo.PrecioUnitario NOT BETWEEN 150000 AND 1350000 AND ( Componente.ProvinciaId = 4 AND Componente.Granizo.DepartamentoId != 202 AND Componente.Granizo.DepartamentoId != 212 AND Componente.Granizo.DepartamentoId != 213 AND Componente.Granizo.DepartamentoId != 214 AND Componente.Granizo.DepartamentoId != 215 ) ) ) AND Componente.Granizo.Contratacion = 'P')",
+              "CondJSON": "{\n  \"condition\": \"AND\",\n  \"rules\": [\n    {\n      \"id\": \"Componente.Granizo.Cultivo\",\n      \"field\": \"Componente.Granizo.Cultivo\",\n      \"type\": \"string\",\n      \"input\": \"text\",\n      \"operator\": \"equal\",\n      \"value\": \"106\"\n    },\n    {\n      \"id\": \"Componente.Granizo.PrecioUnitario\",\n      \"field\": \"Componente.Granizo.PrecioUnitario\",\n      \"type\": \"double\",\n      \"input\": \"number\",\n      \"operator\": \"greater\",\n      \"value\": 0\n    },\n    {\n      \"condition\": \"OR\",\n      \"rules\": [\n        {\n          \"condition\": \"AND\",\n          \"rules\": [\n            {\n              \"id\": \"Componente.Granizo.PrecioUnitario\",\n              \"field\": \"Componente.Granizo.PrecioUnitario\",\n              \"type\": \"double\",\n              \"input\": \"number\",\n              \"operator\": \"not_between\",\n              \"value\": [\n                150000,\n                1500000\n              ]\n            },\n            {\n              \"condition\": \"OR\",\n              \"rules\": [\n                {\n                  \"id\": \"Componente.ProvinciaId\",\n                  \"field\": \"Componente.ProvinciaId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"equal\",\n                  \"value\": 1\n                },\n                {\n                  \"id\": \"Componente.ProvinciaId\",\n                  \"field\": \"Componente.ProvinciaId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"equal\",\n                  \"value\": 6\n                },\n                {\n                  \"id\": \"Componente.ProvinciaId\",\n                  \"field\": \"Componente.ProvinciaId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"equal\",\n                  \"value\": 13\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"equal\",\n                  \"value\": 202\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"equal\",\n                  \"value\": 212\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"equal\",\n                  \"value\": 213\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"equal\",\n                  \"value\": 214\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"equal\",\n                  \"value\": 215\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"condition\": \"AND\",\n          \"rules\": [\n            {\n              \"id\": \"Componente.Granizo.PrecioUnitario\",\n              \"field\": \"Componente.Granizo.PrecioUnitario\",\n              \"type\": \"double\",\n              \"input\": \"number\",\n              \"operator\": \"not_between\",\n              \"value\": [\n                150000,\n                1350000\n              ]\n            },\n            {\n              \"condition\": \"AND\",\n              \"rules\": [\n                {\n                  \"id\": \"Componente.ProvinciaId\",\n                  \"field\": \"Componente.ProvinciaId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"equal\",\n                  \"value\": 4\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"not_equal\",\n                  \"value\": 202\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"not_equal\",\n                  \"value\": 212\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"not_equal\",\n                  \"value\": 213\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"not_equal\",\n                  \"value\": 214\n                },\n                {\n                  \"id\": \"Componente.Granizo.DepartamentoId\",\n                  \"field\": \"Componente.Granizo.DepartamentoId\",\n                  \"type\": \"double\",\n                  \"input\": \"number\",\n                  \"operator\": \"not_equal\",\n                  \"value\": 215\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"Componente.Granizo.Contratacion\",\n      \"field\": \"Componente.Granizo.Contratacion\",\n      \"type\": \"string\",\n      \"input\": \"text\",\n      \"operator\": \"equal\",\n      \"value\": \"P\"\n    }\n  ],\n  \"flags\": {\n    \"no_sortable\": true\n  },\n  \"valid\": true\n}",
+              "CondDateIns": "2026-04-24T14:49:56",
+              "CondNombre": "Condiciones Granizo Precio Unitario - Mínimo - Máximo de GIRASOL",
+              "CondUsrIns": "03c41c46-b08b-47d8-b250-8a2268f69c6d",
+              "CondDateUpd": "2026-04-27T16:26:12",
+              "CondId": 0,
+              "CondContexto": "COMP",
+              "CondUsrUpd": "9436d066-f7ae-4b7a-ba6c-a2415ddb69d2",
+              "CondBloqueado": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-contexto_atributos",
+      "nombre": "Sistema.Contexto.Contexto_Atributos (datos de SISTEMA.sitCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Contexto_Atributos",
+          "entrada": {
+            "Contexto": "COMP"
+          },
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Comunes: Logo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "Comunes",
+                "Id": "Comunes.Logo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Comunes: Firma",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "Comunes",
+                "Id": "Comunes.Firma",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Comunes: Path",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "Comunes",
+                "Id": "Comunes.Path",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Comunes: URL de Recursos",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "Comunes",
+                "Id": "Comunes.URL",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-eventos-dpevtacciones",
+      "nombre": "Sistema.Contexto.Eventos.dpEvtAcciones (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Eventos.dpEvtAcciones",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "EMAIL",
+                "IdNum": "0",
+                "Descripcion": "Email"
+              },
+              {
+                "IdChar": "HIST",
+                "IdNum": "0",
+                "Descripcion": "Historial"
+              },
+              {
+                "IdChar": "PUSH",
+                "IdNum": "0",
+                "Descripcion": "Notificación Interna"
+              },
+              {
+                "IdChar": "WA_LINK",
+                "IdNum": "0",
+                "Descripcion": "Whatsapp Link"
+              },
+              {
+                "IdChar": "WHAT",
+                "IdNum": "0",
+                "Descripcion": "Whatsapp"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-eventos-dpplantillas",
+      "nombre": "Sistema.Contexto.Eventos.dpPlantillas (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Eventos.dpPlantillas",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-eventos-dpplantillas-vacia",
+      "nombre": "Sistema.Contexto.Eventos.dpPlantillas (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Eventos.dpPlantillas",
+          "entrada": {
+            "ContextoId": ""
+          },
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "",
+                "IdNum": "74",
+                "Descripcion": "PRUEBA"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "80",
+                "Descripcion": "NOTIFICA POR DIFUSIÓN"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "81",
+                "Descripcion": "MENSAJE DE NAVIDAD"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "108",
+                "Descripcion": "MENSAJE MENCION"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "130",
+                "Descripcion": "RECORDATORIO DE CASOS SIN RESOLVER"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "136",
+                "Descripcion": "REPARACIÓN"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "140",
+                "Descripcion": "MAIL GENERAL PARA EL USUARIO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "141",
+                "Descripcion": "MENSAJE NUEVO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "144",
+                "Descripcion": "NOVEDAD"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "165",
+                "Descripcion": "RECORDATORIO DE ACCIONES PLANIFICADAS"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-eventos-plantillas_listafiltrada",
+      "nombre": "Sistema.Contexto.Eventos.Plantillas_ListaFiltrada (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Eventos.Plantillas_ListaFiltrada",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "outPlantillas_Lista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-eventos-plantillas_listafiltrada-vacia",
+      "nombre": "Sistema.Contexto.Eventos.Plantillas_ListaFiltrada (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Eventos.Plantillas_ListaFiltrada",
+          "entrada": {
+            "ContextoId": ""
+          },
+          "lineaBase": {
+            "outPlantillas_Lista": {
+              "Plantillas": [
+                {
+                  "Nombre": "PRUEBA",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2022-11-29T14:45:55",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "USR",
+                  "GUID": "7b56ce86-a149-4080-bd84-7b81114432dc",
+                  "Id": 74,
+                  "TextoId": "856"
+                },
+                {
+                  "Nombre": "NOTIFICA POR DIFUSIÓN",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-05-09T11:29:55",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "NOTIF",
+                  "GUID": "5003ee7c-7afc-433f-858d-3a51bb24a38e",
+                  "Id": 80,
+                  "TextoId": "872"
+                },
+                {
+                  "Nombre": "MENSAJE DE NAVIDAD",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2023-02-10T13:58:05",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "NOTIF",
+                  "GUID": "4449bf36-e77f-4413-b5b1-99c7a6b67f00",
+                  "Id": 81,
+                  "TextoId": "873"
+                },
+                {
+                  "Nombre": "MENSAJE MENCION",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-05-09T11:29:04",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "CASOMENS",
+                  "GUID": "7563f06a-b8fd-4215-908a-d8e8cd03e83e",
+                  "Id": 108,
+                  "TextoId": "1021"
+                },
+                {
+                  "Nombre": "RECORDATORIO DE CASOS SIN RESOLVER",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-11-25T08:35:32",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "CASO",
+                  "GUID": "e612a215-2d09-4af4-9e68-b67ebf0140f3",
+                  "Id": 130,
+                  "TextoId": "1312"
+                },
+                {
+                  "Nombre": "REPARACIÓN",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-10-17T13:03:06",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "REP",
+                  "GUID": "1059f189-8a63-4f4a-9d31-624f97cbbcb9",
+                  "Id": 136,
+                  "TextoId": "1394"
+                },
+                {
+                  "Nombre": "MAIL GENERAL PARA EL USUARIO",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-12-19T14:58:57",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "USR",
+                  "GUID": "ebc4b09d-7a48-4fd9-be80-2e04fe142cad",
+                  "Id": 140,
+                  "TextoId": "1554"
+                },
+                {
+                  "Nombre": "MENSAJE NUEVO",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-05-09T11:29:28",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "CASOMENS",
+                  "GUID": "57feb5f1-2c5b-4bde-834d-0b57dfda0f2b",
+                  "Id": 141,
+                  "TextoId": "1578"
+                },
+                {
+                  "Nombre": "NOVEDAD",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-05-09T11:30:14",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "NOVEDAD",
+                  "GUID": "7731d8f1-07e3-4efc-b510-b6f3ee857942",
+                  "Id": 144,
+                  "TextoId": "1624"
+                },
+                {
+                  "Nombre": "RECORDATORIO DE ACCIONES PLANIFICADAS",
+                  "Tipo": "EMAIL",
+                  "Usuario": "fcp",
+                  "UltimaModificacion": "2026-02-05T13:50:41",
+                  "AplicacionId": "SIS  ",
+                  "ContextoId": "CASO",
+                  "GUID": "562c9894-ae4f-4248-ae7c-6d020401fd4b",
+                  "Id": 165,
+                  "TextoId": "1968"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-notificaciones-atributos",
+      "nombre": "Sistema.Contexto.Notificaciones.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Notificaciones.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Notificación: Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Notificacion.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Notificación: Email",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Notificacion.Email",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Notificación: Link",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Notificacion.Link",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-notificaciones-datos",
+      "nombre": "Sistema.Contexto.Notificaciones.Datos (datos de SISTEMA.ithNotifDifDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Notificaciones.Datos",
+          "entrada": {
+            "NotifDifId": 1,
+            "NotifDifDetSec": 1
+          },
+          "lineaBase": {
+            "NotifDifDetalle": {
+              "Notificacion": {
+                "Email": "slucero@xiku.io",
+                "NombreCompleto": "sebastián Lucero",
+                "Link": "www.google.com.ar"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-notificaciones-datos-vacia",
+      "nombre": "Sistema.Contexto.Notificaciones.Datos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Notificaciones.Datos",
+          "entrada": {
+            "NotifDifId": 0,
+            "NotifDifDetSec": 0
+          },
+          "lineaBase": {
+            "NotifDifDetalle": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-notificaciones-notifdifid_numerador",
+      "nombre": "Sistema.Contexto.Notificaciones.NotifDifId_Numerador (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Notificaciones.NotifDifId_Numerador",
+          "entrada": {},
+          "lineaBase": {
+            "NotifDifId": 27
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-novedad-atributos",
+      "nombre": "Sistema.Contexto.Novedad.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Novedad.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Novedad: Id",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Novedad.NovId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Novedad: Título",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Novedad.NovTitulo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Novedad: Texto",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Novedad.Texto.Detalle",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Novedad: Link",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Novedad.NovHomeLinkURL",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-plantillas-plantillas_lista",
+      "nombre": "Sistema.Contexto.Plantillas.Plantillas_Lista (datos de SISTEMA.sitCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Plantillas.Plantillas_Lista",
+          "entrada": {
+            "inPlantillas_Lista": {
+              "Filtros": {
+                "Tipo": "",
+                "Contexto": "COMP",
+                "Descripcion": ""
+              },
+              "Aplicacion": "COT"
+            }
+          },
+          "lineaBase": {
+            "outPlantillas_Lista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-reparaciones-atributo",
+      "nombre": "Sistema.Contexto.Reparaciones.Atributo (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Reparaciones.Atributo",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Usuario nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Usuario",
+                "Id": "ReparacionUsuarioNombre",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-usuario-atributos",
+      "nombre": "Sistema.Contexto.Usuario.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Usuario.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Usuario: Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Usuario.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Email",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Usuario.Email",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Usuario",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Usuario.Usuario",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Cuerpo de email a enviar",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Usuario.EnvioEmail.Cuerpo",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-usuario-datos-vacia",
+      "nombre": "Sistema.Contexto.Usuario.Datos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Contexto.Usuario.Datos",
+          "entrada": {
+            "GAMUser": {}
+          },
+          "lineaBase": {
+            "sdtUsuario": {
+              "Usuario": {
+                "Nombre": ",",
+                "Email": "",
+                "Usuario": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

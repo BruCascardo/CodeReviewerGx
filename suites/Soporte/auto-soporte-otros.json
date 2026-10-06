@@ -1,0 +1,5504 @@
+{
+  "nombre": "Auto - Soporte.Otros",
+  "kb": "Soporte",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "milisegundos_get",
+      "nombre": "Milisegundos_Get (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Milisegundos_Get",
+          "entrada": {},
+          "lineaBase": {
+            "Milisegundos": 1791162096094
+          },
+          "volatiles": [
+            "Milisegundos"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soporte-caso-infoporcaso",
+      "nombre": "Soporte.Caso.InfoPorCaso (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Caso.InfoPorCaso",
+          "entrada": {
+            "inInfoPorCaso": {
+              "CasoId": 1
+            }
+          },
+          "lineaBase": {
+            "outInfoPorCaso": {
+              "SopId": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-dpevtacciones",
+      "nombre": "Soporte.Config.dpEvtAcciones (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Config.dpEvtAcciones",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "EMAIL",
+                "IdNum": "0",
+                "Descripcion": "Email"
+              },
+              {
+                "IdChar": "HIST",
+                "IdNum": "0",
+                "Descripcion": "Historial"
+              },
+              {
+                "IdChar": "PUSH",
+                "IdNum": "0",
+                "Descripcion": "Notificación Interna"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-dpplantillas",
+      "nombre": "Soporte.Config.dpPlantillas (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Config.dpPlantillas",
+          "entrada": {
+            "Aplicacion": "",
+            "ContextoId": "COMP",
+            "PlantillaTipo": ""
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-dpremitentes",
+      "nombre": "Soporte.Config.dpRemitentes (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Config.dpRemitentes",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "",
+                "IdNum": "1",
+                "Descripcion": "NO RESPONDER CI"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "2",
+                "Descripcion": "AWS SES NO RESPONDER"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-grupos-get",
+      "nombre": "Soporte.Config.Grupos.Get (datos de SOPORTE.sptGrupo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Config.Grupos.Get",
+          "entrada": {
+            "inGet": {
+              "GrupoId": 1
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Nombre": "Administración",
+              "Orden": 1,
+              "Bloqueado": false,
+              "Id": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-grupos-lista-vacia",
+      "nombre": "Soporte.Config.Grupos.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Config.Grupos.Lista",
+          "entrada": {
+            "inLista": {
+              "Parametros": {
+                "Orden": ""
+              }
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "Grupos": [
+                {
+                  "Nombre": "Administración",
+                  "Orden": 1,
+                  "Bloqueado": false,
+                  "Id": 1
+                },
+                {
+                  "Nombre": "Cobranzas",
+                  "Orden": 2,
+                  "Bloqueado": false,
+                  "Id": 2
+                },
+                {
+                  "Nombre": "Comercial/Suscripción",
+                  "Orden": 3,
+                  "Bloqueado": false,
+                  "Id": 3
+                },
+                {
+                  "Nombre": "Soporte",
+                  "Orden": 4,
+                  "Bloqueado": false,
+                  "Id": 4
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-motivos-get",
+      "nombre": "Soporte.Config.Motivos.Get (datos de SOPORTE.sptSopMotivo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Config.Motivos.Get",
+          "entrada": {
+            "inGet": {
+              "MotivoId": 31,
+              "MotivoEquivalente": "NOAUT"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Motivo": {
+                "Nombre": "Error no autorizado",
+                "Orden": 31,
+                "Sector": "SIS",
+                "Bloqueado": false,
+                "Id": 31,
+                "SoporteTipo": "PI ",
+                "CasoTipoId": "SOP_SIS"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-motivos-get-vacia",
+      "nombre": "Soporte.Config.Motivos.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Config.Motivos.Get",
+          "entrada": {
+            "inGet": {
+              "MotivoId": 0,
+              "MotivoEquivalente": ""
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Motivo": {
+                "Nombre": "Acceso a Portal Terceros",
+                "Orden": 3,
+                "Sector": "TER",
+                "Bloqueado": false,
+                "Id": 1,
+                "SoporteTipo": "TEL",
+                "CasoTipoId": ""
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-motivos-lista",
+      "nombre": "Soporte.Config.Motivos.Lista (datos de SISTEMA.sitCasoTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Config.Motivos.Lista",
+          "entrada": {
+            "inLista": {
+              "Parametros": {
+                "MotivosEquivalente": [
+                  ""
+                ]
+              },
+              "CasoTipoEquivalente": "",
+              "SoporteTipo": "",
+              "GrupoId": 0,
+              "CasoTipoId": "EXCEP_APROB"
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "outLista": {
+              "Motivos": [
+                {
+                  "Nombre": "Asociar códigos de productor",
+                  "Orden": 22,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 16,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Problemas con usuario propio y asociados",
+                  "Orden": 23,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 17,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Descarga de documentación",
+                  "Orden": 24,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 25,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Cotizaciones y solicitudes",
+                  "Orden": 25,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 26,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Renovaciones y endosos",
+                  "Orden": 26,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 27,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Cobranzas y comisiones",
+                  "Orden": 27,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 28,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Siniestros",
+                  "Orden": 28,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 29,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Otras consultas",
+                  "Orden": 29,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 15,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Sugerencias",
+                  "Orden": 30,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 30,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Baja de póliza Bancos ",
+                  "Orden": 33,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 33,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "SA-Registro denuncia asegurado (asesoramiento)",
+                  "Orden": 34,
+                  "Sector": "SIN",
+                  "Bloqueado": false,
+                  "Id": 34,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": "SOL_EMI"
+                },
+                {
+                  "Nombre": "Consultas Generales",
+                  "Orden": 35,
+                  "Sector": "COB",
+                  "Bloqueado": false,
+                  "Id": 35,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_COB_CG"
+                },
+                {
+                  "Nombre": "Débito automático",
+                  "Orden": 37,
+                  "Sector": "COB",
+                  "Bloqueado": false,
+                  "Id": 37,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_COB_DA"
+                },
+                {
+                  "Nombre": "Premio a devolver",
+                  "Orden": 38,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 38,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_ADM"
+                },
+                {
+                  "Nombre": "Consultas/Seguros de Personas",
+                  "Orden": 41,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 41,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_PERS"
+                },
+                {
+                  "Nombre": "Consultas/Auto y Moto",
+                  "Orden": 42,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 42,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_ATM"
+                },
+                {
+                  "Nombre": "Consultas/Responsabilidad Civil y Seguro Técnico",
+                  "Orden": 43,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 43,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_RC"
+                },
+                {
+                  "Nombre": "Consultas/Seguros Agrícolas",
+                  "Orden": 44,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 44,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_AGRO"
+                },
+                {
+                  "Nombre": "Consultas/Transporte",
+                  "Orden": 46,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 46,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_TRAN"
+                },
+                {
+                  "Nombre": "Consultas/Caución",
+                  "Orden": 47,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 47,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_CAU"
+                },
+                {
+                  "Nombre": "Cotizaciones, solicitudes y anulaciones/Caución",
+                  "Orden": 48,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 48,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_CAU"
+                },
+                {
+                  "Nombre": "Cuenta corriente/Caución",
+                  "Orden": 49,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 49,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_COB_CAU"
+                },
+                {
+                  "Nombre": "EPEC/Caución",
+                  "Orden": 50,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 50,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_CAU"
+                },
+                {
+                  "Nombre": "Mail corporativo - Envío de pólizas",
+                  "Orden": 51,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 51,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail corporativo - Envío de cupones",
+                  "Orden": 52,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 52,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail Corporativo - Consulta Baja de pólizas Bcos",
+                  "Orden": 53,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 54,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Consultas/Embarcaciones",
+                  "Orden": 54,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 53,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_EMB"
+                },
+                {
+                  "Nombre": "Baja de póliza - PAS",
+                  "Orden": 55,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 55,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail Corporativo - Consulta app",
+                  "Orden": 56,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 56,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": " Mail corporativo - Consulta Cobranzas",
+                  "Orden": 57,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 57,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail Corporativo - Consulta Baja de pólizas PAS",
+                  "Orden": 58,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 58,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail corporativo - Envío de facturas",
+                  "Orden": 59,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 59,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Asesoramiento pago de cuotas seguros",
+                  "Orden": 60,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 60,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Consulta/Bajas Póliza Caución",
+                  "Orden": 61,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 61,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Consultas/Sistemas/X",
+                  "Orden": 62,
+                  "Sector": "SIS",
+                  "Bloqueado": false,
+                  "Id": 63,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SIS_X"
+                },
+                {
+                  "Nombre": "Mail corporativo - Consulta estado de Stros.",
+                  "Orden": 63,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 62,
+                  "SoporteTipo": "TEL",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Baja de póliza Bancos ",
+                  "Orden": 85,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 85,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "SA-Registro denuncia asegurado (asesoramiento)",
+                  "Orden": 86,
+                  "Sector": "SIN",
+                  "Bloqueado": false,
+                  "Id": 86,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": "SOL_EMI"
+                },
+                {
+                  "Nombre": "Mail corporativo - Envío de pólizas",
+                  "Orden": 87,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 87,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail corporativo - Envío de cupones",
+                  "Orden": 88,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 88,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail Corporativo - Consulta Baja de pólizas Bcos",
+                  "Orden": 89,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 89,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Baja de póliza - PAS",
+                  "Orden": 90,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 90,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail Corporativo - Consulta app",
+                  "Orden": 91,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 91,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": " Mail corporativo - Consulta Cobranzas",
+                  "Orden": 92,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 92,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail Corporativo - Consulta Baja de pólizas PAS",
+                  "Orden": 93,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 93,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail corporativo - Envío de facturas",
+                  "Orden": 94,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 94,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Asesoramiento pago de cuotas seguros",
+                  "Orden": 95,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 95,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Consulta/Bajas Póliza Caución",
+                  "Orden": 96,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 96,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail corporativo - Consulta estado de Stros.",
+                  "Orden": 97,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 97,
+                  "SoporteTipo": "PRE",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Baja de póliza Bancos ",
+                  "Orden": 119,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 119,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "SA-Registro denuncia asegurado (asesoramiento)",
+                  "Orden": 120,
+                  "Sector": "SIN",
+                  "Bloqueado": false,
+                  "Id": 120,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": "SOL_EMI"
+                },
+                {
+                  "Nombre": "Mail corporativo - Envío de pólizas",
+                  "Orden": 121,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 121,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail corporativo - Envío de cupones",
+                  "Orden": 122,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 122,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail Corporativo - Consulta Baja de pólizas Bcos",
+                  "Orden": 123,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 123,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Baja de póliza - PAS",
+                  "Orden": 124,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 124,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail Corporativo - Consulta app",
+                  "Orden": 126,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 125,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": " Mail corporativo - Consulta Cobranzas",
+                  "Orden": 127,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 126,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail Corporativo - Consulta Baja de pólizas PAS",
+                  "Orden": 128,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 127,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail corporativo - Envío de facturas",
+                  "Orden": 129,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 128,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Asesoramiento pago de cuotas seguros",
+                  "Orden": 130,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 129,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Consulta/Bajas Póliza Caución",
+                  "Orden": 131,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 130,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Mail corporativo - Consulta estado de Stros.",
+                  "Orden": 132,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 131,
+                  "SoporteTipo": "EMC",
+                  "CasoTipoId": ""
+                },
+                {
+                  "Nombre": "Consultas/Cristales",
+                  "Orden": 134,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 134,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_CRISTALES_Y_ROBO"
+                },
+                {
+                  "Nombre": "Consultas/Robo",
+                  "Orden": 135,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 135,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_CRISTALES_Y_ROBO"
+                },
+                {
+                  "Nombre": "Consultas/Incendio",
+                  "Orden": 136,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 136,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_RRVV"
+                },
+                {
+                  "Nombre": "Consultas/Hogar",
+                  "Orden": 137,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 137,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_RRVV"
+                },
+                {
+                  "Nombre": "Consultas/Integral Comercio",
+                  "Orden": 138,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 138,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_RRVV"
+                },
+                {
+                  "Nombre": "Consultas/Integral Agropecuario",
+                  "Orden": 139,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 139,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_RRVV"
+                },
+                {
+                  "Nombre": "Consultas/Silo Bolsa",
+                  "Orden": 140,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 140,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_AGRO"
+                },
+                {
+                  "Nombre": "Consultas/Ganado",
+                  "Orden": 141,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 141,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_AGRO"
+                },
+                {
+                  "Nombre": "Consultas/TRO",
+                  "Orden": 142,
+                  "Sector": "EMI",
+                  "Bloqueado": false,
+                  "Id": 142,
+                  "SoporteTipo": "PI ",
+                  "CasoTipoId": "SOP_SUS_TRO"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-contexto-contexto_atributos",
+      "nombre": "Soporte.Contexto.Contexto_Atributos (datos de SISTEMA.sitCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Contexto.Contexto_Atributos",
+          "entrada": {
+            "Contexto": "COMP"
+          },
+          "lineaBase": {
+            "Atributos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-contexto-plantillas_listafiltrada",
+      "nombre": "Soporte.Contexto.Plantillas_ListaFiltrada (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Contexto.Plantillas_ListaFiltrada",
+          "entrada": {
+            "Aplicacion": "",
+            "ContextoId": "COMP",
+            "PlantillaTipo": ""
+          },
+          "lineaBase": {
+            "outPlantillas_Lista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-contexto-soportes-atributos",
+      "nombre": "Soporte.Contexto.Soportes.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Contexto.Soportes.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Soporte: Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Estado",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: User Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.UserNombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Motivo - Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Motivo.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Motivo - Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Motivo.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Motivo - Adicional",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Motivo.Adicional",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Link - Pedido",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Link.Pedido",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Link - Mensaje",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Link.Mensaje",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Link de Revisiones",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Soporte",
+                "Id": "Soporte.Link.Revisiones",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Link PI - Pedido",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.LinkPI.Pedido",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Link PI - Solicitud",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.LinkPI.Solicitud",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Id de Caso",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Soporte",
+                "Id": "Soporte.CasoId",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-diagnostico-dummy",
+      "nombre": "Soporte.Diagnostico.Dummy (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Diagnostico.Dummy",
+          "entrada": {},
+          "lineaBase": {
+            "FechaHora": "2026-10-04T22:01:49"
+          },
+          "volatiles": [
+            "FechaHora"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soporte-dpusuariossop-vacia",
+      "nombre": "Soporte.dpUsuariosSop (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.dpUsuariosSop",
+          "entrada": {
+            "TiposSoporte": [
+              ""
+            ]
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-estadoreclamo_getformat",
+      "nombre": "Soporte.EstadoReclamo_GetFormat (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.EstadoReclamo_GetFormat",
+          "entrada": {
+            "RclEstado": "TRA"
+          },
+          "lineaBase": {
+            "Formato": "<span class='AttributeTagInfo TagAfterText'>En Trámite</span>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-estadoreclamo_getformat-vacia",
+      "nombre": "Soporte.EstadoReclamo_GetFormat (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.EstadoReclamo_GetFormat",
+          "entrada": {
+            "RclEstado": ""
+          },
+          "lineaBase": {
+            "Formato": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-global-dpcasotipo_lista",
+      "nombre": "Soporte.Global.dpCasoTipo_Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Global.dpCasoTipo_Lista",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "EXCEP_APROB",
+                "IdNum": "0",
+                "Descripcion": "Excepciones aprobación"
+              },
+              {
+                "IdChar": "PROMO_APROB",
+                "IdNum": "0",
+                "Descripcion": "Promociones aprobación"
+              },
+              {
+                "IdChar": "REN_COB",
+                "IdNum": "0",
+                "Descripcion": "Rendición de cobranza"
+              },
+              {
+                "IdChar": "SOL_EMI",
+                "IdNum": "0",
+                "Descripcion": "Solicitud de Emisión"
+              },
+              {
+                "IdChar": "SOL_MODIFICACIONES",
+                "IdNum": "0",
+                "Descripcion": "Modificaciones"
+              },
+              {
+                "IdChar": "SOP_ADM",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Administración"
+              },
+              {
+                "IdChar": "SOP_COB_CAU",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Cobranzas/Caución"
+              },
+              {
+                "IdChar": "SOP_COB_CG",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Cobranzas/CG"
+              },
+              {
+                "IdChar": "SOP_COB_DA",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Cobranzas/DA"
+              },
+              {
+                "IdChar": "SOP_COM_PYE",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Comercial/PyE"
+              },
+              {
+                "IdChar": "SOP_CRISTALES_Y_ROBO",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripcion/CristalesYRobo"
+              },
+              {
+                "IdChar": "SOP_SIS",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Sistemas"
+              },
+              {
+                "IdChar": "SOP_SUS_AGRO",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Agro"
+              },
+              {
+                "IdChar": "SOP_SUS_ATM",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Automotor"
+              },
+              {
+                "IdChar": "SOP_SUS_AUT",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/AutosDominio"
+              },
+              {
+                "IdChar": "SOP_SUS_CAU",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Caución"
+              },
+              {
+                "IdChar": "SOP_SUS_EMB",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Embarcaciones"
+              },
+              {
+                "IdChar": "SOP_SUS_INC",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Incendio"
+              },
+              {
+                "IdChar": "SOP_SUS_PERS",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Personas"
+              },
+              {
+                "IdChar": "SOP_SUS_RC",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/RCyST"
+              },
+              {
+                "IdChar": "SOP_SUS_RRVV",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/RRVV"
+              },
+              {
+                "IdChar": "SOP_SUS_TRAN",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Transporte"
+              },
+              {
+                "IdChar": "SOP_SUS_TRO",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/TRO"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-global-email_validar",
+      "nombre": "Soporte.Global.Email_Validar (datos de SISTEMA.sitLogGrupoEmail)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Global.Email_Validar",
+          "entrada": {
+            "Email": "adistefano@xiku.io"
+          },
+          "lineaBase": {
+            "Valido": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-global-email_validar-vacia",
+      "nombre": "Soporte.Global.Email_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Global.Email_Validar",
+          "entrada": {
+            "Email": ""
+          },
+          "lineaBase": {
+            "Valido": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-global-fechanacimientocontrol",
+      "nombre": "Soporte.Global.FechaNacimientoControl (datos de TERCEROS.snhDenReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Global.FechaNacimientoControl",
+          "entrada": {
+            "FechaNacimiento": "1000-01-01"
+          },
+          "lineaBase": {
+            "ok": false,
+            "Mensaje": "Fecha de Nacimiento incorrecta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-global-llenasdtusuario",
+      "nombre": "Soporte.Global.LlenaSdtUsuario (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Global.LlenaSdtUsuario",
+          "entrada": {},
+          "lineaBase": {
+            "sdtUsuario": {
+              "UserName": "",
+              "UserGUID": "",
+              "UserAplicacion": "SOP",
+              "UserEmail": "",
+              "UserFullName": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-global-menciones-vacia",
+      "nombre": "Soporte.Global.Menciones (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Global.Menciones",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[{\"Id\":\"03c41c46-b08b-47d8-b250-8a2268f69c6d\",\"dn\":\"admin\",\"t\":[\"admin\",\"CORE, ADMIN\"]},{\"Id\":\"b2f568e7-f660-4c4b-81de-a59f1e8997b6\",\"dn\":\"admin3\",\"t\":[\"admin3\",\"User, Admi\"]},{\"Id\":\"18407a0c-3a02-439d-823a-cb9b0b0c1e35\",\"dn\":\"agaravano\",\"t\":[\"agaravano\",\"Garavano Viotti, Alejandro\"]},{\"Id\":\"306da65a-e8e3-497e-a0ee-5171dde065ce\",\"dn\":\"agaravanofiltro\",\"t\":[\"agaravanofiltro\",\"Garavano, Alejandro\"]},{\"Id\":\"c4f1e55d-52ba-4b51-99a3-9338de37bf3e\",\"dn\":\"agenciacordoba\",\"t\":[\"agenciacordoba\",\", agenciacordoba\"]}]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-global-participantes-vacia",
+      "nombre": "Soporte.Global.Participantes (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Global.Participantes",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-global-usuariosporcasotipo-vacia",
+      "nombre": "Soporte.Global.UsuariosPorCasoTipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Global.UsuariosPorCasoTipo",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-lista",
+      "nombre": "Soporte.Lista (datos de SOPORTE.sphSoporte)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Lista",
+          "entrada": {
+            "inLista": {
+              "SopNombre": "Asunto 2",
+              "SopUserGUID": "811de2fa-768a-4426-8f0a-dcaefa6033c1",
+              "SopTipo": "PRE",
+              "Paginado": {
+                "PaginaNumero": 0,
+                "FilasPorPagina": 0
+              },
+              "SopId": "2",
+              "RangoFechaFin_Ini": "0000-00-00T00:00:00",
+              "SopAplicacionId": 3,
+              "Texto": "",
+              "SopPerId": 200150,
+              "SopEstado": "TER",
+              "RangoFechaFin_Fin": "0000-00-00T00:00:00",
+              "SopMotivoId": 2,
+              "RangoFechaIni_Ini": "0000-00-00T00:00:00",
+              "ColUserGUID": [
+                ""
+              ],
+              "SopCasoTipoId": "",
+              "RangoFechaIni_Fin": "0000-00-00T00:00:00"
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "PaginasTotales": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-lista-vacia",
+      "nombre": "Soporte.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.Lista",
+          "entrada": {
+            "inLista": {
+              "SopNombre": "",
+              "SopUserGUID": "",
+              "SopTipo": "",
+              "Paginado": {
+                "PaginaNumero": 0,
+                "FilasPorPagina": 0
+              },
+              "SopId": "0",
+              "RangoFechaFin_Ini": "0000-00-00T00:00:00",
+              "SopAplicacionId": 0,
+              "Texto": "",
+              "SopPerId": 0,
+              "SopEstado": "",
+              "RangoFechaFin_Fin": "0000-00-00T00:00:00",
+              "SopMotivoId": 0,
+              "RangoFechaIni_Ini": "0000-00-00T00:00:00",
+              "ColUserGUID": [
+                ""
+              ],
+              "SopCasoTipoId": "",
+              "RangoFechaIni_Fin": "0000-00-00T00:00:00"
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "outLista": {
+              "PaginasTotales": 1,
+              "Soportes": [
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2026-03-30T10:36:43",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2472739,
+                  "Estado": "PRO",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "CERRONI PODESTA,  FLORENCIA INES",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "819",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:25:23",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2437479,
+                  "Estado": "TER",
+                  "FechaFin": "2025-10-17T05:00:08",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "716",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:22:31",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 5904,
+                  "Estado": "TER",
+                  "FechaFin": "2025-10-17T05:00:07",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "713",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-27T06:26:05",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 1719234,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-26T05:00:06",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "692",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-22T13:19:45",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2250038,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-04T13:20:58",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "682",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-20T12:13:32",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 126
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:02:51",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 126,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "660",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-20T12:13:04",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "659",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-19T13:20:12",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "657",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-19T13:17:54",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 99
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:03:23",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 99,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "656",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-19T12:33:22",
+                  "Usuario": "",
+                  "Email": "puchetamacarena@gmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 99
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-19T12:35:08",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 99,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "654",
+                  "TelNumero": "3518037688"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-14T08:33:55",
+                  "Usuario": "",
+                  "Email": "mpucheta@xiku.io",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal PAS  nuevo",
+                    "Adicional": "",
+                    "Id": 115
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:03:47",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 115,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "649",
+                  "TelNumero": "3518037688"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-12T12:26:01",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2250038,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "647",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-30T06:45:55",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 99
+                  },
+                  "TextoId": "0",
+                  "PerId": 122,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-30T06:58:29",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 99,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "633",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-28T14:17:55",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal PAS  nuevo",
+                    "Adicional": "",
+                    "Id": 115
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-28T14:22:01",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 115,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "630",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-23T08:01:26",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Mail corporativo - Envío de pólizas",
+                    "Adicional": "",
+                    "Id": 121
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-28T14:17:35",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "EMC",
+                  "MotivoId": 121,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "616",
+                  "TelNumero": "3416149770"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-09T06:41:07",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-10T05:00:06",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "726",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:24:48",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-10-17T05:00:07",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "715",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:21:51",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Portal PAS nuevo - consulta/asesoramiento ",
+                    "Adicional": "",
+                    "Id": 82
+                  },
+                  "TextoId": "0",
+                  "PerId": 9427,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-26T08:42:27",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 82,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "712",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-27T06:30:00",
+                  "Usuario": "",
+                  "Email": "pepe@gmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 730230,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-26T05:00:07",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "694",
+                  "TelNumero": "3518037688"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-27T06:22:54",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 9427,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-26T05:00:06",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "690",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-25T12:19:55",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Documentación de Pólizas",
+                    "Adicional": "Quería consultar sobre el estado de las pólizas d ad ads ada da dsadsadasda a sa as dasd adsj ads adsja sajd kalds jak ljslkadjalk jda lkjda sa d sadad ad aldk ajlkd jalkd jlakjlkajlska djlak jdlkajd lkad jsla",
+                    "Id": 68
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-25T12:21:26",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Quería consultar sobre el estado de las pólizas d ad ads ada da dsadsadasda a sa as dasd adsj ads adsja sajd kalds jak ljslkadjalk jda lkjda sa d sadad ad aldk ajlkd jalkd jlakjlkajlska djlak jdlkajd lkad jsla",
+                  "Tipo": "PRE",
+                  "MotivoId": 68,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "685",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-22T13:18:18",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 10924,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-04T13:20:58",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "681",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-20T12:14:19",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 92
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:01:31",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 92,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "662",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-20T12:13:53",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 65
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:01:50",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 65,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "661",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-14T12:04:56",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 65
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:02:12",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 65,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "651",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-28T14:22:56",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 745872,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "631",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-28T13:54:33",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 92
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-28T13:55:50",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 92,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "629",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-24T12:48:47",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "620",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-22T13:58:08",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 92
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:02:30",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "PRE",
+                  "MotivoId": 92,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "615",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2026-07-07T08:39:26",
+                  "Usuario": "",
+                  "Email": "agaravano@xiku.io",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "REV",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "GARAVANO VIOTTI,  ALEJANDRO",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "889",
+                  "TelNumero": "3413396947"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2026-06-29T09:49:59",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 1962636,
+                  "Estado": "PRO",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "DIAMANTE,  ELENA BRUNA",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "887",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2026-06-19T13:10:38",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Solicitud datos del PAS",
+                    "Adicional": "",
+                    "Id": 12
+                  },
+                  "TextoId": "0",
+                  "PerId": 2610241,
+                  "Estado": "TER",
+                  "FechaFin": "2026-06-19T13:11:16",
+                  "UserNombreCompleto": "TOGACHENSKO,  DANIELA",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 12,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "876",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2026-06-19T13:08:55",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "SOS - poliza inexistente",
+                    "Adicional": "",
+                    "Id": 11
+                  },
+                  "TextoId": "0",
+                  "PerId": 2610241,
+                  "Estado": "TER",
+                  "FechaFin": "2026-06-19T13:09:47",
+                  "UserNombreCompleto": "TOGACHENSKO,  DANIELA",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 11,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "875",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2026-06-02T08:10:18",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2472739,
+                  "Estado": "REV",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "CERRONI PODESTA,  FLORENCIA INES",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "844",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2026-04-01T05:30:44",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 2472739,
+                  "Estado": "TER",
+                  "FechaFin": "2026-04-01T05:37:51",
+                  "UserNombreCompleto": "CERRONI PODESTA,  FLORENCIA INES",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "822",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2026-03-30T10:33:30",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Consulta general",
+                    "Adicional": "",
+                    "Id": 20
+                  },
+                  "TextoId": "0",
+                  "PerId": 2472739,
+                  "Estado": "TER",
+                  "FechaFin": "2026-03-30T10:36:25",
+                  "UserNombreCompleto": "CERRONI PODESTA,  FLORENCIA INES",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 20,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "818",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2026-01-28T16:31:07",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2173209,
+                  "Estado": "PRO",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "LUCERO,  SEBASTIAN OSCAR",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "801",
+                  "TelNumero": "3416162986"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-12-18T09:54:49",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "PRO",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "GARAVANO VIOTTI,  ALEJANDRO",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "797",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-23T09:39:50",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 1886370,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-24T05:00:05",
+                  "UserNombreCompleto": "NICOLA,  FEDERICO",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "783",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T07:12:17",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "Se aprueba todo al pelo",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 2173209,
+                  "Estado": "TER",
+                  "FechaFin": "2025-10-17T05:55:48",
+                  "UserNombreCompleto": "LUCERO,  SEBASTIAN OSCAR",
+                  "MotivoAdicional": "Se aprueba todo al pelo",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "744",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T07:11:53",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-17T05:00:09",
+                  "UserNombreCompleto": "GARAVANO VIOTTI,  ALEJANDRO",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "743",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T07:11:24",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2437479,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-17T05:00:09",
+                  "UserNombreCompleto": "MARQUEZ,  JORGE ANIBAL",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "742",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T07:10:54",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 1815411,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-17T05:00:09",
+                  "UserNombreCompleto": "PUCHETA,  MACARENA SOLEDAD",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "741",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T07:10:35",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2127033,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-17T05:00:08",
+                  "UserNombreCompleto": "DIAZ,  IGNACIO GUILLERMO",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "740",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T07:10:13",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2173209,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-17T05:00:08",
+                  "UserNombreCompleto": "LUCERO,  SEBASTIAN OSCAR",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "739",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T07:09:56",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-17T05:00:08",
+                  "UserNombreCompleto": "GARAVANO VIOTTI,  ALEJANDRO",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "738",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T07:09:38",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2173209,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-17T05:00:08",
+                  "UserNombreCompleto": "LUCERO,  SEBASTIAN OSCAR",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "737",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T07:08:41",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-17T05:00:07",
+                  "UserNombreCompleto": "GARAVANO VIOTTI,  ALEJANDRO",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "736",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-10-16T06:28:35",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-11-17T05:00:07",
+                  "UserNombreCompleto": "GARAVANO VIOTTI, ALEJANDRO",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "735",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-30T08:54:54",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2127033,
+                  "Estado": "TER",
+                  "FechaFin": "2025-10-30T05:00:07",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "720",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:32:28",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 57
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-24T13:22:23",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 57,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "718",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:30:11",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2437479,
+                  "Estado": "TER",
+                  "FechaFin": "2025-10-17T05:00:08",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "717",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:23:44",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 6866,
+                  "Estado": "TER",
+                  "FechaFin": "2025-10-17T05:00:07",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "714",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:21:27",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 6372,
+                  "Estado": "TER",
+                  "FechaFin": "2025-10-17T05:00:07",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "711",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:21:05",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 4024,
+                  "Estado": "TER",
+                  "FechaFin": "2025-10-17T05:00:06",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "710",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-09-17T11:17:04",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Denuncia ",
+                    "Adicional": "",
+                    "Id": 23
+                  },
+                  "TextoId": "0",
+                  "PerId": 110259,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-17T11:18:21",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 23,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "709",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-05-11T08:37:15",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-15T05:00:04",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "707",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-29T07:35:55",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-02T08:16:55",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "700",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-27T08:42:38",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Consulta general",
+                    "Adicional": "",
+                    "Id": 20
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-29T08:25:02",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 20,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "698",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-27T06:26:37",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "SA-Registro denuncia asegurado (asesoramiento)",
+                    "Adicional": "",
+                    "Id": 34
+                  },
+                  "TextoId": "0",
+                  "PerId": 1968507,
+                  "Estado": "REC",
+                  "FechaFin": "2025-09-05T06:18:14",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 34,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "693",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-27T06:24:24",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 72298,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-26T05:00:06",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "691",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-27T06:22:12",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2250038,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-26T05:00:06",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "689",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-26T11:48:10",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-04T13:24:16",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "688",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-26T11:39:01",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-04T13:24:02",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "687",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-26T11:34:06",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Mail corporativo - Consulta estado de Stros.",
+                    "Adicional": "",
+                    "Id": 62
+                  },
+                  "TextoId": "0",
+                  "PerId": 110259,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-26T11:37:12",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 62,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "686",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-22T13:50:03",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "SA-Registro denuncia asegurado (asesoramiento)",
+                    "Adicional": "",
+                    "Id": 34
+                  },
+                  "TextoId": "0",
+                  "PerId": 110259,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-25T08:47:19",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 34,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "684",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-22T13:20:27",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Cierre automático por inactividad",
+                    "Adicional": "",
+                    "Id": 132
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-09-04T13:20:58",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 132,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "683",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-22T13:17:28",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal PAS  nuevo",
+                    "Adicional": "",
+                    "Id": 21
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-25T08:48:07",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 21,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "680",
+                  "TelNumero": "3518037688"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-22T12:29:33",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "REC",
+                  "FechaFin": "2025-08-22T12:32:34",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "679",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-19T12:36:01",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "655",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-19T12:29:16",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 57
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-19T12:30:51",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 57,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "653",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-19T10:46:44",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 57
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:00:13",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 57,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "652",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-14T10:03:56",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 57
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:00:36",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 57,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "650",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-12T12:18:32",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "646",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-08-04T06:26:46",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "ok",
+                    "Id": 57
+                  },
+                  "TextoId": "0",
+                  "PerId": 200577,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-04T06:27:09",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "ok",
+                  "Tipo": "TEL",
+                  "MotivoId": 57,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "641",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-30T11:12:22",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "635",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-30T07:06:37",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "RECHAZADO MOTIVO INGRESADO MANUAL EN POPUP DE RECHAZO",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 122,
+                  "Estado": "REC",
+                  "FechaFin": "2025-07-30T07:08:29",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "RECHAZADO MOTIVO INGRESADO MANUAL EN POPUP DE RECHAZO",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "634",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-29T05:13:44",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "No me gusto",
+                    "Id": 57
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "REC",
+                  "FechaFin": "2025-07-29T11:53:07",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "No me gusto",
+                  "Tipo": "TEL",
+                  "MotivoId": 57,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "632",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-28T13:25:28",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal PAS  nuevo",
+                    "Adicional": "Hola",
+                    "Id": 21
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-28T14:11:50",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Hola",
+                  "Tipo": "TEL",
+                  "MotivoId": 21,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "628",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-28T11:29:21",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "627",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-28T11:28:47",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "626",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-28T10:51:24",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 1078,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "625",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-28T10:26:39",
+                  "Usuario": "",
+                  "Email": "puchetamacarena@gmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 57
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:00:52",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 57,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "624",
+                  "TelNumero": "3518037688"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-28T10:12:05",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T14:01:07",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "623",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-25T12:51:46",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal PAS  nuevo",
+                    "Adicional": "ok",
+                    "Id": 21
+                  },
+                  "TextoId": "0",
+                  "PerId": 200577,
+                  "Estado": "REC",
+                  "FechaFin": "2025-07-25T12:52:26",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "ok",
+                  "Tipo": "TEL",
+                  "MotivoId": 21,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "622",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-25T09:54:43",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 200577,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "621",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-24T09:40:41",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "",
+                    "Id": 57
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T13:59:58",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 57,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "618",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-23T08:21:53",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 200577,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "617",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-22T13:56:48",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Portal PAS nuevo - consulta/asesoramiento ",
+                    "Adicional": "ok",
+                    "Id": 22
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-22T13:57:33",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "ok",
+                  "Tipo": "TEL",
+                  "MotivoId": 22,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "614",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-18T09:16:53",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Baja de póliza - PAS",
+                    "Adicional": "",
+                    "Id": 55
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-18T09:18:37",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 55,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "609",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-18T06:20:08",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": " Mail corporativo - Consulta Cobranzas",
+                    "Adicional": "prueba",
+                    "Id": 57
+                  },
+                  "TextoId": "0",
+                  "PerId": 122,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-18T06:20:38",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "prueba",
+                  "Tipo": "TEL",
+                  "MotivoId": 57,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "608",
+                  "TelNumero": "3416149770"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-17T08:31:58",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 200577,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-18T09:20:45",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "607",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-17T08:30:32",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Actualización de Datos DAF",
+                    "Adicional": "",
+                    "Id": 8
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-18T09:23:27",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 8,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "606",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-16T13:13:24",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Denuncia ",
+                    "Adicional": "",
+                    "Id": 23
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-18T09:23:50",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 23,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "604",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-16T10:57:17",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Mail Corporativo - Consulta app",
+                    "Adicional": "",
+                    "Id": 56
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-18T09:24:02",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 56,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "603",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-16T10:20:37",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2053628,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-18T09:24:30",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "602",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-16T08:30:15",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2348415,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-16T08:33:11",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "601",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-16T07:17:08",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Llamada no transferida: ocupada o en reunión",
+                    "Adicional": "",
+                    "Id": 10
+                  },
+                  "TextoId": "0",
+                  "PerId": 110259,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-18T09:24:38",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 10,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "599",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-16T07:05:59",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "SA-Registro reclamo tercero (asesoramiento)",
+                    "Adicional": "",
+                    "Id": 19
+                  },
+                  "TextoId": "0",
+                  "PerId": 2173209,
+                  "Estado": "TER",
+                  "FechaFin": "2025-07-18T09:24:48",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 19,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "598",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-07-16T06:10:56",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 2127033,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T08:57:56",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "597",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-06-04T08:18:11",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Terceros",
+                    "Adicional": "",
+                    "Id": 1
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-08-20T13:59:34",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 1,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "592",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-06-04T08:05:53",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "591",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-06-04T06:47:18",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "test",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-06-04T08:09:24",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "test",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "590",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-05-29T08:20:49",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "587",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-04-11T13:51:10",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Terceros",
+                    "Adicional": "",
+                    "Id": 1
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-04-11T13:56:11",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 1,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "571",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-04-11T13:07:30",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "565",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-04-04T06:35:07",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "540",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-03-19T13:15:37",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "521",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-01-16T10:25:55",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se cambiaron los datos personales",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2025-01-16T10:48:11",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cambiaron los datos personales",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "455",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-10-08T08:42:11",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2206206,
+                  "Estado": "TER",
+                  "FechaFin": "2024-10-08T08:46:54",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "288",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-09-16T09:40:38",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Asegurados)",
+                    "Adicional": "listo",
+                    "Id": 3
+                  },
+                  "TextoId": "0",
+                  "PerId": 2132643,
+                  "Estado": "TER",
+                  "FechaFin": "2024-09-16T09:41:48",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "listo",
+                  "Tipo": "TEL",
+                  "MotivoId": 3,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "281",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-09-16T09:10:53",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se cambian los datos correctamente",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-09-16T09:11:27",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cambian los datos correctamente",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "279",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-09-13T17:33:19",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "listo",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-09-16T07:00:52",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "listo",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "276",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-09-10T08:21:55",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se cambiaron perfectamente los datos personales",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-09-10T08:37:55",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cambiaron perfectamente los datos personales",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "258",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-09-06T06:35:03",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "listoooooo",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 1684297,
+                  "Estado": "TER",
+                  "FechaFin": "2024-09-16T08:28:15",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "listoooooo",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "252",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-27T08:01:20",
+                  "Usuario": "",
+                  "Email": "abroda@xiku.io",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "listo",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-09-16T09:27:31",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "listo",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "236",
+                  "TelNumero": "3402535878"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-20T07:11:56",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Asegurados)",
+                    "Adicional": "Se corto la cominicación",
+                    "Id": 3
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-20T10:27:25",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se corto la cominicación",
+                  "Tipo": "TEL",
+                  "MotivoId": 3,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "225",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-20T06:00:07",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Terceros",
+                    "Adicional": "listooooooooo",
+                    "Id": 1
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-09-16T10:44:19",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "listooooooooo",
+                  "Tipo": "TEL",
+                  "MotivoId": 1,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "224",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-20T05:32:35",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "223",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T21:27:49",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Cambio de datos exitoso",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T21:28:15",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Cambio de datos exitoso",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "221",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T21:24:21",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se cambiaron los datos perfectamente. das a a a asdadas as as a asd ads aasa sa ad as das das asd ads ads ad as asd asd sad ad ad a da sad a das",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T21:27:11",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cambiaron los datos perfectamente. das a a a asdadas as as a asd ads aasa sa ad as das das asd ads ads ad as asd asd sad ad ad a da sad a das",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "220",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T17:46:03",
+                  "Usuario": "",
+                  "Email": "jesteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se aprueban de forma correcta los datos personales",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T20:10:59",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se aprueban de forma correcta los datos personales",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "219",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T17:33:18",
+                  "Usuario": "",
+                  "Email": "jesteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se cambiaron los datos personales de forma correcta",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T17:43:11",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cambiaron los datos personales de forma correcta",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "218",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-06-04T08:30:35",
+                  "Usuario": "",
+                  "Email": "jesteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Cierre forzado por base de datos",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Cierre forzado por base de datos",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "217",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T12:17:20",
+                  "Usuario": "",
+                  "Email": "jesteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "215",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T12:07:25",
+                  "Usuario": "",
+                  "Email": "jesteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se cambiaron los datos personales de forma correcta",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T12:08:43",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cambiaron los datos personales de forma correcta",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "214",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T11:56:46",
+                  "Usuario": "",
+                  "Email": "jesteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "asasassasasa",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T12:01:13",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "asasassasasa",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "213",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T11:00:49",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T11:52:48",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "211",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T10:42:04",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Asegurados)",
+                    "Adicional": "se corto la comunicacion",
+                    "Id": 3
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "REC",
+                  "FechaFin": "2024-08-19T10:43:42",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "se corto la comunicacion",
+                  "Tipo": "TEL",
+                  "MotivoId": 3,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "210",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T10:41:05",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "cambio de dotos personales",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T10:41:32",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "cambio de dotos personales",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "209",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T09:30:24",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "se rechaza",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "REC",
+                  "FechaFin": "2024-08-19T09:32:01",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "se rechaza",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "208",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T09:16:08",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "listo",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T09:19:38",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "listo",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "207",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T09:15:08",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "se cambio los datos personales",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T09:15:35",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "se cambio los datos personales",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "206",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T08:20:16",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T08:27:48",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "205",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T07:59:51",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "dsdsds",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T10:44:57",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "dsdsds",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "204",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T07:27:25",
+                  "Usuario": "",
+                  "Email": "jesteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se cambiaron de forma correcta los datos personales",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T07:29:51",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cambiaron de forma correcta los datos personales",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "203",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T07:17:02",
+                  "Usuario": "",
+                  "Email": "jesteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "",
+                    "Adicional": "",
+                    "Id": 0
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "",
+                  "Tipo": "TEL",
+                  "MotivoId": 0,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "202",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-19T06:42:35",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se cambiaron de forma correcta los datos personales",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-19T06:48:57",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cambiaron de forma correcta los datos personales",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "201",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-06-04T08:30:35",
+                  "Usuario": "",
+                  "Email": "jesteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Cierre forzado por base de datos",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Cierre forzado por base de datos",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "200",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-16T13:02:02",
+                  "Usuario": "",
+                  "Email": "javieresteche@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Asegurados)",
+                    "Adicional": "La llamada se cortó de forma inesperada. Volver a contactar",
+                    "Id": 3
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T13:03:06",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "La llamada se cortó de forma inesperada. Volver a contactar",
+                  "Tipo": "TEL",
+                  "MotivoId": 3,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "196",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-16T12:55:38",
+                  "Usuario": "",
+                  "Email": "anneris1986@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Se cambiaron los datos personales de forma correcta",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T12:58:39",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cambiaron los datos personales de forma correcta",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "195",
+                  "TelNumero": "3413642064"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-16T12:22:18",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Asegurados)",
+                    "Adicional": "se corto la llamada",
+                    "Id": 3
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T12:23:11",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "se corto la llamada",
+                  "Tipo": "TEL",
+                  "MotivoId": 3,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "194",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-16T11:31:08",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "cambio de datos",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T11:32:19",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "cambio de datos",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "193",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-16T07:55:24",
+                  "Usuario": "",
+                  "Email": "jesteche@xiku.io",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mauris mauris, consectetur in nisi quis, viverra eleifend mi. Integer molestie nulla non orci cursus porta. Suspendisse consequat urna ligula, ut lacinia felis pharetra quis. Nunc scelerisque nibh non erat dapibus, in sollicitudin dolor laoreet. In cursus euismod dui. Nulla facilisis scelerisque euismod. Aenean pharetra interdum risus, vitae faucibus ante consectetur non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse lacinia laoreet metus at ornare.\n\nAenean at nulla eget libero pulvinar pharetra et vitae mauris. Etiam eget pellentesque urna. Mauris dapibus ornare mi nec interdum. Etiam luctus posuere risus, ac bibendum mauris dignissim vitae. Phasellus fringilla ante mi, vitae placerat ex semper laoreet. Aliquam vel hendrerit eros. Vestibulum congue egestas metus ut maximus. Nullam ornare purus ut felis vulputate porttitor. Suspendisse potenti. Aliquam quis volutpat ex.",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T08:40:01",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mauris mauris, consectetur in nisi quis, viverra eleifend mi. Integer molestie nulla non orci cursus porta. Suspendisse consequat urna ligula, ut lacinia felis pharetra quis. Nunc scelerisque nibh non erat dapibus, in sollicitudin dolor laoreet. In cursus euismod dui. Nulla facilisis scelerisque euismod. Aenean pharetra interdum risus, vitae faucibus ante consectetur non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse lacinia laoreet metus at ornare.\n\nAenean at nulla eget libero pulvinar pharetra et vitae mauris. Etiam eget pellentesque urna. Mauris dapibus ornare mi nec interdum. Etiam luctus posuere risus, ac bibendum mauris dignissim vitae. Phasellus fringilla ante mi, vitae placerat ex semper laoreet. Aliquam vel hendrerit eros. Vestibulum congue egestas metus ut maximus. Nullam ornare purus ut felis vulputate porttitor. Suspendisse potenti. Aliquam quis volutpat ex.",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "192",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-14T19:27:32",
+                  "Usuario": "",
+                  "Email": "jesteche@xiku.io",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Terceros",
+                    "Adicional": "hahahahah",
+                    "Id": 1
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T12:24:59",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "hahahahah",
+                  "Tipo": "TEL",
+                  "MotivoId": 1,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "182",
+                  "TelNumero": "2474419317"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-14T19:15:05",
+                  "Usuario": "",
+                  "Email": "anneris1986@hotmail.com",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "tercero",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T12:46:12",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "tercero",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "181",
+                  "TelNumero": "2474430359"
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-14T08:43:41",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "llllllllllllllllllllllllllllllll",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 2132643,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T11:47:33",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "llllllllllllllllllllllllllllllll",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "177",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-08T11:31:03",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "cambio de datos",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T12:55:14",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "cambio de datos",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "168",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-08T09:14:44",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "se finaliza",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T13:50:32",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "se finaliza",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "166",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-08-05T12:47:02",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Terceros",
+                    "Adicional": "aaaaaaaaaaaaaaaaaaaaaaaa",
+                    "Id": 1
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T13:53:44",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "aaaaaaaaaaaaaaaaaaaaaaaa",
+                  "Tipo": "TEL",
+                  "MotivoId": 1,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "151",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-07-18T09:48:05",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "fdfddf",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T11:50:26",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "fdfddf",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "107",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "Comunicación fallida",
+                  "FechaInicio": "2024-07-15T18:30:33",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Asegurados)",
+                    "Adicional": "Se cortó la llamada",
+                    "Id": 3
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cortó la llamada",
+                  "Tipo": "TEL",
+                  "MotivoId": 3,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "91",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-07-15T18:18:57",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Asegurados)",
+                    "Adicional": "Se cortó la comunicación al instante",
+                    "Id": 3
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Se cortó la comunicación al instante",
+                  "Tipo": "TEL",
+                  "MotivoId": 3,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "90",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2024-07-04T10:56:18",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Acceso a Portal Asegurados",
+                    "Adicional": "gdfgfgf",
+                    "Id": 2
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "2024-08-16T11:52:36",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "gdfgfgf",
+                  "Tipo": "TEL",
+                  "MotivoId": 2,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "68",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-06-04T08:30:35",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Cierre forzado por base de datos",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Cierre forzado por base de datos",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "67",
+                  "TelNumero": ""
+                },
+                {
+                  "Nombre": "",
+                  "FechaInicio": "2025-06-04T08:30:35",
+                  "Usuario": "",
+                  "Email": "",
+                  "CnvId": "0",
+                  "UserGUID": "",
+                  "Motivo": {
+                    "Nombre": "Estado de Siniestros (Terceros)",
+                    "Adicional": "Cierre forzado por base de datos",
+                    "Id": 4
+                  },
+                  "TextoId": "0",
+                  "PerId": 2092797,
+                  "Estado": "TER",
+                  "FechaFin": "0000-00-00T00:00:00",
+                  "UserNombreCompleto": "",
+                  "MotivoAdicional": "Cierre forzado por base de datos",
+                  "Tipo": "TEL",
+                  "MotivoId": 4,
+                  "Username": "",
+                  "AplicacionId": 0,
+                  "Id": "66",
+                  "TelNumero": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "soporte-masterpagemenu",
+      "nombre": "Soporte.MasterPageMenu (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Soporte.MasterPageMenu",
+          "entrada": {},
+          "lineaBase": {
+            "Menu": []
+          }
+        }
+      ]
+    }
+  ]
+}

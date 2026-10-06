@@ -1,0 +1,1086 @@
+{
+  "nombre": "Auto - Generales.Personas",
+  "kb": "Generales",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "generales-personas-cbu-vacia",
+      "nombre": "Generales.Personas.CBU (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.CBU",
+          "entrada": {
+            "inCBU": {
+              "CodigoBanco": 0,
+              "TipoCuenta": 0,
+              "NumeroCuenta": 0,
+              "CodigoSucursal": 0
+            }
+          },
+          "lineaBase": {
+            "outCBU": {
+              "DigitoVerificadorBloque2": "0",
+              "CBU": "0000000000000000000000",
+              "DigitoVerificadorBloque1": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-dashper_cargamapa",
+      "nombre": "Generales.Personas.dashPer_CargaMapa (datos de SISTEMA.sitRecTitulo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.dashPer_CargaMapa",
+          "entrada": {
+            "inDashPer_filtros": {
+              "DashPerResProId": 0,
+              "DashPerPeriodo": 0,
+              "DashPerResRangoEtario": 0,
+              "Categoria": "TUT",
+              "DashPerResTieneTelefono": false,
+              "DashPerResTieneEmail": false,
+              "DashPerPaisId": 0,
+              "DashPerResTipo": "",
+              "DashPerResSexo": ""
+            }
+          },
+          "lineaBase": {
+            "Mapa": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-dependencias-lista-vacia",
+      "nombre": "Generales.Personas.Dependencias.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Dependencias.Lista",
+          "entrada": {
+            "inLista": {
+              "PerId": 0
+            }
+          },
+          "lineaBase": {
+            "OutLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-desarmarcbu-vacia",
+      "nombre": "Generales.Personas.DesarmarCBU (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.DesarmarCBU",
+          "entrada": {
+            "inDesarmarCBU": {
+              "CBU": ""
+            }
+          },
+          "lineaBase": {
+            "outDesarmarCBU": {
+              "Verificacion1": 0,
+              "Verificacion2": 0,
+              "CodigoSucursalGAUS": 0,
+              "CodigoBanco": 0,
+              "TipoCuenta": 0,
+              "NumeroCuenta": 0,
+              "CodigoSucursal": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-documento_preferente-vacia",
+      "nombre": "Generales.Personas.Documento_Preferente (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Documento_Preferente",
+          "entrada": {
+            "PerId": 0
+          },
+          "lineaBase": {
+            "DocPreferente": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-documentos-vacia",
+      "nombre": "Generales.Personas.Documentos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Documentos",
+          "entrada": {
+            "inDocumentos": {
+              "PersonaId": 0
+            }
+          },
+          "lineaBase": {
+            "outDocumentos": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-dpgntpertipodocumento-vacia",
+      "nombre": "Generales.Personas.dpGntPerTipoDocumento (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.dpGntPerTipoDocumento",
+          "entrada": {
+            "PerTipo": "",
+            "PerSubTipoId": 0
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-dpinscripcionesporimpuesto-vacia",
+      "nombre": "Generales.Personas.dpInscripcionesPorImpuesto (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.dpInscripcionesPorImpuesto",
+          "entrada": {
+            "ImpId": 0
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-dppersonadependencia-vacia",
+      "nombre": "Generales.Personas.dpPersonaDependencia (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.dpPersonaDependencia",
+          "entrada": {
+            "inLista": {
+              "PerId": 0
+            }
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-dprolesporpersona-vacia",
+      "nombre": "Generales.Personas.dpRolesPorPersona (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.dpRolesPorPersona",
+          "entrada": {
+            "PerId": 0,
+            "rolEstado": ""
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-entidadesfinancieras-vacia",
+      "nombre": "Generales.Personas.EntidadesFinancieras (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.EntidadesFinancieras",
+          "entrada": {
+            "inEntidadesFinancieras": {
+              "PersonaId": 0
+            }
+          },
+          "lineaBase": {
+            "outEntidadesFinancieras": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-escrearindicepersonas-vacia",
+      "nombre": "Generales.Personas.ESCrearIndicePersonas (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.ESCrearIndicePersonas",
+          "entrada": {
+            "nombreIndice": ""
+          },
+          "lineaBase": {
+            "errores": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-extensiones-vacia",
+      "nombre": "Generales.Personas.Extensiones (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Extensiones",
+          "entrada": {
+            "inExtensiones": {
+              "PersonaId": 0
+            }
+          },
+          "lineaBase": {
+            "outExtensiones": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-fulltextsearch",
+      "nombre": "Generales.Personas.FullTextSearch (datos de SISTEMA.sitCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.FullTextSearch",
+          "entrada": {
+            "inFullTextSearch": {
+              "Query": "IF (Componente.Granizo.Cultivo = '106' AND Componente.Granizo.PrecioUnitario > 0 AND ( ( Componente.Granizo.PrecioUnitario NOT BETWEEN 150000 AND 1500000 AND ( Componente.ProvinciaId = 1 OR Componente.ProvinciaId = 6 OR Componente.ProvinciaId = 13 OR Componente.Granizo.DepartamentoId = 202 OR Componente.Granizo.DepartamentoId = 212 OR Componente.Granizo.DepartamentoId = 213 OR Componente.Granizo.DepartamentoId = 214 OR Componente.Granizo.DepartamentoId = 215 ) ) OR ( Componente.Granizo.PrecioUnitario NOT BETWEEN 150000 AND 1350000 AND ( Componente.ProvinciaId = 4 AND Componente.Granizo.DepartamentoId != 202 AND Componente.Granizo.DepartamentoId != 212 AND Componente.Granizo.DepartamentoId != 213 AND Componente.Granizo.DepartamentoId != 214 AND Componente.Granizo.DepartamentoId != 215 ) ) ) AND Componente.Granizo.Contratacion = 'P')"
+            }
+          },
+          "lineaBase": {
+            "outFullTextSearch": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-fulltextsearch-vacia",
+      "nombre": "Generales.Personas.FullTextSearch (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.FullTextSearch",
+          "entrada": {
+            "inFullTextSearch": {
+              "Query": ""
+            }
+          },
+          "lineaBase": {
+            "outFullTextSearch": {
+              "Errores": [
+                {
+                  "Mensaje": "El texto de búsqueda debe tener más de 3 caracteres",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-gnhperrol_obtenerroles-vacia",
+      "nombre": "Generales.Personas.gnhPerRol_ObtenerRoles (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.gnhPerRol_ObtenerRoles",
+          "entrada": {
+            "PerId": 0
+          },
+          "lineaBase": {
+            "RolIds": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-lista-vacia",
+      "nombre": "Generales.Personas.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Lista",
+          "entrada": {
+            "inLista": {
+              "Personas": [
+                0
+              ]
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "Errores": [
+                {
+                  "Mensaje": "Persona con id 0 no encontrada",
+                  "Id": 101
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-log-vacia",
+      "nombre": "Generales.Personas.Log (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Log",
+          "entrada": {
+            "inLog": {
+              "PersonaId": 0
+            }
+          },
+          "lineaBase": {
+            "outLog": {
+              "Errores": [
+                {
+                  "Mensaje": "Por favor indicar el Id de Persona",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-nombre-vacia",
+      "nombre": "Generales.Personas.Nombre (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Nombre",
+          "entrada": {
+            "inNombre": {
+              "Id": 0
+            }
+          },
+          "lineaBase": {
+            "outNombre": {
+              "Errores": [
+                {
+                  "Mensaje": "No existe la persona 0",
+                  "Id": 1
+                }
+              ],
+              "NombreCompleto": "",
+              "Id": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-opendata-ultimasversiones_odt",
+      "nombre": "Generales.Personas.OpenData.UltimasVersiones_ODT (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.OpenData.UltimasVersiones_ODT",
+          "entrada": {},
+          "lineaBase": {
+            "idsUltimasVersiones": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-perentfinanciera_validacbu-vacia",
+      "nombre": "Generales.Personas.PerEntFinanciera_ValidaCbu (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerEntFinanciera_ValidaCbu",
+          "entrada": {
+            "EntFinId": 0,
+            "EntFinRefMascaraInput": ""
+          },
+          "lineaBase": {
+            "CBUValido": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-perentfinanciera_validarsuccbu-vacia",
+      "nombre": "Generales.Personas.PerEntFinanciera_ValidarSucCBU (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerEntFinanciera_ValidarSucCBU",
+          "entrada": {
+            "EntFinRefMascaraInput": ""
+          },
+          "lineaBase": {
+            "SucValida": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-perrelacion_cargarelaciones-vacia",
+      "nombre": "Generales.Personas.PerRelacion_CargaRelaciones (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerRelacion_CargaRelaciones",
+          "entrada": {
+            "PerId": 0
+          },
+          "lineaBase": {
+            "PerTipo": "",
+            "RelIdColeccion": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-perrelacion_perrelacionadanombre-vacia",
+      "nombre": "Generales.Personas.PerRelacion_PerRelacionadaNombre (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerRelacion_PerRelacionadaNombre",
+          "entrada": {
+            "PerId_Relacionada": 0
+          },
+          "lineaBase": {
+            "PerNombreCompleto": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-perrelacion_pertiporelacionada-vacia",
+      "nombre": "Generales.Personas.PerRelacion_PerTipoRelacionada (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerRelacion_PerTipoRelacionada",
+          "entrada": {
+            "RelId": 0,
+            "PerTipo": ""
+          },
+          "lineaBase": {
+            "PerTiposRelacionados": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-perrelacion_validarcantidad-vacia",
+      "nombre": "Generales.Personas.PerRelacion_ValidarCantidad (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerRelacion_ValidarCantidad",
+          "entrada": {
+            "PerId": 0,
+            "PerId_Relacionada": 0,
+            "RelId": 0,
+            "PerRelFecha": "",
+            "PerRelFechaBaja": "",
+            "Mode": ""
+          },
+          "lineaBase": {
+            "valido": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-perrelacion_validarrelacion-vacia",
+      "nombre": "Generales.Personas.PerRelacion_ValidarRelacion (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerRelacion_ValidarRelacion",
+          "entrada": {
+            "PerId": 0,
+            "PerId_Relacionada": 0,
+            "RelId": 0
+          },
+          "lineaBase": {
+            "RelacionNOValida": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persona_avatar-vacia",
+      "nombre": "Generales.Personas.Persona_Avatar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Persona_Avatar",
+          "entrada": {
+            "PerID": 0
+          },
+          "lineaBase": {
+            "PerAvatar": "Resources/Unknown.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persona_dependencias-vacia",
+      "nombre": "Generales.Personas.Persona_Dependencias (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Persona_Dependencias",
+          "entrada": {
+            "PerId": 0
+          },
+          "lineaBase": {
+            "ExistenDependencias": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persona_elasticfts",
+      "nombre": "Generales.Personas.Persona_ElasticFTS (datos de SEGURIDAD.segUserPreferencia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Persona_ElasticFTS",
+          "entrada": {
+            "Request": {
+              "Parametros": {
+                "UserGUID": "6079ce14-f4d8-48be-9964-ba88a31b0947",
+                "RamaId": 0,
+                "Anio": 0
+              },
+              "query": "",
+              "BusquedaPor": ""
+            }
+          },
+          "lineaBase": {
+            "Response": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persona_fts",
+      "nombre": "Generales.Personas.Persona_FTS (datos de SEGURIDAD.segUserPreferencia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Persona_FTS",
+          "entrada": {
+            "Request": {
+              "Parametros": {
+                "UserGUID": "6079ce14-f4d8-48be-9964-ba88a31b0947",
+                "RamaId": 0,
+                "Anio": 0
+              },
+              "query": "",
+              "BusquedaPor": ""
+            }
+          },
+          "lineaBase": {
+            "Response": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persona_nombrecompleto-vacia",
+      "nombre": "Generales.Personas.Persona_NombreCompleto (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Persona_NombreCompleto",
+          "entrada": {
+            "PerId": 0
+          },
+          "lineaBase": {
+            "PerNombreCompleto": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persona_personatipo-vacia",
+      "nombre": "Generales.Personas.Persona_PersonaTipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Persona_PersonaTipo",
+          "entrada": {
+            "PerId": 0
+          },
+          "lineaBase": {
+            "PerTipo": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persona_tipo-vacia",
+      "nombre": "Generales.Personas.Persona_Tipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Persona_Tipo",
+          "entrada": {
+            "PerId": 0
+          },
+          "lineaBase": {
+            "PerTipo": "",
+            "PerSubTipoId": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-personaslistaporemail-vacia",
+      "nombre": "Generales.Personas.PersonasListaPorEmail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PersonasListaPorEmail",
+          "entrada": {
+            "PerEmailDireccion": ""
+          },
+          "lineaBase": {
+            "SetPersonaId": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persubtipo_existepreferente-vacia",
+      "nombre": "Generales.Personas.PerSubTipo_ExistePreferente (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerSubTipo_ExistePreferente",
+          "entrada": {
+            "PerTipo": ""
+          },
+          "lineaBase": {
+            "ExistePreferente": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persubtipo_marcafallecidas",
+      "nombre": "Generales.Personas.PerSubTipo_MarcaFallecidas (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerSubTipo_MarcaFallecidas",
+          "entrada": {},
+          "lineaBase": {
+            "PerTipo": "",
+            "PerSubTipoId": 0,
+            "OKSubTipoFallecida": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-persubtipo_nombre-vacia",
+      "nombre": "Generales.Personas.PerSubTipo_Nombre (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.PerSubTipo_Nombre",
+          "entrada": {
+            "PerSubTipoId": 0,
+            "PerTipo": ""
+          },
+          "lineaBase": {
+            "PerSubTipoNombre": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-roles-lista-vacia",
+      "nombre": "Generales.Personas.Roles.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Roles.Lista",
+          "entrada": {
+            "inLista": {
+              "PersonaId": 0
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-roles-personaslista-vacia",
+      "nombre": "Generales.Personas.Roles.PersonasLista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Roles.PersonasLista",
+          "entrada": {
+            "RolId": 0
+          },
+          "lineaBase": {
+            "SetPersonaId": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-roles-rol_resumen-vacia",
+      "nombre": "Generales.Personas.Roles.Rol_Resumen (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Roles.Rol_Resumen",
+          "entrada": {
+            "RolId": 0
+          },
+          "lineaBase": {
+            "sdtRol_Resumen": {
+              "TextoExigePerfVta": "0 exige Perfil de Ventas",
+              "TextoHabilitadoO": "Habilitado para 0 de 0 SubTipos de PERSONAS OTROS",
+              "TextoDoc7": "",
+              "TextoDoc6": "",
+              "TextoExigeFchNac": "0 exige Fecha de Nacimiento",
+              "TextoDoc9": "",
+              "TextoDoc8": "",
+              "TextoHabilitadoJ": "Habilitado para 0 de 0 SubTipos de PERSONAS JURÍDICAS",
+              "TextoExigeDom": "0 exige Domicilio",
+              "TextoHabilitadoF": "Habilitado para 0 de 0 SubTipos de PERSONAS FÍSICAS",
+              "TextoExigeEntFinCob": "0 exige Ent. Financiera Pagos",
+              "TextoDoc10": "",
+              "TextoExigeEmail": "0 exige Email",
+              "TextoDoc11": "",
+              "TextoDoc12": "",
+              "TextoDoc13": "",
+              "TextoDoc14": "",
+              "TextoExigePerfCom": "0 exige Perfil de Compas",
+              "TextoDoc15": "",
+              "TextoExigeTel": "0 exige Teléfono",
+              "TextoExigeEntFinPag": "0 exige Ent. Financiera Cobros",
+              "TextoDoc3": "",
+              "TextoDoc2": "",
+              "TextoDoc5": "",
+              "TextoDoc4": "",
+              "TextoDoc1": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-tag-lista-vacia",
+      "nombre": "Generales.Personas.Tag.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Tag.Lista",
+          "entrada": {
+            "inLista": {
+              "PersonaId": 0
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "Format": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-tag-listaexterno-vacia",
+      "nombre": "Generales.Personas.Tag.ListaExterno (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.Tag.ListaExterno",
+          "entrada": {
+            "inListaExterno": {
+              "TagsVisibles": [
+                0
+              ],
+              "Paginacion": {
+                "PaginaNumero": 0,
+                "FilasPorPagina": 0
+              },
+              "PersonaId": 0
+            }
+          },
+          "lineaBase": {
+            "outListaExterno": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-tipodocumento_buscamascara",
+      "nombre": "Generales.Personas.TipoDocumento_BuscaMascara (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.TipoDocumento_BuscaMascara",
+          "entrada": {
+            "DocTipoId": 80
+          },
+          "lineaBase": {
+            "MascaraDocumento": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-validarexistencia-vacia",
+      "nombre": "Generales.Personas.ValidarExistencia (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.ValidarExistencia",
+          "entrada": {
+            "PersonaId": 0
+          },
+          "lineaBase": {
+            "Existe": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-webservices-wspersonabuscarfulltext-vacia",
+      "nombre": "Generales.Personas.WebServices.wsPersonaBuscarFullText (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Personas.WebServices.wsPersonaBuscarFullText",
+          "entrada": {
+            "Request": {
+              "Busqueda": ""
+            }
+          },
+          "lineaBase": {
+            "Response": {}
+          }
+        }
+      ]
+    }
+  ]
+}

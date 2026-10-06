@@ -1,0 +1,236 @@
+{
+  "nombre": "Auto - Generales.Geograficos",
+  "kb": "Generales",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "generales-geograficos-distritos-codigopostaldescomponer-vacia",
+      "nombre": "Generales.Geograficos.Distritos.CodigoPostalDescomponer (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.CodigoPostalDescomponer",
+          "entrada": {
+            "CodigoPostalUnivoco": 0
+          },
+          "lineaBase": {
+            "CodigoPostal": 0,
+            "CodigoPostalSufijo": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-localidad_urlbusquedaelastic-vacia",
+      "nombre": "Generales.Geograficos.Distritos.Localidad_URLBusquedaElastic (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.Localidad_URLBusquedaElastic",
+          "entrada": {
+            "FormatUrlApp": ""
+          },
+          "lineaBase": {
+            "UrlLocalidades": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-localidad_urlbusquedaelasticaplicacion",
+      "nombre": "Generales.Geograficos.Distritos.Localidad_URLBusquedaElasticAplicacion (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.Localidad_URLBusquedaElasticAplicacion",
+          "entrada": {},
+          "lineaBase": {
+            "UrlLocalidades": "../GeneralesJavaEnvironment/rest/Generales/Geograficos/Distritos/OS_LocalidadesBuscarWS"
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-localidades-localidad_buscarprovincia-vacia",
+      "nombre": "Generales.Geograficos.Distritos.Localidades.Localidad_BuscarProvincia (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.Localidades.Localidad_BuscarProvincia",
+          "entrada": {
+            "PaisId": 0,
+            "LocId": 0
+          },
+          "lineaBase": {
+            "ProId": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-localidades-localidad_validar-vacia",
+      "nombre": "Generales.Geograficos.Distritos.Localidades.Localidad_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.Localidades.Localidad_Validar",
+          "entrada": {
+            "OdLocId": ""
+          },
+          "lineaBase": {
+            "LocNombre": "",
+            "DptoId": 0,
+            "DptoNombre": "",
+            "isOK": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-os_localidadescrearjsonconsulta-vacia",
+      "nombre": "Generales.Geograficos.Distritos.OS_LocalidadesCrearJsonConsulta (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.OS_LocalidadesCrearJsonConsulta",
+          "entrada": {
+            "inOS_CrearJsonConsulta": {
+              "SinCabeceraQuery": false,
+              "FiltrarPorProductores": "",
+              "CantidadResultados": 0,
+              "TextoBusqueda": ""
+            }
+          },
+          "lineaBase": {
+            "JSON_Busqueda": "{  \"query\": {    \"multi_match\": {\"query\": \"\",      \"fields\": [\"NombreCompleto^2\", \"Nombre^3\",\"CodigoPostal^4\"]    }  }}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-pais_odtpais-vacia",
+      "nombre": "Generales.Geograficos.Distritos.Pais_odtPais (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.Pais_odtPais",
+          "entrada": {
+            "OdPaisId": 0
+          },
+          "lineaBase": {
+            "PaisNombre": "",
+            "PaisNombreCorto": "",
+            "PaisCodigoTelefonico": 0,
+            "PaisCodigoISO": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-paises-get-vacia",
+      "nombre": "Generales.Geograficos.Distritos.Paises.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.Paises.Get",
+          "entrada": {
+            "inGet": {
+              "PaisId": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Errores": [
+                {
+                  "Mensaje": "El Id 0 no corresponde a ningún Pais ",
+                  "Id": 101
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-paises-lista",
+      "nombre": "Generales.Geograficos.Distritos.Paises.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.Paises.Lista",
+          "entrada": {},
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-provincias-lista",
+      "nombre": "Generales.Geograficos.Distritos.Provincias.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Geograficos.Distritos.Provincias.Lista",
+          "entrada": {},
+          "lineaBase": {
+            "outLista": {
+              "Errores": [
+                {
+                  "Mensaje": "No se encontraron provincias",
+                  "Id": 200
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

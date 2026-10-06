@@ -1,0 +1,20 @@
+{
+  "raicesKB": ["C:\\KBGXSERVER\\CORE", "C:\\KBGXSERVER\\FIXES"],
+  "puerto": 8765,
+  "motorInactivoMin": 15,
+  "opcionesJvm": ["-Xss8m", "-Xmx2g", "-Dfile.encoding=UTF-8"],
+  "opcionesSuite": {
+    "transaccion": "rollback",
+    "recortarEspacios": true,
+    "toleranciaNumerica": 0.000001,
+    "listasParciales": false,
+    "timeoutMs": 120000
+  },
+  "despuesDelBuild": {
+    "activo": true,
+    "kbs": ["*"],
+    "etiqueta": "",
+    "esperaSeg": 15,
+    "notificar": true
+  }
+}

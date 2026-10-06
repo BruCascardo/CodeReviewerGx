@@ -1,0 +1,73 @@
+{
+  "nombre": "Auto - Cotizacion.Otros",
+  "kb": "Cotizacion",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cotizacion-diagnostico-dummy",
+      "nombre": "Cotizacion.Diagnostico.Dummy (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Diagnostico.Dummy",
+          "entrada": {},
+          "lineaBase": {
+            "FechaHora": "2026-10-04T21:52:09"
+          },
+          "volatiles": [
+            "FechaHora"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-masterpagemenu",
+      "nombre": "Cotizacion.MasterPageMenu (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.MasterPageMenu",
+          "entrada": {},
+          "lineaBase": {
+            "Menu": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-milisegundos_get",
+      "nombre": "Cotizacion.Milisegundos_Get (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Milisegundos_Get",
+          "entrada": {},
+          "lineaBase": {
+            "Milisegundos": 1791161532131
+          },
+          "volatiles": [
+            "Milisegundos"
+          ]
+        }
+      ]
+    }
+  ]
+}

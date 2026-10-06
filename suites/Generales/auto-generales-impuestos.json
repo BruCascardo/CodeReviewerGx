@@ -1,0 +1,323 @@
+{
+  "nombre": "Auto - Generales.Impuestos",
+  "kb": "Generales",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "generales-impuestos-alcance-vacia",
+      "nombre": "Generales.Impuestos.Alcance (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.Alcance",
+          "entrada": {
+            "inAlcance": {
+              "ImpId": 0,
+              "ProId": 0,
+              "ImpAlcId": 0,
+              "Alcance": "",
+              "LocId": 0,
+              "PaisId": 0
+            }
+          },
+          "lineaBase": {
+            "outAlcance": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-get-vacia",
+      "nombre": "Generales.Impuestos.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.Get",
+          "entrada": {
+            "inGet": {
+              "ImpId": 0,
+              "Id": ""
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Errores": [
+                {
+                  "Mensaje": "No existe el impuesto con Id: 0",
+                  "Id": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-impalcance_duplicado-vacia",
+      "nombre": "Generales.Impuestos.ImpAlcance_Duplicado (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.ImpAlcance_Duplicado",
+          "entrada": {
+            "ImpId": 0,
+            "ImpAlcance": "",
+            "ImpAlcId": 0,
+            "PaisId": 0,
+            "ProId": 0,
+            "LocId": 0
+          },
+          "lineaBase": {
+            "Error": {
+              "Mensaje": "",
+              "Id": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-impalcpadron_lista-vacia",
+      "nombre": "Generales.Impuestos.ImpAlcPadron_Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.ImpAlcPadron_Lista",
+          "entrada": {
+            "ImpId": 0,
+            "ImpAlcId": 0
+          },
+          "lineaBase": {
+            "Padrones": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-imptienecategorias-vacia",
+      "nombre": "Generales.Impuestos.ImpTieneCategorias (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.ImpTieneCategorias",
+          "entrada": {
+            "ImpId": 0
+          },
+          "lineaBase": {
+            "TieneCategorias": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-imptieneinscripciones-vacia",
+      "nombre": "Generales.Impuestos.ImpTieneInscripciones (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.ImpTieneInscripciones",
+          "entrada": {
+            "ImpId": 0
+          },
+          "lineaBase": {
+            "TieneInscripciones": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-padrones-itfnombre_recupera",
+      "nombre": "Generales.Impuestos.Padrones.ItfNombre_Recupera (datos de GENERALES.gntInterfase)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.Padrones.ItfNombre_Recupera",
+          "entrada": {
+            "ItfId": 1
+          },
+          "lineaBase": {
+            "ItfNombre": "PAGO MIS CUENTAS"
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-padrones-itfnombre_recupera-vacia",
+      "nombre": "Generales.Impuestos.Padrones.ItfNombre_Recupera (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.Padrones.ItfNombre_Recupera",
+          "entrada": {
+            "ItfId": 0
+          },
+          "lineaBase": {
+            "ItfNombre": " "
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-perfilesfiscales-get-vacia",
+      "nombre": "Generales.Impuestos.PerfilesFiscales.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.PerfilesFiscales.Get",
+          "entrada": {
+            "Request": {
+              "ImpId": 0,
+              "PerfilFiscalId": 0
+            }
+          },
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "No se encontró el Perfil fiscal 0",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-perfilesfiscales-lista-vacia",
+      "nombre": "Generales.Impuestos.PerfilesFiscales.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.PerfilesFiscales.Lista",
+          "entrada": {
+            "Request": {
+              "ImpId": 0
+            }
+          },
+          "lineaBase": {
+            "Repsonse": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-webservices-impuestos_calcular-vacia",
+      "nombre": "Generales.Impuestos.WebServices.Impuestos_Calcular (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.WebServices.Impuestos_Calcular",
+          "entrada": {
+            "Entrada": {
+              "Fecha": "0000-00-00",
+              "ProId": 0,
+              "MonId": 0,
+              "Impuestos": [
+                {
+                  "ImpId": 0,
+                  "BaseImponible": "0.00"
+                }
+              ],
+              "LocId": 0,
+              "ActFisId": 0,
+              "PaisId": 0,
+              "PerfFisId": 0,
+              "EmpId": 0,
+              "PerDocNumero": ""
+            }
+          },
+          "lineaBase": {
+            "Salida": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-webservices-wsimpuestoscalcular-vacia",
+      "nombre": "Generales.Impuestos.WebServices.wsImpuestosCalcular (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Impuestos.WebServices.wsImpuestosCalcular",
+          "entrada": {
+            "Request": {
+              "Fecha": "0000-00-00",
+              "ProId": 0,
+              "MonId": 0,
+              "Impuestos": [
+                {
+                  "ImpId": 0,
+                  "BaseImponible": "0.00"
+                }
+              ],
+              "LocId": 0,
+              "ActFisId": 0,
+              "PaisId": 0,
+              "PerfFisId": 0,
+              "EmpId": 0,
+              "PerDocNumero": ""
+            }
+          },
+          "lineaBase": {
+            "Response": {}
+          }
+        }
+      ]
+    }
+  ]
+}

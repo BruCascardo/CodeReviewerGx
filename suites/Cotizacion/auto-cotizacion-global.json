@@ -1,0 +1,1234 @@
+{
+  "nombre": "Auto - Cotizacion.Global",
+  "kb": "Cotizacion",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cotizacion-global-bandejaslista",
+      "nombre": "Cotizacion.Global.BandejasLista (datos de COTIZACION.cttPromoCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.BandejasLista",
+          "entrada": {
+            "CasoTipo": "PROMO_APROB"
+          },
+          "lineaBase": {
+            "outLista": {
+              "Bandejas": [
+                {
+                  "UsaGrupo": true,
+                  "Orden": 1,
+                  "BandNombre": "PROMOCIONES AGENCIA",
+                  "BandId": "PROMO_AGENCIA"
+                },
+                {
+                  "UsaGrupo": false,
+                  "Orden": 2,
+                  "BandNombre": "PROMOCIONES REGIONAL",
+                  "BandId": "PROMO_REGIONAL"
+                },
+                {
+                  "UsaGrupo": false,
+                  "Orden": 3,
+                  "BandNombre": "PROMOCIONES MASIVAS",
+                  "BandId": "PROMO_MASIVA"
+                },
+                {
+                  "UsaGrupo": true,
+                  "Orden": 4,
+                  "BandNombre": "PROMOCIONES AGENCIA - ACCIDENTES PERSONALES",
+                  "BandId": "PROMO_AGENCIA_AP"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-bandejaslista-vacia",
+      "nombre": "Cotizacion.Global.BandejasLista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.BandejasLista",
+          "entrada": {
+            "CasoTipo": ""
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-dpbandejas",
+      "nombre": "Cotizacion.Global.dpBandejas (datos de COTIZACION.cttPromoCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.dpBandejas",
+          "entrada": {
+            "CasoTipo": "PROMO_APROB"
+          },
+          "lineaBase": {
+            "Salida": [
+              {
+                "Descripcion": "PROMOCIONES AGENCIA",
+                "idNum": "0",
+                "idChar": "PROMO_AGENCIA"
+              },
+              {
+                "Descripcion": "PROMOCIONES REGIONAL",
+                "idNum": "0",
+                "idChar": "PROMO_REGIONAL"
+              },
+              {
+                "Descripcion": "PROMOCIONES MASIVAS",
+                "idNum": "0",
+                "idChar": "PROMO_MASIVA"
+              },
+              {
+                "Descripcion": "PROMOCIONES AGENCIA - ACCIDENTES PERSONALES",
+                "idNum": "0",
+                "idChar": "PROMO_AGENCIA_AP"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-dpbandejas-vacia",
+      "nombre": "Cotizacion.Global.dpBandejas (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.dpBandejas",
+          "entrada": {
+            "CasoTipo": ""
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-dpcasotipo_lista",
+      "nombre": "Cotizacion.Global.dpCasoTipo_Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.dpCasoTipo_Lista",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "Descripcion": "Excepciones aprobación",
+                "idNum": "0",
+                "idChar": "EXCEP_APROB"
+              },
+              {
+                "Descripcion": "Promociones aprobación",
+                "idNum": "0",
+                "idChar": "PROMO_APROB"
+              },
+              {
+                "Descripcion": "Rendición de cobranza",
+                "idNum": "0",
+                "idChar": "REN_COB"
+              },
+              {
+                "Descripcion": "Solicitud de Emisión",
+                "idNum": "0",
+                "idChar": "SOL_EMI"
+              },
+              {
+                "Descripcion": "Modificaciones",
+                "idNum": "0",
+                "idChar": "SOL_MODIFICACIONES"
+              },
+              {
+                "Descripcion": "Soporte/Administración",
+                "idNum": "0",
+                "idChar": "SOP_ADM"
+              },
+              {
+                "Descripcion": "Soporte/Cobranzas/Caución",
+                "idNum": "0",
+                "idChar": "SOP_COB_CAU"
+              },
+              {
+                "Descripcion": "Soporte/Cobranzas/CG",
+                "idNum": "0",
+                "idChar": "SOP_COB_CG"
+              },
+              {
+                "Descripcion": "Soporte/Cobranzas/DA",
+                "idNum": "0",
+                "idChar": "SOP_COB_DA"
+              },
+              {
+                "Descripcion": "Soporte/Comercial/PyE",
+                "idNum": "0",
+                "idChar": "SOP_COM_PYE"
+              },
+              {
+                "Descripcion": "Soporte/Suscripcion/CristalesYRobo",
+                "idNum": "0",
+                "idChar": "SOP_CRISTALES_Y_ROBO"
+              },
+              {
+                "Descripcion": "Soporte/Sistemas",
+                "idNum": "0",
+                "idChar": "SOP_SIS"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/Agro",
+                "idNum": "0",
+                "idChar": "SOP_SUS_AGRO"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/Automotor",
+                "idNum": "0",
+                "idChar": "SOP_SUS_ATM"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/AutosDominio",
+                "idNum": "0",
+                "idChar": "SOP_SUS_AUT"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/Caución",
+                "idNum": "0",
+                "idChar": "SOP_SUS_CAU"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/Embarcaciones",
+                "idNum": "0",
+                "idChar": "SOP_SUS_EMB"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/Incendio",
+                "idNum": "0",
+                "idChar": "SOP_SUS_INC"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/Personas",
+                "idNum": "0",
+                "idChar": "SOP_SUS_PERS"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/RCyST",
+                "idNum": "0",
+                "idChar": "SOP_SUS_RC"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/RRVV",
+                "idNum": "0",
+                "idChar": "SOP_SUS_RRVV"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/Transporte",
+                "idNum": "0",
+                "idChar": "SOP_SUS_TRAN"
+              },
+              {
+                "Descripcion": "Soporte/Suscripción/TRO",
+                "idNum": "0",
+                "idChar": "SOP_SUS_TRO"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-dpconvenios",
+      "nombre": "Cotizacion.Global.dpConvenios (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.dpConvenios",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "Descripcion": "1 - CONVENIO 1",
+                "idNum": "1",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "2 - CONVENIO DE PERSONAS",
+                "idNum": "2",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "3 - CONVENIO DE OTRAS PERSONAS",
+                "idNum": "3",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "4 - CONVENIO CON MÁS PERSONAS",
+                "idNum": "4",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "5 - CONVENIO SIN PERSONAS PERO BLOQUEADO",
+                "idNum": "5",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "6 - CONVENIO PARA PRUEBAS",
+                "idNum": "6",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "7 - EMPRESA MACOSER",
+                "idNum": "7",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "8 - EMPLEADOS DE XIKU",
+                "idNum": "8",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "9 - CONVENIO DE PRUEBA",
+                "idNum": "9",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "10 - PRUEBA",
+                "idNum": "10",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "11 - PRUEBA CONVENIO DETALLE",
+                "idNum": "11",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "12 - CONVENIO PRUEBA IMPORTAR",
+                "idNum": "12",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "13 - PRUEBAINT-609",
+                "idNum": "13",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "14 - CONVENIO DE PRUEBA",
+                "idNum": "14",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "15 - CONVENIO MÁGICO DE JOAQUÍN",
+                "idNum": "15",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "16 - PRUEBA",
+                "idNum": "16",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "17 - CONVENIO FLOR PRUEBAS",
+                "idNum": "17",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "18 - CONVENIO LUHMANN",
+                "idNum": "18",
+                "idChar": ""
+              },
+              {
+                "Descripcion": "19 - GERDAU",
+                "idNum": "19",
+                "idChar": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-dpusuarios-vacia",
+      "nombre": "Cotizacion.Global.dpUsuarios (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.dpUsuarios",
+          "entrada": {
+            "inLista": {
+              "RolNombre": "",
+              "Bloqueado": false,
+              "Activado": false
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Salida": [
+              {
+                "Descripcion": "CORE, ADMIN",
+                "idNum": "0",
+                "idChar": "admin"
+              },
+              {
+                "Descripcion": "User, Admi",
+                "idNum": "0",
+                "idChar": "admin3"
+              },
+              {
+                "Descripcion": "Garavano Viotti, Alejandro",
+                "idNum": "0",
+                "idChar": "agaravano"
+              },
+              {
+                "Descripcion": "Garavano, Alejandro",
+                "idNum": "0",
+                "idChar": "agaravanofiltro"
+              },
+              {
+                "Descripcion": ", agenciacordoba",
+                "idNum": "0",
+                "idChar": "agenciacordoba"
+              },
+              {
+                "Descripcion": ", Agencia Rosario",
+                "idNum": "0",
+                "idChar": "agenciarosario"
+              },
+              {
+                "Descripcion": ", agencia santa fe",
+                "idNum": "0",
+                "idChar": "agenciasantafe"
+              },
+              {
+                "Descripcion": "Garavano, Alejandro",
+                "idNum": "0",
+                "idChar": "agv"
+              },
+              {
+                "Descripcion": "Garavano (Core), Alejandro",
+                "idNum": "0",
+                "idChar": "agvcore"
+              },
+              {
+                "Descripcion": "Garavano (Sop), Alejandro",
+                "idNum": "0",
+                "idChar": "agvsop"
+              },
+              {
+                "Descripcion": "Albertengo, Mauro",
+                "idNum": "0",
+                "idChar": "albertengomauro@gmail.com"
+              },
+              {
+                "Descripcion": "User, Auditor",
+                "idNum": "0",
+                "idChar": "auditor"
+              },
+              {
+                "Descripcion": "MAC, B2BPruebaPermisos",
+                "idNum": "0",
+                "idChar": "b2bpruebapermisos"
+              },
+              {
+                "Descripcion": "DIESO, RUBEN ORFILIO",
+                "idNum": "0",
+                "idChar": "b2b_23106134669"
+              },
+              {
+                "Descripcion": "Wuckert, Lavonne",
+                "idNum": "0",
+                "idChar": "b2b_adela63"
+              },
+              {
+                "Descripcion": "USER, ADMIN",
+                "idNum": "0",
+                "idChar": "b2b_admin"
+              },
+              {
+                "Descripcion": "Mayert, Myrtice",
+                "idNum": "0",
+                "idChar": "b2b_alva29"
+              },
+              {
+                "Descripcion": "admin, b2busuariopruebamail",
+                "idNum": "0",
+                "idChar": "b2b_b2busuariopruebamail"
+              },
+              {
+                "Descripcion": "Feil, Lexi",
+                "idNum": "0",
+                "idChar": "b2b_corbin_osinski35"
+              },
+              {
+                "Descripcion": "Jacobson, Eli",
+                "idNum": "0",
+                "idChar": "b2b_frieda_jast"
+              },
+              {
+                "Descripcion": "CI, IntermediariosLara",
+                "idNum": "0",
+                "idChar": "b2b_intermediarioslaraci"
+              },
+              {
+                "Descripcion": "FERREYRA, JOHANA",
+                "idNum": "0",
+                "idChar": "b2b_jef"
+              },
+              {
+                "Descripcion": "Ankunding, Natalie",
+                "idNum": "0",
+                "idChar": "b2b_juanita_sauer40"
+              },
+              {
+                "Descripcion": "ISAAC-ADMIN, LARA",
+                "idNum": "0",
+                "idChar": "b2b_lisaac-admin"
+              },
+              {
+                "Descripcion": "Bogisich, Quinton",
+                "idNum": "0",
+                "idChar": "b2b_loren.leffler"
+              },
+              {
+                "Descripcion": "Schmitt, Eden",
+                "idNum": "0",
+                "idChar": "b2b_macey.russel"
+              },
+              {
+                "Descripcion": "Beatty, Vincenza",
+                "idNum": "0",
+                "idChar": "b2b_myrtice.hahn"
+              },
+              {
+                "Descripcion": "Heathcote, Marcelo",
+                "idNum": "0",
+                "idChar": "b2b_pablo71"
+              },
+              {
+                "Descripcion": "Pompin 44, Pepe",
+                "idNum": "0",
+                "idChar": "b2b_pepepompin44"
+              },
+              {
+                "Descripcion": "B2B, Prueba",
+                "idNum": "0",
+                "idChar": "b2b_pruebab2b"
+              },
+              {
+                "Descripcion": "1, pruebab2b_1",
+                "idNum": "0",
+                "idChar": "b2b_pruebab2b_1"
+              },
+              {
+                "Descripcion": "dsfg, pruebab2b_21",
+                "idNum": "0",
+                "idChar": "b2b_pruebab2b_21"
+              },
+              {
+                "Descripcion": ", ",
+                "idNum": "0",
+                "idChar": "b2b_pruebab2b_conautorizacion"
+              },
+              {
+                "Descripcion": "admin, pruebaOrganizadores",
+                "idNum": "0",
+                "idChar": "b2b_pruebaorganizadores"
+              },
+              {
+                "Descripcion": "pruebab2b, pruebab2b",
+                "idNum": "0",
+                "idChar": "b2b_prueba_b2b_20"
+              },
+              {
+                "Descripcion": "test, test",
+                "idNum": "0",
+                "idChar": "b2b_test"
+              },
+              {
+                "Descripcion": "test2, TEST2",
+                "idNum": "0",
+                "idChar": "b2b_test2"
+              },
+              {
+                "Descripcion": "usuariob2b1, usuariob2b1",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b1"
+              },
+              {
+                "Descripcion": "usuariob2b2, usuariob2b2",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b2"
+              },
+              {
+                "Descripcion": "usuariob2b3, usuariob2b3",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b3"
+              },
+              {
+                "Descripcion": "usuariob2b4, usuariob2b4",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b4"
+              },
+              {
+                "Descripcion": "usuariob2b5, usuariob2b5",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b5"
+              },
+              {
+                "Descripcion": "admin, usuariob2b50",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b50"
+              },
+              {
+                "Descripcion": "admin, ubuariob2b51",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b51"
+              },
+              {
+                "Descripcion": "admin, usuariob2b52",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b52"
+              },
+              {
+                "Descripcion": "admin, usuariob2b55",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b55"
+              },
+              {
+                "Descripcion": "usuariob2b6, usuariob2b6",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b6"
+              },
+              {
+                "Descripcion": "usuariob2b8, usuariob2b8",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b8"
+              },
+              {
+                "Descripcion": "usuariob2b9, usuariob2b9",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b9"
+              },
+              {
+                "Descripcion": "admin, usuarioB2BFull",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2bfull"
+              },
+              {
+                "Descripcion": "admin, usuariob2b",
+                "idNum": "0",
+                "idChar": "b2b_usuariob2b_mismomail"
+              },
+              {
+                "Descripcion": "APP_cobranza, NOM_bandeja",
+                "idNum": "0",
+                "idChar": "bandejacobranza"
+              },
+              {
+                "Descripcion": "APP_emision, NOM_bandeja",
+                "idNum": "0",
+                "idChar": "bandejaemision"
+              },
+              {
+                "Descripcion": "Suscripcion, Belen",
+                "idNum": "0",
+                "idChar": "belen suscripción"
+              },
+              {
+                "Descripcion": "Cobranzas, Belen",
+                "idNum": "0",
+                "idChar": "belen-cobranzas"
+              },
+              {
+                "Descripcion": "Comercial, Belen",
+                "idNum": "0",
+                "idChar": "belen-comercial"
+              },
+              {
+                "Descripcion": "Siniestros, Belen",
+                "idNum": "0",
+                "idChar": "belen-siniestros"
+              },
+              {
+                "Descripcion": "Soporte, Belen",
+                "idNum": "0",
+                "idChar": "belen-soporte"
+              },
+              {
+                "Descripcion": "ADMIN, Belen",
+                "idNum": "0",
+                "idChar": "bet"
+              },
+              {
+                "Descripcion": "Administracion, Cobranzas",
+                "idNum": "0",
+                "idChar": "cobranzas_administración"
+              },
+              {
+                "Descripcion": "Agencia, Cobranzas",
+                "idNum": "0",
+                "idChar": "cobranzas_agencia"
+              },
+              {
+                "Descripcion": "CC, Cobranzas",
+                "idNum": "0",
+                "idChar": "cobranzas_cc"
+              },
+              {
+                "Descripcion": "Tesoreria, Cobranzas",
+                "idNum": "0",
+                "idChar": "cobranzas_tesoreria"
+              },
+              {
+                "Descripcion": "Cuevas, Darío",
+                "idNum": "0",
+                "idChar": "dcuevas"
+              },
+              {
+                "Descripcion": "despacho, despacho",
+                "idNum": "0",
+                "idChar": "despacho"
+              },
+              {
+                "Descripcion": "Togachensko, Daniela",
+                "idNum": "0",
+                "idChar": "dt"
+              },
+              {
+                "Descripcion": "Urquilla, Daiana",
+                "idNum": "0",
+                "idChar": "durquilla@xiku.io"
+              },
+              {
+                "Descripcion": "cerroni2, fcerroni2",
+                "idNum": "0",
+                "idChar": "fcerroni2"
+              },
+              {
+                "Descripcion": "Cerroni, Florencia",
+                "idNum": "0",
+                "idChar": "fcpterceros"
+              },
+              {
+                "Descripcion": "Donati, Gaston",
+                "idNum": "0",
+                "idChar": "gaston"
+              },
+              {
+                "Descripcion": "Pruebas API, Generales",
+                "idNum": "0",
+                "idChar": "generales"
+              },
+              {
+                "Descripcion": "Gestor, Usuario",
+                "idNum": "0",
+                "idChar": "gestor"
+              },
+              {
+                "Descripcion": "Freitas, Gabriel",
+                "idNum": "0",
+                "idChar": "gfreitas"
+              },
+              {
+                "Descripcion": "Lucco, Guillermo",
+                "idNum": "0",
+                "idChar": "glucco"
+              },
+              {
+                "Descripcion": "Cocconi, Guillermo Mario",
+                "idNum": "0",
+                "idChar": "gmc"
+              },
+              {
+                "Descripcion": "Medrano, Gaston",
+                "idNum": "0",
+                "idChar": "gmedrano"
+              },
+              {
+                "Descripcion": "Medrano, Gaston",
+                "idNum": "0",
+                "idChar": "gmedranocomun"
+              },
+              {
+                "Descripcion": "Ojeda, Guido",
+                "idNum": "0",
+                "idChar": "gojeda@xiku.io"
+              },
+              {
+                "Descripcion": "Diaz, Ignacio",
+                "idNum": "0",
+                "idChar": "ignacio@xiku.io"
+              },
+              {
+                "Descripcion": "usuario, intranet",
+                "idNum": "0",
+                "idChar": "intranet"
+              },
+              {
+                "Descripcion": "Ferreyra, Johana",
+                "idNum": "0",
+                "idChar": "jef"
+              },
+              {
+                "Descripcion": "Core, Johana",
+                "idNum": "0",
+                "idChar": "jefcore"
+              },
+              {
+                "Descripcion": "Felizia, Josefina",
+                "idNum": "0",
+                "idChar": "jmf"
+              },
+              {
+                "Descripcion": "Comercial, Lara",
+                "idNum": "0",
+                "idChar": "laracomercial"
+              },
+              {
+                "Descripcion": "Ruffino, Lilian Elisabet",
+                "idNum": "0",
+                "idChar": "ler"
+              },
+              {
+                "Descripcion": "Ferrari, Lisandro",
+                "idNum": "0",
+                "idChar": "lif"
+              },
+              {
+                "Descripcion": "Ferrari, Lisandro",
+                "idNum": "0",
+                "idChar": "lifconvenio"
+              },
+              {
+                "Descripcion": "Isaac-Admin, Lara",
+                "idNum": "0",
+                "idChar": "lisaac-admin"
+              },
+              {
+                "Descripcion": "Chiavassa, Luciano Mauricio",
+                "idNum": "0",
+                "idChar": "lmc"
+              },
+              {
+                "Descripcion": "Pucheta (Villa Maria), Macarena",
+                "idNum": "0",
+                "idChar": "macarena"
+              },
+              {
+                "Descripcion": "Pucheta (Córdoba), Macarena",
+                "idNum": "0",
+                "idChar": "map"
+              },
+              {
+                "Descripcion": "Cobranzas (Casa central), Macarena",
+                "idNum": "0",
+                "idChar": "mapcobranzas"
+              },
+              {
+                "Descripcion": "Pucheta (Rosario), Macarena",
+                "idNum": "0",
+                "idChar": "mapcomercial"
+              },
+              {
+                "Descripcion": "Pucheta Gestor, Macarena",
+                "idNum": "0",
+                "idChar": "mapgestor"
+              },
+              {
+                "Descripcion": "Pucheta (Santa Fe), Macarena",
+                "idNum": "0",
+                "idChar": "mapsiniestros"
+              },
+              {
+                "Descripcion": "Avila, Mateo",
+                "idNum": "0",
+                "idChar": "mateo"
+              },
+              {
+                "Descripcion": "Gomez, Mauricio",
+                "idNum": "0",
+                "idChar": "mauricio@xiku.io"
+              },
+              {
+                "Descripcion": "Albertengo, Mauro",
+                "idNum": "0",
+                "idChar": "mauro@xiku.io"
+              },
+              {
+                "Descripcion": "Frías, Matías",
+                "idNum": "0",
+                "idChar": "mfrias@xiku.io"
+              },
+              {
+                "Descripcion": "pereyra, martin",
+                "idNum": "0",
+                "idChar": "mlp"
+              },
+              {
+                "Descripcion": "Martinez, Micaela",
+                "idNum": "0",
+                "idChar": "mmartinez@xiku.io"
+              },
+              {
+                "Descripcion": "Pucheta (Rio Cuarto), Macarena",
+                "idNum": "0",
+                "idChar": "mpucheta"
+              },
+              {
+                "Descripcion": "Ramirez, Nicolas",
+                "idNum": "0",
+                "idChar": "nramirez"
+              },
+              {
+                "Descripcion": ", ",
+                "idNum": "0",
+                "idChar": "nramirez2"
+              },
+              {
+                "Descripcion": "prueba, prueba",
+                "idNum": "0",
+                "idChar": "prueba"
+              },
+              {
+                "Descripcion": "Alta Apellido, Alta",
+                "idNum": "0",
+                "idChar": "pruebaalta"
+              },
+              {
+                "Descripcion": "Cobranzas, Regina",
+                "idNum": "0",
+                "idChar": "rdiodati_cobranzas"
+              },
+              {
+                "Descripcion": "Comercial, Regina",
+                "idNum": "0",
+                "idChar": "rdiodati_comercial"
+              },
+              {
+                "Descripcion": "Siniestros, Regina",
+                "idNum": "0",
+                "idChar": "rdiodati_siniestros"
+              },
+              {
+                "Descripcion": "Soporte, Regina",
+                "idNum": "0",
+                "idChar": "rdiodati_soporte"
+              },
+              {
+                "Descripcion": "Suscripcion, Regina",
+                "idNum": "0",
+                "idChar": "rdiodati_suscripcion"
+              },
+              {
+                "Descripcion": "Admin, Regina",
+                "idNum": "0",
+                "idChar": "red"
+              },
+              {
+                "Descripcion": "Morel, Rodrigo Martin",
+                "idNum": "0",
+                "idChar": "rmm"
+              },
+              {
+                "Descripcion": ", seba",
+                "idNum": "0",
+                "idChar": "seba"
+              },
+              {
+                "Descripcion": "Lucero, Sebastián",
+                "idNum": "0",
+                "idChar": "sebastian.o.lucero@gmail.com"
+              },
+              {
+                "Descripcion": "Lucero, Sebastian",
+                "idNum": "0",
+                "idChar": "slucero"
+              },
+              {
+                "Descripcion": "Lucero, Sebastian",
+                "idNum": "0",
+                "idChar": "sluceroo@xiku.io"
+              },
+              {
+                "Descripcion": "Atencion Cliente, Soporte",
+                "idNum": "0",
+                "idChar": "soporte_ac"
+              },
+              {
+                "Descripcion": "Full, Soporte",
+                "idNum": "0",
+                "idChar": "soporte_full"
+              },
+              {
+                "Descripcion": "Portal intermediario, Soporte",
+                "idNum": "0",
+                "idChar": "soporte_pi"
+              },
+              {
+                "Descripcion": "Supervisor, Usuario",
+                "idNum": "0",
+                "idChar": "supervisor"
+              },
+              {
+                "Descripcion": "avisos, usuario",
+                "idNum": "0",
+                "idChar": "usuarioavisos"
+              },
+              {
+                "Descripcion": "B2B, Usuario",
+                "idNum": "0",
+                "idChar": "usuariob2b"
+              },
+              {
+                "Descripcion": "NoAutorizado, usuariob2b",
+                "idNum": "0",
+                "idChar": "usuariob2bnoautorizado"
+              },
+              {
+                "Descripcion": "SinIntermediario, usuariob2b",
+                "idNum": "0",
+                "idChar": "usuariob2bsinintermediario"
+              },
+              {
+                "Descripcion": "SinRegistrar, b2b",
+                "idNum": "0",
+                "idChar": "usuariob2bsinregistrar"
+              },
+              {
+                "Descripcion": "Gasca, Yanina",
+                "idNum": "0",
+                "idChar": "ygasca"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-menciones-vacia",
+      "nombre": "Cotizacion.Global.Menciones (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.Menciones",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[{\"Id\":\"03c41c46-b08b-47d8-b250-8a2268f69c6d\",\"dn\":\"admin\",\"t\":[\"admin\",\"CORE, ADMIN\"]},{\"Id\":\"b2f568e7-f660-4c4b-81de-a59f1e8997b6\",\"dn\":\"admin3\",\"t\":[\"admin3\",\"User, Admi\"]},{\"Id\":\"18407a0c-3a02-439d-823a-cb9b0b0c1e35\",\"dn\":\"agaravano\",\"t\":[\"agaravano\",\"Garavano Viotti, Alejandro\"]},{\"Id\":\"306da65a-e8e3-497e-a0ee-5171dde065ce\",\"dn\":\"agaravanofiltro\",\"t\":[\"agaravanofiltro\",\"Garavano, Alejandro\"]},{\"Id\":\"c4f1e55d-52ba-4b51-99a3-9338de37bf3e\",\"dn\":\"agenciacordoba\",\"t\":[\"agenciacordoba\",\", agenciacordoba\"]}]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-participantes-vacia",
+      "nombre": "Cotizacion.Global.Participantes (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.Participantes",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-ramadescripcion_get",
+      "nombre": "Cotizacion.Global.RamaDescripcion_Get (datos de TERCEROS.sntRamaCausa)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.RamaDescripcion_Get",
+          "entrada": {
+            "outLista": {
+              "Ramas": [
+                {
+                  "Nombre": "",
+                  "ClassSD": "",
+                  "Equivalente": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "fa-kit fa-xiku-incendio",
+                  "Id": 0,
+                  "ClassSDUnicode": ""
+                }
+              ],
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ]
+            },
+            "RamaId": 1,
+            "Descripcion": ""
+          },
+          "lineaBase": {
+            "outLista": {
+              "Ramas": [
+                {
+                  "Nombre": "",
+                  "ClassSD": "",
+                  "Equivalente": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "fa-kit fa-xiku-incendio",
+                  "Id": 0,
+                  "ClassSDUnicode": ""
+                }
+              ],
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ]
+            },
+            "RamaId": 1,
+            "Descripcion": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-ramadescripcion_get-vacia",
+      "nombre": "Cotizacion.Global.RamaDescripcion_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.RamaDescripcion_Get",
+          "entrada": {
+            "outLista": {
+              "Ramas": [
+                {
+                  "Nombre": "",
+                  "ClassSD": "",
+                  "Equivalente": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "Id": 0,
+                  "ClassSDUnicode": ""
+                }
+              ],
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ]
+            },
+            "RamaId": 0,
+            "Descripcion": ""
+          },
+          "lineaBase": {
+            "outLista": {
+              "Ramas": [
+                {
+                  "Nombre": "",
+                  "ClassSD": "",
+                  "Equivalente": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "Id": 0,
+                  "ClassSDUnicode": ""
+                }
+              ],
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ]
+            },
+            "RamaId": 0,
+            "Descripcion": "0 - "
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-global-usuariosporcasotipo-vacia",
+      "nombre": "Cotizacion.Global.UsuariosPorCasoTipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cotizacion.Global.UsuariosPorCasoTipo",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[]"
+          }
+        }
+      ]
+    }
+  ]
+}

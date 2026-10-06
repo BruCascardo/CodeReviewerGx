@@ -1,0 +1,31 @@
+{
+  "ignorar": [
+    "WWPBaseObjects.*",
+    "WorkWithPlus*",
+    "GAM*",
+    "GeneXus.*",
+    "*LoadDVCombo"
+  ],
+  "ignorarGeneradosPorPattern": true,
+  "reglas": {
+    "sin-commit-rollback": {
+      "activa": true,
+      "severidad": "error",
+      "tiposPermitidos": ["web"],
+      "objetosCommit": ["prcCommit", "prcRollback"],
+      "commitOnExit": ["proc", "mnproc"]
+    }
+  },
+  "excepciones": [
+    {
+      "regla": "sin-commit-rollback",
+      "objeto": "*.prcCommit",
+      "motivo": "Es el procedimiento que centraliza el commit: lo llaman los Web Panels."
+    },
+    {
+      "regla": "sin-commit-rollback",
+      "objeto": "*.prcRollback",
+      "motivo": "Es el procedimiento que centraliza el rollback: lo llaman los Web Panels."
+    }
+  ]
+}

@@ -1,0 +1,960 @@
+{
+  "nombre": "Auto - Asegurados.SD",
+  "kb": "Asegurados",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "asegurados-sd-agregarcuentaconfirmar_level_detail",
+      "nombre": "Asegurados.SD.AgregarCuentaConfirmar_Level_Detail (datos de ASEGURADOS.UserPersona)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.AgregarCuentaConfirmar_Level_Detail",
+          "entrada": {
+            "UserPersonaPerId": 1875900,
+            "UserPersonaGUID": "0377b2b5-cec9-487c-8fc1-8d359b6214fa",
+            "Return": false,
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Gxdynprop": "[ [\"Wc\",\"Object\",\"sd:asegurados.sd.datospersonales?INS,1875900,0377b2b5-cec9-487c-8fc1-8d359b6214fa\"] ]"
+            }
+          },
+          "volatiles": [
+            "Salida.Gxdynprop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-agregarcuentaconfirmar_level_detail-vacia",
+      "nombre": "Asegurados.SD.AgregarCuentaConfirmar_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.AgregarCuentaConfirmar_Level_Detail",
+          "entrada": {
+            "UserPersonaPerId": 0,
+            "UserPersonaGUID": "",
+            "Return": false,
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Gxdynprop": "[  ]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-agregarcuentavalidar_level_detail-vacia",
+      "nombre": "Asegurados.SD.AgregarCuentaValidar_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.AgregarCuentaValidar_Level_Detail",
+          "entrada": {
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Checkrequiredfieldsresult": false,
+              "Sdtusrregistro": {
+                "usrRazonSocial": "",
+                "usrNombre": "",
+                "usrTelCelNumeroNacional": "",
+                "usrGUID": "",
+                "usrDocNumeroNum": "0",
+                "usrPass": "",
+                "usrNumeroPoliza": 0,
+                "usrDocNumeroTomador": "",
+                "usrMigrado": false,
+                "usrPerId": 0,
+                "usrPerTipo": "",
+                "usrApellido": "",
+                "usrEmail": "",
+                "usrDocTipoIdTomador": 0,
+                "usrDocNumero": "",
+                "usrRamaId": 0,
+                "usrDocTipoId": 0,
+                "usrTelCelNumero": "",
+                "usrDocNumeroTomadorNum": "0"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-cargasdtlavado",
+      "nombre": "Asegurados.SD.CargaSdtLavado (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.CargaSdtLavado",
+          "entrada": {},
+          "lineaBase": {
+            "sdtLavado": [
+              {
+                "Nombre": "NORMATIVA VIGENTE",
+                "BlobUrl": "",
+                "Tipo": "TIT",
+                "Id": 1,
+                "Icon": "",
+                "BlobId": "0"
+              },
+              {
+                "Nombre": "Leyes",
+                "BlobUrl": "",
+                "Tipo": "SUB",
+                "Id": 1,
+                "Icon": "",
+                "BlobId": "0"
+              },
+              {
+                "Nombre": "Ley 25246 - Encubrimiento y Lavado de Activos de origen delictivo",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 1,
+                "Icon": "",
+                "BlobId": "1343428"
+              },
+              {
+                "Nombre": "FORMULARIOS",
+                "BlobUrl": "",
+                "Tipo": "TIT",
+                "Id": 2,
+                "Icon": "",
+                "BlobId": "0"
+              },
+              {
+                "Nombre": "Datos y Documental a requerir a Clientes",
+                "BlobUrl": "",
+                "Tipo": "SUB",
+                "Id": 1,
+                "Icon": "",
+                "BlobId": "0"
+              },
+              {
+                "Nombre": "Personas Físicas",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 1,
+                "Icon": "",
+                "BlobId": "1343415"
+              },
+              {
+                "Nombre": "Personas Jurídicas",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 2,
+                "Icon": "",
+                "BlobId": "1343416"
+              },
+              {
+                "Nombre": "Organismos Públicos",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 3,
+                "Icon": "",
+                "BlobId": "1343417"
+              },
+              {
+                "Nombre": "Utes, Agrupaciones y Otros Entes",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 4,
+                "Icon": "",
+                "BlobId": "1343418"
+              },
+              {
+                "Nombre": "Imposibilidad Presentar Datos Y Documental",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 5,
+                "Icon": "",
+                "BlobId": "1343419"
+              },
+              {
+                "Nombre": "Testfafsdasd",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 6,
+                "Icon": "",
+                "BlobId": "1343977"
+              },
+              {
+                "Nombre": "Datos y Documental a requerir a Terceros (No Clientes) por Siniestros",
+                "BlobUrl": "",
+                "Tipo": "SUB",
+                "Id": 2,
+                "Icon": "",
+                "BlobId": "0"
+              },
+              {
+                "Nombre": "Organismos Públicos",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 1,
+                "Icon": "",
+                "BlobId": "1343420"
+              },
+              {
+                "Nombre": "Utes, Agrupaciones Y Otros Entes",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 2,
+                "Icon": "",
+                "BlobId": "1343421"
+              },
+              {
+                "Nombre": "Personas Físicas",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 3,
+                "Icon": "",
+                "BlobId": "1343422"
+              },
+              {
+                "Nombre": "Personas Jurídicas",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 4,
+                "Icon": "",
+                "BlobId": "1343423"
+              },
+              {
+                "Nombre": "Personas Físicas - Representantes - Apoderados - etc",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 5,
+                "Icon": "",
+                "BlobId": "1343424"
+              },
+              {
+                "Nombre": "Varios",
+                "BlobUrl": "",
+                "Tipo": "SUB",
+                "Id": 3,
+                "Icon": "",
+                "BlobId": "0"
+              },
+              {
+                "Nombre": "DJ Origen de Fondos",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 1,
+                "Icon": "",
+                "BlobId": "1343425"
+              },
+              {
+                "Nombre": "DJ Sujetos Obligados a Informar",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 2,
+                "Icon": "",
+                "BlobId": "1343426"
+              },
+              {
+                "Nombre": "Declaración Jurada sobre la condición de Persona Expuesta Políticamente",
+                "BlobUrl": "",
+                "Tipo": "ARC",
+                "Id": 3,
+                "Icon": "",
+                "BlobId": "1343427"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-clausulas_level_detail-vacia",
+      "nombre": "Asegurados.SD.Clausulas_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.Clausulas_Level_Detail",
+          "entrada": {
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Polizanumero": 0,
+              "Componentenumero": 0,
+              "Pgmname": "Clausulas",
+              "Cuenta": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-getgamuserdata",
+      "nombre": "Asegurados.SD.getGAMUserData (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.getGAMUserData",
+          "entrada": {},
+          "lineaBase": {
+            "sdtInfoUsuario": {
+              "Usuario": "",
+              "UsuarioImagen_GXI": "",
+              "UsuarioEMail": "",
+              "UsuarioNombreApellido": "",
+              "UsuarioImagen": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-getgamuserguid",
+      "nombre": "Asegurados.SD.getGAMUserGUID (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.getGAMUserGUID",
+          "entrada": {},
+          "lineaBase": {
+            "GAMUserGUID": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-getuserpersonaperidoffline",
+      "nombre": "Asegurados.SD.getUserPersonaPerIdOffline (datos de ASEGURADOS.UserPersona)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.getUserPersonaPerIdOffline",
+          "entrada": {
+            "UserPersonaGUID": "0377b2b5-cec9-487c-8fc1-8d359b6214fa"
+          },
+          "lineaBase": {
+            "UserPersonaPerId_Col": [
+              1875900
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-getuserpersonaperidoffline-vacia",
+      "nombre": "Asegurados.SD.getUserPersonaPerIdOffline (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.getUserPersonaPerIdOffline",
+          "entrada": {
+            "UserPersonaGUID": ""
+          },
+          "lineaBase": {
+            "UserPersonaPerId_Col": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-lavado_level_detail-vacia",
+      "nombre": "Asegurados.SD.Lavado_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.Lavado_Level_Detail",
+          "entrada": {
+            "pdf": "",
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Gxprops_sdtlavado": "[]",
+              "Sdtlavado": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-login_level_detail-vacia",
+      "nombre": "Asegurados.SD.Login_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.Login_Level_Detail",
+          "entrada": {
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Userpassword": "",
+              "Username": "",
+              "Gxdynprop": "[  ]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-perfilusuario_level_detail-vacia",
+      "nombre": "Asegurados.SD.PerfilUsuario_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.PerfilUsuario_Level_Detail",
+          "entrada": {
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Useremail": "",
+              "Username": "",
+              "Userfirstname": "",
+              "Userlastname": "",
+              "Useremailactual": "",
+              "Gamguid": "",
+              "Gxdynprop": "[  ]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-polizadetalle_level_detail_gridmovimientos",
+      "nombre": "Asegurados.SD.PolizaDetalle_Level_Detail_GridMovimientos (datos de ASEGURADOS.ashPolizas)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.PolizaDetalle_Level_Detail_GridMovimientos",
+          "entrada": {
+            "EmpresaId": "N",
+            "SucursalId": "CC",
+            "RamaId": 8,
+            "PolizaNumero": 106794,
+            "ArticuloId": 8001,
+            "SuperPoliza": 81547,
+            "OperacionNumero": 8350591,
+            "ComponenteNumero": 0,
+            "RamaTipo": "",
+            "sdtPolizasItemJson": "",
+            "DocumentoComponente": 0,
+            "ComponenteDocumento": 0,
+            "SuplementoDocumento": 0,
+            "start": 0,
+            "count": 0,
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-polizadetalle_level_detail_gridsiniestro",
+      "nombre": "Asegurados.SD.PolizaDetalle_Level_Detail_GridSiniestro (datos de ASEGURADOS.ashPolizas)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.PolizaDetalle_Level_Detail_GridSiniestro",
+          "entrada": {
+            "EmpresaId": "N",
+            "SucursalId": "CC",
+            "RamaId": 8,
+            "PolizaNumero": 106794,
+            "ArticuloId": 8001,
+            "SuperPoliza": 81547,
+            "OperacionNumero": 8350591,
+            "ComponenteNumero": 0,
+            "RamaTipo": "",
+            "sdtPolizasItemJson": "",
+            "DocumentoComponente": 0,
+            "ComponenteDocumento": 0,
+            "SuplementoDocumento": 0,
+            "start": 0,
+            "count": 0,
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-polizascuotas_level_detail-vacia",
+      "nombre": "Asegurados.SD.PolizasCuotas_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.PolizasCuotas_Level_Detail",
+          "entrada": {
+            "RamaTipo": "",
+            "ClassSDUnicode": "",
+            "downloadIcon": "",
+            "MonedaSimbolo": "",
+            "inListaSuplementosJson": "",
+            "NumeroSuplemento": 0,
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Monedasimbolo": "",
+              "Inlistasuplementosjson": "",
+              "Suplementonumero": 0,
+              "Downloadicon": "",
+              "Gxdynprop": "[  ]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-recuperarcontraseniaconfirmar_level_detail",
+      "nombre": "Asegurados.SD.RecuperarContraseniaConfirmar_Level_Detail (datos de SISTEMA.sihCasoRevision)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.RecuperarContraseniaConfirmar_Level_Detail",
+          "entrada": {
+            "UserName": "admin",
+            "GAMEmail": "",
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Username": "admin",
+              "Gxdynprop": "[  ]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-recuperarcontraseniaconfirmar_level_detail-vacia",
+      "nombre": "Asegurados.SD.RecuperarContraseniaConfirmar_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.RecuperarContraseniaConfirmar_Level_Detail",
+          "entrada": {
+            "UserName": "",
+            "GAMEmail": "",
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Username": "",
+              "Gxdynprop": "[  ]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-recuperarcontraseniapaso1_level_detail-vacia",
+      "nombre": "Asegurados.SD.RecuperarContraseniaPaso1_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.RecuperarContraseniaPaso1_Level_Detail",
+          "entrada": {
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Username": "",
+              "Gxdynprop": "[  ]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-sdpgetdecimalfromhex-vacia",
+      "nombre": "Asegurados.SD.SDPGetDecimalFromHex (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.SDPGetDecimalFromHex",
+          "entrada": {
+            "HexadecimalValueIn": ""
+          },
+          "lineaBase": {
+            "DecimalValue": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-sdpgetunicodefromhex-vacia",
+      "nombre": "Asegurados.SD.SDPGetUnicodeFromHex (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.SDPGetUnicodeFromHex",
+          "entrada": {
+            "HexaUnicode": ""
+          },
+          "lineaBase": {
+            "UnicodeCharacter": "\u0000"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-sdpgetunicodefromhex_ios-vacia",
+      "nombre": "Asegurados.SD.SDPGetUnicodeFromHex_IOs (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.SDPGetUnicodeFromHex_IOs",
+          "entrada": {
+            "HexaUnicode": ""
+          },
+          "lineaBase": {
+            "UnicodeCharacter": "\u0000"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-siniestro-cargamensajesiniestroshabilitados",
+      "nombre": "Asegurados.SD.Siniestro.CargaMensajeSiniestrosHabilitados (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.Siniestro.CargaMensajeSiniestrosHabilitados",
+          "entrada": {},
+          "lineaBase": {
+            "MensajeSiniestrosHabilitados": "Por el momento, la denuncia web no está habilitada para la póliza seleccionada.\r\nPara denunciar otro siniestro, comunicate con tu Productor Asesor de Seguros."
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-siniestro-ordenasiniestrosdepoliza-vacia",
+      "nombre": "Asegurados.SD.Siniestro.OrdenaSiniestrosDePoliza (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.Siniestro.OrdenaSiniestrosDePoliza",
+          "entrada": {
+            "Siniestros": [
+              {
+                "DenunciaNumero": 0,
+                "Numero": 0,
+                "FechaOcurrencia": "0000-00-00",
+                "PortalOrigen": ""
+              }
+            ]
+          },
+          "lineaBase": {
+            "Siniestros": [
+              {
+                "DenunciaNumero": 0,
+                "Numero": 0,
+                "FechaOcurrencia": "0000-00-00",
+                "PortalOrigen": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-siniestro-siniestrodetalle_level_detail_gridampliaciones",
+      "nombre": "Asegurados.SD.Siniestro.SiniestroDetalle_Level_Detail_GridAmpliaciones (datos de ASEGURADOS.ashPolizas)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.Siniestro.SiniestroDetalle_Level_Detail_GridAmpliaciones",
+          "entrada": {
+            "RamaId": 1,
+            "NroDenuncia": 0,
+            "NroSiniestro": 0,
+            "TabCode": "",
+            "start": 0,
+            "count": 0,
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-siniestro-siniestrodetalle_level_detail_griddanios",
+      "nombre": "Asegurados.SD.Siniestro.SiniestroDetalle_Level_Detail_GridDanios (datos de ASEGURADOS.ashPolizas)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.Siniestro.SiniestroDetalle_Level_Detail_GridDanios",
+          "entrada": {
+            "RamaId": 1,
+            "NroDenuncia": 0,
+            "NroSiniestro": 0,
+            "TabCode": "",
+            "start": 0,
+            "count": 0,
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-siniestro-siniestroordenes_level_detail_gridft",
+      "nombre": "Asegurados.SD.Siniestro.SiniestroOrdenes_Level_Detail_GridFT (datos de ASEGURADOS.ashPolizas)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.Siniestro.SiniestroOrdenes_Level_Detail_GridFT",
+          "entrada": {
+            "RamaId": 1,
+            "NroDenuncia": 0,
+            "NroSiniestro": 0,
+            "start": 0,
+            "count": 0,
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": [
+              {
+                "Idfasttrack": 0,
+                "Ftproveedornombre": "",
+                "Ftlocalidadformato": "",
+                "Ftproveedortelefono": "",
+                "Idexternofasttrack": 0,
+                "Ftproveedordireccion": "",
+                "Fechavarchar": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-telefonosasegurado-vacia",
+      "nombre": "Asegurados.SD.telefonosAsegurado (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.telefonosAsegurado",
+          "entrada": {
+            "Telefonos": [
+              {
+                "Numero": "",
+                "Tipo": ""
+              }
+            ]
+          },
+          "lineaBase": {
+            "TelefonosAux": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-validausrregistrado-vacia",
+      "nombre": "Asegurados.SD.validaUsrRegistrado (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.validaUsrRegistrado",
+          "entrada": {
+            "usrDocNumero": ""
+          },
+          "lineaBase": {
+            "Ok": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-verificacioncambioemail_level_detail",
+      "nombre": "Asegurados.SD.VerificacionCambioEmail_Level_Detail (datos de SEGURIDAD.segUserImpDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.VerificacionCambioEmail_Level_Detail",
+          "entrada": {
+            "GAMGUID": "",
+            "UserFirstName": "GIORDA",
+            "UserLastName": "SILVIA ELENA DE FOLCO",
+            "GAMEMail": "",
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Userfirstname": "GIORDA",
+              "Userlastname": "SILVIA ELENA DE FOLCO",
+              "Gamemail": "",
+              "Codigoverificacion": "",
+              "Gamguid": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-sd-verificacioncambioemail_level_detail-vacia",
+      "nombre": "Asegurados.SD.VerificacionCambioEmail_Level_Detail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.SD.VerificacionCambioEmail_Level_Detail",
+          "entrada": {
+            "GAMGUID": "",
+            "UserFirstName": "",
+            "UserLastName": "",
+            "GAMEMail": "",
+            "gxid": 0
+          },
+          "lineaBase": {
+            "Salida": {
+              "Userfirstname": "",
+              "Userlastname": "",
+              "Gamemail": "",
+              "Codigoverificacion": "",
+              "Gamguid": ""
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

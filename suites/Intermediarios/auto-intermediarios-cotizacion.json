@@ -1,0 +1,1213 @@
+{
+  "nombre": "Auto - Intermediarios.Cotizacion",
+  "kb": "Intermediarios",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "intermediarios-cotizacion-automotores-canalperfillista",
+      "nombre": "Intermediarios.Cotizacion.Automotores.CanalPerfilLista (datos de COTIZACION.cttCanal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.CanalPerfilLista",
+          "entrada": {
+            "CanalId": 1
+          },
+          "lineaBase": {
+            "outLista": {
+              "Perfiles": [
+                {
+                  "CnlPrfNombre": "PERFIL COMÚN",
+                  "CanalId": 1,
+                  "CnlPerfilId": 1
+                },
+                {
+                  "CnlPrfNombre": "PERFIL SIN GARANTÍA DE PAGO",
+                  "CanalId": 1,
+                  "CnlPerfilId": 14
+                },
+                {
+                  "CnlPrfNombre": "PRODUCTORES MOTO PLUS",
+                  "CanalId": 1,
+                  "CnlPerfilId": 15
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-automotores-canalperfillista-vacia",
+      "nombre": "Intermediarios.Cotizacion.Automotores.CanalPerfilLista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.CanalPerfilLista",
+          "entrada": {
+            "CanalId": 0
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-automotores-cargasdtcotizadormasivoadicionales",
+      "nombre": "Intermediarios.Cotizacion.Automotores.cargaSdtCotizadorMasivoAdicionales (datos de SERVICIOS.svtRamaParte)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.cargaSdtCotizadorMasivoAdicionales",
+          "entrada": {
+            "sdtcargaSdtCotizadorMasivoAdicionalesParametros": {
+              "VehiculoTipo": 0,
+              "VehiculoUso": 0,
+              "RamaId": 1,
+              "ConfiguracionSecuencial": 0
+            }
+          },
+          "lineaBase": {
+            "sdtCotizadorVehiculosAdicional_Collection": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-automotores-cargasdtcotizadorvehiculoadicional",
+      "nombre": "Intermediarios.Cotizacion.Automotores.cargaSdtCotizadorVehiculoAdicional (datos de SERVICIOS.svtRamaParte)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.cargaSdtCotizadorVehiculoAdicional",
+          "entrada": {
+            "sdtCotizadorVehiculoAdicionalesParametros": {
+              "IntermediarioNumero": 0,
+              "VehiculoUso": 0,
+              "RamaId": 1,
+              "OperacionTipo": "",
+              "CotizacionNumero": 0,
+              "MarcaId": "",
+              "Dominio": "",
+              "SumaAsegurada": "0.00",
+              "VehiculoTipo": 0,
+              "Antiguedad": 0,
+              "ModeloId": "",
+              "ZonaRiesgo": 0,
+              "Documento": "",
+              "SubModeloId": "",
+              "ConfiguracionSecuencial": 0
+            }
+          },
+          "lineaBase": {
+            "sdtCotizadorVehiculosAdicionales": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-automotores-dpcanales",
+      "nombre": "Intermediarios.Cotizacion.Automotores.dpCanales (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.dpCanales",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "Adicional": "",
+                "Descripcion": "INTERMEDIARIOS",
+                "idNum": "1",
+                "idChar": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-automotores-dpcanalperfiles",
+      "nombre": "Intermediarios.Cotizacion.Automotores.dpCanalPerfiles (datos de COTIZACION.cttCanal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.dpCanalPerfiles",
+          "entrada": {
+            "CanalId": 1
+          },
+          "lineaBase": {
+            "Salida": [
+              {
+                "Adicional": "",
+                "Descripcion": "PERFIL COMÚN",
+                "idNum": "1",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "PERFIL SIN GARANTÍA DE PAGO",
+                "idNum": "14",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "PRODUCTORES MOTO PLUS",
+                "idNum": "15",
+                "idChar": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-automotores-dpcanalperfiles-vacia",
+      "nombre": "Intermediarios.Cotizacion.Automotores.dpCanalPerfiles (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.dpCanalPerfiles",
+          "entrada": {
+            "CanalId": 0
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-automotores-dptipousos",
+      "nombre": "Intermediarios.Cotizacion.Automotores.dpTipoUsos (datos de COTIZACION.cttVehTipoSumaAsegurada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.dpTipoUsos",
+          "entrada": {
+            "CotCompVehUsoId": 0,
+            "inListaTipoUsosJson": "",
+            "inListaPerfilUsosJson": "",
+            "CotTipo": "NUE"
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-automotores-dpvehiculotipo",
+      "nombre": "Intermediarios.Cotizacion.Automotores.dpVehiculoTipo (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.dpVehiculoTipo",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "Adicional": "",
+                "Descripcion": "AUTOMOVIL",
+                "idNum": "1",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "CASA RODANTE CON PROPULSION",
+                "idNum": "8",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "TRACTOR Y MAQUINARIA NO RURAL",
+                "idNum": "12",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "MOTOCICLETAS H/ 150 C.C.",
+                "idNum": "13",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "ACOPLADOS O SEMIRREMOLQUES",
+                "idNum": "15",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "TRAILER P/ AUTO Y CAMIONETA",
+                "idNum": "16",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "CAMIONETA",
+                "idNum": "20",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "CAMIÓN SEMI-PESADO",
+                "idNum": "72",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "CAMIÓN PESADO",
+                "idNum": "73",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "CAMIÓN LIVIANO",
+                "idNum": "78",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "TRACTOR Y MAQUINARIA RURAL",
+                "idNum": "111",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "IMPL. RURALES DE ARRASTRE",
+                "idNum": "112",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "COSECHADORAS",
+                "idNum": "116",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "CUATRICICLO H/150 C.C.",
+                "idNum": "138",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "MOTOCICLETAS 150 A 350 C.C.",
+                "idNum": "140",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "MOTOCICLETAS + 350 C.C.",
+                "idNum": "146",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "CUATRICICLO 150 A 350 C.C.",
+                "idNum": "148",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "CUATRICICLO + 350 C.C.",
+                "idNum": "149",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "MOTO DE AGUA",
+                "idNum": "879",
+                "idChar": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-automotores-tipousoslista",
+      "nombre": "Intermediarios.Cotizacion.Automotores.TipoUsosLista (datos de COTIZACION.cttVehTipoSumaAsegurada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Automotores.TipoUsosLista",
+          "entrada": {
+            "CotCompVehUsoId": 0,
+            "inListaTipoUsosJson": "",
+            "inListaPerfilUsosJson": "",
+            "CotTipo": "NUE"
+          },
+          "lineaBase": {
+            "sdtCombo": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-canalperfil_get",
+      "nombre": "Intermediarios.Cotizacion.CanalPerfil_Get (datos de INTERMEDIARIOS.UserIntermediarioPermiso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.CanalPerfil_Get",
+          "entrada": {
+            "UserInNumero": 1250
+          },
+          "lineaBase": {
+            "CanalId": 1,
+            "PerfilId": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-canalperfil_get-vacia",
+      "nombre": "Intermediarios.Cotizacion.CanalPerfil_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.CanalPerfil_Get",
+          "entrada": {
+            "UserInNumero": 0
+          },
+          "lineaBase": {
+            "CanalId": 0,
+            "PerfilId": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-chic-coberturasequivalenteshabilitadas",
+      "nombre": "Intermediarios.Cotizacion.CHIC.CoberturasEquivalentesHabilitadas (datos de COTIZACION.cttRamaRVFamCobertura)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.CHIC.CoberturasEquivalentesHabilitadas",
+          "entrada": {
+            "CoberturasHabilitadas": [
+              {
+                "CotRVFamCobDefectoImporte": "0",
+                "CotRVFamCobMinimoPorcentaje": 100,
+                "CotRamaArticuloId": 0,
+                "ProvinciasExcluidas": [
+                  0
+                ],
+                "CotRVFamCobSumAsegForma": "POR",
+                "CotRVFamCobPadreEquivalente": "",
+                "CotRVFamCobSeleccionable": true,
+                "CotRVFamCobMinimoImporte": "0",
+                "CotRVCoberturaId": 2,
+                "CotRVFamCobOtra": 0,
+                "CotRVFamCobPadre": 0,
+                "CotRamaId": 1,
+                "CotRVFamCobSumAsegCalculo": "",
+                "CotRVFamCobSumAsegIngreso": "MAN",
+                "CotRVFamCobMaximoImporte": "0",
+                "CotRVFamCobOrden": 1,
+                "Actividades": [
+                  ""
+                ],
+                "CotRamaCfgSec": 1,
+                "CotRVFamCobOtraEquivalente": "",
+                "CotRVFamCobMaximoEquivalente": "TRE",
+                "CotRVFamCobMaximoPorcentaje": 100,
+                "CotRVFamCobMinimoEquivalente": "",
+                "CotRVFamCobDefectoEquivalente": "",
+                "CotRVFamCobDescripcion": "Incluyen sin costo: \n\nDaños al edificio y/o contenido por extinción, salvamento, propagación o evacuación en caso de incendio.\n\nDaños materiales directos producidos a los bienes objetos del seguro por:\n- Impacto de aeronaves, vehículos terrestres, sus partes componentes y/o carga transportada.\n- Humo que provenga de desperfectos en el funcionamiento de cualquier aparato que forme parte de\nlas instalaciones de calefacción ambiental y/o cocina instalados en el bien asegurado",
+                "CotRVFamCobDefectoPorcentaje": 100,
+                "CotRVFamId": 1,
+                "CotRVFamCobNombre": "Incendio Edificio (sin ajuste automático)a"
+              }
+            ],
+            "outListaCoberturaEquivalenteAux": {
+              "CoberturasEquivalentes": [
+                {
+                  "CotRamaId": 1,
+                  "CotRVCobEquivalente": "",
+                  "CotRamaArticuloId": 0,
+                  "CotRVPrestacion": "",
+                  "CotRVIncAjuste": "",
+                  "CotRVRiesgoId": "",
+                  "CotRVParedes": "",
+                  "CotRamaCfgSec": 1,
+                  "CotRVTipologia": "",
+                  "CotRVCoberturaId": 2
+                }
+              ]
+            }
+          },
+          "lineaBase": {
+            "CoberturasEquivalentesHabilitadas": {
+              "CoberturasEquivalentes": [
+                {
+                  "CotRamaId": 1,
+                  "CotRVCobEquivalente": "",
+                  "CotRamaArticuloId": 0,
+                  "CotRVPrestacion": "",
+                  "CotRVIncAjuste": "",
+                  "CotRVRiesgoId": "",
+                  "CotRVParedes": "",
+                  "CotRamaCfgSec": 1,
+                  "CotRVTipologia": "",
+                  "CotRVCoberturaId": 2
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-chic-coberturasequivalenteshabilitadas-vacia",
+      "nombre": "Intermediarios.Cotizacion.CHIC.CoberturasEquivalentesHabilitadas (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.CHIC.CoberturasEquivalentesHabilitadas",
+          "entrada": {
+            "CoberturasHabilitadas": [
+              {
+                "CotRVFamCobDefectoImporte": "0.00",
+                "CotRVFamCobMinimoPorcentaje": 0,
+                "CotRamaArticuloId": 0,
+                "ProvinciasExcluidas": [
+                  0
+                ],
+                "CotRVFamCobSumAsegForma": "",
+                "CotRVFamCobPadreEquivalente": "",
+                "CotRVFamCobSeleccionable": false,
+                "CotRVFamCobMinimoImporte": "0.00",
+                "CotRVCoberturaId": 0,
+                "CotRVFamCobOtra": 0,
+                "CotRVFamCobPadre": 0,
+                "CotRamaId": 0,
+                "CotRVFamCobSumAsegCalculo": "",
+                "CotRVFamCobSumAsegIngreso": "",
+                "CotRVFamCobMaximoImporte": "0.00",
+                "CotRVFamCobOrden": 0,
+                "Actividades": [
+                  ""
+                ],
+                "CotRamaCfgSec": 0,
+                "CotRVFamCobOtraEquivalente": "",
+                "CotRVFamCobMaximoEquivalente": "",
+                "CotRVFamCobMaximoPorcentaje": 0,
+                "CotRVFamCobMinimoEquivalente": "",
+                "CotRVFamCobDefectoEquivalente": "",
+                "CotRVFamCobDescripcion": "",
+                "CotRVFamCobDefectoPorcentaje": 0,
+                "CotRVFamId": 0,
+                "CotRVFamCobNombre": ""
+              }
+            ],
+            "outListaCoberturaEquivalenteAux": {
+              "CoberturasEquivalentes": [
+                {
+                  "CotRamaId": 0,
+                  "CotRVCobEquivalente": "",
+                  "CotRamaArticuloId": 0,
+                  "CotRVPrestacion": "",
+                  "CotRVIncAjuste": "",
+                  "CotRVRiesgoId": "",
+                  "CotRVParedes": "",
+                  "CotRamaCfgSec": 0,
+                  "CotRVTipologia": "",
+                  "CotRVCoberturaId": 0
+                }
+              ]
+            }
+          },
+          "lineaBase": {
+            "CoberturasEquivalentesHabilitadas": {
+              "CoberturasEquivalentes": [
+                {
+                  "CotRamaId": 0,
+                  "CotRVCobEquivalente": "",
+                  "CotRamaArticuloId": 0,
+                  "CotRVPrestacion": "",
+                  "CotRVIncAjuste": "",
+                  "CotRVRiesgoId": "",
+                  "CotRVParedes": "",
+                  "CotRamaCfgSec": 0,
+                  "CotRVTipologia": "",
+                  "CotRVCoberturaId": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-chic-coberturashabilitadas",
+      "nombre": "Intermediarios.Cotizacion.CHIC.CoberturasHabilitadas (datos de COTIZACION.cthCotComponente)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.CHIC.CoberturasHabilitadas",
+          "entrada": {
+            "sdtParametros": {
+              "CotPerDocNumero": "",
+              "AviId": "0",
+              "CotIntNumero": 0,
+              "CotCompLocId": 0,
+              "CotTipo": "",
+              "RamaId": 0,
+              "Accion": "",
+              "CotCompProId": 0,
+              "Origen": "",
+              "CotCompPaisId": 0,
+              "CotNumero": 2123037,
+              "RamaEquivalente": "",
+              "CotCompNumero": 1,
+              "ConfiguracionSecuencial": 0,
+              "ArticuloId": 0
+            },
+            "outListaRVFamilias": {
+              "Familias": [
+                {
+                  "CotRamaId": 0,
+                  "CotRVFamSeccion": 0,
+                  "CotRamaArticuloId": 0,
+                  "CotRVFamId": 0,
+                  "CotRVFamDependiente": "",
+                  "CotRVFamOrden": 0,
+                  "CotRVFamRiesgoId": "",
+                  "CotRamaCfgSec": 0,
+                  "CotRVFamNombre": ""
+                }
+              ]
+            },
+            "outGetComponente": {
+              "CotCompDescPrimaDefecto": 0,
+              "CotCompSumaAsegurada": "0",
+              "CotCompTextos": "",
+              "CotNumeroGAUS": 2060123,
+              "CotCompDescPrima": 0,
+              "CotCompCodPosSufijo": 0,
+              "CotCompPlanCoberturaId": 0,
+              "CotCompFechaFin": "0000-00-00",
+              "CotCompAjusteAutomaticoId": 0,
+              "CotCompTipo": "",
+              "CotCompOrgQuita": 0,
+              "CotCompAcreedorTipo": "",
+              "CotCompFechaInicio": "0000-00-00",
+              "CotCompLocId": 0,
+              "CotCompEstado": "COT",
+              "CotCompProdQuita": 0,
+              "CotCompProId": 0,
+              "CotCompZonaRiesgoId": 0,
+              "CotCompAltIdSeleccionada": 0,
+              "CotCompPaisId": 0,
+              "CotCompEstadoInfo": "",
+              "CotNumero": 2123037,
+              "CotCompDescPrimaTope": 0,
+              "CotCompCodPosId": 0,
+              "CotCompNumero": 1,
+              "CotCompAcreedorId": 0
+            },
+            "outGetCotizacionRV": {
+              "CotCompRVDomDepto": "",
+              "CotCompRVTipologia": "",
+              "CotCompRVIdM2": 0,
+              "CotCompRVActividadId": "0",
+              "CotCompRVTipoConstruccion": "",
+              "CotCompRVDomNumero": 0,
+              "CotCompRVConstruccion": "",
+              "CotCompRVAjusteAutomatico": false,
+              "CotCompRVDomCalle": "",
+              "CotCompRVParedes": "",
+              "CotCompRVDomPiso": 0,
+              "CotCompRVCantidadM2": 0,
+              "CotNumero": 2123037,
+              "CotCompRVValorM2": "0",
+              "CotCompRVContFecha": "0000-00-00",
+              "CotCompRVValorTotal": "0.00",
+              "CotCompNumero": 1,
+              "CotCompRVContNumero": ""
+            }
+          },
+          "lineaBase": {
+            "CoberturasHabilitadas": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-cuotasporfecha",
+      "nombre": "Intermediarios.Cotizacion.CuotasPorFecha (datos de SERVICIOS.svtRamaParte)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.CuotasPorFecha",
+          "entrada": {
+            "RamaId": 1,
+            "FacturacionId": 0,
+            "FechaInicioVigencia": "",
+            "FechaFinVigencia": ""
+          },
+          "lineaBase": {
+            "CuotasDisponibles": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-solicitud-cargasdtinforme",
+      "nombre": "Intermediarios.Cotizacion.Solicitud.CargaSdtInforme (datos de COTIZACION.cthCotizacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Solicitud.CargaSdtInforme",
+          "entrada": {
+            "sdtParametros": {
+              "EsCUE": false,
+              "CotIntNumero": 2064,
+              "RamaId": 12,
+              "CotTipo": "NUE",
+              "Modo": "",
+              "CotCompAltId": 0,
+              "Accion": "",
+              "SolicitudEstado": "RECH",
+              "Origen": "",
+              "Vehiculo": {
+                "Fotos": false,
+                "Accesorios": false
+              },
+              "InhabilitarCargaFotos": false,
+              "CotNumero": 2123037,
+              "OcultarBoton": false,
+              "CotCompNumero": 0,
+              "ConfiguracionSecuencial": 0,
+              "ArticuloId": 12009
+            }
+          },
+          "lineaBase": {
+            "sdtInforme": {
+              "EstadoGeneral": "",
+              "ColorCustom": "",
+              "EstadoLuneta": 9,
+              "Es0KM": false,
+              "Es0KMS": "NO",
+              "Detalle": "",
+              "Color": "",
+              "DanioGranizo": 9,
+              "EstadoParabrisas": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-solicitud-limpiarpersona",
+      "nombre": "Intermediarios.Cotizacion.Solicitud.LimpiarPersona (datos de COTIZACION.cthCotNomBeneficiario)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Solicitud.LimpiarPersona",
+          "entrada": {
+            "sdtSolicitante": {
+              "SubTipoId": 0,
+              "Verificada": false,
+              "DatosIdentificatorios": {
+                "CuitCue": "",
+                "RazonSocial": "",
+                "DocumentoTipo": 0
+              },
+              "PersonaBloqueada": false,
+              "DatosUIF": {
+                "PagadorNombre": "",
+                "SujetoObligado": false,
+                "Titular": false,
+                "PagadorId": 0,
+                "PagadorCondicionIVA": 0,
+                "PEP": false,
+                "TitularId": 0,
+                "TitularNombre": "",
+                "Pagador": false,
+                "PagadorCondicionIVAOk": false
+              },
+              "RamaId": 0,
+              "PersonaBloqueadaAlta": false,
+              "PermiteModificar": false,
+              "DatosSocietarios": {
+                "NumeroInscripcion": "",
+                "FechaInscripcion": "0000-00-00"
+              },
+              "Equipo": [
+                {
+                  "Grupo": [
+                    {
+                      "TomadorId": 0,
+                      "Id": 0
+                    }
+                  ],
+                  "Tag": [
+                    {
+                      "Agregar": false,
+                      "Id": 0
+                    }
+                  ],
+                  "EquipoId": 0
+                }
+              ],
+              "Tipo": "",
+              "Nuevo": false,
+              "DatosPersonales": {
+                "Nombre": "",
+                "FechaNacimiento": "1000-01-01",
+                "CuitCuil": "",
+                "Apellido": "RUA",
+                "DocumentoNumero": "",
+                "DocumentoTipo": 0,
+                "NacionalidadId": 0,
+                "DocumentoNumeroNumeric": 0,
+                "EstadoCivil": "",
+                "Sexo": ""
+              },
+              "DatosContacto": {
+                "Celular": "",
+                "CelularISO2": "",
+                "Email": "",
+                "Telefono": "",
+                "TelefonoISO2": ""
+              },
+              "DatosDomicilio": {
+                "Piso": 0,
+                "Numero": 0,
+                "ProvinciaId": 0,
+                "CodigoPostalSufijo": 0,
+                "BarrioNombre": "",
+                "LocalidadId": 0,
+                "ProvinciaLocalidad": "",
+                "CodigoPostal": 0,
+                "Calle": "",
+                "PaisId": 0,
+                "BarrioId": 0,
+                "Departamento": ""
+              },
+              "Id": 0,
+              "DatosActividad": {
+                "CondicionIVANombreGaus": "",
+                "ActividadId": 0,
+                "CondicionIIBB": 0,
+                "CondicionIVAOK": false,
+                "CondicionIVA": 0,
+                "NumeroInscripcionIIBB": 0
+              },
+              "IdSexo": ""
+            }
+          },
+          "lineaBase": {
+            "sdtSolicitante": {
+              "SubTipoId": 0,
+              "Verificada": false,
+              "DatosIdentificatorios": {
+                "CuitCue": "",
+                "RazonSocial": "",
+                "DocumentoTipo": 0
+              },
+              "PersonaBloqueada": false,
+              "DatosUIF": {
+                "PagadorNombre": "",
+                "SujetoObligado": false,
+                "Titular": false,
+                "PagadorId": 0,
+                "PagadorCondicionIVA": 0,
+                "PEP": false,
+                "TitularId": 0,
+                "TitularNombre": "",
+                "Pagador": false,
+                "PagadorCondicionIVAOk": false
+              },
+              "RamaId": 0,
+              "PersonaBloqueadaAlta": false,
+              "PermiteModificar": false,
+              "DatosSocietarios": {
+                "NumeroInscripcion": "",
+                "FechaInscripcion": "0000-00-00"
+              },
+              "Equipo": [
+                {
+                  "Grupo": [
+                    {
+                      "TomadorId": 0,
+                      "Id": 0
+                    }
+                  ],
+                  "Tag": [
+                    {
+                      "Agregar": false,
+                      "Id": 0
+                    }
+                  ],
+                  "EquipoId": 0
+                }
+              ],
+              "Tipo": "",
+              "Nuevo": false,
+              "DatosPersonales": {
+                "Nombre": "",
+                "FechaNacimiento": "0000-00-00",
+                "CuitCuil": "",
+                "Apellido": "",
+                "DocumentoNumero": "",
+                "DocumentoTipo": 0,
+                "NacionalidadId": 1,
+                "DocumentoNumeroNumeric": 0,
+                "EstadoCivil": "",
+                "Sexo": "N"
+              },
+              "DatosContacto": {
+                "Celular": "",
+                "CelularISO2": "",
+                "Email": "",
+                "Telefono": "",
+                "TelefonoISO2": ""
+              },
+              "DatosDomicilio": {
+                "Piso": 0,
+                "Numero": 0,
+                "ProvinciaId": 0,
+                "CodigoPostalSufijo": 0,
+                "BarrioNombre": "",
+                "LocalidadId": 0,
+                "ProvinciaLocalidad": "",
+                "CodigoPostal": 0,
+                "Calle": "",
+                "PaisId": 1,
+                "BarrioId": 0,
+                "Departamento": ""
+              },
+              "Id": 0,
+              "DatosActividad": {
+                "CondicionIVANombreGaus": "",
+                "ActividadId": 0,
+                "CondicionIIBB": 0,
+                "CondicionIVAOK": false,
+                "CondicionIVA": 0,
+                "NumeroInscripcionIIBB": 0
+              },
+              "IdSexo": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-solicitud-validacionnominaap",
+      "nombre": "Intermediarios.Cotizacion.Solicitud.ValidacionNominaAP (datos de COTIZACION.cthCotNomina)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Solicitud.ValidacionNominaAP",
+          "entrada": {
+            "sdtParametros": {
+              "EsCUE": false,
+              "CotIntNumero": 0,
+              "RamaId": 0,
+              "CotTipo": "",
+              "Modo": "",
+              "CotCompAltId": 0,
+              "Accion": "",
+              "SolicitudEstado": "",
+              "Origen": "",
+              "Vehiculo": {
+                "Fotos": false,
+                "Accesorios": false
+              },
+              "InhabilitarCargaFotos": false,
+              "CotNumero": 42216,
+              "OcultarBoton": false,
+              "CotCompNumero": 0,
+              "ConfiguracionSecuencial": 0,
+              "ArticuloId": 0
+            },
+            "Nomina": [
+              {
+                "CotNomError": "",
+                "CotNomPaisId": 0,
+                "CotNomProId": 0,
+                "CotNomSexo": "",
+                "CotNomDocNumero": "35398954",
+                "CotNomPerId": 0,
+                "CotNomLocId": 0,
+                "CotNomCalleNro": 0,
+                "CotNomDocTipoNombre": "",
+                "CotNomPiso": 0,
+                "CotNomEmail": "",
+                "CotNomCodPosId": 0,
+                "CotNomCalle": "",
+                "CotNomDocTipo": 1,
+                "CotNomCodPosSufijo": 0,
+                "CotNomDatosCargados": 0,
+                "CotNomEsTomador": false,
+                "CotNomSec": 1,
+                "CotNomApellido": "Garavano",
+                "CotNomEstado": "",
+                "CotCompSec": 1,
+                "CotNomNombre": "Alejandro",
+                "CotNomFechaNacimiento": "2000-01-01",
+                "CotNomDpto": 0,
+                "CotNumero": 42216,
+                "CotNomCUIT": "ALEJANDRO GARAVANO"
+              }
+            ]
+          },
+          "lineaBase": {
+            "sdtPersonas": [
+              {
+                "CotNomCalle": "",
+                "CotNomDocTipo": 1,
+                "CotNomCodPosSufijo": 0,
+                "CotNomPaisId": 0,
+                "CotNomProId": 0,
+                "CotNomSexo": "",
+                "CotNomSec": 1,
+                "CotNomApellido": "Garavano",
+                "CotNomDocNumero": "35398954",
+                "CotNomPerId": 0,
+                "CotNomLocId": 0,
+                "ProviciaLocalidad": "",
+                "CotNomCalleNro": 0,
+                "CotCompSec": 1,
+                "CotNomNombre": "Alejandro",
+                "CotNomFechaNacimiento": "2000-01-01",
+                "CotNomDpto": 0,
+                "CotNumero": 42216,
+                "CotNomPiso": 0,
+                "Validacion": [
+                  5,
+                  12,
+                  11
+                ],
+                "Selected": false,
+                "CotNomEmail": "",
+                "CotNomCUIT": "ALEJANDRO GARAVANO",
+                "CotNomCodPosId": 0
+              }
+            ],
+            "OkNomina": false,
+            "OkBeneficiarios": false,
+            "ResumenErrores": "<li> <b>   1 de     0 Asegurado</b> están fuera del rango de edad. </li><li> <b>   1 de     0 Asegurado</b> no tienen beneficiario. </li><li> <b>   1 de     0 Asegurado</b> tienen código postal incorrecto. </li>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-solicitud-validacionnominaap-vacia",
+      "nombre": "Intermediarios.Cotizacion.Solicitud.ValidacionNominaAP (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Solicitud.ValidacionNominaAP",
+          "entrada": {
+            "sdtParametros": {
+              "EsCUE": false,
+              "CotIntNumero": 0,
+              "RamaId": 0,
+              "CotTipo": "",
+              "Modo": "",
+              "CotCompAltId": 0,
+              "Accion": "",
+              "SolicitudEstado": "",
+              "Origen": "",
+              "Vehiculo": {
+                "Fotos": false,
+                "Accesorios": false
+              },
+              "InhabilitarCargaFotos": false,
+              "CotNumero": 0,
+              "OcultarBoton": false,
+              "CotCompNumero": 0,
+              "ConfiguracionSecuencial": 0,
+              "ArticuloId": 0
+            },
+            "Nomina": [
+              {
+                "CotNomError": "",
+                "CotNomPaisId": 0,
+                "CotNomProId": 0,
+                "CotNomSexo": "",
+                "CotNomDocNumero": "",
+                "CotNomPerId": 0,
+                "CotNomLocId": 0,
+                "CotNomCalleNro": 0,
+                "CotNomDocTipoNombre": "",
+                "CotNomPiso": 0,
+                "CotNomEmail": "",
+                "CotNomCodPosId": 0,
+                "CotNomCalle": "",
+                "CotNomDocTipo": 0,
+                "CotNomCodPosSufijo": 0,
+                "CotNomDatosCargados": 0,
+                "CotNomEsTomador": false,
+                "CotNomSec": 0,
+                "CotNomApellido": "",
+                "CotNomEstado": "",
+                "CotCompSec": 0,
+                "CotNomNombre": "",
+                "CotNomFechaNacimiento": "0000-00-00",
+                "CotNomDpto": 0,
+                "CotNumero": 0,
+                "CotNomCUIT": ""
+              }
+            ]
+          },
+          "lineaBase": {
+            "sdtPersonas": [
+              {
+                "CotNomCalle": "",
+                "CotNomDocTipo": 0,
+                "CotNomCodPosSufijo": 0,
+                "CotNomPaisId": 0,
+                "CotNomProId": 0,
+                "CotNomSexo": "",
+                "CotNomSec": 0,
+                "CotNomApellido": "",
+                "CotNomDocNumero": "",
+                "CotNomPerId": 0,
+                "CotNomLocId": 0,
+                "ProviciaLocalidad": "",
+                "CotNomCalleNro": 0,
+                "CotCompSec": 0,
+                "CotNomNombre": "",
+                "CotNomFechaNacimiento": "0000-00-00",
+                "CotNomDpto": 0,
+                "CotNumero": 0,
+                "CotNomPiso": 0,
+                "Validacion": [
+                  9,
+                  10,
+                  6,
+                  1,
+                  12,
+                  11
+                ],
+                "Selected": false,
+                "CotNomEmail": "",
+                "CotNomCUIT": "",
+                "CotNomCodPosId": 0
+              }
+            ],
+            "OkNomina": false,
+            "OkBeneficiarios": false,
+            "ResumenErrores": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-solicitud-vehiculovalidacionpatente",
+      "nombre": "Intermediarios.Cotizacion.Solicitud.VehiculoValidacionPatente (datos de COTIZACION.cthCotComponente)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Cotizacion.Solicitud.VehiculoValidacionPatente",
+          "entrada": {
+            "PatenteTipo": "X",
+            "Dominio": "BEG90",
+            "Anio": 0
+          },
+          "lineaBase": {
+            "Ok": true,
+            "MessagesJson": "[]"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1778 @@
+{
+  "nombre": "Auto - Generales.Interfases",
+  "kb": "Generales",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "generales-interfases-generararchivo",
+      "nombre": "Generales.Interfases.GenerarArchivo (datos de GENERALES.gntInterfase)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.GenerarArchivo",
+          "entrada": {
+            "AgrId": 0,
+            "ItfId": 1,
+            "Filas": [
+              {
+                "Datos": {}
+              }
+            ],
+            "Globales": {}
+          },
+          "lineaBase": {
+            "TextoSalida": "",
+            "Errores": [
+              {
+                "RegistroTipo": "AGR",
+                "Mensaje": "La fila 1 no trae ",
+                "Campo": "",
+                "ValorCrudo": "",
+                "Severidad": "Error",
+                "Linea": 0
+              },
+              {
+                "RegistroTipo": "AGR",
+                "Mensaje": "No se genera el archivo: la agrupacion devolvio 1 error(es)",
+                "Campo": "",
+                "ValorCrudo": "",
+                "Severidad": "Error",
+                "Linea": 0
+              }
+            ],
+            "Resultado": {
+              "Globales": {
+                "@Nivel": "0",
+                "@Parte": "0"
+              },
+              "Ambito": "",
+              "Nodos": [
+                {
+                  "Ref": 1,
+                  "Tipo": "DET",
+                  "Origenes": [
+                    ""
+                  ],
+                  "Parte": 0,
+                  "Datos": {
+                    "@Nivel": "1",
+                    "@Parte": "0",
+                    "@Ref": "1"
+                  },
+                  "Nivel": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-get",
+      "nombre": "Generales.Interfases.Get (datos de GENERALES.gntInterfase)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Get",
+          "entrada": {
+            "inGet": {
+              "ItfId": 1
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Data": {},
+                "Ok": true
+              },
+              "Interfase": {
+                "Nombre": "PAGO MIS CUENTAS",
+                "CampoDelimitador": ";",
+                "NumNegFormato": "PRI   ",
+                "Formato": "F",
+                "DecimalSeparador": " ",
+                "UsaIdentificador": true,
+                "PrimeraFila": 0,
+                "Tipo": "S",
+                "Ambito": "COB       ",
+                "FechaSeparador": " ",
+                "Id": 1,
+                "FormatoFecha3": "dd  ",
+                "FormatoFecha1": "aaaa",
+                "TextoDelimitador": " ",
+                "FormatoFecha2": "mm  "
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-get-vacia",
+      "nombre": "Generales.Interfases.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Get",
+          "entrada": {
+            "inGet": {
+              "ItfId": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "Generales.Interfases.Get",
+                    "Code": "NO_EXISTE",
+                    "Texto": "Interfase 0 no encontrada."
+                  }
+                ],
+                "Log": "",
+                "Data": {},
+                "Ok": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-interfase_configuracion",
+      "nombre": "Generales.Interfases.Interfase_Configuracion (datos de GENERALES.gntInterfase)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": 1
+          },
+          "lineaBase": {
+            "Interfase": {
+              "Nombre": "PAGO MIS CUENTAS",
+              "CampoDelimitador": ";",
+              "NumNegFormato": "PRI   ",
+              "Formato": "F",
+              "DecimalSeparador": " ",
+              "PrimeraFila": 0,
+              "Tipo": "S",
+              "Ambito": "COB       ",
+              "FechaSeparador": " ",
+              "Id": 1,
+              "Registros": [
+                {
+                  "Nombre": "HEADER",
+                  "CampoIdPosDesde": 1,
+                  "Orden": 0,
+                  "Longitud": 280,
+                  "CampoCantidad": 0,
+                  "Tipo": "CABECERA  ",
+                  "CampoId": 1,
+                  "CampoIdOrden": 1,
+                  "ValorId": "0                                                 ",
+                  "Campos": [
+                    {
+                      "Nombre": "Id",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 1,
+                      "PosDesde": 1,
+                      "Orden": 1,
+                      "Atributo": "Cabecera.Id",
+                      "Constante": "",
+                      "EsId": true,
+                      "RellenaCeros": "NO ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 1
+                    },
+                    {
+                      "Nombre": "Referencia",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 4,
+                      "PosDesde": 2,
+                      "Orden": 2,
+                      "Atributo": "Cabecera.Referencia",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 2
+                    },
+                    {
+                      "Nombre": "Empresa",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 8,
+                      "PosDesde": 5,
+                      "Orden": 3,
+                      "Atributo": "Cabecera.Empresa",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 3
+                    },
+                    {
+                      "Nombre": "Fecha",
+                      "TipoDato": "DATE",
+                      "PosHasta": 16,
+                      "PosDesde": 9,
+                      "Orden": 4,
+                      "Atributo": "Cabecera.Fecha",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 4
+                    },
+                    {
+                      "Nombre": "Filler",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 280,
+                      "PosDesde": 17,
+                      "Orden": 5,
+                      "Atributo": "",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "CON",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 5
+                    }
+                  ],
+                  "UsaId": false,
+                  "CampoIdPosHasta": 1,
+                  "Posicion": ""
+                },
+                {
+                  "Nombre": "DETALLE",
+                  "CampoIdPosDesde": 1,
+                  "Orden": 0,
+                  "Longitud": 280,
+                  "CampoCantidad": 0,
+                  "Tipo": "DETALLE   ",
+                  "CampoId": 1,
+                  "CampoIdOrden": 1,
+                  "ValorId": "5                                                 ",
+                  "Campos": [
+                    {
+                      "Nombre": "Id",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 1,
+                      "PosDesde": 1,
+                      "Orden": 1,
+                      "Atributo": "Detalle.Id",
+                      "Constante": "",
+                      "EsId": true,
+                      "RellenaCeros": "NO ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 1
+                    },
+                    {
+                      "Nombre": "Referencia",
+                      "TipoDato": "CHAR",
+                      "PosHasta": 20,
+                      "PosDesde": 2,
+                      "Orden": 2,
+                      "Atributo": "Detalle.Referencia",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "NO ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "DER",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 2
+                    },
+                    {
+                      "Nombre": "Factura",
+                      "TipoDato": "CHAR",
+                      "PosHasta": 40,
+                      "PosDesde": 21,
+                      "Orden": 3,
+                      "Atributo": "Detalle.Factura",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "NO ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "DER",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 3
+                    },
+                    {
+                      "Nombre": "Moneda",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 41,
+                      "PosDesde": 41,
+                      "Orden": 4,
+                      "Atributo": "Detalle.Moneda",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 4
+                    },
+                    {
+                      "Nombre": "FechaVto1",
+                      "TipoDato": "DATE",
+                      "PosHasta": 49,
+                      "PosDesde": 42,
+                      "Orden": 5,
+                      "Atributo": "Detalle.FechaVto1",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 5
+                    },
+                    {
+                      "Nombre": "ImporteVto1",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 60,
+                      "PosDesde": 50,
+                      "Orden": 6,
+                      "Atributo": "Detalle.ImporteVto1",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 2,
+                      "Divisor": 100,
+                      "Propiedad": 0,
+                      "Id": 6
+                    },
+                    {
+                      "Nombre": "FechaVto2",
+                      "TipoDato": "DATE",
+                      "PosHasta": 68,
+                      "PosDesde": 61,
+                      "Orden": 7,
+                      "Atributo": "Detalle.FechaVto2",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 7
+                    },
+                    {
+                      "Nombre": "ImporteVto2",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 79,
+                      "PosDesde": 69,
+                      "Orden": 8,
+                      "Atributo": "Detalle.ImporteVto2",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 2,
+                      "Divisor": 100,
+                      "Propiedad": 0,
+                      "Id": 8
+                    },
+                    {
+                      "Nombre": "FechaVto3",
+                      "TipoDato": "DATE",
+                      "PosHasta": 87,
+                      "PosDesde": 80,
+                      "Orden": 9,
+                      "Atributo": "Detalle.FechaVto3",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 9
+                    },
+                    {
+                      "Nombre": "ImporteVto3",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 98,
+                      "PosDesde": 88,
+                      "Orden": 10,
+                      "Atributo": "Detalle.ImporteVto3",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 2,
+                      "Divisor": 100,
+                      "Propiedad": 0,
+                      "Id": 10
+                    },
+                    {
+                      "Nombre": "Filler1",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 117,
+                      "PosDesde": 99,
+                      "Orden": 11,
+                      "Atributo": "",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "NO ",
+                      "Mapeo": "CON",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "DER",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 11
+                    },
+                    {
+                      "Nombre": "MensajeTicket",
+                      "TipoDato": "CHAR",
+                      "PosHasta": 176,
+                      "PosDesde": 137,
+                      "Orden": 12,
+                      "Atributo": "Detalle.MensajeTicket",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "NO ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "DER",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 12
+                    },
+                    {
+                      "Nombre": "MensajePantalla",
+                      "TipoDato": "CHAR",
+                      "PosHasta": 191,
+                      "PosDesde": 177,
+                      "Orden": 13,
+                      "Atributo": "Detalle.MensajePantalla",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "NO ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "DER",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 13
+                    },
+                    {
+                      "Nombre": "CodigoBarras",
+                      "TipoDato": "CHAR",
+                      "PosHasta": 251,
+                      "PosDesde": 192,
+                      "Orden": 14,
+                      "Atributo": "Detalle.CodigoBarras",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "NO ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "DER",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 14
+                    },
+                    {
+                      "Nombre": "Filler2",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 280,
+                      "PosDesde": 252,
+                      "Orden": 15,
+                      "Atributo": "",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "CON",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 15
+                    }
+                  ],
+                  "UsaId": false,
+                  "CampoIdPosHasta": 1,
+                  "Posicion": ""
+                },
+                {
+                  "Nombre": "TRAILER",
+                  "CampoIdPosDesde": 1,
+                  "Orden": 0,
+                  "Longitud": 280,
+                  "CampoCantidad": 0,
+                  "Tipo": "PIE       ",
+                  "CampoId": 1,
+                  "CampoIdOrden": 1,
+                  "ValorId": "9                                                 ",
+                  "Campos": [
+                    {
+                      "Nombre": "ID",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 1,
+                      "PosDesde": 1,
+                      "Orden": 1,
+                      "Atributo": "Cabecera.Id",
+                      "Constante": "",
+                      "EsId": true,
+                      "RellenaCeros": "NO ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 1
+                    },
+                    {
+                      "Nombre": "Referencia",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 4,
+                      "PosDesde": 2,
+                      "Orden": 2,
+                      "Atributo": "Cabecera.Referencia",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 2
+                    },
+                    {
+                      "Nombre": "Empresa",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 8,
+                      "PosDesde": 5,
+                      "Orden": 3,
+                      "Atributo": "Cabecera.Empresa",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 3
+                    },
+                    {
+                      "Nombre": "Fecha",
+                      "TipoDato": "DATE",
+                      "PosHasta": 16,
+                      "PosDesde": 9,
+                      "Orden": 4,
+                      "Atributo": "Cabecera.Fecha",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 4
+                    },
+                    {
+                      "Nombre": "Registros",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 23,
+                      "PosDesde": 17,
+                      "Orden": 5,
+                      "Atributo": "Cabecera.Registros",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 5
+                    },
+                    {
+                      "Nombre": "Filler1",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 30,
+                      "PosDesde": 24,
+                      "Orden": 6,
+                      "Atributo": "",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "CON",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 6
+                    },
+                    {
+                      "Nombre": "Total",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 46,
+                      "PosDesde": 31,
+                      "Orden": 7,
+                      "Atributo": "Cabecera.Total",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 2,
+                      "Divisor": 100,
+                      "Propiedad": 0,
+                      "Id": 7
+                    },
+                    {
+                      "Nombre": "Filler2",
+                      "TipoDato": "NUM ",
+                      "PosHasta": 280,
+                      "PosDesde": 47,
+                      "Orden": 8,
+                      "Atributo": "",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "IZQ",
+                      "Mapeo": "CON",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "NO ",
+                      "EsClave": false,
+                      "Delimitador": " ",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 8
+                    }
+                  ],
+                  "UsaId": false,
+                  "CampoIdPosHasta": 1,
+                  "Posicion": ""
+                }
+              ],
+              "FormatoFecha3": "dd  ",
+              "UsaId": true,
+              "FormatoFecha1": "aaaa",
+              "TextoDelimitador": " ",
+              "FormatoFecha2": "mm  "
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-interfase_configuracion-vacia",
+      "nombre": "Generales.Interfases.Interfase_Configuracion (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": 0
+          },
+          "lineaBase": {
+            "Interfase": {
+              "Nombre": "",
+              "CampoDelimitador": "",
+              "NumNegFormato": "",
+              "Formato": "",
+              "DecimalSeparador": "",
+              "PrimeraFila": 0,
+              "Tipo": "",
+              "Ambito": "",
+              "FechaSeparador": "",
+              "Id": 0,
+              "FormatoFecha3": "",
+              "UsaId": false,
+              "FormatoFecha1": "",
+              "TextoDelimitador": "",
+              "FormatoFecha2": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-interfase_configuracion_prueba-vacia",
+      "nombre": "Generales.Interfases.interfase_configuracion_prueba (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.interfase_configuracion_prueba",
+          "entrada": {
+            "AgrId": 0
+          },
+          "lineaBase": {
+            "Interfase": {
+              "Nombre": "",
+              "CampoDelimitador": "",
+              "NumNegFormato": "",
+              "Formato": "",
+              "DecimalSeparador": "",
+              "PrimeraFila": 0,
+              "Tipo": "",
+              "Ambito": "",
+              "FechaSeparador": "",
+              "Id": 0,
+              "FormatoFecha3": "",
+              "UsaId": false,
+              "FormatoFecha1": "",
+              "TextoDelimitador": "",
+              "FormatoFecha2": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-interfase_datos",
+      "nombre": "Generales.Interfases.Interfase_Datos (datos de GENERALES.gntItfRegCampo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Interfase_Datos",
+          "entrada": {
+            "Datos": [
+              {
+                "Nombre": "",
+                "TipoDato": "NUM",
+                "ValorFecha": "0000-00-00",
+                "ValorChar": "",
+                "ValorNum": "0.000000"
+              }
+            ]
+          },
+          "lineaBase": {
+            "JSONaux": "{\"\":0.000000}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-interfase_datos-vacia",
+      "nombre": "Generales.Interfases.Interfase_Datos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Interfase_Datos",
+          "entrada": {
+            "Datos": [
+              {
+                "Nombre": "",
+                "TipoDato": "",
+                "ValorFecha": "0000-00-00",
+                "ValorChar": "",
+                "ValorNum": "0.000000"
+              }
+            ]
+          },
+          "lineaBase": {
+            "JSONaux": "{\"\":}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-list",
+      "nombre": "Generales.Interfases.List (datos de GENERALES.gntItfAmbito)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.List",
+          "entrada": {
+            "inList": {
+              "Ambito": "COB"
+            }
+          },
+          "lineaBase": {
+            "outList": {
+              "Interfases": [
+                {
+                  "Nombre": "PAGO MIS CUENTAS",
+                  "CampoDelimitador": ";",
+                  "NumNegFormato": "PRI   ",
+                  "Formato": "F",
+                  "DecimalSeparador": " ",
+                  "UsaIdentificador": true,
+                  "PrimeraFila": 0,
+                  "Tipo": "S",
+                  "Ambito": "COB       ",
+                  "FechaSeparador": " ",
+                  "Id": 1,
+                  "FormatoFecha3": "dd  ",
+                  "FormatoFecha1": "aaaa",
+                  "TextoDelimitador": " ",
+                  "FormatoFecha2": "mm  "
+                },
+                {
+                  "Nombre": "PAGO MIS CUENTAS COBRANZAS",
+                  "CampoDelimitador": ";",
+                  "NumNegFormato": "PRI   ",
+                  "Formato": "F",
+                  "DecimalSeparador": " ",
+                  "UsaIdentificador": true,
+                  "PrimeraFila": 0,
+                  "Tipo": "E",
+                  "Ambito": "COB       ",
+                  "FechaSeparador": " ",
+                  "Id": 72,
+                  "FormatoFecha3": "dd  ",
+                  "FormatoFecha1": "aaaa",
+                  "TextoDelimitador": " ",
+                  "FormatoFecha2": "mm  "
+                },
+                {
+                  "Nombre": "PRUEBA ENVIARLOTE DEBITO",
+                  "CampoDelimitador": ",",
+                  "NumNegFormato": "PRI   ",
+                  "Formato": "F",
+                  "DecimalSeparador": " ",
+                  "UsaIdentificador": true,
+                  "PrimeraFila": 1,
+                  "Tipo": "S",
+                  "Ambito": "COB       ",
+                  "FechaSeparador": " ",
+                  "Id": 71,
+                  "FormatoFecha3": "dd  ",
+                  "FormatoFecha1": "aaaa",
+                  "TextoDelimitador": " ",
+                  "FormatoFecha2": "mm  "
+                }
+              ],
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Data": {},
+                "Ok": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-parsersalida",
+      "nombre": "Generales.Interfases.ParserSalida (datos de GENERALES.gntItfRegCampo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.ParserSalida",
+          "entrada": {
+            "Interfase": {
+              "Nombre": "",
+              "CampoDelimitador": "",
+              "NumNegFormato": "",
+              "Formato": "",
+              "DecimalSeparador": "",
+              "PrimeraFila": 0,
+              "Tipo": "",
+              "Ambito": "",
+              "FechaSeparador": "",
+              "Id": 0,
+              "Registros": [
+                {
+                  "Nombre": "",
+                  "CampoIdPosDesde": 0,
+                  "Orden": 0,
+                  "Longitud": 0,
+                  "CampoCantidad": 0,
+                  "Tipo": "",
+                  "CampoId": 1,
+                  "CampoIdOrden": 0,
+                  "ValorId": "",
+                  "Campos": [
+                    {
+                      "Nombre": "",
+                      "TipoDato": "NUM",
+                      "PosHasta": 1,
+                      "PosDesde": 1,
+                      "Orden": 0,
+                      "Atributo": "Cabecera.Id",
+                      "Constante": "",
+                      "EsId": false,
+                      "RellenaCeros": "",
+                      "Mapeo": "ATR",
+                      "TieneConversion": false,
+                      "RellenaEspacios": "",
+                      "EsClave": false,
+                      "Delimitador": "",
+                      "Decimales": 0,
+                      "Divisor": 0,
+                      "Propiedad": 0,
+                      "Id": 0
+                    }
+                  ],
+                  "UsaId": false,
+                  "CampoIdPosHasta": 0,
+                  "Posicion": ""
+                }
+              ],
+              "FormatoFecha3": "",
+              "UsaId": false,
+              "FormatoFecha1": "",
+              "TextoDelimitador": "",
+              "FormatoFecha2": ""
+            },
+            "Resultado": {
+              "Globales": {},
+              "Ambito": "",
+              "Nodos": [
+                {
+                  "Ref": 0,
+                  "Tipo": "",
+                  "Origenes": [
+                    ""
+                  ],
+                  "Parte": 0,
+                  "Datos": {},
+                  "Nivel": 0
+                }
+              ]
+            }
+          },
+          "lineaBase": {
+            "TextoSalida": "",
+            "ErroresTotales": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-parsersalidalinea",
+      "nombre": "Generales.Interfases.ParserSalidaLinea (datos de GENERALES.gntItfRegistro)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "RegTipo": "CABECERA",
+              "DatosJson": "",
+              "ItfId": 1
+            }
+          },
+          "lineaBase": {
+            "outParserSalidaLinea": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "Generales.Interfases.ParserSalidaLinea",
+                    "Code": "DATOS",
+                    "Texto": "Registro 'CABECERA', campo 'Referencia': No se encontró valor para la clave \"Cabecera.Referencia\" (si el dato no aplica, mandarlo vacío)"
+                  },
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "Generales.Interfases.ParserSalidaLinea",
+                    "Code": "DATOS",
+                    "Texto": "Registro 'CABECERA', campo 'Empresa': No se encontró valor para la clave \"Cabecera.Empresa\" (si el dato no aplica, mandarlo vacío)"
+                  },
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "Generales.Interfases.ParserSalidaLinea",
+                    "Code": "DATOS",
+                    "Texto": "Registro 'CABECERA', campo 'Fecha': No se encontró valor para la clave \"Cabecera.Fecha\" (si el dato no aplica, mandarlo vacío)"
+                  }
+                ],
+                "Log": "",
+                "Data": {},
+                "Ok": false
+              },
+              "Errores": [
+                {
+                  "RegistroTipo": "CABECERA",
+                  "Mensaje": "No se encontró valor para la clave \"Cabecera.Referencia\" (si el dato no aplica, mandarlo vacío)",
+                  "Campo": "Referencia",
+                  "ValorCrudo": "",
+                  "Severidad": "Error",
+                  "Linea": 0
+                },
+                {
+                  "RegistroTipo": "CABECERA",
+                  "Mensaje": "No se encontró valor para la clave \"Cabecera.Empresa\" (si el dato no aplica, mandarlo vacío)",
+                  "Campo": "Empresa",
+                  "ValorCrudo": "",
+                  "Severidad": "Error",
+                  "Linea": 0
+                },
+                {
+                  "RegistroTipo": "CABECERA",
+                  "Mensaje": "No se encontró valor para la clave \"Cabecera.Fecha\" (si el dato no aplica, mandarlo vacío)",
+                  "Campo": "Fecha",
+                  "ValorCrudo": "",
+                  "Severidad": "Error",
+                  "Linea": 0
+                }
+              ],
+              "Linea": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-parsersalidalinea-vacia",
+      "nombre": "Generales.Interfases.ParserSalidaLinea (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "RegTipo": "",
+              "DatosJson": "",
+              "ItfId": 0
+            }
+          },
+          "lineaBase": {
+            "outParserSalidaLinea": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "Generales.Interfases.ParserSalidaLinea",
+                    "Code": "REQUERIDO",
+                    "Texto": "El tipo de registro es obligatorio."
+                  }
+                ],
+                "Log": "",
+                "Data": {},
+                "Ok": false
+              },
+              "Linea": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-registro-campo-get",
+      "nombre": "Generales.Interfases.Registro.Campo.Get (datos de GENERALES.gntItfRegCampo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Registro.Campo.Get",
+          "entrada": {
+            "inGet": {
+              "RegTipo": "CABECERA",
+              "CampoId": 1,
+              "ItfId": 1
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Campo": {
+                "Nombre": "Id",
+                "TipoDato": "NUM ",
+                "PosHasta": 1,
+                "PropId": 0,
+                "RegTipo": "CABECERA  ",
+                "PosDesde": 1,
+                "Orden": 1,
+                "Atributo": "Cabecera.Id",
+                "Constante": "",
+                "Espacios": "NO ",
+                "EsId": true,
+                "Ceros": "NO ",
+                "ItfId": 1,
+                "Mapeo": "ATR",
+                "Delimitador": " ",
+                "Decimales": 0,
+                "Divisor": 0,
+                "Id": 1
+              },
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Data": {},
+                "Ok": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-registro-campo-get-vacia",
+      "nombre": "Generales.Interfases.Registro.Campo.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Registro.Campo.Get",
+          "entrada": {
+            "inGet": {
+              "RegTipo": "",
+              "CampoId": 0,
+              "ItfId": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "Generales.Interfases.Registro.Campo.Get",
+                    "Code": "NO_EXISTE",
+                    "Texto": "Campo 0 del registro '' de la interfase 0 no encontrado."
+                  }
+                ],
+                "Log": "",
+                "Data": {},
+                "Ok": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-registro-campo-list",
+      "nombre": "Generales.Interfases.Registro.Campo.List (datos de GENERALES.gntItfRegistro)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Registro.Campo.List",
+          "entrada": {
+            "inList": {
+              "RegTipo": "CABECERA",
+              "ItfId": 1
+            }
+          },
+          "lineaBase": {
+            "outList": {
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Data": {},
+                "Ok": true
+              },
+              "Campos": [
+                {
+                  "Nombre": "Id",
+                  "TipoDato": "NUM ",
+                  "PosHasta": 1,
+                  "PropId": 0,
+                  "RegTipo": "CABECERA  ",
+                  "PosDesde": 1,
+                  "Orden": 1,
+                  "Atributo": "Cabecera.Id",
+                  "Constante": "",
+                  "Espacios": "NO ",
+                  "EsId": true,
+                  "Ceros": "NO ",
+                  "ItfId": 1,
+                  "Mapeo": "ATR",
+                  "Delimitador": " ",
+                  "Decimales": 0,
+                  "Divisor": 0,
+                  "Id": 1
+                },
+                {
+                  "Nombre": "Referencia",
+                  "TipoDato": "NUM ",
+                  "PosHasta": 4,
+                  "PropId": 0,
+                  "RegTipo": "CABECERA  ",
+                  "PosDesde": 2,
+                  "Orden": 2,
+                  "Atributo": "Cabecera.Referencia",
+                  "Constante": "",
+                  "Espacios": "NO ",
+                  "EsId": false,
+                  "Ceros": "IZQ",
+                  "ItfId": 1,
+                  "Mapeo": "ATR",
+                  "Delimitador": " ",
+                  "Decimales": 0,
+                  "Divisor": 0,
+                  "Id": 2
+                },
+                {
+                  "Nombre": "Empresa",
+                  "TipoDato": "NUM ",
+                  "PosHasta": 8,
+                  "PropId": 0,
+                  "RegTipo": "CABECERA  ",
+                  "PosDesde": 5,
+                  "Orden": 3,
+                  "Atributo": "Cabecera.Empresa",
+                  "Constante": "",
+                  "Espacios": "NO ",
+                  "EsId": false,
+                  "Ceros": "IZQ",
+                  "ItfId": 1,
+                  "Mapeo": "ATR",
+                  "Delimitador": " ",
+                  "Decimales": 0,
+                  "Divisor": 0,
+                  "Id": 3
+                },
+                {
+                  "Nombre": "Fecha",
+                  "TipoDato": "DATE",
+                  "PosHasta": 16,
+                  "PropId": 0,
+                  "RegTipo": "CABECERA  ",
+                  "PosDesde": 9,
+                  "Orden": 4,
+                  "Atributo": "Cabecera.Fecha",
+                  "Constante": "",
+                  "Espacios": "NO ",
+                  "EsId": false,
+                  "Ceros": "IZQ",
+                  "ItfId": 1,
+                  "Mapeo": "ATR",
+                  "Delimitador": " ",
+                  "Decimales": 0,
+                  "Divisor": 0,
+                  "Id": 4
+                },
+                {
+                  "Nombre": "Filler",
+                  "TipoDato": "NUM ",
+                  "PosHasta": 280,
+                  "PropId": 0,
+                  "RegTipo": "CABECERA  ",
+                  "PosDesde": 17,
+                  "Orden": 5,
+                  "Atributo": "",
+                  "Constante": "",
+                  "Espacios": "NO ",
+                  "EsId": false,
+                  "Ceros": "IZQ",
+                  "ItfId": 1,
+                  "Mapeo": "CON",
+                  "Delimitador": " ",
+                  "Decimales": 0,
+                  "Divisor": 0,
+                  "Id": 5
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-registro-campo-list-vacia",
+      "nombre": "Generales.Interfases.Registro.Campo.List (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Registro.Campo.List",
+          "entrada": {
+            "inList": {
+              "RegTipo": "",
+              "ItfId": 0
+            }
+          },
+          "lineaBase": {
+            "outList": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "Generales.Interfases.Registro.Campo.List",
+                    "Code": "NO_EXISTE",
+                    "Texto": "Registro '' de la interfase 0 no encontrado."
+                  }
+                ],
+                "Log": "",
+                "Data": {},
+                "Ok": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-registro-get",
+      "nombre": "Generales.Interfases.Registro.Get (datos de GENERALES.gntItfRegistro)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Registro.Get",
+          "entrada": {
+            "inGet": {
+              "RegTipo": "CABECERA",
+              "ItfId": 1
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Registro": {
+                "Nombre": "HEADER",
+                "Tipo": "CABECERA  ",
+                "Orden": 1,
+                "Longitud": 280,
+                "Contexto": "LOTE_CABECERA",
+                "Fin": "CRLF",
+                "ValorId": "0                                                 ",
+                "ItfId": 1
+              },
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Data": {},
+                "Ok": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-registro-get-vacia",
+      "nombre": "Generales.Interfases.Registro.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Registro.Get",
+          "entrada": {
+            "inGet": {
+              "RegTipo": "",
+              "ItfId": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "Generales.Interfases.Registro.Get",
+                    "Code": "NO_EXISTE",
+                    "Texto": "Registro '' de la interfase 0 no encontrado."
+                  }
+                ],
+                "Log": "",
+                "Data": {},
+                "Ok": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-registro-list",
+      "nombre": "Generales.Interfases.Registro.List (datos de GENERALES.gntInterfase)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Registro.List",
+          "entrada": {
+            "inList": {
+              "ItfId": 1
+            }
+          },
+          "lineaBase": {
+            "outList": {
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Data": {},
+                "Ok": true
+              },
+              "Registros": [
+                {
+                  "Nombre": "HEADER",
+                  "Tipo": "CABECERA  ",
+                  "Orden": 1,
+                  "Longitud": 280,
+                  "Contexto": "LOTE_CABECERA",
+                  "Fin": "CRLF",
+                  "ValorId": "0                                                 ",
+                  "ItfId": 1
+                },
+                {
+                  "Nombre": "DETALLE",
+                  "Tipo": "DETALLE   ",
+                  "Orden": 2,
+                  "Longitud": 280,
+                  "Contexto": "LOTE_DETALLES",
+                  "Fin": "CRLF",
+                  "ValorId": "5                                                 ",
+                  "ItfId": 1
+                },
+                {
+                  "Nombre": "TRAILER",
+                  "Tipo": "PIE       ",
+                  "Orden": 3,
+                  "Longitud": 280,
+                  "Contexto": "LOTE_CABECERA",
+                  "Fin": "CRLF",
+                  "ValorId": "9                                                 ",
+                  "ItfId": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-registro-list-vacia",
+      "nombre": "Generales.Interfases.Registro.List (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.Registro.List",
+          "entrada": {
+            "inList": {
+              "ItfId": 0
+            }
+          },
+          "lineaBase": {
+            "outList": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "Generales.Interfases.Registro.List",
+                    "Code": "NO_EXISTE",
+                    "Texto": "Interfase 0 no encontrada."
+                  }
+                ],
+                "Log": "",
+                "Data": {},
+                "Ok": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-validarcompatibilidad",
+      "nombre": "Generales.Interfases.ValidarCompatibilidad (datos de GENERALES.gntInterfase)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Interfases.ValidarCompatibilidad",
+          "entrada": {
+            "AgrId": 0,
+            "ItfId": 1
+          },
+          "lineaBase": {
+            "Errores": []
+          }
+        }
+      ]
+    },
+    {
+      "nombre": "List: COB",
+      "etiquetas": [
+        "list COB"
+      ],
+      "pasos": [
+        {
+          "nombre": "List",
+          "objeto": "Generales.Interfases.List",
+          "entrada": {
+            "inList": {
+              "Ambito": "COB"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outList.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien (Ok = true)"
+            }
+          ],
+          "lineaBase": {
+            "outList": {
+              "Interfases": [
+                {
+                  "Nombre": "PAGO MIS CUENTAS",
+                  "CampoDelimitador": ";",
+                  "NumNegFormato": "PRI   ",
+                  "Formato": "F",
+                  "DecimalSeparador": " ",
+                  "UsaIdentificador": true,
+                  "PrimeraFila": 0,
+                  "Tipo": "S",
+                  "Ambito": "COB       ",
+                  "FechaSeparador": " ",
+                  "Id": 1,
+                  "FormatoFecha3": "dd  ",
+                  "FormatoFecha1": "aaaa",
+                  "TextoDelimitador": " ",
+                  "FormatoFecha2": "mm  "
+                },
+                {
+                  "Nombre": "PAGO MIS CUENTAS COBRANZAS",
+                  "CampoDelimitador": ";",
+                  "NumNegFormato": "PRI   ",
+                  "Formato": "F",
+                  "DecimalSeparador": " ",
+                  "UsaIdentificador": true,
+                  "PrimeraFila": 0,
+                  "Tipo": "E",
+                  "Ambito": "COB       ",
+                  "FechaSeparador": " ",
+                  "Id": 72,
+                  "FormatoFecha3": "dd  ",
+                  "FormatoFecha1": "aaaa",
+                  "TextoDelimitador": " ",
+                  "FormatoFecha2": "mm  "
+                },
+                {
+                  "Nombre": "PRUEBA ENVIARLOTE DEBITO",
+                  "CampoDelimitador": ",",
+                  "NumNegFormato": "PRI   ",
+                  "Formato": "F",
+                  "DecimalSeparador": " ",
+                  "UsaIdentificador": true,
+                  "PrimeraFila": 1,
+                  "Tipo": "S",
+                  "Ambito": "COB       ",
+                  "FechaSeparador": " ",
+                  "Id": 71,
+                  "FormatoFecha3": "dd  ",
+                  "FormatoFecha1": "aaaa",
+                  "TextoDelimitador": " ",
+                  "FormatoFecha2": "mm  "
+                }
+              ],
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Data": {},
+                "Ok": true
+              }
+            }
+          },
+          "comparar": "estructura"
+        }
+      ],
+      "id": "list-cob"
+    }
+  ]
+}

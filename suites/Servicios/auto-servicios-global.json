@@ -1,0 +1,574 @@
+{
+  "nombre": "Auto - Servicios.Global",
+  "kb": "Servicios",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "servicios-global-bandejaslista",
+      "nombre": "Servicios.Global.BandejasLista (datos de COTIZACION.cttPromoCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.BandejasLista",
+          "entrada": {
+            "CasoTipo": "PROMO_APROB"
+          },
+          "lineaBase": {
+            "outLista": {
+              "Bandejas": [
+                {
+                  "UsaGrupo": true,
+                  "Orden": 1,
+                  "BandNombre": "PROMOCIONES AGENCIA",
+                  "BandId": "PROMO_AGENCIA"
+                },
+                {
+                  "UsaGrupo": false,
+                  "Orden": 2,
+                  "BandNombre": "PROMOCIONES REGIONAL",
+                  "BandId": "PROMO_REGIONAL"
+                },
+                {
+                  "UsaGrupo": false,
+                  "Orden": 3,
+                  "BandNombre": "PROMOCIONES MASIVAS",
+                  "BandId": "PROMO_MASIVA"
+                },
+                {
+                  "UsaGrupo": true,
+                  "Orden": 4,
+                  "BandNombre": "PROMOCIONES AGENCIA - ACCIDENTES PERSONALES",
+                  "BandId": "PROMO_AGENCIA_AP"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-bandejaslista-vacia",
+      "nombre": "Servicios.Global.BandejasLista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.BandejasLista",
+          "entrada": {
+            "CasoTipo": ""
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-checkpermiso-vacia",
+      "nombre": "Servicios.Global.CheckPermiso (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.CheckPermiso",
+          "entrada": {
+            "PermissionName": ""
+          },
+          "lineaBase": {
+            "TienePermiso": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-cuit_validar-vacia",
+      "nombre": "Servicios.Global.CUIT_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.CUIT_Validar",
+          "entrada": {
+            "cuitStr": ""
+          },
+          "lineaBase": {
+            "sdtError": {
+              "Mensaje": "El CUIT/CUIL debe tener 11 dígitos",
+              "Id": 100
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-dpbandejas",
+      "nombre": "Servicios.Global.dpBandejas (datos de COTIZACION.cttPromoCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.dpBandejas",
+          "entrada": {
+            "CasoTipo": "PROMO_APROB"
+          },
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "PROMO_AGENCIA",
+                "IdNum": "0",
+                "Descripcion": "PROMOCIONES AGENCIA"
+              },
+              {
+                "IdChar": "PROMO_REGIONAL",
+                "IdNum": "0",
+                "Descripcion": "PROMOCIONES REGIONAL"
+              },
+              {
+                "IdChar": "PROMO_MASIVA",
+                "IdNum": "0",
+                "Descripcion": "PROMOCIONES MASIVAS"
+              },
+              {
+                "IdChar": "PROMO_AGENCIA_AP",
+                "IdNum": "0",
+                "Descripcion": "PROMOCIONES AGENCIA - ACCIDENTES PERSONALES"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-dpbandejas-vacia",
+      "nombre": "Servicios.Global.dpBandejas (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.dpBandejas",
+          "entrada": {
+            "CasoTipo": ""
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-dpcasotipo_lista",
+      "nombre": "Servicios.Global.dpCasoTipo_Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.dpCasoTipo_Lista",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "EXCEP_APROB",
+                "IdNum": "0",
+                "Descripcion": "Excepciones aprobación"
+              },
+              {
+                "IdChar": "PROMO_APROB",
+                "IdNum": "0",
+                "Descripcion": "Promociones aprobación"
+              },
+              {
+                "IdChar": "REN_COB",
+                "IdNum": "0",
+                "Descripcion": "Rendición de cobranza"
+              },
+              {
+                "IdChar": "SOL_EMI",
+                "IdNum": "0",
+                "Descripcion": "Solicitud de Emisión"
+              },
+              {
+                "IdChar": "SOL_MODIFICACIONES",
+                "IdNum": "0",
+                "Descripcion": "Modificaciones"
+              },
+              {
+                "IdChar": "SOP_ADM",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Administración"
+              },
+              {
+                "IdChar": "SOP_COB_CAU",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Cobranzas/Caución"
+              },
+              {
+                "IdChar": "SOP_COB_CG",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Cobranzas/CG"
+              },
+              {
+                "IdChar": "SOP_COB_DA",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Cobranzas/DA"
+              },
+              {
+                "IdChar": "SOP_COM_PYE",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Comercial/PyE"
+              },
+              {
+                "IdChar": "SOP_CRISTALES_Y_ROBO",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripcion/CristalesYRobo"
+              },
+              {
+                "IdChar": "SOP_SIS",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Sistemas"
+              },
+              {
+                "IdChar": "SOP_SUS_AGRO",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Agro"
+              },
+              {
+                "IdChar": "SOP_SUS_ATM",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Automotor"
+              },
+              {
+                "IdChar": "SOP_SUS_AUT",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/AutosDominio"
+              },
+              {
+                "IdChar": "SOP_SUS_CAU",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Caución"
+              },
+              {
+                "IdChar": "SOP_SUS_EMB",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Embarcaciones"
+              },
+              {
+                "IdChar": "SOP_SUS_INC",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Incendio"
+              },
+              {
+                "IdChar": "SOP_SUS_PERS",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Personas"
+              },
+              {
+                "IdChar": "SOP_SUS_RC",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/RCyST"
+              },
+              {
+                "IdChar": "SOP_SUS_RRVV",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/RRVV"
+              },
+              {
+                "IdChar": "SOP_SUS_TRAN",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/Transporte"
+              },
+              {
+                "IdChar": "SOP_SUS_TRO",
+                "IdNum": "0",
+                "Descripcion": "Soporte/Suscripción/TRO"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-dpremitentes",
+      "nombre": "Servicios.Global.dpRemitentes (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.dpRemitentes",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "",
+                "IdNum": "1",
+                "Descripcion": "NO RESPONDER CI"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "2",
+                "Descripcion": "AWS SES NO RESPONDER"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-extraerparametro-vacia",
+      "nombre": "Servicios.Global.ExtraerParametro (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.ExtraerParametro",
+          "entrada": {
+            "QueryString": "",
+            "NombreParametro": ""
+          },
+          "lineaBase": {
+            "Value": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-llenasdtusuario",
+      "nombre": "Servicios.Global.LlenaSdtUsuario (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.LlenaSdtUsuario",
+          "entrada": {},
+          "lineaBase": {
+            "sdtUsuario": {
+              "UserName": "",
+              "UserGUID": "",
+              "UserAplicacion": "SER",
+              "UserEmail": "",
+              "UserFullName": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-menciones-vacia",
+      "nombre": "Servicios.Global.Menciones (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.Menciones",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[{\"Id\":\"03c41c46-b08b-47d8-b250-8a2268f69c6d\",\"dn\":\"admin\",\"t\":[\"admin\",\"CORE, ADMIN\"]},{\"Id\":\"b2f568e7-f660-4c4b-81de-a59f1e8997b6\",\"dn\":\"admin3\",\"t\":[\"admin3\",\"User, Admi\"]},{\"Id\":\"18407a0c-3a02-439d-823a-cb9b0b0c1e35\",\"dn\":\"agaravano\",\"t\":[\"agaravano\",\"Garavano Viotti, Alejandro\"]},{\"Id\":\"306da65a-e8e3-497e-a0ee-5171dde065ce\",\"dn\":\"agaravanofiltro\",\"t\":[\"agaravanofiltro\",\"Garavano, Alejandro\"]},{\"Id\":\"c4f1e55d-52ba-4b51-99a3-9338de37bf3e\",\"dn\":\"agenciacordoba\",\"t\":[\"agenciacordoba\",\", agenciacordoba\"]}]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-milisegundos_get",
+      "nombre": "Servicios.Global.Milisegundos_Get (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.Milisegundos_Get",
+          "entrada": {},
+          "lineaBase": {
+            "Milisegundos": 1791161132297
+          },
+          "volatiles": [
+            "Milisegundos"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-obtenerpaginado-vacia",
+      "nombre": "Servicios.Global.ObtenerPaginado (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.ObtenerPaginado",
+          "entrada": {
+            "inObtenerPaginado": {
+              "TotalRegistros": 0,
+              "Paginado": {
+                "RegistrosPorPagina": 0,
+                "PaginaActual": 0
+              }
+            }
+          },
+          "lineaBase": {
+            "outObtenerPaginado": {
+              "HayPaginado": false,
+              "ComienzoPagina": 0,
+              "FinPagina": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-participantes-vacia",
+      "nombre": "Servicios.Global.Participantes (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.Participantes",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-ramanombre",
+      "nombre": "Servicios.Global.RamaNombre (datos de TERCEROS.sntRamaCauArticulo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.RamaNombre",
+          "entrada": {
+            "RamaId": 12
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Nombre": "ACCIDENTES PERSONALES"
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-ramanombre-vacia",
+      "nombre": "Servicios.Global.RamaNombre (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.RamaNombre",
+          "entrada": {
+            "RamaId": 0
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Nombre": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-ucquerybuilder_filters",
+      "nombre": "Servicios.Global.ucQueryBuilder_Filters (datos de SISTEMA.sitCasoTipoBandeja)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.ucQueryBuilder_Filters",
+          "entrada": {
+            "Atributos": [
+              {
+                "Nombre": "",
+                "TipoDato": "",
+                "Uso": "",
+                "Grupo": "True",
+                "Id": "",
+                "ListaValores": false
+              }
+            ]
+          },
+          "lineaBase": {
+            "Filters": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-usuariosporcasotipo-vacia",
+      "nombre": "Servicios.Global.UsuariosPorCasoTipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.Global.UsuariosPorCasoTipo",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[]"
+          }
+        }
+      ]
+    }
+  ]
+}

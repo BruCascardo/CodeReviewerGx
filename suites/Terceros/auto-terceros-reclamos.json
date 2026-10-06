@@ -1,0 +1,852 @@
+{
+  "nombre": "Auto - Terceros.Reclamos",
+  "kb": "Terceros",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "terceros-reclamos-agenciapermiteasignar",
+      "nombre": "Terceros.Reclamos.AgenciaPermiteAsignar (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.AgenciaPermiteAsignar",
+          "entrada": {
+            "sdtReclamoAcciones": {
+              "RclRamaId": 4,
+              "RclSinNumero": 524442,
+              "GUID": "",
+              "RclNumero": 1,
+              "RclEstado": "TRA",
+              "RclIntNumero_Superior": 100
+            }
+          },
+          "lineaBase": {
+            "HabModificacion": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-cbu_validar-vacia",
+      "nombre": "Terceros.Reclamos.CBU_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.CBU_Validar",
+          "entrada": {
+            "CBUStr": ""
+          },
+          "lineaBase": {
+            "sdtError": {
+              "Mensaje": "El CBU debe tener 22 dígitos",
+              "Id": 100
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-cuit_validar-vacia",
+      "nombre": "Terceros.Reclamos.CUIT_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.CUIT_Validar",
+          "entrada": {
+            "cuitStr": ""
+          },
+          "lineaBase": {
+            "sdtError": {
+              "Mensaje": "El número debe tener 11 dígitos",
+              "Id": 100
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-dpremitentes",
+      "nombre": "Terceros.Reclamos.dpRemitentes (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.dpRemitentes",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "",
+                "IdNum": "1",
+                "Descripcion": "NO RESPONDER CI"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "2",
+                "Descripcion": "AWS SES NO RESPONDER"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-estadodanio_actualiza",
+      "nombre": "Terceros.Reclamos.EstadoDanio_Actualiza (datos de TERCEROS.trhRclDanio)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.EstadoDanio_Actualiza",
+          "entrada": {
+            "RclNumero": 1,
+            "RclDanioSec": 1
+          },
+          "lineaBase": {
+            "RclDanioDocEstado": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-estadodanio_actualiza-vacia",
+      "nombre": "Terceros.Reclamos.EstadoDanio_Actualiza (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.EstadoDanio_Actualiza",
+          "entrada": {
+            "RclNumero": 0,
+            "RclDanioSec": 0
+          },
+          "lineaBase": {
+            "RclDanioDocEstado": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-estadopermiteasignar",
+      "nombre": "Terceros.Reclamos.EstadoPermiteAsignar (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.EstadoPermiteAsignar",
+          "entrada": {
+            "sdtReclamoAcciones": {
+              "RclRamaId": 4,
+              "RclSinNumero": 524442,
+              "GUID": "",
+              "RclNumero": 1,
+              "RclEstado": "TRA",
+              "RclIntNumero_Superior": 100
+            }
+          },
+          "lineaBase": {
+            "Permite": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-estadoreclamo_getformat",
+      "nombre": "Terceros.Reclamos.EstadoReclamo_GetFormat (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.EstadoReclamo_GetFormat",
+          "entrada": {
+            "RclEstado": "TRA"
+          },
+          "lineaBase": {
+            "Formato": "<span class='AttributeTagInfo TagAfterText'>En Trámite</span>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-estadoreclamo_getformat-vacia",
+      "nombre": "Terceros.Reclamos.EstadoReclamo_GetFormat (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.EstadoReclamo_GetFormat",
+          "entrada": {
+            "RclEstado": ""
+          },
+          "lineaBase": {
+            "Formato": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-fechanacimientocontrol",
+      "nombre": "Terceros.Reclamos.FechaNacimientoControl (datos de TERCEROS.snhDenReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.FechaNacimientoControl",
+          "entrada": {
+            "FechaNacimiento": "1000-01-01"
+          },
+          "lineaBase": {
+            "ok": false,
+            "mensaje": "Fecha de Nacimiento incorrecta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-generarrandomalfanumerico",
+      "nombre": "Terceros.Reclamos.GenerarRandomAlfanumerico (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.GenerarRandomAlfanumerico",
+          "entrada": {},
+          "lineaBase": {
+            "CodigoGenerado": "999CAA"
+          },
+          "volatiles": [
+            "CodigoGenerado"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-gestorpermiteasignar",
+      "nombre": "Terceros.Reclamos.GestorPermiteAsignar (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.GestorPermiteAsignar",
+          "entrada": {
+            "sdtReclamoAcciones": {
+              "RclRamaId": 4,
+              "RclSinNumero": 524442,
+              "GUID": "",
+              "RclNumero": 1,
+              "RclEstado": "TRA",
+              "RclIntNumero_Superior": 100
+            }
+          },
+          "lineaBase": {
+            "Permite": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-listareclamoscondanio_get",
+      "nombre": "Terceros.Reclamos.ListaReclamosConDanio_get (datos de TERCEROS.trtDanio)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.ListaReclamosConDanio_get",
+          "entrada": {
+            "DanioId": 1
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "RclNumeros": [
+              2,
+              3,
+              4,
+              8,
+              11,
+              23,
+              24,
+              25,
+              32,
+              33,
+              45,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              58,
+              61,
+              70,
+              71,
+              72,
+              74,
+              85,
+              96,
+              98,
+              99,
+              100,
+              101,
+              157,
+              159,
+              161,
+              169,
+              180,
+              181,
+              18202,
+              18209,
+              18210,
+              18211,
+              18212,
+              18213,
+              18215,
+              18218,
+              180228,
+              180229,
+              180232,
+              180234,
+              180238,
+              180243,
+              180248,
+              180261,
+              180262,
+              180269,
+              180270,
+              180271,
+              180273,
+              180277
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-listareclamoscondanio_get-vacia",
+      "nombre": "Terceros.Reclamos.ListaReclamosConDanio_get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.ListaReclamosConDanio_get",
+          "entrada": {
+            "DanioId": 0
+          },
+          "lineaBase": {
+            "RclNumeros": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-mensajes_cantidadsinleer",
+      "nombre": "Terceros.Reclamos.Mensajes_CantidadSinLeer (datos de TERCEROS.trhRclMensaje)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.Mensajes_CantidadSinLeer",
+          "entrada": {
+            "RclNumero": 2,
+            "Origen": "GES"
+          },
+          "lineaBase": {
+            "Cantidad": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-personapermiteasignar",
+      "nombre": "Terceros.Reclamos.PersonaPermiteAsignar (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.PersonaPermiteAsignar",
+          "entrada": {
+            "sdtReclamoAcciones": {
+              "RclRamaId": 4,
+              "RclSinNumero": 524442,
+              "GUID": "",
+              "RclNumero": 1,
+              "RclEstado": "TRA",
+              "RclIntNumero_Superior": 100
+            }
+          },
+          "lineaBase": {
+            "Permite": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-rclblob_ambito",
+      "nombre": "Terceros.Reclamos.RclBlob_Ambito (datos de TERCEROS.trhRclBlob)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.RclBlob_Ambito",
+          "entrada": {
+            "RclBlobArchTipoId": 10
+          },
+          "lineaBase": {
+            "ArchTipoAmbito": "RCL"
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-rclblob_ambito-vacia",
+      "nombre": "Terceros.Reclamos.RclBlob_Ambito (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.RclBlob_Ambito",
+          "entrada": {
+            "RclBlobArchTipoId": 0
+          },
+          "lineaBase": {
+            "ArchTipoAmbito": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-rclblob_buscadanio",
+      "nombre": "Terceros.Reclamos.RclBlob_BuscaDanio (datos de TERCEROS.trhRclBlob)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.RclBlob_BuscaDanio",
+          "entrada": {
+            "RclNumero": 1,
+            "RclBlobDanioSec": 1,
+            "RclBlobArchTipoId": 7
+          },
+          "lineaBase": {
+            "RclDanioDescripcion": "bllla",
+            "ArchTipoNombre": "PRESUPUESTOS DE REPARACION",
+            "DanioTipoEq": "COS"
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-rclblob_buscadanio-vacia",
+      "nombre": "Terceros.Reclamos.RclBlob_BuscaDanio (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.RclBlob_BuscaDanio",
+          "entrada": {
+            "RclNumero": 0,
+            "RclBlobDanioSec": 0,
+            "RclBlobArchTipoId": 0
+          },
+          "lineaBase": {
+            "RclDanioDescripcion": "",
+            "ArchTipoNombre": "",
+            "DanioTipoEq": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-reclamo_validaactivo",
+      "nombre": "Terceros.Reclamos.Reclamo_ValidaActivo (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.Reclamo_ValidaActivo",
+          "entrada": {
+            "RclEstado": "TRA"
+          },
+          "lineaBase": {
+            "Activo": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-reclamo_validaemail-vacia",
+      "nombre": "Terceros.Reclamos.Reclamo_ValidaEmail (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.Reclamo_ValidaEmail",
+          "entrada": {
+            "RclNumero_in": 0,
+            "RclTerEmail_in": ""
+          },
+          "lineaBase": {
+            "ExisteReclamo": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-reclamoreclamante_get",
+      "nombre": "Terceros.Reclamos.ReclamoReclamante_Get (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.ReclamoReclamante_Get",
+          "entrada": {
+            "inReclamoReclamanteGet": {
+              "RclNumero": 1
+            }
+          },
+          "lineaBase": {
+            "outReclamoReclamanteGet": {
+              "Email": {
+                "Direccion": "slucero@xiku.io"
+              },
+              "Telefono": {
+                "Numero": "+543414578030",
+                "Tipo": "FIJ"
+              },
+              "Domicilio": {
+                "Completo": "",
+                "Localidad": {
+                  "CodigoPostal": 0,
+                  "Sufijo": 0,
+                  "NombreCompleto": ""
+                }
+              },
+              "PerId": 1802498
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-reclamoreclamante_get-vacia",
+      "nombre": "Terceros.Reclamos.ReclamoReclamante_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.ReclamoReclamante_Get",
+          "entrada": {
+            "inReclamoReclamanteGet": {
+              "RclNumero": 0
+            }
+          },
+          "lineaBase": {
+            "outReclamoReclamanteGet": {
+              "PerId": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-reclamotercero_get",
+      "nombre": "Terceros.Reclamos.ReclamoTercero_Get (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.ReclamoTercero_Get",
+          "entrada": {
+            "inReclamoReclamanteGet": {
+              "RclNumero": 1
+            }
+          },
+          "lineaBase": {
+            "outReclamoReclamanteGet": {
+              "Email": {
+                "Direccion": ""
+              },
+              "Telefono": {
+                "Numero": "",
+                "Tipo": "FIJ"
+              },
+              "Domicilio": {
+                "Completo": "",
+                "Localidad": {
+                  "CodigoPostal": 0,
+                  "Sufijo": 0,
+                  "NombreCompleto": ""
+                }
+              },
+              "PerId": 1802498
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-reclamotercero_get-vacia",
+      "nombre": "Terceros.Reclamos.ReclamoTercero_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.ReclamoTercero_Get",
+          "entrada": {
+            "inReclamoReclamanteGet": {
+              "RclNumero": 0
+            }
+          },
+          "lineaBase": {
+            "outReclamoReclamanteGet": {
+              "PerId": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-trhrclarchtipopendienteproc-vacia",
+      "nombre": "Terceros.Reclamos.trhRclArchTipoPendienteProc (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.trhRclArchTipoPendienteProc",
+          "entrada": {
+            "InRclNumero": 0,
+            "InRclDanioSec": 0,
+            "InArchivoAmbito": ""
+          },
+          "lineaBase": {
+            "OutSET_ArchTipoId": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-trhreclamowwcalcgrptot",
+      "nombre": "Terceros.Reclamos.trhReclamoWWCalcGrpTot (datos de TERCEROS.trhReclamo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.trhReclamoWWCalcGrpTot",
+          "entrada": {
+            "GroupBy": "",
+            "GroupRclGestor": "",
+            "GroupRclEstado": "",
+            "RclGestor": "admin",
+            "RclNumero": 1,
+            "RclEstado": "TRA",
+            "RclSinNumero": 524442,
+            "TerRcmPerId": 0,
+            "RclTerPerId": 1802498,
+            "RclDateIns": "2021-11-16T12:21:12",
+            "RclDateIns_To": "",
+            "RclFecha": "2021-06-03",
+            "RclFecha_To": "",
+            "RclUltmovimiento": "2022-08-09T15:05:16",
+            "RclUltmovimientoOperator": 0,
+            "Patente": "",
+            "RclIntNumero_Superior": 100,
+            "RclTerRcmTipo": "NOM",
+            "SinRclGestor": false,
+            "YOGestor": "",
+            "RclMsjSinLeer": false,
+            "RclMsjSinResponder": false,
+            "RclNumeroDanioCollection": [
+              0
+            ],
+            "ReclamosPatente": [
+              0
+            ],
+            "RclIntNumero_SuperiorSET": [
+              0
+            ]
+          },
+          "lineaBase": {
+            "Count_GroupTotalizer": "0"
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-trtuseragencia_getintnumero",
+      "nombre": "Terceros.Reclamos.trtUserAgencia_GetIntNumero (datos de TERCEROS.trtUserAgencia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.trtUserAgencia_GetIntNumero",
+          "entrada": {
+            "UserGUID": "0206374f-3efb-4698-9594-9aa3f9bfad7f",
+            "IntTipo_Superior": 7
+          },
+          "lineaBase": {
+            "IntNumero_SuperiorSET": [
+              10,
+              20,
+              30,
+              40,
+              50,
+              60,
+              70,
+              80,
+              90,
+              100,
+              110,
+              120,
+              130,
+              140,
+              150,
+              160,
+              170,
+              180,
+              190,
+              200,
+              900
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-trtuseragencia_getintnumero-vacia",
+      "nombre": "Terceros.Reclamos.trtUserAgencia_GetIntNumero (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.trtUserAgencia_GetIntNumero",
+          "entrada": {
+            "UserGUID": "",
+            "IntTipo_Superior": 0
+          },
+          "lineaBase": {
+            "IntNumero_SuperiorSET": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-usuarioperteneceagencia",
+      "nombre": "Terceros.Reclamos.UsuarioPerteneceAgencia (datos de SEGURIDAD.segUserPreferencia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Reclamos.UsuarioPerteneceAgencia",
+          "entrada": {
+            "UserGUID": "6079ce14-f4d8-48be-9964-ba88a31b0947",
+            "RclIntNumero_Superior": 0
+          },
+          "lineaBase": {
+            "Pertenece": false
+          }
+        }
+      ]
+    }
+  ]
+}

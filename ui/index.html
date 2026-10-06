@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GxPruebas</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f6fed'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header class="barra">
+    <div class="logo"><span class="punto">✓</span>GxPruebas</div>
+    <div class="selector-kb">KB <select id="kb"></select></div>
+    <nav class="pestanas" id="pestanas">
+      <button data-vista="explorar" class="activa">Explorar</button>
+      <button data-vista="grafo">Grafo</button>
+      <button data-vista="suites">Suites</button>
+      <button data-vista="historial">Historial</button>
+      <button data-vista="revision">Revisión</button>
+      <button data-vista="sql">SQL</button>
+      <button data-vista="ayuda">Ayuda</button>
+    </nav>
+    <div class="espacio"></div>
+    <div class="motor-chip" id="motor" data-estado="apagado" title="Motor Java de la KB">
+      <span class="led"></span><span id="motor-texto">motor apagado</span>
+      <button class="btn fantasma icono chico" id="motor-reiniciar" title="Iniciar / reiniciar el motor">⟳</button>
+      <button class="btn fantasma icono chico" id="motor-detener" title="Detener el motor (libera conexiones y jars)">■</button>
+      <button class="btn fantasma icono chico" id="motor-log" title="Ver el log del motor">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================== EXPLORAR -->
+    <section class="vista activa" id="vista-explorar">
+      <aside class="lateral">
+        <div class="cab">
+          <input type="search" id="buscar-objeto" placeholder="Buscar objeto…  ( / )" autocomplete="off">
+          <div class="filtros" id="filtros-objetos">
+            <button data-f="Procedure" class="activa">Procedimientos</button>
+            <button data-f="DataProvider" class="activa">Data Providers</button>
+            <button data-f="errores">Con errores</button>
+            <button data-f="recientes">Recientes</button>
+          </div>
+        </div>
+        <div class="lista" id="lista-objetos"></div>
+      </aside>
+      <div class="contenido" id="detalle-objeto">
+        <div class="vacio-grande">
+          <h3>Elegí un procedimiento o Data Provider</h3>
+          <div>Vas a poder ejecutarlo con cualquier entrada, ver su salida, consultar la base en la misma transacción y guardarlo como caso de prueba.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== GRAFO -->
+    <section class="vista" id="vista-grafo">
+      <aside class="lateral lateral-grafo">
+        <div class="cab">
+          <div class="filtros modo-grafo" id="grafo-modo">
+            <button data-modo="objetos">Objetos</button>
+            <button data-modo="modulos">Módulos</button>
+          </div>
+          <input type="search" id="grafo-buscar" placeholder="Buscar objeto o tabla en todas las KBs…  ( / )" autocomplete="off">
+          <div id="grafo-filtros" class="grafo-filtros"></div>
+        </div>
+        <div class="lista" id="grafo-lista"></div>
+      </aside>
+      <div class="grafo-centro">
+        <div class="grafo-barra">
+          <button class="btn chico" id="grafo-volver" disabled title="Volver al anterior">←</button>
+          <button class="btn chico fantasma" id="grafo-ajustar" title="Ajustar a la pantalla">⤢</button>
+          <div class="grafo-leyenda" id="grafo-leyenda"></div>
+          <div class="espacio"></div>
+          <span class="muted chico" id="grafo-estado"></span>
+        </div>
+        <div id="grafo-lienzo"></div>
+      </div>
+      <aside class="grafo-detalle" id="grafo-detalle"></aside>
+    </section>
+
+    <!-- ======================================================== SUITES -->
+    <section class="vista" id="vista-suites">
+      <aside class="lateral">
+        <div class="cab">
+          <div class="fila">
+            <input type="search" id="buscar-suite" placeholder="Buscar suite…" style="flex:1">
+            <button class="btn prim chico" id="nueva-suite">+ Nueva</button>
+          </div>
+          <label class="chk chico muted"><input type="checkbox" id="suites-todas"> Mostrar las de todas las KBs</label>
+        </div>
+        <div class="lista" id="lista-suites"></div>
+      </aside>
+      <div class="contenido" id="detalle-suite">
+        <div class="vacio-grande"><h3>Elegí una suite</h3><div>O creá una nueva, o guardá una ejecución desde <b>Explorar</b> como caso.</div></div>
+      </div>
+    </section>
+
+    <!-- ======================================================== HISTORIAL -->
+    <section class="vista" id="vista-historial">
+      <div class="contenido" id="contenido-historial"></div>
+    </section>
+
+    <!-- ======================================================== REVISION -->
+    <section class="vista" id="vista-revision">
+      <div class="contenido" id="contenido-revision"></div>
+    </section>
+
+    <!-- ======================================================== SQL -->
+    <section class="vista" id="vista-sql">
+      <div class="contenido" id="contenido-sql"></div>
+    </section>
+
+    <!-- ======================================================== AYUDA -->
+    <section class="vista" id="vista-ayuda">
+      <div class="contenido ayuda" id="contenido-ayuda"></div>
+    </section>
+  </main>
+
+  <div id="avisos"></div>
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+  <script src="componentes.js"></script>
+  <script src="app.js"></script>
+  <script src="grafo.js"></script>
+  <script src="revision.js"></script>
+</body>
+</html>

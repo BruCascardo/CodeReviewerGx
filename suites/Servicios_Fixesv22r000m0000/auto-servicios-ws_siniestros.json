@@ -1,0 +1,1075 @@
+{
+  "nombre": "Auto - Servicios.WS_Siniestros",
+  "kb": "Servicios_Fixesv22r000m0000",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-g400get",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.g400Get (datos de TERCEROS.sntDenArchTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.g400Get",
+          "entrada": {
+            "Request": {
+              "TipoId": 2
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Tipo": {
+                "Descripcion": "Cristales                                         ",
+                "Id": 2
+              },
+              "Errores": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-g400get-vacia",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.g400Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.g400Get",
+          "entrada": {
+            "Request": {
+              "TipoId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Tipo vacío",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-g400lista",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.g400Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.g400Lista",
+          "entrada": {},
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Tipos": [
+                {
+                  "Descripcion": "Cerraduras                                        ",
+                  "Id": 1
+                },
+                {
+                  "Descripcion": "Cristales                                         ",
+                  "Id": 2
+                },
+                {
+                  "Descripcion": "Ruedas                                            ",
+                  "Id": 3
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-get",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.Get (datos de TERCEROS.sntDenArchTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.Get",
+          "entrada": {
+            "Request": {
+              "TipoId": 2
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Tipo": {
+                "Descripcion": "Cristales                                         ",
+                "Id": 2
+              },
+              "Errores": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-get-vacia",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.Get",
+          "entrada": {
+            "Request": {
+              "TipoId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Tipo vacío",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-lista",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.Lista",
+          "entrada": {},
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Tipos": [
+                {
+                  "Descripcion": "Cerraduras                                        ",
+                  "Id": 1
+                },
+                {
+                  "Descripcion": "Cristales                                         ",
+                  "Id": 2
+                },
+                {
+                  "Descripcion": "Ruedas                                            ",
+                  "Id": 3
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-subtipos-g400get",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.g400Get (datos de TERCEROS.sntDenArchTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.g400Get",
+          "entrada": {
+            "Request": {
+              "SubTipoId": 0,
+              "TipoId": 2
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Subtipo vacío",
+                  "Id": 101
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-subtipos-g400get-vacia",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.g400Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.g400Get",
+          "entrada": {
+            "Request": {
+              "SubTipoId": 0,
+              "TipoId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Tipo vacío",
+                  "Id": 100
+                },
+                {
+                  "Mensaje": "Subtipo vacío",
+                  "Id": 101
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-subtipos-g400lista",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.g400Lista (datos de TERCEROS.sntDenArchTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.g400Lista",
+          "entrada": {
+            "Request": {
+              "TipoId": 2
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Tipo": {
+                "Descripcion": "Cristales",
+                "Id": 2
+              },
+              "Errores": [],
+              "SubTipos": [
+                {
+                  "Descripcion": "Parabrisas                                        ",
+                  "Id": 2
+                },
+                {
+                  "Descripcion": "Luneta Trasera                                    ",
+                  "Id": 3
+                },
+                {
+                  "Descripcion": "Vidrio puerta Delantera Derecha                   ",
+                  "Id": 4
+                },
+                {
+                  "Descripcion": "Vidrio puerta Trasera Derecha                     ",
+                  "Id": 5
+                },
+                {
+                  "Descripcion": "Vidrio puerta Delantera Izquierda                 ",
+                  "Id": 6
+                },
+                {
+                  "Descripcion": "Vidrio puerta Trasera Izquierda                   ",
+                  "Id": 7
+                },
+                {
+                  "Descripcion": "Ventilete Derecho                                 ",
+                  "Id": 15
+                },
+                {
+                  "Descripcion": "Custodia Trasera Derecha                          ",
+                  "Id": 29
+                },
+                {
+                  "Descripcion": "Custodia Trasera Izquierda                        ",
+                  "Id": 30
+                },
+                {
+                  "Descripcion": "Cristal Portón Lateral Derecho                    ",
+                  "Id": 37
+                },
+                {
+                  "Descripcion": "Cristal Portón Lateral Izquierdo                  ",
+                  "Id": 38
+                },
+                {
+                  "Descripcion": "Ventilete Izquierdo                               ",
+                  "Id": 35
+                },
+                {
+                  "Descripcion": "Cristal Portón Trasero                            ",
+                  "Id": 36
+                },
+                {
+                  "Descripcion": "Cristal de Techo                                  ",
+                  "Id": 41
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-subtipos-g400lista-vacia",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.g400Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.g400Lista",
+          "entrada": {
+            "Request": {
+              "TipoId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Tipo vacío",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-subtipos-get",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.Get (datos de TERCEROS.sntDenArchTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.Get",
+          "entrada": {
+            "Request": {
+              "SubTipoId": 0,
+              "TipoId": 2
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Subtipo vacío",
+                  "Id": 101
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-subtipos-get-vacia",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.Get",
+          "entrada": {
+            "Request": {
+              "SubTipoId": 0,
+              "TipoId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Tipo vacío",
+                  "Id": 100
+                },
+                {
+                  "Mensaje": "Subtipo vacío",
+                  "Id": 101
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-subtipos-lista",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.Lista (datos de TERCEROS.sntDenArchTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.Lista",
+          "entrada": {
+            "Request": {
+              "TipoId": 2
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Tipo": {
+                "Descripcion": "Cristales",
+                "Id": 2
+              },
+              "Errores": [],
+              "SubTipos": [
+                {
+                  "Descripcion": "Parabrisas                                        ",
+                  "Id": 2
+                },
+                {
+                  "Descripcion": "Luneta Trasera                                    ",
+                  "Id": 3
+                },
+                {
+                  "Descripcion": "Vidrio puerta Delantera Derecha                   ",
+                  "Id": 4
+                },
+                {
+                  "Descripcion": "Vidrio puerta Trasera Derecha                     ",
+                  "Id": 5
+                },
+                {
+                  "Descripcion": "Vidrio puerta Delantera Izquierda                 ",
+                  "Id": 6
+                },
+                {
+                  "Descripcion": "Vidrio puerta Trasera Izquierda                   ",
+                  "Id": 7
+                },
+                {
+                  "Descripcion": "Ventilete Derecho                                 ",
+                  "Id": 15
+                },
+                {
+                  "Descripcion": "Custodia Trasera Derecha                          ",
+                  "Id": 29
+                },
+                {
+                  "Descripcion": "Custodia Trasera Izquierda                        ",
+                  "Id": 30
+                },
+                {
+                  "Descripcion": "Cristal Portón Lateral Derecho                    ",
+                  "Id": 37
+                },
+                {
+                  "Descripcion": "Cristal Portón Lateral Izquierdo                  ",
+                  "Id": 38
+                },
+                {
+                  "Descripcion": "Ventilete Izquierdo                               ",
+                  "Id": 35
+                },
+                {
+                  "Descripcion": "Cristal Portón Trasero                            ",
+                  "Id": 36
+                },
+                {
+                  "Descripcion": "Cristal de Techo                                  ",
+                  "Id": 41
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-fasttrack-tipos-subtipos-lista-vacia",
+      "nombre": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.FastTrack.Tipos.SubTipos.Lista",
+          "entrada": {
+            "Request": {
+              "TipoId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Tipo vacío",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-getdenunciacabecera",
+      "nombre": "Servicios.WS_Siniestros.getDenunciaCabecera (datos de TERCEROS.sntRamaCauArticulo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTEWEB), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.getDenunciaCabecera",
+          "entrada": {
+            "DenunciaNumero": 0,
+            "SiniestroNumero": 0,
+            "RamaId": 12
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "sdtDenunciaCabecera": {
+              "DenunciaNumero": "18855",
+              "Productor": 2091,
+              "DenunciaId": "18980",
+              "SiniestroNumero": "0",
+              "SiniestroId": "18996"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-getdenunciacabecera-vacia",
+      "nombre": "Servicios.WS_Siniestros.getDenunciaCabecera (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTEWEB), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.getDenunciaCabecera",
+          "entrada": {
+            "DenunciaNumero": 0,
+            "SiniestroNumero": 0,
+            "RamaId": 0
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "sdtDenunciaCabecera": {
+              "DenunciaNumero": "1",
+              "Productor": 0,
+              "DenunciaId": "1",
+              "SiniestroNumero": "0",
+              "SiniestroId": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-juzgados-tipos-g400get-vacia",
+      "nombre": "Servicios.WS_Siniestros.Juzgados.Tipos.g400Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Juzgados.Tipos.g400Get",
+          "entrada": {
+            "Request": {
+              "JuzgadoTipoId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "No se encontraron Tipo Juzgado con Nro.    0",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-juzgados-tipos-g400lista",
+      "nombre": "Servicios.WS_Siniestros.Juzgados.Tipos.g400Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Juzgados.Tipos.g400Lista",
+          "entrada": {},
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [],
+              "Tipos": [
+                {
+                  "Nombre": "CIVIL",
+                  "Id": 1
+                },
+                {
+                  "Nombre": "COMERCIAL",
+                  "Id": 2
+                },
+                {
+                  "Nombre": "LABORAL",
+                  "Id": 3
+                },
+                {
+                  "Nombre": "PENAL",
+                  "Id": 4
+                },
+                {
+                  "Nombre": "CIVIL Y COMERCIAL",
+                  "Id": 5
+                },
+                {
+                  "Nombre": "CIVIL Y COM. FEDERAL",
+                  "Id": 6
+                },
+                {
+                  "Nombre": "OTROS",
+                  "Id": 99
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-juzgados-tipos-get-vacia",
+      "nombre": "Servicios.WS_Siniestros.Juzgados.Tipos.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Juzgados.Tipos.Get",
+          "entrada": {
+            "Request": {
+              "JuzgadoTipoId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "No se encontraron Tipo Juzgado con Nro.    0",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-juzgados-tipos-lista",
+      "nombre": "Servicios.WS_Siniestros.Juzgados.Tipos.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTE), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Juzgados.Tipos.Lista",
+          "entrada": {},
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [],
+              "Tipos": [
+                {
+                  "Nombre": "CIVIL",
+                  "Id": 1
+                },
+                {
+                  "Nombre": "COMERCIAL",
+                  "Id": 2
+                },
+                {
+                  "Nombre": "LABORAL",
+                  "Id": 3
+                },
+                {
+                  "Nombre": "PENAL",
+                  "Id": 4
+                },
+                {
+                  "Nombre": "CIVIL Y COMERCIAL",
+                  "Id": 5
+                },
+                {
+                  "Nombre": "CIVIL Y COM. FEDERAL",
+                  "Id": 6
+                },
+                {
+                  "Nombre": "OTROS",
+                  "Id": 99
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-siniestros-ampliaciones-ampliacionobtenerultimonumero",
+      "nombre": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.AmpliacionObtenerUltimoNumero (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTEWEB), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.AmpliacionObtenerUltimoNumero",
+          "entrada": {},
+          "comparar": "estructura",
+          "lineaBase": {
+            "denunciaAmpliacion_id": 25770
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-siniestros-ampliaciones-intrlista",
+      "nombre": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.IntrLista (datos de TERCEROS.sntRamaCauArticulo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTEWEB), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.IntrLista",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "Parametros": {
+                "DatosPrincipales": false,
+                "Ampliaciones": false
+              },
+              "Reporte": {
+                "Tipo": "",
+                "UserGUID": ""
+              },
+              "SiniestroNumero": 0,
+              "RamaId": 12
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-siniestros-ampliaciones-intrlista-vacia",
+      "nombre": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.IntrLista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTEWEB), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.IntrLista",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "Parametros": {
+                "DatosPrincipales": false,
+                "Ampliaciones": false
+              },
+              "Reporte": {
+                "Tipo": "",
+                "UserGUID": ""
+              },
+              "SiniestroNumero": 0,
+              "RamaId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Ampliaciones": [
+                {
+                  "DenunciaNumero": 0,
+                  "Usuario": "0",
+                  "Fecha": "2024-01-24T08:01:57",
+                  "SiniestroNumero": 0,
+                  "Descripcion": "",
+                  "Id": "17069"
+                },
+                {
+                  "DenunciaNumero": 0,
+                  "Usuario": "0",
+                  "Fecha": "2024-03-13T09:08:17",
+                  "SiniestroNumero": 0,
+                  "Descripcion": "",
+                  "Id": "17360"
+                },
+                {
+                  "DenunciaNumero": 0,
+                  "Usuario": "0",
+                  "Fecha": "2026-08-05T09:59:14",
+                  "SiniestroNumero": 0,
+                  "Descripcion": "sadfsdaf",
+                  "Id": "25764"
+                },
+                {
+                  "DenunciaNumero": 0,
+                  "Usuario": "0",
+                  "Fecha": "2026-08-05T10:00:01",
+                  "SiniestroNumero": 0,
+                  "Descripcion": "asdfd",
+                  "Id": "25765"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-siniestros-ampliaciones-lista",
+      "nombre": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.Lista (datos de TERCEROS.sntRamaCauArticulo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTEWEB), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.Lista",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "Parametros": {
+                "DatosPrincipales": false,
+                "Ampliaciones": false
+              },
+              "Reporte": {
+                "Tipo": "",
+                "UserGUID": ""
+              },
+              "SiniestroNumero": 0,
+              "RamaId": 12
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Ingrese número de siniestro o denuncia",
+                  "Id": 101
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-siniestros-ampliaciones-lista-vacia",
+      "nombre": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTEWEB), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Siniestros.Ampliaciones.Lista",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "Parametros": {
+                "DatosPrincipales": false,
+                "Ampliaciones": false
+              },
+              "Reporte": {
+                "Tipo": "",
+                "UserGUID": ""
+              },
+              "SiniestroNumero": 0,
+              "RamaId": 0
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "La rama no puede ser vacía",
+                  "Id": 100
+                },
+                {
+                  "Mensaje": "Ingrese número de siniestro o denuncia",
+                  "Id": 101
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-siniestros-intrbuscarduplicados",
+      "nombre": "Servicios.WS_Siniestros.Siniestros.intrBuscarDuplicados (datos de SERVICIOS.svhSupHistorial)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTEWEB), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Siniestros.intrBuscarDuplicados",
+          "entrada": {
+            "Request": {
+              "Poliza": {
+                "SucursalId": "CC",
+                "RamaId": 12,
+                "PolizaNumero": 296660,
+                "OperacionNumero": 0,
+                "EmpresaId": "N",
+                "Componente": {
+                  "Numero": 0
+                },
+                "ArticuloId": 12004,
+                "Superpoliza": 3675
+              },
+              "Siniestro": {
+                "Fecha": "0000-00-00"
+              }
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_siniestros-siniestros-intrbuscarduplicados-vacia",
+      "nombre": "Servicios.WS_Siniestros.Siniestros.intrBuscarDuplicados (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Lee de bases compartidas (NORTEWEB), cuyos datos cambian solos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Servicios.WS_Siniestros.Siniestros.intrBuscarDuplicados",
+          "entrada": {
+            "Request": {
+              "Poliza": {
+                "SucursalId": "",
+                "RamaId": 0,
+                "PolizaNumero": 0,
+                "OperacionNumero": 0,
+                "EmpresaId": "",
+                "Componente": {
+                  "Numero": 0
+                },
+                "ArticuloId": 0,
+                "Superpoliza": 0
+              },
+              "Siniestro": {
+                "Fecha": "0000-00-00"
+              }
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Siniestros": [
+                {
+                  "DenunciaNumero": 0,
+                  "Numero": 0,
+                  "Fecha": "0000-00-00",
+                  "Hora": "",
+                  "EstadoIntranet": 9,
+                  "DenunciaFecha": "2019-03-28",
+                  "DenunciaHora": "18:50"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

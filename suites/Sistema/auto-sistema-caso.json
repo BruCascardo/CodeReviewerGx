@@ -1,0 +1,1725 @@
+{
+  "nombre": "Auto - Sistema.Caso",
+  "kb": "Sistema",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "sistema-caso-accion-participantes",
+      "nombre": "Sistema.Caso.Accion.Participantes (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Accion.Participantes",
+          "entrada": {
+            "inParticipantes": {
+              "CasoId": 1,
+              "BandId": "SOL_VEH"
+            }
+          },
+          "lineaBase": {
+            "outParticipantes": {
+              "Errores": [],
+              "BandId": "",
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-accion-participantes-vacia",
+      "nombre": "Sistema.Caso.Accion.Participantes (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Accion.Participantes",
+          "entrada": {
+            "inParticipantes": {
+              "CasoId": 0,
+              "BandId": ""
+            }
+          },
+          "lineaBase": {
+            "outParticipantes": {
+              "Errores": [
+                {
+                  "Mensaje": "No existe el caso 0",
+                  "Id": 100
+                }
+              ],
+              "BandId": "",
+              "Ok": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-accion-planificacion-get",
+      "nombre": "Sistema.Caso.Accion.Planificacion.Get (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Accion.Planificacion.Get",
+          "entrada": {
+            "inGet": {
+              "CasoId": 1,
+              "Secuencia": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "EjecucionTipo": "",
+              "TipoInterno": "",
+              "Errores": [
+                {
+                  "Mensaje": "Debe ingresar el Id del Caso y la Secuencia",
+                  "Id": 401
+                }
+              ],
+              "Request": "",
+              "Estado": "",
+              "Response": "",
+              "IntervaloMins": 0,
+              "Tipo": "",
+              "CasoId": 0,
+              "FechaHora": "0000-00-00T00:00:00",
+              "Fecha": "0000-00-00",
+              "Hora": "",
+              "Secuencia": 0,
+              "UltimaEjecucion": "0000-00-00T00:00:00",
+              "Id": 0,
+              "TipoDescripcion": "",
+              "NotifDestino": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-accion-planificacion-lista",
+      "nombre": "Sistema.Caso.Accion.Planificacion.Lista (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Accion.Planificacion.Lista",
+          "entrada": {
+            "inLista": {
+              "CasoId": 1
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "EnPausa": false,
+              "CasoId": 1,
+              "EnPausaTexto": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-accion-planificacion-lista-vacia",
+      "nombre": "Sistema.Caso.Accion.Planificacion.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Accion.Planificacion.Lista",
+          "entrada": {
+            "inLista": {
+              "CasoId": 0
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "EnPausa": false,
+              "CasoId": 0,
+              "Errores": [
+                {
+                  "Mensaje": "Debe ingresar el Id del Caso",
+                  "Id": 401
+                }
+              ],
+              "EnPausaTexto": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-bandejasporusuario",
+      "nombre": "Sistema.Caso.BandejasPorUsuario (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.BandejasPorUsuario",
+          "entrada": {},
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-bandusuarionombre",
+      "nombre": "Sistema.Caso.BandUsuarioNombre (datos de SISTEMA.sitBandUsuario)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.BandUsuarioNombre",
+          "entrada": {
+            "BandUserGUID": "03c41c46-b08b-47d8-b250-8a2268f69c6d"
+          },
+          "lineaBase": {
+            "UsuarioNombre": "CORE, ADMIN"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-bandusuarionombre-vacia",
+      "nombre": "Sistema.Caso.BandUsuarioNombre (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.BandUsuarioNombre",
+          "entrada": {
+            "BandUserGUID": ""
+          },
+          "lineaBase": {
+            "UsuarioNombre": ", "
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-bandeja-get",
+      "nombre": "Sistema.Caso.Configuracion.Bandeja.Get (datos de SISTEMA.sitBandeja)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.Bandeja.Get",
+          "entrada": {
+            "inGet": {
+              "BandId": "ANTI_FRAUDE"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "BandNombre": "ANTIFRAUDE",
+              "BandId": "ANTI_FRAUDE"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-bandeja-get-vacia",
+      "nombre": "Sistema.Caso.Configuracion.Bandeja.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.Bandeja.Get",
+          "entrada": {
+            "inGet": {
+              "BandId": ""
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "BandNombre": "",
+              "BandId": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-bandeja-lista",
+      "nombre": "Sistema.Caso.Configuracion.Bandeja.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.Bandeja.Lista",
+          "entrada": {},
+          "comparar": "estructura",
+          "lineaBase": {
+            "outLista": {
+              "Bandejas": [
+                {
+                  "BandNombre": "ANTIFRAUDE",
+                  "BandId": "ANTI_FRAUDE"
+                },
+                {
+                  "BandNombre": "ANULACIONES - AGRO Y OTRAS",
+                  "BandId": "ANULACIONES_AGRO"
+                },
+                {
+                  "BandNombre": "ANULACIONES - PERSONAS",
+                  "BandId": "ANULACIONES_AP"
+                },
+                {
+                  "BandNombre": "ANULACIONES - CAUCIÓN",
+                  "BandId": "ANULACIONES_CAUCION"
+                },
+                {
+                  "BandNombre": "ANULACIONES - CONTROL COBRANZA",
+                  "BandId": "ANULACIONES_COBRANZA"
+                },
+                {
+                  "BandNombre": "ENDOSOS Y ANULACIONES - TRO - GRANDES RIESGOS",
+                  "BandId": "ANULACIONES_RAMAS_GRANDES_RIESGOS"
+                },
+                {
+                  "BandNombre": "ANULACIONES - RAMAS VARIAS",
+                  "BandId": "ANULACIONES_RAMAS_VARIAS"
+                },
+                {
+                  "BandNombre": "ANULACIONES - RC Y SEGURO TÉCNICO",
+                  "BandId": "ANULACIONES_RC"
+                },
+                {
+                  "BandNombre": "ANULACIONES - TRANSPORTE",
+                  "BandId": "ANULACIONES_TRANSPORTE"
+                },
+                {
+                  "BandNombre": "ANULACIONES - VEHÍCULOS",
+                  "BandId": "ANULACIONES_VEHICULOS"
+                },
+                {
+                  "BandNombre": "REFACTURACIONES DE VEHÍCULOS",
+                  "BandId": "AVISO_REFA"
+                },
+                {
+                  "BandNombre": "REFACTURACIONES DE VEHÍCULOS CON REVISIÓN DE FOTOS",
+                  "BandId": "AVISO_REFA_REV_FOTOS"
+                },
+                {
+                  "BandNombre": "RENOVACIONES DE VEHÍCULOS",
+                  "BandId": "AVISO_RENO"
+                },
+                {
+                  "BandNombre": "RENOVACIONES DE VEHÍCULOS CON REVISIÓN DE FOTOS",
+                  "BandId": "AVISO_RENO_REV_FOTOS"
+                },
+                {
+                  "BandNombre": "COMERCIAL",
+                  "BandId": "COMERCIAL"
+                },
+                {
+                  "BandNombre": "EMISIONES DE RIESGOS AGRICOLAS",
+                  "BandId": "EMI_AGRO"
+                },
+                {
+                  "BandNombre": "ENDOSOS -  GENERALES",
+                  "BandId": "ENDOSOS_GENERALES"
+                },
+                {
+                  "BandNombre": "ENDOSOS  GENERALES - RC Y SEGURO TÉCNICO",
+                  "BandId": "ENDOSOS_RC_ST"
+                },
+                {
+                  "BandNombre": "ENDOSOS DE VEHÍCULOS",
+                  "BandId": "ENDOSOS_VEHICULOS"
+                },
+                {
+                  "BandNombre": "ENDOSOS DE VEHÍCULOS CON REVISIÓN POSTERIOR",
+                  "BandId": "ENDOSO_REV_FOTOS"
+                },
+                {
+                  "BandNombre": "EXCEPCIONES AGENCIA",
+                  "BandId": "EXCEP_AGENCIA"
+                },
+                {
+                  "BandNombre": "EXCEPCIONES AGENCIA - ACCIDENTES PERSONALES",
+                  "BandId": "EXCEP_AGENCIA_AP"
+                },
+                {
+                  "BandNombre": "EXCEPCIONES REGIONAL",
+                  "BandId": "EXCEP_REGIONAL"
+                },
+                {
+                  "BandNombre": "ENDOSO - MODIFICACIÓN DE CLÁUSULAS ",
+                  "BandId": "MODIFICACION_CLAUSULAS"
+                },
+                {
+                  "BandNombre": "PROMOCIONES AGENCIA",
+                  "BandId": "PROMO_AGENCIA"
+                },
+                {
+                  "BandNombre": "PROMOCIONES AGENCIA - ACCIDENTES PERSONALES",
+                  "BandId": "PROMO_AGENCIA_AP"
+                },
+                {
+                  "BandNombre": "PROMOCIONES MASIVAS",
+                  "BandId": "PROMO_MASIVA"
+                },
+                {
+                  "BandNombre": "PROMOCIONES REGIONAL",
+                  "BandId": "PROMO_REGIONAL"
+                },
+                {
+                  "BandNombre": "RENDICIÓN - CONTROL ADMINISTRACIÓN",
+                  "BandId": "REND_ADM"
+                },
+                {
+                  "BandNombre": "RENDICIÓN - CONTROL AGENCIA",
+                  "BandId": "REND_AGE"
+                },
+                {
+                  "BandNombre": "RENDICIÓN - CONTROL COBRANZA",
+                  "BandId": "REND_COB"
+                },
+                {
+                  "BandNombre": "RENDICIÓN - CONTROL TESORERIA",
+                  "BandId": "REND_TESO"
+                },
+                {
+                  "BandNombre": "RENDICIÓN - CONTROL TESORERIA - CHEQUES",
+                  "BandId": "REND_TESO_CHEQUES"
+                },
+                {
+                  "BandNombre": "REVISIONES DE RIESGOS AGRICOLAS",
+                  "BandId": "SOL_AGRO"
+                },
+                {
+                  "BandNombre": "SOLICITUDES DE AP",
+                  "BandId": "SOL_AP"
+                },
+                {
+                  "BandNombre": "SOLICITUDES INTEGRAL AGRO",
+                  "BandId": "SOL_INT_AGRO"
+                },
+                {
+                  "BandNombre": "SOLICITUDES - RC Y SEGURO TÉCNICO",
+                  "BandId": "SOL_RC"
+                },
+                {
+                  "BandNombre": "SOLICITUDES DE RIESGOS VARIOS",
+                  "BandId": "SOL_RV"
+                },
+                {
+                  "BandNombre": "SOLICITUDES DE VEHÍCULOS",
+                  "BandId": "SOL_VEH"
+                },
+                {
+                  "BandNombre": "SOLICITUDES DE VEHÍCULOS - REVISIÓN FOTOS",
+                  "BandId": "SOL_VEH_EXP"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - ADMINISTRACIÓN CASA CENTRAL",
+                  "BandId": "SOP_ADMINISTRACION"
+                },
+                {
+                  "BandNombre": "SOPORTE - ADMINISTRACIÓN AGENCIA",
+                  "BandId": "SOP_ADMINISTRACION_AGENCIA"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - COBRANZAS AGENCIA",
+                  "BandId": "SOP_COBRANZAS_AGENCIA"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - COBRANZAS CASA CENTRAL",
+                  "BandId": "SOP_COBRANZAS_CC"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - COMERCIAL AGENCIA",
+                  "BandId": "SOP_COMERCIAL_AGENCIA"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - COMERCIAL REGIONAL",
+                  "BandId": "SOP_COMERCIAL_REGIONAL"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SISTEMAS N1",
+                  "BandId": "SOP_SISTEMA_B1"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SISTEMAS N2",
+                  "BandId": "SOP_SISTEMA_B2"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS -  SUSCRIPCIÓN",
+                  "BandId": "SOP_SUSCRIPCION"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN AGRO",
+                  "BandId": "SOP_SUSCRIPCION_AGRO"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN AUTOMOTOR Y MOTOVEHÍCULO",
+                  "BandId": "SOP_SUSCRIPCION_AUTOMOTOR"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN CAUCIÓN",
+                  "BandId": "SOP_SUSCRIPCION_CAUCION"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN EMBARCACIONES",
+                  "BandId": "SOP_SUSCRIPCION_EMBARCACIONES"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN INCENDIO",
+                  "BandId": "SOP_SUSCRIPCION_INCENDIO"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN SEGUROS PERSONAS",
+                  "BandId": "SOP_SUSCRIPCION_PERSONAS"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - RC Y SEGURO TÉCNICO",
+                  "BandId": "SOP_SUSCRIPCION_RC"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN RAMAS VARIAS",
+                  "BandId": "SOP_SUSCRIPCION_RRVV"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN ROBO Y CRISTALES",
+                  "BandId": "SOP_SUSCRIPCION_RYC"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN TRANSPORTE",
+                  "BandId": "SOP_SUSCRIPCION_TRANSPORTE"
+                },
+                {
+                  "BandNombre": "SOPORTE PAS - SUSCRIPCIÓN TRO ",
+                  "BandId": "SOP_SUSCRIPCION_TRO"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-bandeja-usuario-lista",
+      "nombre": "Sistema.Caso.Configuracion.Bandeja.Usuario.Lista (datos de SISTEMA.sitBandeja)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.Bandeja.Usuario.Lista",
+          "entrada": {
+            "inLista": {
+              "BandId": "ANTI_FRAUDE"
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "Usuarios": [
+                {
+                  "Nombre": "ADMIN",
+                  "UserName": "admin",
+                  "Email": "agaravano@xiku.io",
+                  "GUID": "03c41c46-b08b-47d8-b250-8a2268f69c6d",
+                  "Apellido": "CORE",
+                  "NombreCompleto": "CORE, ADMIN"
+                },
+                {
+                  "Nombre": "Alejandro",
+                  "UserName": "agaravano",
+                  "Email": "agaravano@xiku.io",
+                  "GUID": "18407a0c-3a02-439d-823a-cb9b0b0c1e35",
+                  "Apellido": "Garavano Viotti",
+                  "NombreCompleto": "Garavano Viotti, Alejandro"
+                },
+                {
+                  "Nombre": "Lisandro",
+                  "UserName": "lif",
+                  "Email": "lferrari+lif@xiku.io",
+                  "GUID": "42027bfd-d916-479b-a70b-3ee2b251f196",
+                  "Apellido": "Ferrari",
+                  "NombreCompleto": "Ferrari, Lisandro"
+                },
+                {
+                  "Nombre": "Gaston",
+                  "UserName": "gmedrano",
+                  "Email": "gmedrano@xiku.io",
+                  "GUID": "658995a9-17db-4290-ae70-42c3672e6018",
+                  "Apellido": "Medrano",
+                  "NombreCompleto": "Medrano, Gaston"
+                },
+                {
+                  "Nombre": "Matías",
+                  "UserName": "mfrias",
+                  "Email": "mfrias+ci+core@xiku.io",
+                  "GUID": "cb7833d9-3b31-4775-adf5-f12cd177add0",
+                  "Apellido": "F",
+                  "NombreCompleto": "F, Matías"
+                }
+              ],
+              "BandId": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-bandeja-usuario-lista-vacia",
+      "nombre": "Sistema.Caso.Configuracion.Bandeja.Usuario.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.Bandeja.Usuario.Lista",
+          "entrada": {
+            "inLista": {
+              "BandId": ""
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "BandId": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-casotipo-bandeja-get",
+      "nombre": "Sistema.Caso.Configuracion.CasoTipo.Bandeja.Get (datos de SISTEMA.sitCasoTipoBandeja)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.CasoTipo.Bandeja.Get",
+          "entrada": {
+            "inGet": {
+              "BandId": "EXCEP_AGENCIA",
+              "CasoTipoId": "EXCEP_APROB"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "UsaGrupo": true,
+              "Orden": 1,
+              "BandNombre": "EXCEPCIONES AGENCIA",
+              "BandId": "EXCEP_AGENCIA"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-casotipo-bandeja-get-vacia",
+      "nombre": "Sistema.Caso.Configuracion.CasoTipo.Bandeja.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.CasoTipo.Bandeja.Get",
+          "entrada": {
+            "inGet": {
+              "BandId": "",
+              "CasoTipoId": ""
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "UsaGrupo": false,
+              "Orden": 0,
+              "BandNombre": "",
+              "BandId": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-casotipo-bandeja-lista",
+      "nombre": "Sistema.Caso.Configuracion.CasoTipo.Bandeja.Lista (datos de SISTEMA.sitCasoTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.CasoTipo.Bandeja.Lista",
+          "entrada": {
+            "inLista": {
+              "CasoTipoId": "EXCEP_APROB"
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "Bandejas": [
+                {
+                  "UsaGrupo": true,
+                  "Orden": 1,
+                  "BandNombre": "EXCEPCIONES AGENCIA",
+                  "BandId": "EXCEP_AGENCIA"
+                },
+                {
+                  "UsaGrupo": false,
+                  "Orden": 2,
+                  "BandNombre": "EXCEPCIONES REGIONAL",
+                  "BandId": "EXCEP_REGIONAL"
+                },
+                {
+                  "UsaGrupo": true,
+                  "Orden": 3,
+                  "BandNombre": "EXCEPCIONES AGENCIA - ACCIDENTES PERSONALES",
+                  "BandId": "EXCEP_AGENCIA_AP"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-casotipo-bandeja-lista-vacia",
+      "nombre": "Sistema.Caso.Configuracion.CasoTipo.Bandeja.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.CasoTipo.Bandeja.Lista",
+          "entrada": {
+            "inLista": {
+              "CasoTipoId": ""
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-casotipo-get",
+      "nombre": "Sistema.Caso.Configuracion.CasoTipo.Get (datos de SISTEMA.sitCasoTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.CasoTipo.Get",
+          "entrada": {
+            "inGet": {
+              "CasoTipoEquivalente": "",
+              "CasoTipoId": "EXCEP_APROB"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Nombre": "Excepciones aprobación",
+              "TipoResolucion": "TOD",
+              "CallBack": "",
+              "Equivalente": "",
+              "CasoTipoId": "EXCEP_APROB"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-casotipo-get-vacia",
+      "nombre": "Sistema.Caso.Configuracion.CasoTipo.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.CasoTipo.Get",
+          "entrada": {
+            "inGet": {
+              "CasoTipoEquivalente": "",
+              "CasoTipoId": ""
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Nombre": "Soporte/Suscripción/TRO",
+              "TipoResolucion": "PRI",
+              "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+              "Equivalente": "",
+              "CasoTipoId": "SOP_SUS_TRO"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-configuracion-casotipo-lista",
+      "nombre": "Sistema.Caso.Configuracion.CasoTipo.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Configuracion.CasoTipo.Lista",
+          "entrada": {},
+          "lineaBase": {
+            "outLista": {
+              "CasosTipo": [
+                {
+                  "Nombre": "Excepciones aprobación",
+                  "TipoResolucion": "TOD",
+                  "CallBack": "",
+                  "Equivalente": "",
+                  "CasoTipoId": "EXCEP_APROB"
+                },
+                {
+                  "Nombre": "Promociones aprobación",
+                  "TipoResolucion": "TOD",
+                  "CallBack": "",
+                  "Equivalente": "",
+                  "CasoTipoId": "PROMO_APROB"
+                },
+                {
+                  "Nombre": "Rendición de cobranza",
+                  "TipoResolucion": "TOD",
+                  "CallBack": "",
+                  "Equivalente": "",
+                  "CasoTipoId": "REN_COB"
+                },
+                {
+                  "Nombre": "Solicitud de Emisión",
+                  "TipoResolucion": "TOD",
+                  "CallBack": "EMISION_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOL_EMI"
+                },
+                {
+                  "Nombre": "Modificaciones",
+                  "TipoResolucion": "TOD",
+                  "CallBack": "",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOL_MODIFICACIONES"
+                },
+                {
+                  "Nombre": "Soporte/Administración",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_ADM"
+                },
+                {
+                  "Nombre": "Soporte/Cobranzas/Caución",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_COB_CAU"
+                },
+                {
+                  "Nombre": "Soporte/Cobranzas/CG",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_COB_CG"
+                },
+                {
+                  "Nombre": "Soporte/Cobranzas/DA",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_COB_DA"
+                },
+                {
+                  "Nombre": "Soporte/Comercial/PyE",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_COM_PYE"
+                },
+                {
+                  "Nombre": "Soporte/Suscripcion/CristalesYRobo",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_CRISTALES_Y_ROBO"
+                },
+                {
+                  "Nombre": "Soporte/Sistemas",
+                  "TipoResolucion": "TOD",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SIS"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/Agro",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_AGRO"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/Automotor",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_ATM"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/AutosDominio",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_AUT"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/Caución",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_CAU"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/Embarcaciones",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_EMB"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/Incendio",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_INC"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/Personas",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_PERS"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/RCyST",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_RC"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/RRVV",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_RRVV"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/Transporte",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_TRAN"
+                },
+                {
+                  "Nombre": "Soporte/Suscripción/TRO",
+                  "TipoResolucion": "PRI",
+                  "CallBack": "SOPORTE_SOLICITUD_CASOCALLBACK",
+                  "Equivalente": "",
+                  "CasoTipoId": "SOP_SUS_TRO"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-dashboard-resumen",
+      "nombre": "Sistema.Caso.Dashboard.Resumen (datos de SISTEMA.sihCompFiscalDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Dashboard.Resumen",
+          "entrada": {
+            "inResumen": {
+              "ColCasoId": [
+                0
+              ]
+            },
+            "outResumen": {
+              "Bandejas": [
+                {
+                  "Nombre": "",
+                  "Asignados": "0",
+                  "Total": "106645.57",
+                  "Id": "",
+                  "SinAsignar": "0"
+                }
+              ]
+            }
+          },
+          "lineaBase": {
+            "outResumen": {
+              "Bandejas": [
+                {
+                  "Nombre": "",
+                  "Asignados": "0",
+                  "Total": "106645",
+                  "Id": "",
+                  "SinAsignar": "0"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-dashboard-resumen-vacia",
+      "nombre": "Sistema.Caso.Dashboard.Resumen (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Dashboard.Resumen",
+          "entrada": {
+            "inResumen": {
+              "ColCasoId": [
+                0
+              ]
+            },
+            "outResumen": {
+              "Bandejas": [
+                {
+                  "Nombre": "",
+                  "Asignados": "0",
+                  "Total": "0",
+                  "Id": "",
+                  "SinAsignar": "0"
+                }
+              ]
+            }
+          },
+          "lineaBase": {
+            "outResumen": {
+              "Bandejas": [
+                {
+                  "Nombre": "",
+                  "Asignados": "0",
+                  "Total": "0",
+                  "Id": "",
+                  "SinAsignar": "0"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-dpbandejasporusuario",
+      "nombre": "Sistema.Caso.dpBandejasPorUsuario (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.dpBandejasPorUsuario",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-dpgrupos",
+      "nombre": "Sistema.Caso.dpGrupos (datos de SEGURIDAD.segUserPreferencia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.dpGrupos",
+          "entrada": {
+            "inGruposPorUsuario": {
+              "Tipo": "",
+              "UserGUID": "6079ce14-f4d8-48be-9964-ba88a31b0947"
+            }
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-historial-lista",
+      "nombre": "Sistema.Caso.Historial.Lista (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Historial.Lista",
+          "entrada": {
+            "inLista": {
+              "CasoId": 1
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "Historiales": [
+                {
+                  "CasoHistTexto": "admin,  libero el caso",
+                  "CasoHistSec": 1,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-08T09:13:46",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "SOL_VEH"
+                },
+                {
+                  "CasoHistTexto": "Se asigno el usuario admin, ",
+                  "CasoHistSec": 2,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-08T09:13:52",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "SOL_VEH"
+                },
+                {
+                  "CasoHistTexto": "El caso pasa de la bandeja SOL_VEH a la bandeja ANTI_FRAUDE",
+                  "CasoHistSec": 3,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-08T09:15:24",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "Se asigno el usuario admin, ",
+                  "CasoHistSec": 4,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-08T09:16:57",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "El caso paso de Abierto a Finalizado",
+                  "CasoHistSec": 5,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-08T09:17:16",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "La revision 1 fue resuelta por admin,",
+                  "CasoHistSec": 6,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T08:44:09",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "SOL_VEH"
+                },
+                {
+                  "CasoHistTexto": "La revision 2 fue resuelta por admin,",
+                  "CasoHistSec": 7,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T08:44:17",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "SOL_VEH"
+                },
+                {
+                  "CasoHistTexto": "El caso pasa de la bandeja SOL_VEH a la bandeja ANTI_FRAUDE",
+                  "CasoHistSec": 8,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T08:44:17",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "Se asigno el usuario admin, ",
+                  "CasoHistSec": 9,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T08:44:48",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "La revision 3 fue resuelta por admin,",
+                  "CasoHistSec": 10,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T08:45:09",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "El caso paso de Abierto a Finalizado",
+                  "CasoHistSec": 11,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T08:45:09",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "La revision 1 fue resuelta por admin,",
+                  "CasoHistSec": 12,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T09:05:52",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "SOL_VEH"
+                },
+                {
+                  "CasoHistTexto": "La revision 2 fue resuelta por admin,",
+                  "CasoHistSec": 13,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T09:06:01",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "SOL_VEH"
+                },
+                {
+                  "CasoHistTexto": "El caso pasa de la bandeja SOL_VEH a la bandeja ANTI_FRAUDE",
+                  "CasoHistSec": 14,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T09:06:01",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "Se asigno el usuario admin, ",
+                  "CasoHistSec": 15,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T09:06:30",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "La revision 3 fue resuelta por admin,",
+                  "CasoHistSec": 16,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T09:06:39",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                },
+                {
+                  "CasoHistTexto": "El caso paso de Abierto a Finalizado",
+                  "CasoHistSec": 17,
+                  "CasoId": 1,
+                  "CasoHistDateIns": "2024-01-10T09:06:39",
+                  "CasoHistUsrIns": "admin",
+                  "CasoHistBandId": "ANTI_FRAUDE"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-historial-lista-vacia",
+      "nombre": "Sistema.Caso.Historial.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Historial.Lista",
+          "entrada": {
+            "inLista": {
+              "CasoId": 0
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-permiteasignar",
+      "nombre": "Sistema.Caso.PermiteAsignar (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.PermiteAsignar",
+          "entrada": {
+            "CasoId": 1
+          },
+          "lineaBase": {
+            "PermiteAsignar": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-permiteelevar",
+      "nombre": "Sistema.Caso.PermiteElevar (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.PermiteElevar",
+          "entrada": {
+            "CasoId": 1,
+            "RevisionSecuencial": 0
+          },
+          "lineaBase": {
+            "PermiteElevar": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-permiteliberar",
+      "nombre": "Sistema.Caso.PermiteLiberar (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.PermiteLiberar",
+          "entrada": {
+            "CasoId": 1
+          },
+          "lineaBase": {
+            "PermiteLiberar": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-permiteresolver",
+      "nombre": "Sistema.Caso.PermiteResolver (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.PermiteResolver",
+          "entrada": {
+            "CasoId": 1,
+            "RevisionSecuencial": 0
+          },
+          "lineaBase": {
+            "PermiteResolver": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-revision-get",
+      "nombre": "Sistema.Caso.Revision.Get (datos de SISTEMA.sihCasoRevision)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Revision.Get",
+          "entrada": {
+            "Request": {
+              "Casoid": 1,
+              "CasoRevSec": 1
+            }
+          },
+          "lineaBase": {
+            "Response": {
+              "CasoRevBandId": "SOL_VEH",
+              "CasoId": 1,
+              "CasoRevEstado": "PEN",
+              "CasoRevTexto": "Revision 1",
+              "CasoRevSec": 1,
+              "CasoRevMotivo": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-revision-get-vacia",
+      "nombre": "Sistema.Caso.Revision.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Revision.Get",
+          "entrada": {
+            "Request": {
+              "Casoid": 0,
+              "CasoRevSec": 0
+            }
+          },
+          "lineaBase": {
+            "Response": {
+              "CasoRevBandId": "",
+              "CasoId": 0,
+              "CasoRevEstado": "",
+              "CasoRevTexto": "",
+              "CasoRevSec": 0,
+              "CasoRevMotivo": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-revision-ultimarevision",
+      "nombre": "Sistema.Caso.Revision.UltimaRevision (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Revision.UltimaRevision",
+          "entrada": {
+            "CasoId": 1,
+            "RevisionSecuencial": 0
+          },
+          "lineaBase": {
+            "UltimaRevision": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-revision-ultimarevision-vacia",
+      "nombre": "Sistema.Caso.Revision.UltimaRevision (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.Revision.UltimaRevision",
+          "entrada": {
+            "CasoId": 0,
+            "RevisionSecuencial": 0
+          },
+          "lineaBase": {
+            "UltimaRevision": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-usuariosmencion",
+      "nombre": "Sistema.Caso.UsuariosMencion (datos de SISTEMA.sihCaso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.UsuariosMencion",
+          "entrada": {
+            "CasoId": 1
+          },
+          "lineaBase": {
+            "outUsuariosMencion": {
+              "CasoId": 1,
+              "Usuarios": [
+                {
+                  "Nombre": "ADMIN",
+                  "UserName": "admin",
+                  "Email": "agaravano@xiku.io",
+                  "GUID": "03c41c46-b08b-47d8-b250-8a2268f69c6d",
+                  "Apellido": "CORE",
+                  "NombreCompleto": "CORE, ADMIN"
+                },
+                {
+                  "Nombre": "Alejandro",
+                  "UserName": "agaravano",
+                  "Email": "agaravano@xiku.io",
+                  "GUID": "18407a0c-3a02-439d-823a-cb9b0b0c1e35",
+                  "Apellido": "Garavano Viotti",
+                  "NombreCompleto": "Garavano Viotti, Alejandro"
+                },
+                {
+                  "Nombre": "Lisandro",
+                  "UserName": "lif",
+                  "Email": "lferrari+lif@xiku.io",
+                  "GUID": "42027bfd-d916-479b-a70b-3ee2b251f196",
+                  "Apellido": "Ferrari",
+                  "NombreCompleto": "Ferrari, Lisandro"
+                },
+                {
+                  "Nombre": "Gaston",
+                  "UserName": "gmedrano",
+                  "Email": "gmedrano@xiku.io",
+                  "GUID": "658995a9-17db-4290-ae70-42c3672e6018",
+                  "Apellido": "Medrano",
+                  "NombreCompleto": "Medrano, Gaston"
+                },
+                {
+                  "Nombre": "Matías",
+                  "UserName": "mfrias",
+                  "Email": "mfrias+ci+core@xiku.io",
+                  "GUID": "cb7833d9-3b31-4775-adf5-f12cd177add0",
+                  "Apellido": "F",
+                  "NombreCompleto": "F, Matías"
+                },
+                {
+                  "Nombre": "Macarena",
+                  "UserName": "map",
+                  "Email": "mpucheta@xiku.io",
+                  "GUID": "07e66c6f-cf41-46da-adcb-6fb239eecfd9",
+                  "Apellido": "Pucheta (Córdoba)",
+                  "NombreCompleto": "Pucheta (Córdoba), Macarena"
+                },
+                {
+                  "Nombre": "Rodrigo Martin",
+                  "UserName": "rmm",
+                  "Email": "rmorel@xiku.io",
+                  "GUID": "28c913db-e7b2-4042-9d5b-22e656b2c522",
+                  "Apellido": "Morel",
+                  "NombreCompleto": "Morel, Rodrigo Martin"
+                },
+                {
+                  "Nombre": "Daniela",
+                  "UserName": "dt",
+                  "Email": "dtogachensko@xiku.io",
+                  "GUID": "efe39353-9a5e-40c2-bbe7-96b90c61b599",
+                  "Apellido": "Togachensko",
+                  "NombreCompleto": "Togachensko, Daniela"
+                },
+                {
+                  "Nombre": "Johana",
+                  "UserName": "jef",
+                  "Email": "jferreyra@xiku.io",
+                  "GUID": "0206374f-3efb-4698-9594-9aa3f9bfad7f",
+                  "Apellido": "Ferreyra",
+                  "NombreCompleto": "Ferreyra, Johana"
+                },
+                {
+                  "Nombre": "Lara",
+                  "UserName": "lisaac-admin",
+                  "Email": "lisaa@xiku.io",
+                  "GUID": "9436d066-f7ae-4b7a-ba6c-a2415ddb69d2",
+                  "Apellido": "Isaac-Admin",
+                  "NombreCompleto": "Isaac-Admin, Lara"
+                },
+                {
+                  "Nombre": "IntermediariosLara",
+                  "UserName": "intermediarioslaraci",
+                  "Email": "intermediario@gmail.com",
+                  "GUID": "adef15bc-c524-481b-bd0b-3d7932fd0383",
+                  "Apellido": "CI",
+                  "NombreCompleto": "CI, IntermediariosLara"
+                },
+                {
+                  "Nombre": "Macarena",
+                  "UserName": "mapcomercial",
+                  "Email": "mpucheta+mapcomercial@xiku.io",
+                  "GUID": "48b68ba1-fb39-4510-bada-b9c7afc6e7c0",
+                  "Apellido": "Pucheta (Rosario)",
+                  "NombreCompleto": "Pucheta (Rosario), Macarena"
+                },
+                {
+                  "Nombre": "Johana",
+                  "UserName": "jefcore",
+                  "Email": "jferreya1@xiku.io",
+                  "GUID": "e9e32deb-ef10-4ffc-9571-dccd0695c57d",
+                  "Apellido": "Core",
+                  "NombreCompleto": "Core, Johana"
+                },
+                {
+                  "Nombre": "Mauro",
+                  "UserName": "mauro@xiku.io",
+                  "Email": "mauro@xiku.io",
+                  "GUID": "3347c838-26e7-4dba-8666-a9b77f06f22a",
+                  "Apellido": "Albertengo",
+                  "NombreCompleto": "Albertengo, Mauro"
+                },
+                {
+                  "Nombre": "Ignacio",
+                  "UserName": "ignacio@xiku.io",
+                  "Email": "ignacio@xiku.io",
+                  "GUID": "6bd79fec-9976-4394-9c11-1e70e0f657a0",
+                  "Apellido": "Diaz",
+                  "NombreCompleto": "Diaz, Ignacio"
+                },
+                {
+                  "Nombre": "Lilian Elisabet",
+                  "UserName": "ler",
+                  "Email": "lruffino@xiku.io",
+                  "GUID": "14ad4286-c403-4286-a483-d62a00db3a6f",
+                  "Apellido": "Ruffino",
+                  "NombreCompleto": "Ruffino, Lilian Elisabet"
+                },
+                {
+                  "Nombre": "Luciano Mauricio",
+                  "UserName": "lmc",
+                  "Email": "lchiavassa@xiku.io",
+                  "GUID": "48dbbad0-b6f1-4573-a712-c8865d8f5d5f",
+                  "Apellido": "Chiavassa",
+                  "NombreCompleto": "Chiavassa, Luciano Mauricio"
+                },
+                {
+                  "Nombre": "Alejandro",
+                  "UserName": "agvcore",
+                  "Email": "agaravanooo@xiku.io",
+                  "GUID": "4f621991-8292-4fa4-b6b8-e71548a1ea69",
+                  "Apellido": "Garavano (Core)",
+                  "NombreCompleto": "Garavano (Core), Alejandro"
+                },
+                {
+                  "Nombre": "Mauro",
+                  "UserName": "albertengomauro@gmail.com",
+                  "Email": "albertengomauro@gmail.com",
+                  "GUID": "a4b4402e-2a6e-4c4b-9036-25d06ee52c49",
+                  "Apellido": "Albertengo",
+                  "NombreCompleto": "Albertengo, Mauro"
+                },
+                {
+                  "Nombre": "Guillermo Mario",
+                  "UserName": "gmc",
+                  "Email": "gcocconi@xiku.io",
+                  "GUID": "f34b9f52-8116-49d1-be9d-108b6ee40104",
+                  "Apellido": "Cocconi",
+                  "NombreCompleto": "Cocconi, Guillermo Mario"
+                },
+                {
+                  "Nombre": "NOM_bandeja",
+                  "UserName": "bandejaemision",
+                  "Email": "rmorel@xiku.io3",
+                  "GUID": "5b72f983-3f9d-4951-b311-ebaa2e3f9472",
+                  "Apellido": "APP_emision",
+                  "NombreCompleto": "APP_emision, NOM_bandeja"
+                },
+                {
+                  "Nombre": "Admi",
+                  "UserName": "admin3",
+                  "Email": "admin@xiku.io",
+                  "GUID": "b2f568e7-f660-4c4b-81de-a59f1e8997b6",
+                  "Apellido": "User",
+                  "NombreCompleto": "User, Admi"
+                },
+                {
+                  "Nombre": "Antonella",
+                  "UserName": "absop",
+                  "Email": "abroda@xiku.io",
+                  "GUID": "c1b1eda6-93c9-4bfb-9db4-3acdfdccefc2",
+                  "Apellido": "Broda",
+                  "NombreCompleto": "Broda, Antonella"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-usuariosmencion-vacia",
+      "nombre": "Sistema.Caso.UsuariosMencion (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Caso.UsuariosMencion",
+          "entrada": {
+            "CasoId": 0
+          },
+          "lineaBase": {
+            "outUsuariosMencion": {
+              "CasoId": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

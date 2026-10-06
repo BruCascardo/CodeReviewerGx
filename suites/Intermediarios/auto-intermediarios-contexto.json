@@ -1,0 +1,874 @@
+{
+  "nombre": "Auto - Intermediarios.Contexto",
+  "kb": "Intermediarios",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "intermediarios-contexto-contexto_atributos",
+      "nombre": "Intermediarios.Contexto.Contexto_Atributos (datos de SISTEMA.sitCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Contexto_Atributos",
+          "entrada": {
+            "Contexto": "COMP"
+          },
+          "lineaBase": {
+            "Atributos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-cuotas-atributos",
+      "nombre": "Intermediarios.Contexto.Cuotas.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Cuotas.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Cuota: Asegurado",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Cuota",
+                "Id": "Cuota.Asegurado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cuota: RamaNombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Cuota",
+                "Id": "Cuota.RamaNombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cuota: Número de poliza",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Cuota",
+                "Id": "Cuota.PolizaNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cuota: Número",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Cuota",
+                "Id": "Cuota.CuotaNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cuota: Vencimiento",
+                "TipoDato": "DATE",
+                "Uso": "AMB",
+                "Grupo": "Cuota",
+                "Id": "Cuota.Vencimiento",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cuota: Simbolo de moneda",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Cuota",
+                "Id": "Cuota.MonedaSimbolo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cuota: Importe",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Cuota",
+                "Id": "Cuota.Importe",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cuota: Vencida",
+                "TipoDato": "BOOL",
+                "Uso": "AMB",
+                "Grupo": "Cuota",
+                "Id": "Cuota.Vencida",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-dpevtacciones",
+      "nombre": "Intermediarios.Contexto.dpEvtAcciones (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.dpEvtAcciones",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "Adicional": "",
+                "Descripcion": "Email",
+                "idNum": "0",
+                "idChar": "EMAIL"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Notificación Interna",
+                "idNum": "0",
+                "idChar": "PUSH"
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "Whatsapp Link",
+                "idNum": "0",
+                "idChar": "WA_LINK"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-dpplantillas",
+      "nombre": "Intermediarios.Contexto.dpPlantillas (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.dpPlantillas",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-dpremitentes",
+      "nombre": "Intermediarios.Contexto.dpRemitentes (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.dpRemitentes",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "Adicional": "",
+                "Descripcion": "NO RESPONDER CI",
+                "idNum": "1",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "AWS SES NO RESPONDER",
+                "idNum": "2",
+                "idChar": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-novedades-atributos",
+      "nombre": "Intermediarios.Contexto.Novedades.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Novedades.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Novedad: Texto",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Novedad.NovTexto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Novedad: Link",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Novedad.NovLink",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-plantillas_listafiltrada",
+      "nombre": "Intermediarios.Contexto.Plantillas_ListaFiltrada (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Plantillas_ListaFiltrada",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "outPlantillas_ListaFinal": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-rendiciones-atributos",
+      "nombre": "Intermediarios.Contexto.Rendiciones.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Rendiciones.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Rendicion: Numero",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Rendicion.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rendicion: Fecha",
+                "TipoDato": "DATE",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Rendicion.Fecha",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rendicion: Fecha de Vencimiento",
+                "TipoDato": "DATE",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Rendicion.FechaVencimiento",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rendicion: Estado",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Rendicion.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rendicion: Total pagos",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Rendicion.TotalConcPago",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rendicion: Total cupones",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Rendicion.TotalCuotas",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rendicion: Link de MercadoPago",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Rendicion.MercadoPagoLink",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rendicion: Vinculada a MercadoPago",
+                "TipoDato": "BOOL",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Rendicion.MercadoPago",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rendicion: Cuotas",
+                "TipoDato": "COL",
+                "Uso": "AMB",
+                "Grupo": "Rendicion",
+                "Id": "Rendicion.Cuotas",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cuota: Concepto de cuota",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Rendicion",
+                "Id": "Rendicion.Cuotas[0].Concepto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Cuota: Importe de cuota",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Rendicion",
+                "Id": "Rendicion.Cuotas[0].Importe",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-siniestros-atributos",
+      "nombre": "Intermediarios.Contexto.Siniestros.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Siniestros.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Siniestro: Numero",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Siniestro.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Siniestro: Fecha",
+                "TipoDato": "DATE",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Siniestro.Fecha",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Denuncia: Numero",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Siniestro.DenunciaNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Denuncia: Fecha",
+                "TipoDato": "DATE",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Siniestro.DenunciaFecha",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Siniestro: Link",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Siniestro.Link",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tomador: Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Siniestro.Poliza.Tomador.NombreCompleto",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-solicitud-atributos",
+      "nombre": "Intermediarios.Contexto.Solicitud.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Solicitud.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Solicitud: CotNumero",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Solicitud",
+                "Id": "Solicitud.CotNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Solicitud: CotSolicitudNumero",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Solicitud",
+                "Id": "Solicitud.CotSolicitudNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Solicitud: SolicitudEstado",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Solicitud",
+                "Id": "Solicitud.SolicitudEstado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Solicitud: Link",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Solicitud",
+                "Id": "Solicitud.Link",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Solicitud: Tomador Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Solicitud",
+                "Id": "Solicitud.Tomador.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Solicitud: Tomador Nombre completo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Solicitud",
+                "Id": "Solicitud.Tomador.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Solicitud: Rama Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Solicitud",
+                "Id": "Solicitud.Rama.id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Solicitud: Rama Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Solicitud",
+                "Id": "Solicitud.Rama.Nombre",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-soporte-atributos",
+      "nombre": "Intermediarios.Contexto.Soporte.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Soporte.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Soporte: Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Estado",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: User Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.UserNombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Motivo - Id",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Motivo.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Motivo - Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Motivo.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Motivo - Adicional",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Motivo.Adicional",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Link - Pedido",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Link.Pedido",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Soporte: Link - Mensaje",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Soporte.Link.Mensaje",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-tareas-atributos",
+      "nombre": "Intermediarios.Contexto.Tareas.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Tareas.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Tarea: TareaId",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: Titulo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaNombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: Detalle",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaDetalle",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaTipoDesc",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: GrupoId",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaGrupoId",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: UserGUID",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaUserGUID",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: UserName",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaUserName",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: Estado",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaEstadoDesc",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: FechaHoraVencimiento",
+                "TipoDato": "DTIME",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaFechaHoraVencimiento",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: FechaHoraRecordatorio",
+                "TipoDato": "DTIME",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaFechaHoraRecordatorio",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: TareaVencida?",
+                "TipoDato": "BOOL",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaVencida",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tarea: Link",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "Tarea",
+                "Id": "Tarea.TareaLink",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-usuario-atributos",
+      "nombre": "Intermediarios.Contexto.Usuario.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Usuario.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Usuario: Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Grupo": "",
+                "Id": "Usuario.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Email",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Usuario.Email",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Usuario",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Usuario.Usuario",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Link",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Usuario.Link",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: CodigoVerificacion",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "",
+                "Id": "Usuario.CodigoVerificacion",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-usuario-datos",
+      "nombre": "Intermediarios.Contexto.Usuario.Datos (datos de INTERMEDIARIOS.UserIntermediarioPermiso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Usuario.Datos",
+          "entrada": {
+            "UserGUID": "0a5a18df-d439-45c8-9b56-68380775262d",
+            "Link": ""
+          },
+          "lineaBase": {
+            "sdtUsuario": {
+              "Usuario": {
+                "Nombre": "uno, Comisiones 1",
+                "CodigoVerificacion": "",
+                "Email": "fcerroni@xiku.io",
+                "Usuario": "fcerroni-comisiones-1",
+                "Link": ""
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-usuario-datos-vacia",
+      "nombre": "Intermediarios.Contexto.Usuario.Datos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.Usuario.Datos",
+          "entrada": {
+            "UserGUID": "",
+            "Link": ""
+          },
+          "lineaBase": {
+            "sdtUsuario": {
+              "Usuario": {
+                "Nombre": ",",
+                "CodigoVerificacion": "",
+                "Email": "",
+                "Usuario": "",
+                "Link": ""
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-whatsapplink-atributos",
+      "nombre": "Intermediarios.Contexto.WhatsappLink.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Contexto.WhatsappLink.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Link de descarga para Whatsapp Link",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Grupo": "WhatsappLink",
+                "Id": "WhatsappLink.Link",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

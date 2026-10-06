@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+"""GxPruebas: pruebas genericas sobre el Java que genera GeneXus. Los comandos estan en gxp/cli."""
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from gxp import cli  # noqa: E402
+
+if __name__ == "__main__":
+    cli.preparar_consola()
+    sys.exit(cli.main())

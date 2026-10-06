@@ -1,0 +1,427 @@
+{
+  "nombre": "Auto - Intermediarios.Usuario",
+  "kb": "Intermediarios",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "intermediarios-usuario-buscanombreusuario",
+      "nombre": "Intermediarios.Usuario.BuscaNombreUsuario (datos de INTERMEDIARIOS.UserIntermediarioPermiso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.BuscaNombreUsuario",
+          "entrada": {
+            "UserGUID": "0a5a18df-d439-45c8-9b56-68380775262d"
+          },
+          "lineaBase": {
+            "NombreUsuario": "Comisiones 1 uno"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-buscanombreusuario-vacia",
+      "nombre": "Intermediarios.Usuario.BuscaNombreUsuario (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.BuscaNombreUsuario",
+          "entrada": {
+            "UserGUID": ""
+          },
+          "lineaBase": {
+            "NombreUsuario": " "
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-dpgrupoasegurados",
+      "nombre": "Intermediarios.Usuario.dpGrupoAsegurados (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.dpGrupoAsegurados",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-dpgrupoaseguradosequipo-vacia",
+      "nombre": "Intermediarios.Usuario.dpGrupoAseguradosEquipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.dpGrupoAseguradosEquipo",
+          "entrada": {
+            "GrupoId": [
+              0
+            ]
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-dpgrupousuario",
+      "nombre": "Intermediarios.Usuario.dpGrupoUsuario (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.dpGrupoUsuario",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-dpusuariosporgrupo",
+      "nombre": "Intermediarios.Usuario.dpUsuariosPorGrupo (datos de INTERMEDIARIOS.intGrupo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.dpUsuariosPorGrupo",
+          "entrada": {
+            "GrupoId": 1
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-grupoperteneceusuario",
+      "nombre": "Intermediarios.Usuario.GrupoPerteneceUsuario (datos de INTERMEDIARIOS.intGrupo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.GrupoPerteneceUsuario",
+          "entrada": {
+            "GrupoId": 1
+          },
+          "lineaBase": {
+            "PertenceGrupo": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-intermediarios-usuariosporintermediarios-vacia",
+      "nombre": "Intermediarios.Usuario.Intermediarios.UsuariosPorIntermediarios (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.Intermediarios.UsuariosPorIntermediarios",
+          "entrada": {
+            "Tipo": 0,
+            "Intermediarios": [
+              0
+            ]
+          },
+          "lineaBase": {
+            "setUserGUID": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-intgrupotomador_nombrerepetido",
+      "nombre": "Intermediarios.Usuario.intGrupoTomador_NombreRepetido (datos de INTERMEDIARIOS.intGrupoTomador)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.intGrupoTomador_NombreRepetido",
+          "entrada": {
+            "GrupoId": 17,
+            "GrupoTomadorId": 1,
+            "GrupoTomNombre": "GRUPO_1"
+          },
+          "lineaBase": {
+            "Repetido": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-tagsporusuario",
+      "nombre": "Intermediarios.Usuario.TagsPorUsuario (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.TagsPorUsuario",
+          "entrada": {},
+          "lineaBase": {
+            "sdtTagsPorUsuario": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-tagsporusuarioequipo-vacia",
+      "nombre": "Intermediarios.Usuario.TagsPorUsuarioEquipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.TagsPorUsuarioEquipo",
+          "entrada": {
+            "GrupoId": [
+              0
+            ]
+          },
+          "lineaBase": {
+            "sdtTagsPorUsuario": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-tareascantidadesresumen",
+      "nombre": "Intermediarios.Usuario.TareasCantidadesResumen (datos de INTERMEDIARIOS.UserIntermediarioPermiso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.TareasCantidadesResumen",
+          "entrada": {
+            "UserGuid": "0a5a18df-d439-45c8-9b56-68380775262d"
+          },
+          "lineaBase": {
+            "SinAsignar": 0,
+            "Pendientes": 0,
+            "Vencidas": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-tareascantidadesresumen-vacia",
+      "nombre": "Intermediarios.Usuario.TareasCantidadesResumen (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.TareasCantidadesResumen",
+          "entrada": {
+            "UserGuid": ""
+          },
+          "lineaBase": {
+            "SinAsignar": 0,
+            "Pendientes": 6,
+            "Vencidas": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-tareasporusuario",
+      "nombre": "Intermediarios.Usuario.TareasPorUsuario (datos de INTERMEDIARIOS.UserIntermediarioPermiso)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.TareasPorUsuario",
+          "entrada": {
+            "UserGUID": "0a5a18df-d439-45c8-9b56-68380775262d"
+          },
+          "lineaBase": {
+            "sdtTareas": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-tomadores_porgrupoasegurados",
+      "nombre": "Intermediarios.Usuario.Tomadores_PorGrupoAsegurados (datos de INTERMEDIARIOS.intGrupoTomador)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.Tomadores_PorGrupoAsegurados",
+          "entrada": {
+            "GrupoTomadorId": 1
+          },
+          "lineaBase": {
+            "Tomadores": [
+              1166120,
+              1874702,
+              306125,
+              313364,
+              508068,
+              668692,
+              959386,
+              1173844,
+              1203621,
+              1450083,
+              1610101,
+              1810302,
+              306125,
+              626849,
+              664790,
+              668692,
+              1084578,
+              1173844,
+              1303915,
+              1630665,
+              1810302,
+              1903595,
+              2091759,
+              2539844,
+              646085,
+              1008729,
+              1610101,
+              2091759,
+              2348415,
+              2468436,
+              2053628,
+              1968343,
+              2348415,
+              1059585,
+              1762034,
+              2091759,
+              2539844,
+              2563451,
+              114029,
+              278975,
+              1059585,
+              1762034,
+              2292112,
+              2539844,
+              2563451,
+              2563482
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-tomadores_porgrupoasegurados-vacia",
+      "nombre": "Intermediarios.Usuario.Tomadores_PorGrupoAsegurados (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.Tomadores_PorGrupoAsegurados",
+          "entrada": {
+            "GrupoTomadorId": 0
+          },
+          "lineaBase": {
+            "Tomadores": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-validarusuario",
+      "nombre": "Intermediarios.Usuario.ValidarUsuario (datos de INTERMEDIARIOS.UserUsuarioCreado)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.ValidarUsuario",
+          "entrada": {
+            "User_UserGUID": "007aa042-d6b7-4549-b45a-d310b4ae298d"
+          },
+          "lineaBase": {
+            "Existe": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-validarusuario-vacia",
+      "nombre": "Intermediarios.Usuario.ValidarUsuario (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Usuario.ValidarUsuario",
+          "entrada": {
+            "User_UserGUID": ""
+          },
+          "lineaBase": {
+            "Existe": false
+          }
+        }
+      ]
+    }
+  ]
+}

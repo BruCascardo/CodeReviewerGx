@@ -1,0 +1,849 @@
+{
+  "nombre": "Auto - Generales.Otros",
+  "kb": "Generales",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "generales-agrupacion-configuracionprueba-vacia",
+      "nombre": "Generales.Agrupacion.ConfiguracionPrueba (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Agrupacion.ConfiguracionPrueba",
+          "entrada": {
+            "AgrId": 0
+          },
+          "lineaBase": {
+            "Agrupacion": {
+              "Nombre": "",
+              "Ambito": "",
+              "id": 0,
+              "AtributoOrigen": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-agrupacion-ejecutar",
+      "nombre": "Generales.Agrupacion.Ejecutar (datos de GENERALES.gntItfRegCampo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Agrupacion.Ejecutar",
+          "entrada": {
+            "Agrupacion": {
+              "Nombre": "",
+              "Niveles": [
+                {
+                  "Nombre": "",
+                  "LimMaximo": "0.000000",
+                  "Numero": 0,
+                  "Tipo": "",
+                  "LimFuncion": "",
+                  "Orden": "",
+                  "Datos": [
+                    {
+                      "Salida": "",
+                      "Funcion": "",
+                      "Atributo": "Cabecera.Id",
+                      "Constante": false,
+                      "NivelConteo": 0
+                    }
+                  ],
+                  "Claves": [
+                    {
+                      "Orden": 0,
+                      "Atributo": "Cabecera.Id"
+                    }
+                  ],
+                  "LimAtributo": "",
+                  "LimExcede": ""
+                }
+              ],
+              "Ambito": "",
+              "id": 0,
+              "AtributoOrigen": ""
+            },
+            "Filas": [
+              {
+                "Datos": {}
+              }
+            ],
+            "Globales": {}
+          },
+          "lineaBase": {
+            "Resultado": {
+              "Globales": {
+                "@Nivel": "0",
+                "@Parte": "0"
+              },
+              "Ambito": "",
+              "Nodos": [
+                {
+                  "Ref": 1,
+                  "Tipo": "DET",
+                  "Origenes": [
+                    ""
+                  ],
+                  "Parte": 0,
+                  "Datos": {
+                    "@Nivel": "1",
+                    "@Parte": "0",
+                    "@Ref": "1"
+                  },
+                  "Nivel": 1
+                }
+              ]
+            },
+            "Errores": [
+              {
+                "Mensaje": "La fila 1 no trae ",
+                "Severidad": "Error",
+                "Dato": "",
+                "Origen": "",
+                "Nivel": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-agrupacion-ordenar-vacia",
+      "nombre": "Generales.Agrupacion.Ordenar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Agrupacion.Ordenar",
+          "entrada": {
+            "Claves": [
+              ""
+            ]
+          },
+          "lineaBase": {
+            "Permutacion": [
+              1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-diagnostico-ws_resumenestado-vacia",
+      "nombre": "Generales.Diagnostico.WS_ResumenEstado (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Diagnostico.WS_ResumenEstado",
+          "entrada": {
+            "Request": {
+              "Parametros": {
+                "Procesadores": false
+              }
+            }
+          },
+          "lineaBase": {
+            "Response": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-empresas-cuentasbancarias-get-vacia",
+      "nombre": "Generales.Empresas.CuentasBancarias.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Empresas.CuentasBancarias.Get",
+          "entrada": {
+            "inGet": {
+              "Id": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Numero": "",
+              "Alias": "",
+              "CBU": "",
+              "Errores": [
+                {
+                  "Mensaje": "La cuenta bancaria con número 0 no existe",
+                  "Id": 0
+                }
+              ],
+              "Id": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-empresas-cuentasbancarias-lista-vacia",
+      "nombre": "Generales.Empresas.CuentasBancarias.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Empresas.CuentasBancarias.Lista",
+          "entrada": {
+            "inLista": {
+              "Filtros": {
+                "Alias": "",
+                "EntFinId": 0,
+                "CBU": "",
+                "EmpId": 0
+              }
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-bancos-excluir-vacia",
+      "nombre": "Generales.EntidadesFinancieras.Bancos.Excluir (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.EntidadesFinancieras.Bancos.Excluir",
+          "entrada": {
+            "inExcluir": {
+              "CBU": "",
+              "Excluir": false
+            }
+          },
+          "lineaBase": {
+            "outExcluir": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-bancos-get-vacia",
+      "nombre": "Generales.EntidadesFinancieras.Bancos.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.EntidadesFinancieras.Bancos.Get",
+          "entrada": {
+            "inGet": {
+              "BancoId": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Errores": [
+                {
+                  "Mensaje": "Banco 0 no encontrado",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-bancos-lista",
+      "nombre": "Generales.EntidadesFinancieras.Bancos.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.EntidadesFinancieras.Bancos.Lista",
+          "entrada": {},
+          "lineaBase": {
+            "outLista": {
+              "Errores": [
+                {
+                  "Mensaje": "No hay elementos para mostrar",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-formathash-vacia",
+      "nombre": "Generales.EntidadesFinancieras.FormatHash (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.EntidadesFinancieras.FormatHash",
+          "entrada": {
+            "inFormatHash": {
+              "AnioVencimiento": 0,
+              "EntFinSistema": "",
+              "EntFinReferencia": "",
+              "MesVencimiento": 0
+            }
+          },
+          "lineaBase": {
+            "Hash": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-get-vacia",
+      "nombre": "Generales.EntidadesFinancieras.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.EntidadesFinancieras.Get",
+          "entrada": {
+            "inGet": {
+              "Id": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Errores": [
+                {
+                  "Mensaje": "La entidad con número 0 no existe",
+                  "Id": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-lista-vacia",
+      "nombre": "Generales.EntidadesFinancieras.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.EntidadesFinancieras.Lista",
+          "entrada": {
+            "inLista": {
+              "Filtros": {
+                "Nombre": "",
+                "Funcion": "",
+                "NombreCorto": "",
+                "Id": 0,
+                "Sistema": "",
+                "Estado": ""
+              }
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-mediodepagoreferencia_devuelvehash-vacia",
+      "nombre": "Generales.EntidadesFinancieras.MedioDePagoReferencia_DevuelveHash (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.EntidadesFinancieras.MedioDePagoReferencia_DevuelveHash",
+          "entrada": {
+            "EntFinSistema": "",
+            "EntFinReferencia": "",
+            "EntFinFechaVencimiento": ""
+          },
+          "lineaBase": {
+            "Hash": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-tarjetas-get-vacia",
+      "nombre": "Generales.EntidadesFinancieras.Tarjetas.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.EntidadesFinancieras.Tarjetas.Get",
+          "entrada": {
+            "inGet": {
+              "TarjetaId": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Errores": [
+                {
+                  "Mensaje": "Tarjeta 0 no encontrada",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-tarjetas-lista",
+      "nombre": "Generales.EntidadesFinancieras.Tarjetas.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.EntidadesFinancieras.Tarjetas.Lista",
+          "entrada": {},
+          "lineaBase": {
+            "outLista": {
+              "Errores": [
+                {
+                  "Mensaje": "No hay elementos para mostrar",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-global-algoritmo_validar-vacia",
+      "nombre": "Generales.Global.Algoritmo_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Global.Algoritmo_Validar",
+          "entrada": {
+            "Algoritmo": "",
+            "Dato": ""
+          },
+          "lineaBase": {
+            "OK": true,
+            "Mensaje": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-global-algoritmocbu-vacia",
+      "nombre": "Generales.Global.AlgoritmoCBU (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Global.AlgoritmoCBU",
+          "entrada": {
+            "CBU": ""
+          },
+          "lineaBase": {
+            "Ok": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-global-algoritmoluhn-vacia",
+      "nombre": "Generales.Global.AlgoritmoLuhn (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Global.AlgoritmoLuhn",
+          "entrada": {
+            "Cadena": ""
+          },
+          "lineaBase": {
+            "OK": true,
+            "DigitoVerificador": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-global-cuit_digitoverificador-vacia",
+      "nombre": "Generales.Global.CUIT_DigitoVerificador (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Global.CUIT_DigitoVerificador",
+          "entrada": {
+            "NcuitChar": ""
+          },
+          "lineaBase": {
+            "validado": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-global-json_property-vacia",
+      "nombre": "Generales.Global.JSON_Property (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Global.JSON_Property",
+          "entrada": {
+            "JSON": "",
+            "Clave": ""
+          },
+          "lineaBase": {
+            "Valor": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-global-whatsapplink",
+      "nombre": "Generales.Global.WhatsappLink (datos de SISTEMA.sihCompFiscalObservacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Global.WhatsappLink",
+          "entrada": {
+            "InWhatsapp": {
+              "Numero": "",
+              "Mensaje": "DocTipo: 80, DocNro 30716889633 - La CUIT receptora que ingresaste no existe. Tenes que emitir una Nota de Credito o anular la operacion, segun corresponda."
+            }
+          },
+          "lineaBase": {
+            "outWhatsapp": {
+              "Link": "https://wa.me/"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-masterpagemenu",
+      "nombre": "Generales.MasterPageMenu (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.MasterPageMenu",
+          "entrada": {},
+          "lineaBase": {
+            "Menu": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-propiedad_respuestabuscar-vacia",
+      "nombre": "Generales.Propiedades.Propiedad_RespuestaBuscar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Propiedades.Propiedad_RespuestaBuscar",
+          "entrada": {
+            "CuesId": 0,
+            "RespuestaId": 0,
+            "ContextoJson": ""
+          },
+          "lineaBase": {
+            "RespuestasJson": "",
+            "BuscarRespuestaOk": false,
+            "mensaje": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-propiedad_respuestagrabar",
+      "nombre": "Generales.Propiedades.Propiedad_RespuestaGrabar (datos de GENERALES.gntItfRegCampo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Propiedades.Propiedad_RespuestaGrabar",
+          "entrada": {
+            "CuesId": 0,
+            "sdtPrimaryKey": {
+              "Tabla": "",
+              "Campos": [
+                {
+                  "CampoValor": "",
+                  "CampoNombre": "Id",
+                  "CampoTipoDato": "NUM"
+                }
+              ]
+            },
+            "RespuestaJson": "",
+            "RespuestaId": 0
+          },
+          "lineaBase": {
+            "RespuestaJson": "",
+            "RespuestaId": 0,
+            "GrabacionOk": false,
+            "Mensaje": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-propiedad_validarambitos-vacia",
+      "nombre": "Generales.Propiedades.Propiedad_ValidarAmbitos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Propiedades.Propiedad_ValidarAmbitos",
+          "entrada": {
+            "PropId": "",
+            "Ambitos": [
+              ""
+            ]
+          },
+          "lineaBase": {
+            "OK": true,
+            "Mensaje": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-propiedadesgaus-vacia",
+      "nombre": "Generales.Propiedades.PropiedadesGAUS (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Propiedades.PropiedadesGAUS",
+          "entrada": {
+            "DatoTipo": "",
+            "EsCollection": false
+          },
+          "lineaBase": {
+            "sdtPropiedadGaus": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-wizpropiedadalta_pasosget",
+      "nombre": "Generales.Propiedades.wizPropiedadAlta_pasosGet (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Propiedades.wizPropiedadAlta_pasosGet",
+          "entrada": {},
+          "lineaBase": {
+            "WizardSteps": [
+              {
+                "Description": "Identificación de la Propiedad",
+                "AuxiliarData": "",
+                "AllowClick": false,
+                "Title": "Identificación",
+                "Code": "1"
+              },
+              {
+                "Description": "Origen de Datos",
+                "AuxiliarData": "",
+                "AllowClick": false,
+                "Title": "Origen de Datos",
+                "Code": "2"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-validaciondatos-mascaras-codestringmasc-vacia",
+      "nombre": "Generales.ValidacionDatos.Mascaras.codeStringMasc (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.ValidacionDatos.Mascaras.codeStringMasc",
+          "entrada": {
+            "inStringMasc": {
+              "MascToApply": 0,
+              "StringToMasc": ""
+            }
+          },
+          "lineaBase": {
+            "outStringMasc": {
+              "salidaMasc": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-validaciondatos-mascaras-mascara_dato-vacia",
+      "nombre": "Generales.ValidacionDatos.Mascaras.Mascara_Dato (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.ValidacionDatos.Mascaras.Mascara_Dato",
+          "entrada": {
+            "UnmaskedValue": ""
+          },
+          "lineaBase": {
+            "Dato": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-validaciondatos-mascaras-mascara_valor-vacia",
+      "nombre": "Generales.ValidacionDatos.Mascaras.Mascara_Valor (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.ValidacionDatos.Mascaras.Mascara_Valor",
+          "entrada": {
+            "Mascara": ""
+          },
+          "lineaBase": {
+            "Valor": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-validaciondatos-regex-get-vacia",
+      "nombre": "Generales.ValidacionDatos.RegEx.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.ValidacionDatos.RegEx.Get",
+          "entrada": {
+            "inGet": {
+              "Id": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Errores": [
+                {
+                  "Mensaje": "No existe el expresión con número 0",
+                  "Id": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

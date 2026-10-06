@@ -1,0 +1,1231 @@
+/* GxPruebas - aplicacion */
+"use strict";
+
+const E = {
+  kb: null,
+  kbs: [],
+  vista: "explorar",
+  objetos: [],
+  filtros: new Set(["Procedure", "DataProvider"]),
+  obj: null,          // detalle del objeto seleccionado
+  desc: null,         // describir (tipos y plantilla)
+  entrada: {},
+  modoEntrada: almacen.leer("modoEntrada", "form"),
+  sqlDespues: [],
+  transaccion: "rollback",
+  ultimoRes: null,
+  pendientes: [],     // verificaciones elegidas desde la salida: {paso, ruta, op, valor} o {paso, ignorar}
+  historialSesion: [],
+  suites: [],
+  suite: null,
+  resultados: {},     // casoId(fila) -> resultado de la corrida en curso o cargada
+  trabajo: null,
+  abiertos: new Set(),
+  corridasCache: {},
+};
+
+const slug = (t) => (t || "").trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^\w-]+/g, "-").replace(/^-+|-+$/g, "") || "suite";
+
+// ====================================================================== inicio
+async function iniciar() {
+  try {
+    const est = await GET("/api/estado");
+    E.kbs = est.kbs;
+  } catch (e) {
+    toast(e.message, "error", 0);
+    return;
+  }
+  const sel = $("#kb");
+  vaciar(sel, E.kbs.map((k) => h("option", { value: k.nombre }, k.nombre)));
+  E.kb = almacen.leer("kb", null);
+  if (!E.kbs.some((k) => k.nombre === E.kb)) E.kb = E.kbs[0]?.nombre || null;
+  sel.value = E.kb || "";
+  sel.addEventListener("change", () => cambiarKb(sel.value));
+
+  $$("#pestanas button").forEach((b) => b.addEventListener("click", () => irA(b.dataset.vista)));
+  $("#buscar-objeto").addEventListener("input", pintarListaObjetos);
+  $$("#filtros-objetos button").forEach((b) => b.addEventListener("click", () => {
+    const f = b.dataset.f;
+    E.filtros.has(f) ? E.filtros.delete(f) : E.filtros.add(f);
+    b.classList.toggle("activa");
+    pintarListaObjetos();
+  }));
+  $("#buscar-suite").addEventListener("input", pintarListaSuites);
+  $("#suites-todas").addEventListener("change", cargarSuites);
+  $("#nueva-suite").addEventListener("click", nuevaSuite);
+  $("#motor-reiniciar").addEventListener("click", () => accionMotor("reiniciar"));
+  $("#motor-detener").addEventListener("click", () => accionMotor("detener"));
+  $("#motor-log").addEventListener("click", verLogMotor);
+  document.addEventListener("keydown", teclas);
+  // Al volver de GeneXus: relee el catálogo para que aparezca lo recién especificado o compilado.
+  window.addEventListener("focus", () => { if (E.kb) cargarObjetos(); if (E.vista === "revision") cargarRevision(); });
+
+  if (!E.kb) {
+    vaciar($("#detalle-objeto"), h("div", { class: "vacio-grande" }, h("h3", null, "No encontré KBs compiladas"),
+      h("div", null, "Revisá 'raicesKB' en config.json. Se buscan carpetas con JavaModel\\web\\build\\classes.")));
+    return;
+  }
+  await cambiarKb(E.kb, true);
+  irA(almacen.leer("vista", "explorar"));
+  abrirEnlace();
+  window.addEventListener("hashchange", abrirEnlace);
+  setInterval(() => { if (!document.hidden) refrescarMotor(); }, 2500);
+  refrescarMotor();
+}
+
+// La notificación de Windows de una corrida automática abre la página con #corrida=<id>.
+function abrirEnlace() {
+  const enlace = location.hash.match(/^#corrida=(.+)$/);
+  if (!enlace) return;
+  history.replaceState(null, "", location.pathname);
+  irA("historial");
+  verCorrida(decodeURIComponent(enlace[1]));
+}
+
+async function cambiarKb(kb, inicial = false) {
+  E.kb = kb;
+  almacen.guardar("kb", kb);
+  E.obj = null; E.suite = null; E.resultados = {}; E.firmaObjetos = null;
+  vaciar($("#lista-objetos"), h("div", { class: "vacio" }, cargando("Leyendo la especificación…")));
+  if (!inicial) {
+    vaciar($("#detalle-objeto"), h("div", { class: "vacio-grande" }, h("h3", null, "Elegí un procedimiento o Data Provider")));
+    vaciar($("#detalle-suite"), h("div", { class: "vacio-grande" }, h("h3", null, "Elegí una suite")));
+  }
+  await Promise.all([cargarObjetos(), cargarSuites()]);
+  const ultimo = almacen.leer(`obj.${kb}`, null);
+  if (ultimo && E.objetos.some((o) => o.nombre === ultimo) && inicial) seleccionarObjeto(ultimo);
+  if (E.vista === "sql") pintarSql();
+  if (E.vista === "historial") pintarHistorial();
+  if (E.vista === "revision") pintarRevision();
+  refrescarMotor();
+}
+
+function irA(vista) {
+  E.vista = vista;
+  almacen.guardar("vista", vista);
+  $$("#pestanas button").forEach((b) => b.classList.toggle("activa", b.dataset.vista === vista));
+  $$(".vista").forEach((v) => v.classList.toggle("activa", v.id === `vista-${vista}`));
+  if (vista === "historial") pintarHistorial();
+  if (vista === "sql") pintarSql();
+  if (vista === "ayuda") pintarAyuda();
+  if (vista === "suites") cargarSuites();
+  if (vista === "grafo") abrirGrafo();
+  if (vista === "revision") pintarRevision();
+}
+
+function teclas(ev) {
+  const enCampo = ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName);
+  if (ev.key === "/" && !enCampo) {
+    ev.preventDefault();
+    (E.vista === "suites" ? $("#buscar-suite") : E.vista === "grafo" ? $("#grafo-buscar") : E.vista === "revision" ? $("#rv-buscar") : $("#buscar-objeto")).focus();
+  }
+  if ((ev.ctrlKey || ev.metaKey) && ev.key === "Enter") {
+    if (E.vista === "explorar" && E.obj) { ev.preventDefault(); ejecutarObjeto(); }
+    if (E.vista === "sql") { ev.preventDefault(); correrSql(); }
+  }
+}
+
+// ====================================================================== motor
+async function refrescarMotor() {
+  let est;
+  try { est = await GET("/api/estado"); } catch { $("#motor-texto").textContent = "sin conexión"; $("#motor").dataset.estado = "error"; return; }
+  const m = est.motores.find((x) => x.kb === E.kb);
+  const chip = $("#motor");
+  const estado = m ? m.estado : "apagado";
+  chip.dataset.estado = estado;
+  let txt = { apagado: "motor apagado", iniciando: "iniciando motor…", listo: "motor listo", ocupado: "ejecutando…", error: "motor con error" }[estado] || estado;
+  if (m?.recompilada) txt = "KB recompilada: se reinicia en el próximo pedido";
+  const au = est.automatico;
+  const auKb = au?.kbs?.[E.kb]?.estado;
+  if (auKb === "build") txt = "build detectado: espera a que termine para probar…";
+  if (auKb === "revisando") { txt = "revisando las buenas prácticas del build…"; chip.dataset.estado = "ocupado"; }
+  if (auKb === "corriendo") { txt = "corriendo las pruebas del build…"; chip.dataset.estado = "ocupado"; }
+  $("#motor-texto").textContent = txt;
+  avisosBuild(au);
+  chip.title = m ? `Motor de ${m.kb}\nestado: ${m.estado}${m.pid ? "\npid " + m.pid : ""}${m.msInicio ? "\narranque: " + fmtMs(m.msInicio) : ""}\npedidos: ${m.pedidos}${m.error ? "\n\n" + m.error : ""}` : "Motor Java de la KB (se inicia solo al ejecutar)";
+}
+
+// Corridas automáticas después de un build (gxp/automatico): un aviso por cada una que terminó desde
+// la última consulta. La primera vez solo se toma el número, para no repetir avisos viejos al abrir la página.
+function avisosBuild(au) {
+  if (!au) return;
+  if (E.autoSeq === undefined) { E.autoSeq = au.seq; return; }
+  const nuevas = (au.ultimas || []).filter((r) => r.seq > E.autoSeq).reverse();
+  E.autoSeq = au.seq;
+  for (const r of nuevas) {
+    const ok = r.estado === "ok";
+    const nuevo = r.revision?.primeros?.[0];
+    const cantNuevos = (r.revision?.nuevos?.error || 0) + (r.revision?.nuevos?.advertencia || 0);
+    const t = toast(h("span", null, `${ok ? "✔" : "✖"} Build de ${r.kb}: `, h("b", null, r.texto),
+      r.fallas?.length ? h("div", { class: "chico" }, `${r.fallas[0].suite} › ${r.fallas[0].caso}${r.fallas.length > 1 ? ` (y ${r.fallas.length - 1} más)` : ""}`) : null,
+      nuevo ? h("div", { class: "chico" }, `Nuevo: ${nuevo.objeto}${nuevo.linea ? ` línea ${nuevo.linea}` : ""}: ${nuevo.mensaje}${cantNuevos > 1 ? ` (y ${cantNuevos - 1} más)` : ""}`) : null,
+      r.corridaVer ? [" ", h("a", { href: "#", onclick: (ev) => { ev.preventDefault(); ev.stopPropagation(); t.remove(); irA("historial"); verCorrida(r.corridaVer); } }, "Ver")] : null,
+      cantNuevos ? [" ", h("a", { href: "#", onclick: (ev) => { ev.preventDefault(); ev.stopPropagation(); t.remove(); if (r.kb !== E.kb) { $("#kb").value = r.kb; cambiarKb(r.kb); } RV.filtro = "nuevos"; RV.armada = false; irA("revision"); } }, "Ver revisión")] : null),
+      ok ? "ok" : "error", ok ? 8000 : 0);
+    if (E.vista === "historial") pintarHistorial();
+    if (E.vista === "revision" && r.revision) cargarRevision();
+    if (E.suite && r.corridas?.some((c) => c.suite === E.suite._id)) abrirSuite(E.suite._id);
+  }
+}
+
+async function accionMotor(accion) {
+  if (!E.kb) return;
+  $("#motor").dataset.estado = accion === "detener" ? "apagado" : "iniciando";
+  $("#motor-texto").textContent = accion === "detener" ? "deteniendo…" : "iniciando motor…";
+  try {
+    const r = await POST("/api/motor", { kb: E.kb, accion });
+    toast(accion === "detener" ? "Motor detenido" : `Motor listo (${fmtMs(r.msInicio)})`, "ok");
+  } catch (e) { toast(e.message, "error"); }
+  refrescarMotor();
+}
+
+async function verLogMotor() {
+  const pre = h("pre", { class: "bloque", style: { maxHeight: "60vh" } }, "Cargando…");
+  const cargar = async () => {
+    try { const r = await GET("/api/motor/log", { kb: E.kb, n: 600 }); pre.textContent = r.log || "(vacío)"; pre.scrollTop = pre.scrollHeight; }
+    catch (e) { pre.textContent = e.message; }
+  };
+  modal({ titulo: `Log del motor · ${E.kb}`, ancho: true, cuerpo: pre, botones: [{ texto: "Actualizar", accion: () => { cargar(); return false; } }, { texto: "Cerrar", prim: true }] });
+  cargar();
+}
+
+// ====================================================================== explorar
+async function cargarObjetos() {
+  const kb = E.kb;
+  let lista;
+  try {
+    lista = await GET("/api/objetos", { kb });
+  } catch (e) {
+    E.objetos = []; E.firmaObjetos = null;
+    vaciar($("#lista-objetos"), h("div", { class: "vacio" }, e.message));
+    return;
+  }
+  if (kb !== E.kb) return; // se cambió de KB mientras llegaba
+  // Al volver a la ventana se recarga: si no cambió nada, no se repinta (conserva el scroll).
+  const firma = kb + "|" + JSON.stringify(lista);
+  if (firma === E.firmaObjetos) return;
+  E.objetos = lista; E.firmaObjetos = firma;
+  pintarListaObjetos();
+}
+
+function recientes() { return almacen.leer(`recientes.${E.kb}`, []); }
+function marcarReciente(nombre) {
+  const r = recientes().filter((x) => x !== nombre);
+  r.unshift(nombre);
+  almacen.guardar(`recientes.${E.kb}`, r.slice(0, 30));
+}
+
+function pintarListaObjetos() {
+  const q = $("#buscar-objeto").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const rec = recientes();
+  let lista = E.objetos.filter((o) => {
+    if (E.filtros.has("recientes") && !rec.includes(o.nombre)) return false;
+    if (E.filtros.has("errores") && !o.errores) return false;
+    const tipos = ["Procedure", "DataProvider"].filter((t) => E.filtros.has(t));
+    if (tipos.length && !tipos.includes(o.tipo)) return false;
+    const n = (o.nombre + " " + o.descripcion).toLowerCase();
+    return q.every((p) => n.includes(p));
+  });
+  if (E.filtros.has("recientes")) lista.sort((a, b) => rec.indexOf(a.nombre) - rec.indexOf(b.nombre));
+  const total = lista.length;
+  lista = lista.slice(0, 400);
+  const cont = $("#lista-objetos");
+  vaciar(cont, lista.length ? lista.map((o) => h("div", {
+    class: `item ${E.obj?.nombre === o.nombre ? "activo" : ""}`, title: o.nombre, onclick: () => seleccionarObjeto(o.nombre),
+  }, h("div", { style: { flex: 1, minWidth: 0 } },
+    h("div", { class: "t" }, corto(o.nombre), " ", o.tipo === "DataProvider" ? pill("DP", "acento") : null, o.errores ? pill("errores", "falla") : null),
+    h("div", { class: "s" }, modulo(o.nombre) || "(raíz)", " · ", o.parametros.map((p) => `${p.io}:${p.nombre}`).join(", ") || "sin parámetros"))))
+    : h("div", { class: "vacio" }, "No hay objetos que coincidan."),
+  total > lista.length ? h("div", { class: "pie" }, `Mostrando 400 de ${total}. Afiná la búsqueda.`) : h("div", { class: "pie" }, `${total} objetos`));
+}
+
+async function seleccionarObjeto(nombre) {
+  const det = $("#detalle-objeto");
+  vaciar(det, h("div", { class: "vacio-grande" }, cargando(`Cargando ${nombre}…`)));
+  E.desc = null; E.ultimoRes = null; E.pendientes = []; E.sqlDespues = []; E.transaccion = "rollback";
+  try {
+    E.obj = await GET("/api/objeto", { kb: E.kb, nombre });
+  } catch (e) {
+    vaciar(det, h("div", { class: "error-caja" }, e.message));
+    return;
+  }
+  almacen.guardar(`obj.${E.kb}`, E.obj.nombre);
+  marcarReciente(E.obj.nombre);
+  pintarListaObjetos();
+  const borrador = almacen.leer(`entrada.${E.kb}.${E.obj.nombre}`, null);
+  E.entrada = borrador || {};
+  E.sqlDespues = almacen.leer(`sql.${E.kb}.${E.obj.nombre}`, []);
+  pintarObjeto();
+  // describir: arranca el motor si hace falta (la primera vez tarda unos segundos)
+  try {
+    const d = await GET("/api/describir", { kb: E.kb, nombre: E.obj.nombre });
+    if (E.obj?.nombre !== nombre) return;
+    E.desc = d;
+    if (!borrador) E.entrada = clonar(d.plantillaEntrada);
+    pintarObjeto();
+  } catch (e) {
+    if (E.obj?.nombre !== nombre) return;
+    E.desc = { error: e.message };
+    pintarObjeto();
+  }
+  refrescarMotor();
+}
+
+function guardarBorrador() {
+  if (!E.obj) return;
+  almacen.guardar(`entrada.${E.kb}.${E.obj.nombre}`, E.entrada);
+  almacen.guardar(`sql.${E.kb}.${E.obj.nombre}`, E.sqlDespues);
+}
+
+function pintarObjeto() {
+  const o = E.obj;
+  const det = $("#detalle-objeto");
+  const params = E.desc?.parametros || o.parametros;
+  const cab = h("div", null,
+    h("h2", { class: "titulo" }, o.nombre),
+    h("div", { class: "subtitulo" },
+      pill(o.tipo === "DataProvider" ? "Data Provider" : "Procedimiento", "acento"),
+      o.descripcion && o.descripcion !== corto(o.nombre) ? h("span", null, o.descripcion) : null,
+      o.errores ? pill(`${o.errores} error(es) de especificación`, "falla") : null,
+      o.warnings ? pill(`${o.warnings} warning(s)`, "aviso") : null,
+      o.haceCommit ? h("span", { class: "pill aviso", title: "El Java del objeto llama a commit: el rollback de GxPruebas no deshace sus cambios" }, "⚠ hace commit") : null,
+      h("span", { class: "mono chico muted", title: o.fuenteJava, style: { cursor: "pointer" }, onclick: () => copiar(o.claseJava) }, o.claseJava)));
+
+  const avisos = [];
+  if (E.desc?.error) avisos.push(h("div", { class: "error-caja" }, "No se pudo preparar el objeto en el motor Java:\n" + E.desc.error));
+  if (E.desc?.aviso) avisos.push(h("div", { class: "aviso-caja" }, "⚠ ", E.desc.aviso));
+  if (o.errores) avisos.push(h("div", { class: "aviso-caja" }, "⚠ El objeto tiene errores de especificación: puede que el Java compilado no corresponda a la versión actual."));
+
+  const tablaParams = h("table", { class: "tabla" },
+    h("thead", null, h("tr", null, h("th", null, "#"), h("th", null, "Dirección"), h("th", null, "Parámetro"), h("th", null, "Tipo"))),
+    h("tbody", null, params.length ? params.map((p, i) => h("tr", null,
+      h("td", { class: "muted" }, i + 1), h("td", null, pill(p.io, `io-${p.io}`)),
+      h("td", { class: "mono" }, (p.atributo ? "" : "&") + p.nombre),
+      h("td", { class: "mono" }, p.tipoJava || (E.desc ? "?" : cargando(""))))) : h("tr", null, h("td", { colspan: 4, class: "muted" }, "Sin parámetros"))));
+
+  const pests = subpestanas([
+    { id: "ejecutar", texto: "Ejecutar", render: panelEjecutar },
+    { id: "navegacion", texto: "Navegación", n: contarNiveles(o.niveles), render: panelNavegacion },
+    { id: "mensajes", texto: "Mensajes", n: (o.warnings || 0) + (o.errores || 0), render: panelMensajes },
+  ], almacen.leer("subpestanaObjeto", "ejecutar"));
+  pests.querySelector(".subpestanas").addEventListener("click", (ev) => {
+    const b = ev.target.closest("button"); if (!b) return;
+    const ids = ["ejecutar", "navegacion", "mensajes"];
+    const i = Array.from(b.parentNode.children).indexOf(b);
+    almacen.guardar("subpestanaObjeto", ids[i]);
+  });
+
+  vaciar(det, cab, avisos,
+    h("div", { class: "tarjeta" }, h("div", { class: "cab" }, h("h3", null, "Parámetros")), h("div", { class: "cuerpo", style: { padding: 0 } }, tablaParams)),
+    pests);
+}
+
+function contarNiveles(niveles) { let n = 0; const r = (l) => l.forEach((x) => { n++; r(x.subniveles || []); }); r(niveles || []); return n; }
+
+function panelEjecutar() {
+  const o = E.obj;
+  const cajaEntrada = h("div");
+  let editorTexto = null;
+  let formulario = null;
+  const pintarEntrada = () => {
+    if (E.modoEntrada === "json") {
+      editorTexto = editorJson(E.entrada, { filas: 16, alCambiar: (v, ok) => { if (ok && v !== undefined) { E.entrada = v; guardarBorrador(); } } });
+      vaciar(cajaEntrada, editorTexto);
+    } else {
+      formulario = formularioJson(E.entrada, E.desc?.plantillaEntrada, (v) => { E.entrada = v; guardarBorrador(); });
+      vaciar(cajaEntrada, Object.keys(E.entrada || {}).length ? formulario : h("div", { class: "muted chico" },
+        E.desc ? "Este objeto no recibe parámetros de entrada." : cargando("Preparando la plantilla (la primera vez se inicia el motor Java)…")));
+    }
+  };
+  const seg = h("div", { class: "grupo-seg" },
+    ["form", "json"].map((m) => h("button", {
+      class: E.modoEntrada === m ? "activa" : "", onclick: (ev) => {
+        E.modoEntrada = m; almacen.guardar("modoEntrada", m);
+        $$("button", seg).forEach((b) => b.classList.toggle("activa", b === ev.target));
+        pintarEntrada();
+      },
+    }, m === "form" ? "Formulario" : "JSON")));
+  pintarEntrada();
+
+  const listaSql = h("div");
+  const ds = (kbActual()?.datasources || []).map((d) => d.nombre);
+  const pintarSql = () => vaciar(listaSql, E.sqlDespues.map((s, i) => h("div", { class: "fila", style: { marginBottom: "6px", alignItems: "flex-start" } },
+    h("select", { onchange: (ev) => { s.ds = ev.target.value; guardarBorrador(); } }, ds.map((d) => h("option", { value: d, selected: d === s.ds ? "" : null }, d))),
+    h("textarea", { class: "codigo", rows: 2, style: { flex: 1, width: "auto" }, oninput: (ev) => { s.query = ev.target.value; guardarBorrador(); } }, s.query || ""),
+    h("button", { class: "btn fantasma icono", title: "Quitar", onclick: () => { E.sqlDespues.splice(i, 1); guardarBorrador(); pintarSql(); } }, "✕"))));
+  pintarSql();
+
+  const resultado = h("div", { id: "resultado-ejecucion" });
+  pintarResultadoEjecucion(resultado);
+
+  const btnEjecutar = h("button", { class: "btn prim", id: "btn-ejecutar", onclick: ejecutarObjeto, disabled: !E.desc || !!E.desc.error }, "▶ Ejecutar");
+  const izquierda = h("div", { class: "tarjeta" },
+    h("div", { class: "cab" }, h("h3", null, "Entrada"), h("span", { class: "espacio" }), seg,
+      h("button", { class: "btn chico", title: "Volver a la plantilla vacía", onclick: () => { E.entrada = clonar(E.desc?.plantillaEntrada || {}); guardarBorrador(); pintarEntrada(); } }, "Plantilla"),
+      h("button", { class: "btn chico", title: "Copiar la entrada como JSON", onclick: () => copiar(json(E.entrada)) }, "Copiar")),
+    h("div", { class: "cuerpo" }, cajaEntrada,
+      h("div", { class: "sep" }),
+      h("div", { class: "fila", style: { marginBottom: "6px" } }, h("b", null, "Consultas SQL después"),
+        h("span", { class: "muted chico" }, "Corren en la misma transacción: ven los cambios aunque después se deshagan."), h("span", { class: "espacio" }),
+        h("button", { class: "btn chico", onclick: () => { E.sqlDespues.push({ ds: ds[ds.length - 1] || "", query: "select * from " }); guardarBorrador(); pintarSql(); } }, "+ consulta")),
+      listaSql,
+      h("div", { class: "sep" }),
+      h("div", { class: "fila" },
+        h("span", { class: "muted" }, "Al terminar:"),
+        h("div", { class: "grupo-seg" }, [["rollback", "Rollback"], ["commit", "Commit"]].map(([v, t]) => h("button", {
+          class: E.transaccion === v ? "activa" : "", title: v === "commit" ? "Confirma los cambios en la base" : "Deshace todos los cambios (recomendado)",
+          onclick: (ev) => { E.transaccion = v; $$("button", ev.target.parentNode).forEach((b) => b.classList.toggle("activa", b === ev.target)); },
+        }, t))),
+        h("span", { class: "espacio" }),
+        h("span", { class: "muted chico" }, h("kbd", null, "Ctrl"), "+", h("kbd", null, "Enter")),
+        btnEjecutar,
+        h("button", { class: "btn", onclick: guardarComoCaso, disabled: !E.ultimoRes, id: "btn-guardar-caso" }, "Guardar como caso…"))));
+
+  const derecha = h("div", { class: "tarjeta" }, h("div", { class: "cab" }, h("h3", null, "Resultado"), h("span", { class: "espacio" }),
+    E.historialSesion.filter((x) => x.objeto === o.nombre).length ? h("button", { class: "btn chico", onclick: verHistorialSesion }, "Ejecuciones anteriores") : null),
+  h("div", { class: "cuerpo" }, resultado));
+  return h("div", { class: "col2" }, izquierda, derecha);
+}
+
+function pintarResultadoEjecucion(cont = $("#resultado-ejecucion")) {
+  if (!cont) return;
+  if (!E.ultimoRes) {
+    vaciar(cont, h("div", { class: "muted", style: { padding: "30px 0", textAlign: "center" } }, "Todavía no lo ejecutaste."));
+    return;
+  }
+  if (E.ultimoRes === "corriendo") { vaciar(cont, h("div", { style: { padding: "30px 0", textAlign: "center" } }, cargando("Ejecutando…"))); return; }
+  const res = E.ultimoRes;
+  const vista = vistaResultado(res, {
+    abrirTodo: true,
+    alVerificar: (idx, ruta, valor, ev) => menuVerificacion(ev, ruta, valor, (v) => {
+      E.pendientes.push({ paso: idx, ...v });
+      pintarPendientes(pend);
+      toast(v.ignorar ? `Se ignorará ${v.ignorar}` : `Verificación agregada: ${v.ruta} ${v.op}`, "ok", 1800);
+    }),
+  });
+  const pend = h("div");
+  pintarPendientes(pend);
+  vaciar(cont, vista, pend);
+}
+
+function pintarPendientes(cont) {
+  if (!E.pendientes.length) { vaciar(cont); return; }
+  vaciar(cont, h("div", { class: "sep" }),
+    h("div", { class: "fila", style: { marginBottom: "6px" } }, h("b", null, `Para el caso de prueba (${E.pendientes.length})`),
+      h("span", { class: "muted chico" }, "Se incluyen al guardar como caso."), h("span", { class: "espacio" }),
+      h("button", { class: "btn chico fantasma", onclick: () => { E.pendientes = []; pintarPendientes(cont); } }, "Limpiar")),
+    h("div", { class: "chips" }, E.pendientes.map((v, i) => h("span", { class: "chip", title: json(v) },
+      h("span", null, v.ignorar ? `ignorar ${v.ignorar}` : `${v.ruta || "$"} ${v.op}${v.valor !== undefined ? " " + resumirValor(v.valor, 30) : ""}`),
+      h("button", { onclick: () => { E.pendientes.splice(i, 1); pintarPendientes(cont); } }, "✕")))));
+}
+
+async function ejecutarObjeto() {
+  if (!E.obj || !E.desc || E.desc.error) return;
+  if (E.modoEntrada === "json") {
+    const ta = $("#detalle-objeto textarea.codigo");
+    if (ta) { try { E.entrada = ta.value.trim() ? JSON.parse(ta.value) : {}; } catch (e) { toast("La entrada no es un JSON válido: " + e.message, "error"); return; } }
+  }
+  if (E.transaccion === "commit" && !(await confirmar("Vas a ejecutar con COMMIT: los cambios quedan grabados en la base.\n¿Seguir?", { si: "Ejecutar con commit", peligro: true }))) return;
+  const btn = $("#btn-ejecutar");
+  if (btn) btn.disabled = true;
+  E.ultimoRes = "corriendo"; E.pendientes = [];
+  pintarResultadoEjecucion();
+  const t0 = Date.now();
+  // Lo que se manda queda junto al resultado: "Guardar como caso" usa esto y no lo que haya en pantalla
+  // (si se editó después, la línea base no correspondería a la entrada).
+  const enviado = {
+    objeto: E.obj.nombre, entrada: clonar(E.entrada), transaccion: E.transaccion,
+    sql: clonar(E.sqlDespues.filter((s) => (s.query || "").trim())),
+  };
+  try {
+    const res = await POST("/api/ejecutar", { kb: E.kb, ...enviado });
+    res.enviado = enviado;
+    E.ultimoRes = res;
+    E.historialSesion.unshift({ fecha: new Date(), objeto: E.obj.nombre, entrada: clonar(E.entrada), res, ms: Date.now() - t0 });
+    E.historialSesion = E.historialSesion.slice(0, 50);
+  } catch (e) {
+    E.ultimoRes = { estado: "error", nombre: E.obj.nombre, enviado, pasos: [{ nombre: E.obj.nombre, estado: "error", error: e.message, verificaciones: [], diferencias: [], advertencias: [] }] };
+  }
+  if (btn) btn.disabled = false;
+  const g = $("#btn-guardar-caso"); if (g) g.disabled = false;
+  pintarResultadoEjecucion();
+  refrescarMotor();
+}
+
+function verHistorialSesion() {
+  const lista = E.historialSesion.filter((x) => x.objeto === E.obj.nombre);
+  const m = modal({
+    titulo: "Ejecuciones de esta sesión", ancho: true,
+    cuerpo: h("table", { class: "tabla" }, h("thead", null, h("tr", null, h("th", null, "Hora"), h("th", null, "Estado"), h("th", null, "Entrada"), h("th", null, ""))),
+      h("tbody", null, lista.map((x) => h("tr", null,
+        h("td", null, x.fecha.toLocaleTimeString()), h("td", null, pillEstado(x.res.estado)),
+        h("td", { class: "mono" }, resumirValor(x.entrada, 140)),
+        h("td", null, h("button", { class: "btn chico", onclick: () => { E.entrada = clonar(x.entrada); E.ultimoRes = x.res; guardarBorrador(); m.cerrar(); pintarObjeto(); } }, "Restaurar")))))),
+  });
+}
+
+function panelNavegacion() {
+  const o = E.obj;
+  if (!o.niveles?.length) return h("div", { class: "muted", style: { padding: "10px 0" } }, "El objeto no tiene For Each / accesos a la base en su navegación (o usa Business Components).");
+  const nivel = (n) => h("div", { class: "nivel" },
+    h("div", { class: "fila" }, h("b", null, n.tipo || "Nivel"), n.tabla ? pill(n.tabla, "acento") : null,
+      n.linea ? h("span", { class: "muted chico" }, `línea ${n.linea}`) : null,
+      n.indice ? h("span", { class: "chico" }, "índice ", h("code", null, n.indice)) : (n.tabla ? pill("sin índice", "aviso") : null),
+      (n.optimizaciones || []).filter(Boolean).map((x) => pill(x))),
+    h("dl", null,
+      n.tablaDescripcion ? [h("dt", null, "Tabla"), h("dd", null, n.tablaDescripcion)] : null,
+      n.orden ? [h("dt", null, "Orden"), h("dd", null, n.orden)] : null,
+      n.desde ? [h("dt", null, "Empieza en"), h("dd", null, n.desde)] : null,
+      n.mientras ? [h("dt", null, "Mientras"), h("dd", null, n.mientras)] : null,
+      n.filtros ? [h("dt", null, "Filtros"), h("dd", null, n.filtros)] : null,
+      n.condicion && n.condicion !== n.filtros ? [h("dt", null, "Condición"), h("dd", null, n.condicion)] : null,
+      n.join?.length ? [h("dt", null, "Navega"), h("dd", null, n.join.join(", "))] : null,
+      n.actualiza?.length ? [h("dt", null, "Actualiza"), h("dd", null, n.actualiza.join(", "))] : null),
+    (n.subniveles || []).map(nivel));
+  return h("div", null, h("div", { class: "muted chico", style: { marginBottom: "6px" } }, "Según la última especificación (GXSPC…/NVG). Los filtros que no aparecen en «Empieza en / Mientras» recorren la tabla."), o.niveles.map(nivel));
+}
+
+function panelMensajes() {
+  const o = E.obj;
+  const es = o.listaErrores || [], ws = o.listaWarnings || [];
+  if (!es.length && !ws.length) return h("div", { class: "muted", style: { padding: "10px 0" } }, "Sin warnings ni errores en la última especificación.");
+  const fila = (m, tipo) => h("tr", null, h("td", null, pill(tipo, tipo === "error" ? "falla" : "aviso")), h("td", { class: "mono" }, m.codigo), h("td", null, m.texto));
+  return h("table", { class: "tabla" }, h("tbody", null, es.map((m) => fila(m, "error")), ws.map((m) => fila(m, "warning"))));
+}
+
+function kbActual() { return E.kbs.find((k) => k.nombre === E.kb); }
+
+// ---------------------------------------------------------------------- guardar como caso
+async function guardarComoCaso() {
+  const res = E.ultimoRes;
+  if (!res || res === "corriendo") return;
+  let suitesKb = [];
+  try { suitesKb = await GET("/api/suites", { kb: E.kb }); } catch { /* sin suites */ }
+  const ultima = almacen.leer(`ultimaSuite.${E.kb}`, null);
+  const selSuite = h("select", null, suitesKb.map((s) => h("option", { value: s.id, selected: s.id === ultima ? "" : null }, `${s.nombre}  (${s.casos} casos)`)),
+    h("option", { value: "__nueva", selected: !suitesKb.length ? "" : null }, "➕ Nueva suite…"));
+  const nombreSuite = h("input", { type: "text", placeholder: "Nombre de la nueva suite", value: modulo(E.obj.nombre).split(".").slice(1).join(" - ") || E.kb });
+  const filaNueva = h("div", { style: { display: selSuite.value === "__nueva" ? "contents" : "none" } }, h("label", null, "Nueva suite"), nombreSuite);
+  selSuite.addEventListener("change", () => { filaNueva.style.display = selSuite.value === "__nueva" ? "contents" : "none"; });
+  const nombreCaso = h("input", { type: "text", value: `${corto(E.obj.nombre)}: ` });
+  const etiquetas = h("input", { type: "text", placeholder: "separadas por coma", value: corto(E.obj.nombre).toLowerCase() });
+  const pasoObj = res.pasos[0];
+  // Lo que se ejecutó de verdad (el resultado de una ejecución vieja restaurada del historial lo trae igual).
+  const env = res.enviado || { objeto: E.obj.nombre, entrada: E.entrada, transaccion: E.transaccion, sql: E.sqlDespues.filter((s) => (s.query || "").trim()) };
+  // Excepción: el caso pasa si vuelve a terminar con este mismo error (y falla si termina bien o con otro).
+  const conExcepcion = pasoObj?.estado === "error" && !!pasoObj.error;
+  const textoError = conExcepcion ? pasoObj.error.split("\n")[0].slice(0, 150) : "";
+  const chkError = h("input", { type: "checkbox", checked: true });
+  const modoCmp = h("select", null,
+    h("option", { value: "todo" }, "Toda la salida (recomendado)"),
+    h("option", { value: "estructura" }, "Solo la estructura, Ok y los códigos de mensaje"));
+  const chkSql = h("input", { type: "checkbox", checked: env.sql.length > 0 });
+  // Lo que además tiene que cumplirse siempre: lo que se eligió haciendo clic en la salida y las sugerencias
+  // del servidor (Ok y códigos de mensaje ya marcados). Cada una queda como verificación del paso.
+  const items = [];
+  const clave = (i, v) => `${i}|${v.ruta}|${v.op}|${JSON.stringify(v.valor)}`;
+  const vistos = new Set();
+  const agregar = (i, v, marcada, prefijo) => {
+    const k = v.ignorar ? `${i}|ignorar|${v.ignorar}` : clave(i, v);
+    if (vistos.has(k)) return;
+    vistos.add(k);
+    const chk = h("input", { type: "checkbox", checked: marcada });
+    items.push({ paso: i, v, chk, fila: h("label", { class: "chk", title: v.ignorar || `${v.ruta} ${v.op} ${resumirValor(v.valor, 80)}` }, chk,
+      prefijo ? h("span", { class: "muted" }, prefijo) : null,
+      v.ignorar ? ["No comparar ", h("code", null, v.ignorar)] : (v.descripcion || [h("code", null, v.ruta), ` ${v.op.replace("_", " ")} `, h("code", null, resumirValor(v.valor, 40))])) });
+  };
+  E.pendientes.forEach(({ paso, ...v }) => agregar(paso, v, true, paso > 0 ? `Consulta ${paso}: ` : ""));
+  res.pasos.forEach((p, i) => (p.sugerencias || []).forEach((s) => { const { marcada, ...v } = s; agregar(i, v, marcada && !conExcepcion, i > 0 ? `Consulta ${i}: ` : ""); }));
+  const lista = h("div", { style: { display: "flex", flexDirection: "column", gap: "3px", maxHeight: "220px", overflow: "auto" } },
+    items.length ? items.map((x) => x.fila) : h("span", { class: "muted chico" }, "Nada para sugerir en esta salida."));
+  const cuerpo = h("div", { class: "form-grid" },
+    h("label", null, "Suite"), selSuite, filaNueva,
+    h("label", null, "Nombre del caso"), nombreCaso,
+    h("label", null, "Etiquetas"), etiquetas,
+    ...(conExcepcion
+      ? [h("label", null, "Resultado"), h("label", { class: "chk" }, chkError, "Tiene que terminar con este error: ", h("code", null, textoError))]
+      : [h("label", null, "Comparar con esta salida"), h("div", null, modoCmp,
+        h("div", { class: "muted chico", style: { marginTop: "3px" } }, "«Solo la estructura» es para listados con datos de la base que cambian. Los valores que cambian solos (fechas, ids nuevos) se detectan al guardar, ejecutando una vez más.")),
+      ]),
+    h("label", null, "Además, siempre tiene que cumplirse"), lista,
+    ...(env.sql.length ? [h("label", null, "Consultas SQL"), h("label", { class: "chk" }, chkSql, "Guardarlas como pasos del caso")] : []));
+  modal({
+    titulo: "Guardar como caso de prueba", cuerpo, botones: [{ texto: "Cancelar" }, {
+      texto: "Guardar", prim: true, accion: async () => {
+        const nuevo = selSuite.value === "__nueva";
+        if (nuevo && !nombreSuite.value.trim()) { toast("Poné un nombre para la suite", "error"); return false; }
+        const elegidas = (i) => items.filter((x) => x.paso === i && x.chk.checked);
+        const verifs = (i) => elegidas(i).filter((x) => !x.v.ignorar).map((x) => x.v);
+        const ign = (i) => elegidas(i).filter((x) => x.v.ignorar).map((x) => x.v.ignorar);
+        const aprobar = (pr) => !conExcepcion && pr?.estado !== "error" && pr?.datos != null;
+        const modo = modoCmp.value === "estructura" ? { comparar: "estructura" } : {};
+        const pasos = [{
+          nombre: corto(env.objeto), objeto: env.objeto, entrada: clonar(env.entrada),
+          ...(conExcepcion && chkError.checked ? { esperaError: true, errorContiene: textoError } : {}),
+          ...(verifs(0).length ? { verificaciones: verifs(0) } : {}),
+          ...(ign(0).length ? { ignorar: ign(0) } : {}),
+          ...(aprobar(pasoObj) ? { lineaBase: pasoObj.datos, ...modo } : {}),
+        }];
+        if (env.sql.length && chkSql.checked && !conExcepcion) {
+          env.sql.forEach((s, j) => {
+            const pr = res.pasos[j + 1];
+            pasos.push({
+              nombre: `Consulta ${j + 1}`, sql: s.query, ds: s.ds,
+              ...(verifs(j + 1).length ? { verificaciones: verifs(j + 1) } : {}),
+              ...(ign(j + 1).length ? { ignorar: ign(j + 1) } : {}),
+              ...(aprobar(pr) ? { lineaBase: pr.datos, ...modo } : {}),
+            });
+          });
+        }
+        const caso = {
+          nombre: nombreCaso.value.trim() || corto(E.obj.nombre),
+          etiquetas: etiquetas.value.split(",").map((x) => x.trim()).filter(Boolean),
+          ...(env.transaccion === "commit" ? { transaccion: "commit" } : {}),
+          pasos,
+        };
+        const id = nuevo ? `${E.kb}/${slug(nombreSuite.value)}` : selSuite.value;
+        const espera = toast(cargando("Guardando: se ejecuta una vez más para ver qué valores cambian solos…"), "", 0);
+        try {
+          const r = await POST("/api/suite/caso", { id, kb: E.kb, nombreSuite: nombreSuite.value.trim(), caso });
+          almacen.guardar(`ultimaSuite.${E.kb}`, r.id);
+          E.pendientes = [];
+          pintarResultadoEjecucion();
+          const vol = Object.values(r.volatiles || {}).flat();
+          const t = toast(h("span", null, "Caso guardado en ", h("b", null, r.id), ". ",
+            h("a", { href: "#", onclick: (ev) => { ev.preventDefault(); t.remove(); irA("suites"); abrirSuite(r.id); } }, "Abrir la suite"),
+            vol.length ? h("div", { class: "chico" }, "Cambian solos (se controla que existan y su tipo): ", vol.join(", ")) : null,
+            (r.avisos || []).map((a) => h("div", { class: "chico" }, "⚠ ", a))), (r.avisos || []).length ? "error" : "ok", (r.avisos || []).length ? 0 : 9000);
+          cargarSuites();
+        } catch (e) { toast(e.message, "error"); return false; }
+        finally { espera.remove(); }
+      },
+    }],
+  });
+}
+
+// ====================================================================== suites
+async function cargarSuites() {
+  try {
+    E.suites = await GET("/api/suites", $("#suites-todas").checked ? undefined : { kb: E.kb });
+  } catch (e) { E.suites = []; }
+  pintarListaSuites();
+}
+
+function pintarListaSuites() {
+  const q = $("#buscar-suite").value.trim().toLowerCase();
+  const lista = E.suites.filter((s) => !q || (s.nombre + " " + s.id).toLowerCase().includes(q));
+  vaciar($("#lista-suites"), lista.length ? lista.map((s) => {
+    const u = s.ultimo;
+    const t = u?.totales || {};
+    return h("div", { class: `item ${E.suite?._id === s.id ? "activo" : ""}`, onclick: () => abrirSuite(s.id) },
+      h("span", { class: `punto-estado ${u ? (u.estado === "ok" ? "ok" : "falla") : ""}`, style: { marginTop: "5px" } }),
+      h("div", { style: { flex: 1, minWidth: 0 } },
+        h("div", { class: "t" }, s.nombre),
+        h("div", { class: "s" }, `${s.casos} casos`, s.kb !== E.kb ? ` · ${s.kb}` : "",
+          u ? ` · ${t.ok || 0}✔ ${t.falla || 0}✖ ${t.error || 0}⚠ · ${fmtFecha(u.fecha)}` : " · sin correr"),
+        s.error ? h("div", { class: "s", style: { color: "var(--falla)" } }, s.error) : null));
+  }) : h("div", { class: "vacio" }, "No hay suites. Creá una o guardá una ejecución como caso."));
+}
+
+async function nuevaSuite() {
+  const nombre = await pedirTexto("Nueva suite", `Nombre de la suite (KB ${E.kb})`);
+  if (!nombre) return;
+  try {
+    const r = await api("PUT", "/api/suite", { suite: { nombre, kb: E.kb, casos: [] } });
+    await cargarSuites();
+    irA("suites");
+    abrirSuite(r.id);
+  } catch (e) { toast(e.message, "error"); }
+}
+
+async function abrirSuite(id, conservarResultados = false) {
+  try {
+    E.suite = await GET("/api/suite", { id });
+  } catch (e) { toast(e.message, "error"); return; }
+  if (!conservarResultados) { E.resultados = {}; E.abiertos = new Set(); }
+  pintarListaSuites();
+  pintarSuite();
+}
+
+function idsResultado(caso) {
+  // un caso con 'datos' produce un resultado por fila: id#1, id#2...
+  return caso.datos?.length ? caso.datos.map((_, i) => `${caso.id}#${i + 1}`) : [caso.id];
+}
+
+function estadoCaso(caso) {
+  const ids = idsResultado(caso);
+  const actuales = ids.map((i) => E.resultados[i]).filter(Boolean);
+  if (actuales.length) {
+    const es = actuales.map((r) => r.estado);
+    return { estado: es.includes("error") ? "error" : es.includes("falla") ? "falla" : es.every((x) => x === "omitido") ? "omitido" : "ok", ms: actuales.reduce((a, r) => a + (r.ms || 0), 0), actual: true };
+  }
+  const est = E.suite._estado || {};
+  const previos = ids.map((i) => est[i]).filter(Boolean);
+  if (!previos.length) return null;
+  const es = previos.map((r) => r.estado);
+  return { estado: es.includes("error") ? "error" : es.includes("falla") ? "falla" : "ok", ms: previos.reduce((a, r) => a + (r.ms || 0), 0), fecha: previos[0].fecha, corrida: previos[0].corrida };
+}
+
+function pintarSuite() {
+  const s = E.suite;
+  const det = $("#detalle-suite");
+  const filtro = h("input", { type: "search", placeholder: "Filtrar casos…", style: { width: "200px" }, value: E.filtroCasos || "" });
+  const etiquetas = [...new Set(s.casos.flatMap((c) => c.etiquetas || []))].sort();
+  const selEtq = h("select", null, h("option", { value: "" }, "Todas las etiquetas"), etiquetas.map((e) => h("option", { value: e, selected: E.etiquetaCasos === e ? "" : null }, e)));
+  const tabla = h("div");
+  const progreso = h("div", { id: "progreso-suite" });
+  const corriendo = !!E.trabajo;
+  const visibles = () => s.casos.filter((c) => {
+    const f = (E.filtroCasos || "").toLowerCase();
+    if (f && !(c.nombre + " " + c.id + " " + c.pasos.map((p) => p.objeto || p.sql || "").join(" ")).toLowerCase().includes(f)) return false;
+    if (E.etiquetaCasos && !(c.etiquetas || []).includes(E.etiquetaCasos)) return false;
+    return true;
+  });
+  const seleccion = E.seleccion || (E.seleccion = new Set());
+  const pintarTabla = () => {
+    const vs = visibles();
+    const todosSel = vs.length && vs.every((c) => seleccion.has(c.id));
+    vaciar(tabla, s.casos.length ? h("table", { class: "tabla" },
+      h("thead", null, h("tr", null,
+        h("th", { style: { width: "28px" } }, h("input", { type: "checkbox", checked: todosSel, onchange: (ev) => { vs.forEach((c) => ev.target.checked ? seleccion.add(c.id) : seleccion.delete(c.id)); pintarTabla(); actualizarBotones(); } })),
+        h("th", { style: { width: "80px" } }, "Estado"), h("th", null, "Caso"), h("th", null, "Pasos"), h("th", { style: { width: "80px" } }, "Tiempo"), h("th", { style: { width: "130px" } }, ""))),
+      h("tbody", null, vs.map((c) => filaCaso(c)))) : h("div", { class: "vacio-grande" }, h("h3", null, "La suite no tiene casos"),
+      h("div", null, "Agregá uno con ", h("b", null, "+ Caso"), " o desde ", h("b", null, "Explorar → Guardar como caso"), ".")));
+  };
+  const filaCaso = (c) => {
+    const est = estadoCaso(c);
+    const abierto = E.abiertos.has(c.id);
+    const pasos = c.pasos.map((p) => p.objeto ? corto(p.objeto) : "SQL").join(" → ");
+    const tr = h("tr", { class: `clic ${abierto ? "sel" : ""}` },
+      h("td", { onclick: (ev) => ev.stopPropagation() }, h("input", { type: "checkbox", checked: seleccion.has(c.id), onchange: (ev) => { ev.target.checked ? seleccion.add(c.id) : seleccion.delete(c.id); actualizarBotones(); } })),
+      h("td", null, est ? h("span", { class: "fila", style: { gap: "6px" } }, h("span", { class: `punto-estado ${est.estado}` }), h("span", { class: "chico" }, NOMBRE_ESTADO[est.estado]), est.actual ? null : h("span", { class: "muted chico", title: fmtFecha(est.fecha) }, "·")) : h("span", { class: "muted chico" }, c.omitir ? "omitido" : "—")),
+      h("td", null, h("div", null, h("b", null, c.nombre), c.omitir ? [" ", pill("omitido")] : null),
+        h("div", { class: "fila", style: { gap: "4px", marginTop: "2px" } }, (c.etiquetas || []).map((e) => pill(e)), c.datos?.length ? pill(`${c.datos.length} filas de datos`, "acento") : null,
+          c.pasos.some((p) => p.lineaBase !== undefined && p.lineaBase !== null) ? pill("salida aprobada", "acento") : null)),
+      h("td", { class: "chico mono" }, pasos),
+      h("td", { class: "chico muted" }, est ? fmtMs(est.ms) : ""),
+      h("td", { onclick: (ev) => ev.stopPropagation() }, h("div", { class: "fila", style: { gap: "2px", flexWrap: "nowrap" } },
+        h("button", { class: "btn fantasma icono chico", title: "Correr este caso", disabled: !!E.trabajo, onclick: () => correrSuite({ casos: [c.id] }) }, "▶"),
+        h("button", { class: "btn fantasma icono chico", title: "Editar", onclick: () => editarCaso(c.id) }, "✎"),
+        h("button", { class: "btn fantasma icono chico", title: "Duplicar", onclick: () => duplicarCaso(c.id) }, "⧉"),
+        h("button", { class: "btn fantasma icono chico", title: "Subir", onclick: () => moverCaso(c.id, -1) }, "↑"),
+        h("button", { class: "btn fantasma icono chico", title: "Eliminar", onclick: () => borrarCaso(c.id) }, "🗑"))));
+    tr.addEventListener("click", () => { abierto ? E.abiertos.delete(c.id) : E.abiertos.add(c.id); pintarTabla(); });
+    if (!abierto) return tr;
+    const detalle = h("td", { colspan: 6, style: { background: "var(--panel-2)", padding: "10px 14px" } }, detalleCaso(c, est));
+    return [tr, h("tr", null, detalle)];
+  };
+  const btnSel = h("button", { class: "btn", onclick: () => correrSuite({ casos: [...seleccion] }) }, "▶ Correr seleccionados");
+  const btnFallidos = h("button", { class: "btn", onclick: () => correrSuite({ casos: s.casos.filter((c) => ["falla", "error"].includes(estadoCaso(c)?.estado)).map((c) => c.id) }) }, "▶ Correr fallidos");
+  const actualizarBotones = () => {
+    const n = [...seleccion].filter((id) => s.casos.some((c) => c.id === id)).length;
+    btnSel.disabled = !n || !!E.trabajo; btnSel.textContent = `▶ Correr seleccionados${n ? ` (${n})` : ""}`;
+    btnFallidos.disabled = !!E.trabajo || !s.casos.some((c) => ["falla", "error"].includes(estadoCaso(c)?.estado));
+  };
+  filtro.addEventListener("input", () => { E.filtroCasos = filtro.value; pintarTabla(); });
+  selEtq.addEventListener("change", () => { E.etiquetaCasos = selEtq.value; pintarTabla(); });
+
+  const ult = (s._estado || {})._resumen;
+  vaciar(det,
+    h("h2", { class: "titulo" }, s.nombre),
+    h("div", { class: "subtitulo" }, pill(s.kb || "sin KB", "acento"), h("span", { class: "mono chico" }, s._id), `${s.casos.length} casos`,
+      ult ? h("span", { class: "chico" }, "última corrida ", fmtFecha(ult.fecha), " · ", `${ult.totales.ok}✔ ${ult.totales.falla}✖ ${ult.totales.error}⚠`) : null,
+      s.opciones?.transaccion === "commit" ? pill("commit", "aviso") : pill(s.opciones?.transaccion || "rollback")),
+    s.descripcion ? h("div", { class: "muted", style: { marginBottom: "10px" } }, s.descripcion) : null,
+    h("div", { class: "tarjeta" },
+      h("div", { class: "cab" },
+        h("button", { class: "btn prim", disabled: corriendo, onclick: () => correrSuite({}) }, "▶ Correr todo"),
+        btnSel, btnFallidos,
+        h("button", { class: "btn", disabled: corriendo, title: "Corre y guarda las salidas como resultado esperado", onclick: grabarLineasBase }, "● Grabar líneas base"),
+        h("span", { class: "espacio" }),
+        filtro, etiquetas.length ? selEtq : null,
+        h("button", { class: "btn", onclick: () => editarCaso(null) }, "+ Caso"),
+        h("button", { class: "btn", onclick: (ev) => menu(ev.clientX, ev.clientY, null, [
+          { texto: "Opciones, variables y preparación…", accion: editarOpcionesSuite },
+          { texto: "Editar JSON completo…", accion: editarJsonSuite },
+          { texto: "Duplicar suite", accion: duplicarSuite },
+          { texto: "Descargar JSON", accion: () => descargar(`${slug(s.nombre)}.json`, json(limpiarSuite(s))) },
+          "-",
+          { texto: "Eliminar suite…", accion: borrarSuite },
+        ]) }, "Más ▾")),
+      progreso,
+      h("div", { class: "cuerpo", style: { padding: 0 } }, tabla)));
+  pintarTabla();
+  actualizarBotones();
+  if (E.trabajo) pintarProgreso();
+  E.repintarTablaSuite = () => { pintarTabla(); actualizarBotones(); };
+}
+
+function detalleCaso(c, est) {
+  const ids = idsResultado(c);
+  const cont = h("div");
+  const mostrar = (resultados) => {
+    vaciar(cont);
+    if (!resultados.length) {
+      cont.appendChild(h("div", { class: "muted" }, "Sin resultados todavía. Corré el caso para verlo acá."));
+    }
+    const defPaso = (paso) => E.suite.casos.find((x) => x.id === c.id)?.pasos[paso];
+    for (const r of resultados) {
+      cont.appendChild(vistaResultado(r, {
+        caso: E.suite.casos.find((x) => x.id === c.id),
+        alAceptar: async (paso, datos, fila, pr) => {
+          // Lo principal es no dar por buena una salida incorrecta: si no cumple lo que el caso exige, se pregunta.
+          const malas = (pr?.verificaciones || []).filter((v) => !v.ok);
+          if (malas.length && !(await confirmar(`Esta salida NO cumple ${malas.length} verificación(es) del caso:\n\n${malas.map((v) => `• ${v.descripcion || `${v.ruta} ${v.op} ${resumirValor(v.valor, 40)}`}`).join("\n")}\n\nSi la aceptás, esas verificaciones van a seguir fallando. ¿Aceptarla igual?`, { si: "Aceptar igual", peligro: true }))) return;
+          try {
+            await POST("/api/lineabase", { suite: E.suite._id, caso: c.id, paso, fila, datos });
+            toast("Salida aprobada: de ahora en más se compara contra esta", "ok");
+            await abrirSuite(E.suite._id, true);
+          } catch (e) { toast(e.message, "error"); }
+        },
+        alIgnorar: async (paso, ruta) => {
+          const p = defPaso(paso);
+          if (!(p.ignorar = p.ignorar || []).includes(ruta)) p.ignorar.push(ruta);
+          await guardarSuite(`No se compara más ${ruta} en «${p.nombre || p.objeto}». Volvé a correr el caso para verificar.`);
+        },
+        alModo: async (paso, modo) => {
+          const p = defPaso(paso);
+          if (modo === "estructura") p.comparar = "estructura"; else delete p.comparar;
+          await guardarSuite(modo === "estructura" ? `«${p.nombre || p.objeto}» compara solo la estructura, Ok y los códigos de mensaje` : `«${p.nombre || p.objeto}» compara toda la salida`);
+        },
+        alVerificar: (paso, ruta, valor, ev) => menuVerificacion(ev, ruta, valor, async (v) => {
+          const caso = E.suite.casos.find((x) => x.id === c.id);
+          const p = caso.pasos[paso];
+          if (v.ignorar) (p.ignorar = p.ignorar || []).includes(v.ignorar) || p.ignorar.push(v.ignorar);
+          else (p.verificaciones = p.verificaciones || []).push(v);
+          await guardarSuite(v.ignorar ? `Se ignorará ${v.ignorar}` : `Verificación agregada al paso «${p.nombre || p.objeto}»`);
+        }),
+      }));
+    }
+  };
+  const actuales = ids.map((i) => E.resultados[i]).filter(Boolean);
+  if (actuales.length) { mostrar(actuales); return cont; }
+  if (est?.corrida) {
+    cont.appendChild(cargando("Cargando el último resultado…"));
+    obtenerCorrida(est.corrida).then((cor) => {
+      const rs = cor.casos.filter((r) => ids.includes(r.id));
+      rs.forEach((r) => (E.resultados[r.id] = r));
+      mostrar(rs);
+      if (rs.length) cont.prepend(h("div", { class: "muted chico", style: { marginBottom: "6px" } }, `Resultado de la corrida del ${fmtFecha(cor.fin)}`));
+    }).catch(() => mostrar([]));
+    return cont;
+  }
+  mostrar([]);
+  return cont;
+}
+
+async function obtenerCorrida(id) {
+  if (!E.corridasCache[id]) E.corridasCache[id] = await GET("/api/corrida", { id });
+  return E.corridasCache[id];
+}
+
+function limpiarSuite(s) {
+  const o = {};
+  for (const [k, v] of Object.entries(s)) if (!k.startsWith("_")) o[k] = v;
+  return o;
+}
+
+async function guardarSuite(mensaje) {
+  try {
+    await api("PUT", "/api/suite", { id: E.suite._id, suite: limpiarSuite(E.suite) });
+    if (mensaje) toast(mensaje, "ok", 2000);
+    await abrirSuite(E.suite._id, true);
+    cargarSuites();
+  } catch (e) { toast(e.message, "error"); }
+}
+
+async function correrSuite({ casos, grabar = false }) {
+  if (E.trabajo) return;
+  if (casos && !casos.length) return;
+  const s = E.suite;
+  for (const c of s.casos) if (!casos || casos.includes(c.id)) idsResultado(c).forEach((i) => delete E.resultados[i]);
+  try {
+    const r = await POST("/api/corridas", { suite: s._id, casos, grabar });
+    E.trabajo = { id: r.trabajo, suite: s._id, desde: 0, estado: "esperando", casos: [], total: 0, grabar };
+  } catch (e) { toast(e.message, "error"); return; }
+  pintarSuite();
+  sondearTrabajo();
+}
+
+async function sondearTrabajo() {
+  const t = E.trabajo;
+  if (!t) return;
+  let r;
+  try { r = await GET("/api/trabajo", { id: t.id, desde: t.desde }); } catch (e) { toast(e.message, "error"); E.trabajo = null; return; }
+  for (const c of r.casos) { t.casos.push(c); E.resultados[c.id] = c; }
+  t.desde = r.cantidad;
+  t.estado = r.estado; t.total = r.total || t.total; t.error = r.error;
+  if (E.suite?._id === t.suite) { pintarProgreso(); E.repintarTablaSuite && E.repintarTablaSuite(); }
+  if (["esperando", "corriendo"].includes(r.estado)) { setTimeout(sondearTrabajo, 350); return; }
+  E.trabajo = null;
+  const tot = r.totales || {};
+  if (r.estado === "error") toast("La corrida falló: " + (r.error || ""), "error");
+  else toast(`Corrida terminada: ${tot.ok || 0} ok, ${tot.falla || 0} con fallas, ${tot.error || 0} con errores${r.lineasBaseGrabadas ? ` · ${r.lineasBaseGrabadas} líneas base grabadas` : ""}`,
+    (tot.falla || tot.error) ? "error" : "ok", 6000);
+  if (E.suite?._id === t.suite) await abrirSuite(t.suite, true);
+  cargarSuites();
+  refrescarMotor();
+}
+
+function pintarProgreso() {
+  const cont = $("#progreso-suite");
+  const t = E.trabajo;
+  if (!cont) return;
+  if (!t) { vaciar(cont); return; }
+  const tot = { ok: 0, falla: 0, error: 0, omitido: 0 };
+  t.casos.forEach((c) => (tot[c.estado] = (tot[c.estado] || 0) + 1));
+  const pct = t.total ? Math.round((t.casos.length / t.total) * 100) : 0;
+  vaciar(cont, h("div", { style: { padding: "10px 14px", borderBottom: "1px solid var(--borde)" } },
+    h("div", { class: "fila", style: { marginBottom: "6px" } }, h("span", { class: "cargando" }),
+      h("b", null, t.grabar ? "Grabando líneas base…" : "Corriendo…"), h("span", { class: "muted" }, `${t.casos.length} de ${t.total || "?"}`),
+      h("div", { class: "contadores" }, pill(`${tot.ok} ok`, "ok"), tot.falla ? pill(`${tot.falla} fallas`, "falla") : null, tot.error ? pill(`${tot.error} errores`, "error") : null),
+      h("span", { class: "espacio" }),
+      h("button", { class: "btn chico peligro", onclick: () => POST(`/api/trabajo/cancelar?id=${t.id}`) }, "Cancelar")),
+    h("div", { class: `progreso ${tot.falla || tot.error ? "falla" : ""}` }, h("div", { style: { width: pct + "%" } }))));
+}
+
+async function grabarLineasBase() {
+  const s = E.suite;
+  const sel = [...(E.seleccion || [])].filter((id) => s.casos.some((c) => c.id === id));
+  const ok = await confirmar(`Se van a correr ${sel.length ? sel.length + " casos seleccionados" : "todos los casos"} y sus salidas actuales pasan a ser las aprobadas.\nCada caso se ejecuta dos veces: lo que da distinto (fechas, ids nuevos) se marca como «cambia solo».\n\nHacelo solo cuando sepas que el comportamiento actual es el correcto.`, { si: "Aprobar salidas" });
+  if (ok) correrSuite({ casos: sel.length ? sel : undefined, grabar: true });
+}
+
+async function moverCaso(id, d) {
+  const cs = E.suite.casos;
+  const i = cs.findIndex((c) => c.id === id);
+  const j = i + d;
+  if (j < 0 || j >= cs.length) return;
+  [cs[i], cs[j]] = [cs[j], cs[i]];
+  await guardarSuite();
+}
+async function borrarCaso(id) {
+  const c = E.suite.casos.find((x) => x.id === id);
+  if (!(await confirmar(`¿Eliminar el caso «${c.nombre}»?`, { si: "Eliminar", peligro: true }))) return;
+  E.suite.casos = E.suite.casos.filter((x) => x.id !== id);
+  await guardarSuite("Caso eliminado");
+}
+async function duplicarCaso(id) {
+  const i = E.suite.casos.findIndex((x) => x.id === id);
+  const c = clonar(E.suite.casos[i]);
+  delete c.id; c.nombre += " (copia)";
+  E.suite.casos.splice(i + 1, 0, c);
+  await guardarSuite("Caso duplicado");
+}
+
+function editarCaso(id) {
+  const s = E.suite;
+  const existente = id ? s.casos.find((c) => c.id === id) : null;
+  const caso = existente ? clonar(existente) : { nombre: "Nuevo caso", etiquetas: [], pasos: [] };
+  const ed = editorJson(caso, { filas: 26 });
+  const ds = (E.kbs.find((k) => k.nombre === s.kb)?.datasources || []).map((d) => d.nombre);
+  const insertarPaso = (paso) => {
+    const v = ed.valor();
+    if (!v) { toast("Primero corregí el JSON", "error"); return; }
+    (v.pasos = v.pasos || []).push(paso);
+    ed.poner(v);
+  };
+  const objetoInput = h("input", { type: "text", list: "dl-objetos", placeholder: "Objeto a agregar…", style: { width: "100%" } });
+  const dl = h("datalist", { id: "dl-objetos" }, E.objetos.map((o) => h("option", { value: o.nombre })));
+  const ayudantes = h("div", { style: { display: "flex", flexDirection: "column", gap: "8px" } },
+    h("b", null, "Agregar paso"),
+    objetoInput, dl,
+    h("button", {
+      class: "btn", onclick: async () => {
+        const nombre = objetoInput.value.trim();
+        if (!nombre) { objetoInput.focus(); return; }
+        let entrada = {};
+        try { const d = await GET("/api/describir", { kb: s.kb, nombre }); entrada = d.plantillaEntrada; } catch (e) { toast(e.message, "error"); return; }
+        insertarPaso({ nombre: corto(nombre), objeto: nombre, entrada, esperado: {}, verificaciones: [] });
+        objetoInput.value = "";
+      },
+    }, "+ Paso: ejecutar objeto"),
+    h("button", { class: "btn", onclick: () => insertarPaso({ nombre: "Consulta", sql: "select count(*) as n from TABLA where ...", ds: ds[ds.length - 1] || "", verificaciones: [{ ruta: "filas[0].n", op: "igual", valor: 1 }] }) }, "+ Paso: consulta SQL"),
+    h("button", {
+      class: "btn", onclick: () => {
+        const v = ed.valor(); if (!v) return;
+        (v.datos = v.datos || []).push({ variable: "valor" }); ed.poner(v);
+      },
+    }, "+ Fila de datos (parametrizar)"),
+    h("div", { class: "sep" }),
+    h("div", { class: "chico muted" }, h("b", null, "Recordatorio"), h("br"),
+      "• ", h("code", null, "${variable}"), " usa variables de la suite, de ", h("code", null, "datos"), " o de ", h("code", null, "guardar"), ".", h("br"),
+      "• ", h("code", null, "esperado"), ": coincidencia parcial.", h("br"),
+      "• ", h("code", null, "verificaciones"), ": {ruta, op, valor, cada}.", h("br"),
+      "• ", h("code", null, "lineaBase"), ": la salida aprobada. Con ", h("code", null, "\"comparar\": \"estructura\""), " solo se controlan campos, tipos, Ok y códigos. ", h("code", null, "volatiles"), ": cambian solos (solo el tipo). ", h("code", null, "ignorar"), ": no se comparan.", h("br"),
+      "• ", h("code", null, "esperaError"), ": el paso tiene que fallar.", h("br"),
+      "• Comodines: ", h("code", null, "<<no_vacio>>"), " ", h("code", null, "<<regex:...>>"), " ", h("code", null, "<<cualquiera>>"), h("br"),
+      h("a", { href: "#", onclick: (ev) => { ev.preventDefault(); irA("ayuda"); } }, "Ver la ayuda completa")));
+  const guardar = async (correr) => {
+    const v = ed.valor();
+    if (!v) { toast("El JSON del caso no es válido", "error"); return false; }
+    if (existente) {
+      const i = s.casos.findIndex((c) => c.id === id);
+      v.id = v.id || id;
+      s.casos[i] = v;
+    } else s.casos.push(v);
+    await guardarSuite("Caso guardado");
+    if (correr) {
+      const nuevoId = existente ? v.id : E.suite.casos[E.suite.casos.length - 1].id;
+      correrSuite({ casos: [nuevoId] });
+    }
+  };
+  modal({
+    titulo: existente ? `Editar caso · ${existente.nombre}` : "Nuevo caso", ancho: true,
+    cuerpo: h("div", { style: { display: "grid", gridTemplateColumns: "minmax(0,1fr) 260px", gap: "14px" } }, ed, ayudantes),
+    botones: [{ texto: "Cancelar" }, { texto: "Guardar y correr", accion: () => guardar(true) }, { texto: "Guardar", prim: true, accion: () => guardar(false) }],
+  });
+}
+
+function editarOpcionesSuite() {
+  const s = E.suite;
+  const op = { transaccion: "rollback", recortarEspacios: true, toleranciaNumerica: 0.000001, listasParciales: false, timeoutMs: 120000, ...(s.opciones || {}) };
+  const nombre = h("input", { type: "text", value: s.nombre });
+  const desc = h("textarea", { rows: 2 }, s.descripcion || "");
+  const kb = h("select", null, E.kbs.map((k) => h("option", { value: k.nombre, selected: k.nombre === s.kb ? "" : null }, k.nombre)));
+  const tx = h("select", null, [["rollback", "Rollback al terminar cada caso (recomendado)"], ["commit", "Commit al terminar cada caso"]].map(([v, t]) => h("option", { value: v, selected: v === op.transaccion ? "" : null }, t)));
+  const recortar = h("input", { type: "checkbox", checked: op.recortarEspacios });
+  const listas = h("input", { type: "checkbox", checked: op.listasParciales });
+  const tol = h("input", { type: "text", value: String(op.toleranciaNumerica) });
+  const tmo = h("input", { type: "text", value: String(op.timeoutMs) });
+  const vars = editorJson(s.variables || {}, { filas: 6 });
+  const prep = editorJson(s.preparacion || [], { filas: 6 });
+  modal({
+    titulo: "Opciones de la suite", ancho: true,
+    cuerpo: h("div", { class: "form-grid" },
+      h("label", null, "Nombre"), nombre, h("label", null, "Descripción"), desc, h("label", null, "KB"), kb,
+      h("label", null, "Transacción"), tx,
+      h("label", null, "Comparación"), h("div", { style: { display: "flex", flexDirection: "column", gap: "4px" } },
+        h("label", { class: "chk" }, recortar, "Ignorar espacios al final de los textos (Character de GeneXus)"),
+        h("label", { class: "chk" }, listas, "Listas parciales en «esperado»: cada elemento esperado tiene que estar, en cualquier orden")),
+      h("label", null, "Tolerancia numérica"), tol,
+      h("label", null, "Tiempo máximo por paso (ms)"), tmo,
+      h("label", null, "Variables"), vars,
+      h("label", null, "Preparación (pasos)"), prep),
+    botones: [{ texto: "Cancelar" }, {
+      texto: "Guardar", prim: true, accion: async () => {
+        const v = vars.valor(), p = prep.valor();
+        if (v === undefined && vars.textarea.value.trim()) { toast("Variables: JSON inválido", "error"); return false; }
+        if (p === undefined && prep.textarea.value.trim()) { toast("Preparación: JSON inválido", "error"); return false; }
+        Object.assign(s, {
+          nombre: nombre.value.trim() || s.nombre, descripcion: desc.value, kb: kb.value, variables: v || {}, preparacion: p || [],
+          opciones: { transaccion: tx.value, recortarEspacios: recortar.checked, listasParciales: listas.checked, toleranciaNumerica: Number(tol.value) || 0, timeoutMs: Number(tmo.value) || 120000 },
+        });
+        await guardarSuite("Opciones guardadas");
+      },
+    }],
+  });
+}
+
+function editarJsonSuite() {
+  const ed = editorJson(limpiarSuite(E.suite), { filas: 30 });
+  modal({
+    titulo: `JSON de la suite · ${E.suite._id}`, ancho: true, cuerpo: ed,
+    botones: [{ texto: "Cancelar" }, {
+      texto: "Guardar", prim: true, accion: async () => {
+        const v = ed.valor();
+        if (!v) { toast("JSON inválido", "error"); return false; }
+        E.suite = { ...v, _id: E.suite._id, _estado: E.suite._estado };
+        await guardarSuite("Suite guardada");
+      },
+    }],
+  });
+}
+
+async function duplicarSuite() {
+  const nombre = await pedirTexto("Duplicar suite", "Nombre de la copia", E.suite.nombre + " (copia)");
+  if (!nombre) return;
+  try {
+    const r = await api("PUT", "/api/suite", { suite: { ...limpiarSuite(E.suite), nombre } });
+    await cargarSuites();
+    abrirSuite(r.id);
+  } catch (e) { toast(e.message, "error"); }
+}
+
+async function borrarSuite() {
+  if (!(await confirmar(`¿Eliminar la suite «${E.suite.nombre}»?\nSe mueve a la carpeta .papelera, no se borra del disco.`, { si: "Eliminar", peligro: true }))) return;
+  try {
+    await api("DELETE", `/api/suite?id=${encodeURIComponent(E.suite._id)}`);
+    E.suite = null;
+    vaciar($("#detalle-suite"), h("div", { class: "vacio-grande" }, h("h3", null, "Suite eliminada")));
+    cargarSuites();
+  } catch (e) { toast(e.message, "error"); }
+}
+
+// ====================================================================== historial
+async function pintarHistorial() {
+  const cont = $("#contenido-historial");
+  vaciar(cont, cargando());
+  let lista;
+  try { lista = await GET("/api/corridas"); } catch (e) { vaciar(cont, h("div", { class: "error-caja" }, e.message)); return; }
+  const soloKb = h("input", { type: "checkbox", checked: almacen.leer("historialSoloKb", true) });
+  const tabla = h("div");
+  const pintar = () => {
+    almacen.guardar("historialSoloKb", soloKb.checked);
+    const ls = lista.filter((c) => !soloKb.checked || c.kb === E.kb);
+    vaciar(tabla, ls.length ? h("table", { class: "tabla" },
+      h("thead", null, h("tr", null, h("th", null, "Fecha"), h("th", null, "Suite"), h("th", null, "KB"), h("th", null, "Resultado"), h("th", null, "Duración"), h("th", null, ""))),
+      h("tbody", null, ls.map((c) => {
+        const t = c.totales || {};
+        return h("tr", { class: "clic", onclick: () => verCorrida(c.id) },
+          h("td", null, fmtFecha(c.fin || c.inicio)),
+          h("td", null, h("b", null, c.suiteNombre), h("div", { class: "muted mono chico" }, c.suite)),
+          h("td", null, c.kb),
+          h("td", null, h("div", { class: "contadores" }, pill(`${t.ok || 0} ok`, "ok"), t.falla ? pill(`${t.falla} fallas`, "falla") : null, t.error ? pill(`${t.error} errores`, "error") : null, t.omitido ? pill(`${t.omitido} omitidos`) : null, c.grabar ? pill("grabó líneas base", "aviso") : null, c.origen === "build" ? pill("después del build", "acento") : null)),
+          h("td", { class: "muted" }, fmtMs(c.ms)),
+          h("td", null, h("a", { href: `/api/junit?id=${encodeURIComponent(c.id)}`, onclick: (ev) => ev.stopPropagation(), title: "Descargar JUnit XML" }, "JUnit")));
+      }))) : h("div", { class: "vacio-grande" }, h("h3", null, "Todavía no hay corridas")));
+  };
+  soloKb.addEventListener("change", pintar);
+  vaciar(cont, h("h2", { class: "titulo" }, "Historial de corridas"),
+    h("div", { class: "subtitulo" }, h("label", { class: "chk" }, soloKb, `Solo ${E.kb}`), h("span", { class: "muted chico" }, "Se conservan las últimas 300 en la carpeta resultados.")),
+    h("div", { class: "tarjeta" }, h("div", { class: "cuerpo", style: { padding: 0 } }, tabla)));
+  pintar();
+}
+
+async function verCorrida(id) {
+  let c;
+  try { c = await obtenerCorrida(id); } catch (e) { toast(e.message, "error"); return; }
+  const t = c.totales || {};
+  const lista = h("div");
+  c.casos.forEach((r) => {
+    const det = h("div", { style: { display: "none", padding: "8px 0 4px 18px" } });
+    const fila = h("div", { class: "fila", style: { padding: "6px 0", borderBottom: "1px solid var(--borde)", cursor: "pointer" } },
+      h("span", { class: `punto-estado ${r.estado}` }), h("b", null, r.nombre), pillEstado(r.estado), h("span", { class: "espacio" }), h("span", { class: "muted chico" }, fmtMs(r.ms)));
+    fila.addEventListener("click", () => {
+      if (!det.childNodes.length) det.appendChild(vistaResultado(r));
+      det.style.display = det.style.display === "none" ? "block" : "none";
+    });
+    lista.append(fila, det);
+  });
+  const fallidos = [...new Set(c.casos.filter((r) => ["falla", "error"].includes(r.estado)).map((r) => r.casoId))];
+  modal({
+    titulo: `${c.suiteNombre} · ${fmtFecha(c.fin)}`, ancho: true,
+    cuerpo: h("div", null,
+      h("div", { class: "fila", style: { marginBottom: "10px" } }, pill(`${t.ok || 0} ok`, "ok"), pill(`${t.falla || 0} fallas`, t.falla ? "falla" : ""), pill(`${t.error || 0} errores`, t.error ? "error" : ""),
+        h("span", { class: "muted" }, `${c.kb} · ${fmtMs(c.ms)}`), h("span", { class: "espacio" }),
+        h("a", { class: "btn chico", href: `/api/junit?id=${encodeURIComponent(c.id)}` }, "Descargar JUnit"),
+        h("button", { class: "btn chico", onclick: () => descargar(`${c.id}.json`, json(c)) }, "Descargar JSON")),
+      lista),
+    botones: [
+      ...(fallidos.length ? [{ texto: `Volver a correr los ${fallidos.length} fallidos`, accion: async () => { irA("suites"); await abrirSuite(c.suite); correrSuite({ casos: fallidos }); } }] : []),
+      { texto: "Abrir la suite", accion: async () => { irA("suites"); abrirSuite(c.suite); } },
+      { texto: "Cerrar", prim: true },
+    ],
+  });
+}
+
+// ====================================================================== SQL
+function pintarSql() {
+  const cont = $("#contenido-sql");
+  const k = kbActual();
+  if (!k) { vaciar(cont); return; }
+  const ds = h("select", null, k.datasources.map((d) => h("option", { value: d.nombre }, `${d.nombre} (${d.base})`)));
+  ds.value = almacen.leer(`sqlDs.${E.kb}`, k.datasources[k.datasources.length - 1]?.nombre || "");
+  const ta = h("textarea", { class: "codigo", rows: 8, id: "sql-texto", spellcheck: "false", placeholder: "select * from ..." }, almacen.leer(`sqlTexto.${E.kb}`, ""));
+  const max = h("input", { type: "number", value: 500, style: { width: "90px" } });
+  const res = h("div", { id: "sql-resultado" });
+  const historial = h("div");
+  const pintarHistorialSql = () => {
+    const hs = almacen.leer(`sqlHist.${E.kb}`, []);
+    vaciar(historial, hs.length ? hs.map((q) => h("div", { class: "item", style: { padding: "6px 10px", borderBottom: "1px solid var(--borde)", cursor: "pointer" }, onclick: () => { ta.value = q.q; ds.value = q.ds; } },
+      h("div", { class: "mono chico", style: { whiteSpace: "pre-wrap", overflowWrap: "anywhere" } }, q.q.length > 200 ? q.q.slice(0, 200) + "…" : q.q), h("div", { class: "muted chico" }, q.ds))) : h("div", { class: "muted chico", style: { padding: "10px" } }, "Las consultas que corras aparecen acá."));
+  };
+  pintarHistorialSql();
+  E.correrSqlActual = async () => {
+    const q = ta.value.trim();
+    if (!q) return;
+    almacen.guardar(`sqlTexto.${E.kb}`, ta.value);
+    almacen.guardar(`sqlDs.${E.kb}`, ds.value);
+    vaciar(res, cargando("Consultando…"));
+    try {
+      const r = await POST("/api/sql", { kb: E.kb, ds: ds.value, query: q, max: Number(max.value) || 500 });
+      const hs = almacen.leer(`sqlHist.${E.kb}`, []).filter((x) => x.q !== q);
+      hs.unshift({ q, ds: ds.value }); almacen.guardar(`sqlHist.${E.kb}`, hs.slice(0, 40));
+      pintarHistorialSql();
+      if (r.filas) {
+        const csv = () => [r.columnas.join(";"), ...r.filas.map((f) => r.columnas.map((c) => { const v = f[c]; const s = v === null ? "" : String(v); return /[;"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; }).join(";"))].join("\n");
+        vaciar(res, h("div", { class: "fila", style: { marginBottom: "8px" } }, pill(`${r.cantidad} filas${r.truncado ? " (truncado)" : ""}`, "acento"), h("span", { class: "muted chico" }, fmtMs(r.ms)), h("span", { class: "espacio" }),
+          h("button", { class: "btn chico", onclick: () => copiar(csv()) }, "Copiar CSV"), h("button", { class: "btn chico", onclick: () => copiar(json(r.filas)) }, "Copiar JSON")),
+        tablaFilas(r.columnas, r.filas));
+      } else vaciar(res, h("div", { class: "aviso-caja" }, `${r.actualizadas} filas afectadas. Se hizo rollback: no quedó nada grabado.`));
+    } catch (e) { vaciar(res, h("div", { class: "error-caja" }, e.message)); }
+    refrescarMotor();
+  };
+  vaciar(cont, h("h2", { class: "titulo" }, `Consultas SQL · ${E.kb}`),
+    h("div", { class: "subtitulo" }, h("span", { class: "muted" }, "Usa la conexión del motor Java (la misma configuración que la aplicación). Toda consulta corre en una transacción que se descarta.")),
+    h("div", { style: { display: "grid", gridTemplateColumns: "minmax(0,1fr) 300px", gap: "14px", alignItems: "start" } },
+      h("div", null, h("div", { class: "tarjeta" }, h("div", { class: "cuerpo" }, ta,
+        h("div", { class: "fila", style: { marginTop: "8px" } }, "Datasource", ds, "Máx. filas", max, h("span", { class: "espacio" }), h("span", { class: "muted chico" }, h("kbd", null, "Ctrl"), "+", h("kbd", null, "Enter")),
+          h("button", { class: "btn prim", onclick: correrSql }, "▶ Consultar")))),
+      h("div", { class: "tarjeta" }, h("div", { class: "cuerpo" }, res))),
+      h("div", { class: "tarjeta" }, h("div", { class: "cab" }, h("h3", null, "Recientes")), h("div", { style: { maxHeight: "70vh", overflow: "auto" } }, historial))));
+}
+function correrSql() { E.correrSqlActual && E.correrSqlActual(); }
+
+// ====================================================================== ayuda
+let ayudaPintada = false;
+async function pintarAyuda() {
+  if (ayudaPintada) return;
+  const cont = $("#contenido-ayuda");
+  let ops = {};
+  try { ops = (await GET("/api/ayuda")).operadores; } catch { /* sin conexion */ }
+  ayudaPintada = true;
+  const ej = (t) => h("pre", { class: "bloque" }, t);
+  vaciar(cont, h("div", { style: { maxWidth: "980px" } },
+    h("h2", { class: "titulo" }, "Cómo funciona GxPruebas"),
+    h("p", null, "GxPruebas ejecuta las clases Java que generó GeneXus, sin pasar por el IDE ni por Tomcat. Lee la especificación (",
+      h("code", null, "GXSPC…\\NVG"), ") para saber los objetos y sus parámetros, y usa el ", h("code", null, "client.cfg"), " de la KB para conectarse a la base. ",
+      "Cada caso corre en una transacción que por defecto se deshace al final: podés dar de alta, modificar y borrar sin dejar rastros."),
+    h("div", { class: "aviso-caja" }, "⚠ Si un procedimiento tiene ", h("b", null, "Commit on exit = Yes"), " o hace ", h("code", null, "Commit"), ", sus cambios quedan grabados aunque el caso haga rollback. GxPruebas lo avisa con «hace commit»."),
+    h("h3", null, "Flujo de trabajo"),
+    h("ol", null,
+      h("li", null, "Compilá la KB en GeneXus (Build). El motor detecta la recompilación y se reinicia solo."),
+      h("li", null, h("b", null, "Explorar"), ": elegí el objeto, completá la entrada (formulario o JSON) y ejecutá. Agregá consultas SQL para ver qué cambió en la base."),
+      h("li", null, h("b", null, "Guardar como caso"), ": la salida que viste queda aprobada. Lo que cambia solo (fechas, ids nuevos) se detecta ejecutando una vez más. Marcá lo que además tiene que cumplirse siempre (Ok y los códigos ya vienen marcados)."),
+      h("li", null, h("b", null, "Suites"), ": corré todo después de cada cambio (o dejá que corra solo después de cada build). Si algo cambió, ves un resumen de qué cambió: si es correcto, aceptá la salida; si es un campo que no importa, ignoralo.")),
+    h("h3", null, "Formato de un caso"),
+    ej(`{
+  "nombre": "Alta y consulta",
+  "etiquetas": ["alta"],
+  "datos": [ {"tipo": "AAA"}, {"tipo": "BBB"} ],          // opcional: se repite por fila
+  "pasos": [
+    { "nombre": "Alta",
+      "objeto": "Generales.Interfases.Registro.Set",
+      "entrada": { "inSet": { "ItfId": "\${itf}", "Tipo": "\${tipo}" } },
+      "esperado": { "outSet": { "Output": { "Ok": true } } },
+      "verificaciones": [ { "ruta": "outSet.Output.Messages[*].Code", "op": "contiene", "valor": "OK" } ],
+      "guardar": { "regTipo": "outSet.RegTipo" } },
+    { "nombre": "Quedó grabado",
+      "sql": "select count(*) as n from gntItfRegistro where ItfRegTipo = '\${regTipo}'",
+      "ds": "GENERALES",
+      "verificaciones": [ { "ruta": "filas[0].n", "op": "igual", "valor": 1 } ] }
+  ]
+}`),
+    h("h3", null, "Formas de validar"),
+    h("table", { class: "tabla" }, h("tbody", null,
+      h("tr", null, h("td", null, h("code", null, "esperado")), h("td", null, "Coincidencia ", h("b", null, "parcial"), ": solo se controla lo que escribís. Ideal para «Output.Ok = true».")),
+      h("tr", null, h("td", null, h("code", null, "verificaciones")), h("td", null, "Reglas sobre rutas: ", h("code", null, "{ruta, op, valor, cada}"), ". Con ", h("code", null, "[*]"), " la ruta devuelve todos los elementos; con ", h("code", null, "\"cada\": true"), " la regla se aplica a cada uno.")),
+      h("tr", null, h("td", null, h("code", null, "lineaBase")), h("td", null, "La ", h("b", null, "salida aprobada"), ". Por defecto tiene que coincidir toda; con ", h("code", null, "\"comparar\": \"estructura\""), " (para listados con datos que cambian) solo los campos, sus tipos, ", h("code", null, "Ok"), " y los códigos de mensaje. Un campo nuevo es un aviso, no una falla, y una colección que GeneXus omite por vacía cuenta como vacía. En ", h("code", null, "volatiles"), " (se detectan solos) solo se controla el tipo; ", h("code", null, "ignorar"), " no se compara.")),
+      h("tr", null, h("td", null, h("code", null, "esperaError")), h("td", null, "El paso tiene que terminar con una excepción (opcional ", h("code", null, "errorContiene"), ")."))),
+    ),
+    h("h3", null, "Operadores"),
+    h("table", { class: "tabla" }, h("tbody", null, Object.entries(ops).map(([k, v]) => h("tr", null, h("td", { class: "mono" }, k), h("td", null, v))))),
+    h("h3", null, "Comodines en «esperado» y «lineaBase»"),
+    h("p", null, ["<<cualquiera>>", "<<no_vacio>>", "<<vacio>>", "<<numero>>", "<<texto>>", "<<booleano>>", "<<fecha>>", "<<fechahora>>", "<<regex:^A\\d+$>>", "<<contiene:texto>>", "<<empieza:texto>>", "<<mayor:0>>", "<<menor:100>>", "<<distinto:valor>>"].map((x) => [h("code", null, x), " "])),
+    h("h3", null, "Variables"),
+    h("p", null, h("code", null, "${nombre}"), " se reemplaza por: las ", h("b", null, "variables"), " de la suite, la fila de ", h("b", null, "datos"), ", lo que se ", h("b", null, "guardó"), " en pasos anteriores, la salida completa de un paso anterior (", h("code", null, "${alta.outSet.RegTipo}"), ", con el nombre del paso en minúsculas y _ en vez de espacios), lo que se le mandó a un paso anterior (", h("code", null, "${alta.entrada.inSet.Tipo}"), ": por ejemplo, que el Get devuelva lo que recibió el Set) y las predefinidas ",
+      h("code", null, "${hoy}"), " ", h("code", null, "${ahora}"), " ", h("code", null, "${aleatorio}"), " ", h("code", null, "${uuid}"), " ", h("code", null, "${caso}"), ". Si el texto es solo la variable, se conserva su tipo (número, objeto…)."),
+    h("h3", null, "Línea de comandos"),
+    ej(`python gxpruebas.py correr                         todas las suites (código de salida 1 si algo falla)
+python gxpruebas.py correr interfases-registro --detalle
+python gxpruebas.py correr --kb Generales --junit resultados.xml
+python gxpruebas.py correr interfases --grabar      aprueba las salidas actuales (corre dos veces cada caso)
+python gxpruebas.py ejecutar --kb Generales --objeto Generales.Interfases.Registro.List --entrada "{\\"inList\\":{\\"ItfId\\":1}}"
+python gxpruebas.py describir --kb Generales --objeto Generales.Interfases.Registro.Set
+python gxpruebas.py sql --kb Generales --ds GENERALES "select * from gntInterfase"`),
+    h("h3", null, "Atajos"),
+    h("p", null, h("kbd", null, "/"), " buscar · ", h("kbd", null, "Ctrl"), "+", h("kbd", null, "Enter"), " ejecutar (Explorar y SQL) · ", h("kbd", null, "Esc"), " cerrar ventanas")));
+}
+
+iniciar();

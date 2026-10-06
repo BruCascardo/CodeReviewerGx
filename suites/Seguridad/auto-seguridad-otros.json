@@ -1,0 +1,1987 @@
+{
+  "nombre": "Auto - Seguridad.Otros",
+  "kb": "Seguridad",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "seguridad-configuracion-dpevtacciones",
+      "nombre": "Seguridad.Configuracion.dpEvtAcciones (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Configuracion.dpEvtAcciones",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "EMAIL",
+                "IdNum": "0",
+                "Descripcion": "Email"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-contexto-contexto_atributos",
+      "nombre": "Seguridad.Contexto.Contexto_Atributos (datos de SISTEMA.sitCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Contexto.Contexto_Atributos",
+          "entrada": {
+            "Contexto": "COMP"
+          },
+          "lineaBase": {
+            "Atributos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-contexto-dpplantillas",
+      "nombre": "Seguridad.Contexto.dpPlantillas (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Contexto.dpPlantillas",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-contexto-dpremitentes",
+      "nombre": "Seguridad.Contexto.dpRemitentes (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Contexto.dpRemitentes",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "",
+                "IdNum": "1",
+                "Descripcion": "NO RESPONDER CI"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "2",
+                "Descripcion": "AWS SES NO RESPONDER"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-contexto-plantillas_listafiltrada",
+      "nombre": "Seguridad.Contexto.Plantillas_ListaFiltrada (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Contexto.Plantillas_ListaFiltrada",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "outPlantillas_ListaFinal": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-contexto-usuario-atributos",
+      "nombre": "Seguridad.Contexto.Usuario.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Contexto.Usuario.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Usuario: Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Usuario.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Email",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Usuario.Email",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Usuario: Link",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Usuario.Link",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-contexto-usuario-datos-vacia",
+      "nombre": "Seguridad.Contexto.Usuario.Datos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Contexto.Usuario.Datos",
+          "entrada": {
+            "GAMUser": {},
+            "Link": ""
+          },
+          "lineaBase": {
+            "sdtUsuario": {
+              "Usuario": {
+                "Nombre": ",",
+                "Email": "",
+                "Link": ""
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-diagnostico-dummy",
+      "nombre": "Seguridad.Diagnostico.Dummy (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Diagnostico.Dummy",
+          "entrada": {},
+          "lineaBase": {
+            "FechaHora": "2026-10-04T21:56:55"
+          },
+          "volatiles": [
+            "FechaHora"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seguridad-global-politicapassword",
+      "nombre": "Seguridad.Global.PoliticaPassword (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Global.PoliticaPassword",
+          "entrada": {},
+          "lineaBase": {
+            "Policy": "Longitud mínima 8, Incluir al menos 1 número"
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-global-ucaceeditor_variables-vacia",
+      "nombre": "Seguridad.Global.ucAceEditor_Variables (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Global.ucAceEditor_Variables",
+          "entrada": {
+            "Atributos": [
+              {
+                "Nombre": "",
+                "TipoDato": "",
+                "Uso": "",
+                "Id": "",
+                "ListaValores": false
+              }
+            ]
+          },
+          "lineaBase": {
+            "Variables": [
+              {
+                "score": 1000,
+                "meta": "variable",
+                "caption": "",
+                "className": "user_variable",
+                "value": "${}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-global-validarpoliticapassword",
+      "nombre": "Seguridad.Global.ValidarPoliticaPassword (datos de SISTEMA.wizSerImpDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Global.ValidarPoliticaPassword",
+          "entrada": {
+            "Password": "Password"
+          },
+          "lineaBase": {
+            "PasswordValido": false,
+            "MessagesJSON": "[{\"Id\":\"   1\",\"Type\":1,\"Description\":\"La contraseña debe incluir al menos 1 número\"}]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-global-validarpoliticapassword-vacia",
+      "nombre": "Seguridad.Global.ValidarPoliticaPassword (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Global.ValidarPoliticaPassword",
+          "entrada": {
+            "Password": ""
+          },
+          "lineaBase": {
+            "PasswordValido": false,
+            "MessagesJSON": "[{\"Id\":\"   1\",\"Type\":1,\"Description\":\"La contraseña debe tener una longitud mínima de 8\"}]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-permisos-padres",
+      "nombre": "Seguridad.Permisos.Padres (datos de SEGURIDAD.segAppPermImportDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Permisos.Padres",
+          "entrada": {
+            "RepId": 2,
+            "RoleAppPrmType": "",
+            "AppPrmName": "gam_user_data",
+            "HijoRoleId": 0,
+            "InDescHerencia": "",
+            "Roles": [
+              {
+                "RolGUID": "00000000-0000-0000-0000-000000000000",
+                "RolName": "",
+                "RolDescription": "",
+                "RoleAppPrmType": "",
+                "AppPrmName": "gam_user_data",
+                "RolId": "0",
+                "HerenciaDesc": "",
+                "HeredaPorHijos": false
+              }
+            ]
+          },
+          "lineaBase": {
+            "Roles": [
+              {
+                "RolGUID": "00000000-0000-0000-0000-000000000000",
+                "RolName": "",
+                "RolDescription": "",
+                "RoleAppPrmType": "",
+                "AppPrmName": "gam_user_data",
+                "RolId": "0",
+                "HerenciaDesc": "",
+                "HeredaPorHijos": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-permisos-padres-vacia",
+      "nombre": "Seguridad.Permisos.Padres (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Permisos.Padres",
+          "entrada": {
+            "RepId": 0,
+            "RoleAppPrmType": "",
+            "AppPrmName": "",
+            "HijoRoleId": 0,
+            "InDescHerencia": "",
+            "Roles": [
+              {
+                "RolGUID": "00000000-0000-0000-0000-000000000000",
+                "RolName": "",
+                "RolDescription": "",
+                "RoleAppPrmType": "",
+                "AppPrmName": "",
+                "RolId": "0",
+                "HerenciaDesc": "",
+                "HeredaPorHijos": false
+              }
+            ]
+          },
+          "lineaBase": {
+            "Roles": [
+              {
+                "RolGUID": "00000000-0000-0000-0000-000000000000",
+                "RolName": "",
+                "RolDescription": "",
+                "RoleAppPrmType": "",
+                "AppPrmName": "",
+                "RolId": "0",
+                "HerenciaDesc": "",
+                "HeredaPorHijos": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-permisos-roles",
+      "nombre": "Seguridad.Permisos.Roles (datos de SEGURIDAD.segAppPermImportDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Permisos.Roles",
+          "entrada": {
+            "Repid": 2,
+            "AppId": 4,
+            "AppPrmGUID": ""
+          },
+          "lineaBase": {
+            "Roles": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-preferencias-filtros_lista",
+      "nombre": "Seguridad.Preferencias.Filtros_Lista (datos de SEGURIDAD.segUserFiltro)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Preferencias.Filtros_Lista",
+          "entrada": {
+            "inFiltro_Lista": {
+              "UserFiltroPrograma": "CuotasWCFilters",
+              "UserGUID": "8111d379-1fb2-4f4a-8a6d-b72a6e84f96c",
+              "UserFiltroAplicacion": "INT"
+            }
+          },
+          "lineaBase": {
+            "outFiltro_Lista": [
+              {
+                "UserFiltroId": 1,
+                "UserFiltroPrograma": "CuotasWCFilters",
+                "UserGUID": "8111d379-1fb2-4f4a-8a6d-b72a6e84f96c    ",
+                "UserFiltroNombre": "PRUEBA",
+                "UserFiltroAplicacion": "INT  ",
+                "UserFiltroDatos": "<WWPGridState xmlns=\"Intermediarios_CI\">\n\t<CurrentPage>0</CurrentPage>\n\t<OrderedBy>0</OrderedBy>\n\t<OrderedDsc>false</OrderedDsc>\n\t<HidingSearch>0</HidingSearch>\n\t<PageSize/>\n\t<CollapsedRecords/>\n\t<GroupBy/>\n\t<FilterValues>\n\t\t<FilterValue>\n\t\t\t<Name>FILTROMEDIOPAGO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroMedioPago</Dsc>\n\t\t\t<Value>TOD</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue>\n\t\t\t<Name>FILTRORAMAID</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroRamaId</Dsc>\n\t\t\t<Value>  4</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue>\n\t\t\t<Name>FILTROMONEDA</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroMoneda</Dsc>\n\t\t\t<Value>00</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue>\n\t\t\t<Name>FILTROOPERADORLOGICO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroOperadorLogico</Dsc>\n\t\t\t<Value>OR</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue>\n\t\t\t<Name>FILTROPRODUCTORES</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroProductores</Dsc>\n\t\t\t<Value>[1250]</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t</FilterValues>\n</WWPGridState>\n"
+              },
+              {
+                "UserFiltroId": 2,
+                "UserFiltroPrograma": "CuotasWCFilters",
+                "UserGUID": "8111d379-1fb2-4f4a-8a6d-b72a6e84f96c    ",
+                "UserFiltroNombre": "PRUEBA 2",
+                "UserFiltroAplicacion": "INT  ",
+                "UserFiltroDatos": "<WWPGridState xmlns=\"Intermediarios_CI\">\n\t<CurrentPage>0</CurrentPage>\n\t<OrderedBy>0</OrderedBy>\n\t<OrderedDsc>false</OrderedDsc>\n\t<HidingSearch>0</HidingSearch>\n\t<PageSize/>\n\t<CollapsedRecords/>\n\t<GroupBy/>\n\t<FilterValues>\n\t\t<FilterValue>\n\t\t\t<Name>FILTROESTADO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroMedioPago</Dsc>\n\t\t\t<Value>SCO</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue>\n\t\t\t<Name>FILTROMEDIOPAGO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroMedioPago</Dsc>\n\t\t\t<Value>TOD</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue>\n\t\t\t<Name>FILTRORAMAID</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroRamaId</Dsc>\n\t\t\t<Value>  4</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue>\n\t\t\t<Name>FILTROMONEDA</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroMoneda</Dsc>\n\t\t\t<Value>00</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue>\n\t\t\t<Name>FILTROOPERADORLOGICO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroOperadorLogico</Dsc>\n\t\t\t<Value>OR</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue>\n\t\t\t<Name>FILTROPRODUCTORES</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroProductores</Dsc>\n\t\t\t<Value>[1250]</Value>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t</FilterValues>\n</WWPGridState>\n"
+              },
+              {
+                "UserFiltroId": 3,
+                "UserFiltroPrograma": "CuotasWCFilters",
+                "UserGUID": "8111d379-1fb2-4f4a-8a6d-b72a6e84f96c    ",
+                "UserFiltroNombre": "Hola",
+                "UserFiltroAplicacion": "INT  ",
+                "UserFiltroDatos": "<WWPGridState xmlns=\"Intermediarios_CI\">\n\t<CurrentPage xmlns=\"WorkWithPlus\">0</CurrentPage>\n\t<OrderedBy xmlns=\"WorkWithPlus\">0</OrderedBy>\n\t<OrderedDsc xmlns=\"WorkWithPlus\">false</OrderedDsc>\n\t<HidingSearch xmlns=\"WorkWithPlus\">0</HidingSearch>\n\t<PageSize xmlns=\"WorkWithPlus\"/>\n\t<CollapsedRecords xmlns=\"WorkWithPlus\"/>\n\t<GroupBy xmlns=\"WorkWithPlus\"/>\n\t<FilterValues xmlns=\"WorkWithPlus\">\n\t\t<FilterValue xmlns=\"WorkWithPlus\">\n\t\t\t<Name>FILTROMEDIOPAGO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroMedioPago</Dsc>\n\t\t\t<Value>TOD</Value>\n\t\t\t<ValueDsc/>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue xmlns=\"WorkWithPlus\">\n\t\t\t<Name>FILTROOPERADORLOGICO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroOperadorLogico</Dsc>\n\t\t\t<Value>OR</Value>\n\t\t\t<ValueDsc/>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue xmlns=\"WorkWithPlus\">\n\t\t\t<Name>FILTROPRODUCTORES</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroProductores</Dsc>\n\t\t\t<Value>[1250,2128,4559,7669,9083]</Value>\n\t\t\t<ValueDsc/>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t</FilterValues>\n</WWPGridState>\n"
+              },
+              {
+                "UserFiltroId": 4,
+                "UserFiltroPrograma": "CuotasWCFilters",
+                "UserGUID": "8111d379-1fb2-4f4a-8a6d-b72a6e84f96c    ",
+                "UserFiltroNombre": "hola",
+                "UserFiltroAplicacion": "INT  ",
+                "UserFiltroDatos": "<WWPGridState xmlns=\"Intermediarios_CI\">\n\t<CurrentPage xmlns=\"WorkWithPlus\">0</CurrentPage>\n\t<OrderedBy xmlns=\"WorkWithPlus\">0</OrderedBy>\n\t<OrderedDsc xmlns=\"WorkWithPlus\">false</OrderedDsc>\n\t<HidingSearch xmlns=\"WorkWithPlus\">0</HidingSearch>\n\t<PageSize xmlns=\"WorkWithPlus\"/>\n\t<CollapsedRecords xmlns=\"WorkWithPlus\"/>\n\t<GroupBy xmlns=\"WorkWithPlus\"/>\n\t<FilterValues xmlns=\"WorkWithPlus\">\n\t\t<FilterValue xmlns=\"WorkWithPlus\">\n\t\t\t<Name>FILTROESTADO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroMedioPago</Dsc>\n\t\t\t<Value>SCO</Value>\n\t\t\t<ValueDsc/>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue xmlns=\"WorkWithPlus\">\n\t\t\t<Name>FILTROMEDIOPAGO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroMedioPago</Dsc>\n\t\t\t<Value>TOD</Value>\n\t\t\t<ValueDsc/>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue xmlns=\"WorkWithPlus\">\n\t\t\t<Name>FILTROOPERADORLOGICO</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroOperadorLogico</Dsc>\n\t\t\t<Value>OR</Value>\n\t\t\t<ValueDsc/>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t\t<FilterValue xmlns=\"WorkWithPlus\">\n\t\t\t<Name>FILTROPRODUCTORES</Name>\n\t\t\t<Dsc>WWP_GAM_FiltroProductores</Dsc>\n\t\t\t<Value>[1250,2128,4559,7669,9083]</Value>\n\t\t\t<ValueDsc/>\n\t\t\t<Operator>0</Operator>\n\t\t\t<ValueTo/>\n\t\t</FilterValue>\n\t</FilterValues>\n</WWPGridState>\n"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-preferencias-filtros_lista-vacia",
+      "nombre": "Seguridad.Preferencias.Filtros_Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Preferencias.Filtros_Lista",
+          "entrada": {
+            "inFiltro_Lista": {
+              "UserFiltroPrograma": "",
+              "UserGUID": "",
+              "UserFiltroAplicacion": ""
+            }
+          },
+          "lineaBase": {
+            "outFiltro_Lista": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-recuperalinklogin",
+      "nombre": "Seguridad.RecuperaLinkLogin (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.RecuperaLinkLogin",
+          "entrada": {},
+          "lineaBase": {
+            "URL": "http://localhost:8080/SeguridadJavaEnvironment/com.seguridad.gamremotelogin"
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-repositorios-actual",
+      "nombre": "Seguridad.Repositorios.Actual (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Repositorios.Actual",
+          "entrada": {},
+          "lineaBase": {
+            "Response": {
+              "Repositorio": {
+                "Nombre": "Seguridad",
+                "GUID": "3d6f97a2-9bd1-4fb9-9a0b-7af13b75784d",
+                "Descripcion": "Repository",
+                "Id": 2
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-roles-get-vacia",
+      "nombre": "Seguridad.Roles.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Roles.Get",
+          "entrada": {
+            "Request": {
+              "Filtro": "",
+              "PorNombre": {
+                "Nombre": ""
+              },
+              "PorGUID": {
+                "GUID": ""
+              }
+            }
+          },
+          "lineaBase": {
+            "Response": {
+              "Rol": {
+                "Nombre": "",
+                "ExternalId": "",
+                "GUID": "",
+                "Descripcion": "",
+                "Id": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-segappidpornombre",
+      "nombre": "Seguridad.segAppIdPorNombre (datos de SEGURIDAD.segAppPermImportDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.segAppIdPorNombre",
+          "entrada": {
+            "RepId": 2,
+            "AppNombre": ""
+          },
+          "lineaBase": {
+            "AppId": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-segappmenupreview",
+      "nombre": "Seguridad.segAppMenuPreview (datos de SISTEMA.UserCustomizations)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.segAppMenuPreview",
+          "entrada": {
+            "AppId": 0,
+            "sdtAppMenu": {
+              "AppId": "0",
+              "AppGUID": "",
+              "Menus": [
+                {
+                  "MenuExiste": false,
+                  "Options": [
+                    {
+                      "Nombre": "",
+                      "Order": 0,
+                      "Desc": "",
+                      "Tipo": "",
+                      "Prop": [
+                        {
+                          "Value": "{\"BaseColor\":\"Custom\",\"BackgroundStyle\":\"Light\",\"FontSize\":\"\",\"MenuColor\":\"Light\"}",
+                          "Id": ""
+                        }
+                      ],
+                      "ParametrosResource": "",
+                      "Resource": "",
+                      "SubMenuNombre": "",
+                      "Id": 0,
+                      "PermissionResource": "",
+                      "SubMenuId": 0
+                    }
+                  ],
+                  "MenuId": 0,
+                  "MenuNombre": "",
+                  "AppId": "0",
+                  "AppGUID": "",
+                  "MenuDesc": "",
+                  "AppNombre": "",
+                  "AppMainMenuName": ""
+                }
+              ],
+              "AppNombre": "",
+              "AppMainMenuName": ""
+            }
+          },
+          "lineaBase": {
+            "ComparacionGrilla": [
+              {
+                "Item": 0,
+                "Importacion": {
+                  "Nombre": "",
+                  "Permiso": "",
+                  "Tipo": "Menú",
+                  "Orden": 0,
+                  "Icono": "",
+                  "Descripcion": "",
+                  "Id": 0,
+                  "Objeto": ""
+                }
+              },
+              {
+                "Item": 0,
+                "Importacion": {
+                  "Nombre": "",
+                  "Permiso": "",
+                  "Tipo": "Opción",
+                  "Orden": 0,
+                  "Icono": "",
+                  "Descripcion": "",
+                  "Id": 0,
+                  "Objeto": ""
+                }
+              }
+            ],
+            "setSdtError": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-segappnombreget",
+      "nombre": "Seguridad.segAppNombreGet (datos de SEGURIDAD.segAppPermImportDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.segAppNombreGet",
+          "entrada": {
+            "RepId": 2,
+            "AppId": 4
+          },
+          "lineaBase": {
+            "AppNombre": "Terceros"
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-segappnombreget-vacia",
+      "nombre": "Seguridad.segAppNombreGet (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.segAppNombreGet",
+          "entrada": {
+            "RepId": 0,
+            "AppId": 0
+          },
+          "lineaBase": {
+            "AppNombre": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-segapppermissionherencias_export",
+      "nombre": "Seguridad.SegAppPermissionHerencias_export (datos de SEGURIDAD.segAppPermImportDetalle)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.SegAppPermissionHerencias_export",
+          "entrada": {
+            "RepId": 2,
+            "AppId": 4,
+            "InactualAppPrmGUID": "",
+            "InactualAppPrmName": "",
+            "sdtPermissionIO": {
+              "Permisos": [
+                {
+                  "PadreAppPrmName": "",
+                  "AppPrmGUID": "",
+                  "AppPrmPgmName": "",
+                  "RepId": 2,
+                  "AppPrmDefType": "R",
+                  "AppPrmCreDate": "2024-01-12T23:33:19",
+                  "AppPrmName": "gam_user_data",
+                  "PadreAppPrmGUID": "",
+                  "AppName": "",
+                  "AppPrmDsc": "",
+                  "AppPrmTokenTypeGUID": "",
+                  "AppId": "4",
+                  "AppPrmIsGXAuto": 0,
+                  "PermSinRol": false
+                }
+              ],
+              "Fecha": "0000-00-00T00:00:00",
+              "Cantidad": "0",
+              "NombreExport": "",
+              "GUID": "00000000-0000-0000-0000-000000000000"
+            },
+            "setAppPrmGUID": [
+              ""
+            ]
+          },
+          "lineaBase": {
+            "sdtPermissionIO": {
+              "Permisos": [
+                {
+                  "PadreAppPrmName": "",
+                  "AppPrmGUID": "",
+                  "AppPrmPgmName": "",
+                  "RepId": 2,
+                  "AppPrmDefType": "R",
+                  "AppPrmCreDate": "2024-01-12T23:33:19",
+                  "AppPrmName": "gam_user_data",
+                  "PadreAppPrmGUID": "",
+                  "AppName": "",
+                  "AppPrmDsc": "",
+                  "AppPrmTokenTypeGUID": "",
+                  "AppId": "4",
+                  "AppPrmIsGXAuto": 0,
+                  "PermSinRol": false
+                }
+              ],
+              "Fecha": "0000-00-00T00:00:00",
+              "Cantidad": "0",
+              "NombreExport": "",
+              "GUID": "00000000-0000-0000-0000-000000000000"
+            },
+            "setAppPrmGUID": [
+              ""
+            ],
+            "OutpadreAppPrmGUID": "",
+            "OutpadreAppPrmName": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-segapppermissionherencias_export-vacia",
+      "nombre": "Seguridad.SegAppPermissionHerencias_export (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.SegAppPermissionHerencias_export",
+          "entrada": {
+            "RepId": 0,
+            "AppId": 0,
+            "InactualAppPrmGUID": "",
+            "InactualAppPrmName": "",
+            "sdtPermissionIO": {
+              "Permisos": [
+                {
+                  "PadreAppPrmName": "",
+                  "AppPrmGUID": "",
+                  "AppPrmPgmName": "",
+                  "RepId": 0,
+                  "AppPrmDefType": "",
+                  "AppPrmCreDate": "0000-00-00T00:00:00",
+                  "AppPrmName": "",
+                  "PadreAppPrmGUID": "",
+                  "AppName": "",
+                  "AppPrmDsc": "",
+                  "AppPrmTokenTypeGUID": "",
+                  "AppId": "0",
+                  "AppPrmIsGXAuto": 0,
+                  "PermSinRol": false
+                }
+              ],
+              "Fecha": "0000-00-00T00:00:00",
+              "Cantidad": "0",
+              "NombreExport": "",
+              "GUID": "00000000-0000-0000-0000-000000000000"
+            },
+            "setAppPrmGUID": [
+              ""
+            ]
+          },
+          "lineaBase": {
+            "sdtPermissionIO": {
+              "Permisos": [
+                {
+                  "PadreAppPrmName": "",
+                  "AppPrmGUID": "",
+                  "AppPrmPgmName": "",
+                  "RepId": 0,
+                  "AppPrmDefType": "",
+                  "AppPrmCreDate": "0000-00-00T00:00:00",
+                  "AppPrmName": "",
+                  "PadreAppPrmGUID": "",
+                  "AppName": "",
+                  "AppPrmDsc": "",
+                  "AppPrmTokenTypeGUID": "",
+                  "AppId": "0",
+                  "AppPrmIsGXAuto": 0,
+                  "PermSinRol": false
+                }
+              ],
+              "Fecha": "0000-00-00T00:00:00",
+              "Cantidad": "0",
+              "NombreExport": "",
+              "GUID": "00000000-0000-0000-0000-000000000000"
+            },
+            "setAppPrmGUID": [
+              ""
+            ],
+            "OutpadreAppPrmGUID": "",
+            "OutpadreAppPrmName": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-atributos-get",
+      "nombre": "Seguridad.Usuarios.Atributos.Get (datos de SEGURIDAD.segUserPreferencia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Usuarios.Atributos.Get",
+          "entrada": {
+            "inGet": {
+              "UserGUID": "6079ce14-f4d8-48be-9964-ba88a31b0947",
+              "AtributoId": ""
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Valor": "",
+              "MultiValor": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-impusersec_numerador",
+      "nombre": "Seguridad.Usuarios.ImpUserSec_Numerador (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Usuarios.ImpUserSec_Numerador",
+          "entrada": {},
+          "lineaBase": {
+            "ImpUserSec": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-lista-vacia",
+      "nombre": "Seguridad.Usuarios.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Usuarios.Lista",
+          "entrada": {
+            "Request": {
+              "RolNombre": "",
+              "Bloqueado": false,
+              "Activado": false
+            }
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "Response": {
+              "Usuarios": [
+                {
+                  "UserName": "admin",
+                  "Activo": true,
+                  "GUID": "03c41c46-b08b-47d8-b250-8a2268f69c6d",
+                  "NombreCompleto": "CORE, ADMIN",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "admin3",
+                  "Activo": true,
+                  "GUID": "b2f568e7-f660-4c4b-81de-a59f1e8997b6",
+                  "NombreCompleto": "User, Admi",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agaravano",
+                  "Activo": true,
+                  "GUID": "18407a0c-3a02-439d-823a-cb9b0b0c1e35",
+                  "NombreCompleto": "Garavano Viotti, Alejandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agaravanofiltro",
+                  "Activo": true,
+                  "GUID": "306da65a-e8e3-497e-a0ee-5171dde065ce",
+                  "NombreCompleto": "Garavano, Alejandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agenciacordoba",
+                  "Activo": true,
+                  "GUID": "c4f1e55d-52ba-4b51-99a3-9338de37bf3e",
+                  "NombreCompleto": ", agenciacordoba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agenciarosario",
+                  "Activo": true,
+                  "GUID": "54d7bbe7-f5a3-4e4b-afd6-4da1402005e9",
+                  "NombreCompleto": ", Agencia Rosario",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agenciasantafe",
+                  "Activo": true,
+                  "GUID": "6975a1a9-b919-4b13-aba0-44c38fa2df90",
+                  "NombreCompleto": ", agencia santa fe",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agv",
+                  "Activo": true,
+                  "GUID": "c401be63-9f68-4479-a17d-da56596e9642",
+                  "NombreCompleto": "Garavano, Alejandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agvcore",
+                  "Activo": true,
+                  "GUID": "4f621991-8292-4fa4-b6b8-e71548a1ea69",
+                  "NombreCompleto": "Garavano (Core), Alejandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "agvsop",
+                  "Activo": true,
+                  "GUID": "31a643d7-0601-416d-ae8a-b6b35d2782d5",
+                  "NombreCompleto": "Garavano (Sop), Alejandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "albertengomauro@gmail.com",
+                  "Activo": true,
+                  "GUID": "a4b4402e-2a6e-4c4b-9036-25d06ee52c49",
+                  "NombreCompleto": "Albertengo, Mauro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "auditor",
+                  "Activo": true,
+                  "GUID": "5eb0f6e6-7eb6-45ca-b169-29214a829bb6",
+                  "NombreCompleto": "User, Auditor",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2bpruebapermisos",
+                  "Activo": true,
+                  "GUID": "b9cfa536-620d-470c-ad8e-394d55c3c52d",
+                  "NombreCompleto": "MAC, B2BPruebaPermisos",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_23106134669",
+                  "Activo": true,
+                  "GUID": "21fd8a15-6f4d-4589-8f63-8e54ec318135",
+                  "NombreCompleto": "DIESO, RUBEN ORFILIO",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_adela63",
+                  "Activo": true,
+                  "GUID": "1ca9171f-9f11-4708-b317-e56def8bdf50",
+                  "NombreCompleto": "Wuckert, Lavonne",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_admin",
+                  "Activo": true,
+                  "GUID": "186176e1-40bb-4ac2-9aec-c2e48bb4d98d",
+                  "NombreCompleto": "USER, ADMIN",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_alva29",
+                  "Activo": true,
+                  "GUID": "83bd532b-5056-435d-a2a7-9d1c9c0d6472",
+                  "NombreCompleto": "Mayert, Myrtice",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_b2busuariopruebamail",
+                  "Activo": true,
+                  "GUID": "fc9f54bb-3f48-41fc-b3b0-194822eb986e",
+                  "NombreCompleto": "admin, b2busuariopruebamail",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_corbin_osinski35",
+                  "Activo": true,
+                  "GUID": "568df59b-4828-4b47-9d80-8efd524b5c0a",
+                  "NombreCompleto": "Feil, Lexi",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_frieda_jast",
+                  "Activo": true,
+                  "GUID": "67c0ef3b-bf9f-4308-bfc9-a8f424f96887",
+                  "NombreCompleto": "Jacobson, Eli",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_intermediarioslaraci",
+                  "Activo": true,
+                  "GUID": "28c79dec-43f8-4762-879c-2516bd05f084",
+                  "NombreCompleto": "CI, IntermediariosLara",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_jef",
+                  "Activo": true,
+                  "GUID": "4113a162-f1da-4927-b717-46d4dea62e93",
+                  "NombreCompleto": "FERREYRA, JOHANA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_juanita_sauer40",
+                  "Activo": true,
+                  "GUID": "7eec4db5-01dd-4fbe-a082-d4fb5cb02891",
+                  "NombreCompleto": "Ankunding, Natalie",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_lisaac-admin",
+                  "Activo": true,
+                  "GUID": "e9b2ddf5-5442-4d07-8346-30058eee5620",
+                  "NombreCompleto": "ISAAC-ADMIN, LARA",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_loren.leffler",
+                  "Activo": true,
+                  "GUID": "c44f0f33-9740-45c2-a3b8-e0f355c06789",
+                  "NombreCompleto": "Bogisich, Quinton",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_macey.russel",
+                  "Activo": true,
+                  "GUID": "d4430c18-73d6-4b42-b540-e666f38b9510",
+                  "NombreCompleto": "Schmitt, Eden",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_myrtice.hahn",
+                  "Activo": true,
+                  "GUID": "428c34a0-c080-428e-9ba3-9374106f8faf",
+                  "NombreCompleto": "Beatty, Vincenza",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_pablo71",
+                  "Activo": true,
+                  "GUID": "4d568a0e-7ac6-47ac-8ca6-4aa59d212e95",
+                  "NombreCompleto": "Heathcote, Marcelo",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_pepepompin44",
+                  "Activo": true,
+                  "GUID": "9198e239-5b7b-4062-a57b-a88c00e84a38",
+                  "NombreCompleto": "Pompin 44, Pepe",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_pruebab2b",
+                  "Activo": true,
+                  "GUID": "44e8f266-605e-4452-bbb8-eaf699bf2074",
+                  "NombreCompleto": "B2B, Prueba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_pruebab2b_1",
+                  "Activo": true,
+                  "GUID": "348cb89b-bfe2-473a-be0d-222fc4518692",
+                  "NombreCompleto": "1, pruebab2b_1",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_pruebab2b_21",
+                  "Activo": true,
+                  "GUID": "4d0e0d61-c30f-4ddd-b960-75a819061cc6",
+                  "NombreCompleto": "dsfg, pruebab2b_21",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_pruebab2b_conautorizacion",
+                  "Activo": true,
+                  "GUID": "fa9faaeb-ec42-4e49-95bc-cf750ced1d61",
+                  "NombreCompleto": ", ",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_pruebaorganizadores",
+                  "Activo": true,
+                  "GUID": "98409e82-849e-4b15-8739-36fc8b5c8d37",
+                  "NombreCompleto": "admin, pruebaOrganizadores",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_prueba_b2b_20",
+                  "Activo": true,
+                  "GUID": "4a6e71aa-4239-45a4-9816-c725478f1c92",
+                  "NombreCompleto": "pruebab2b, pruebab2b",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_test",
+                  "Activo": true,
+                  "GUID": "3bbb7cc0-9355-48ba-b4e8-296e575bdcfa",
+                  "NombreCompleto": "test, test",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_test2",
+                  "Activo": true,
+                  "GUID": "349caa38-41b5-4027-8651-262dfb6f3700",
+                  "NombreCompleto": "test2, TEST2",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b1",
+                  "Activo": true,
+                  "GUID": "c01c28ba-a0e7-4120-9815-046a18cbf62b",
+                  "NombreCompleto": "usuariob2b1, usuariob2b1",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b2",
+                  "Activo": true,
+                  "GUID": "15e6b79e-1d0e-4b47-8f51-5989f2a58967",
+                  "NombreCompleto": "usuariob2b2, usuariob2b2",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b3",
+                  "Activo": true,
+                  "GUID": "de10ef7a-e094-4ab0-ae58-fb58aec683b7",
+                  "NombreCompleto": "usuariob2b3, usuariob2b3",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b4",
+                  "Activo": true,
+                  "GUID": "63aa8172-175c-4288-9e96-a24640c653ba",
+                  "NombreCompleto": "usuariob2b4, usuariob2b4",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b5",
+                  "Activo": true,
+                  "GUID": "fbf34fef-f43c-435b-865a-80ea0681f4c1",
+                  "NombreCompleto": "usuariob2b5, usuariob2b5",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b50",
+                  "Activo": true,
+                  "GUID": "2744a1ee-5d52-4c2d-a50d-79b23a630e23",
+                  "NombreCompleto": "admin, usuariob2b50",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b51",
+                  "Activo": true,
+                  "GUID": "c4c51f68-540c-4b3d-a739-136d3f9d2917",
+                  "NombreCompleto": "admin, ubuariob2b51",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b52",
+                  "Activo": true,
+                  "GUID": "fe389964-b205-46c6-a6f2-e5fbc06bee27",
+                  "NombreCompleto": "admin, usuariob2b52",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b55",
+                  "Activo": true,
+                  "GUID": "7029a8d9-4c7c-45b2-950c-67c07716f239",
+                  "NombreCompleto": "admin, usuariob2b55",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b6",
+                  "Activo": true,
+                  "GUID": "c89e79f4-37e3-4e9d-b1f2-e834d0031333",
+                  "NombreCompleto": "usuariob2b6, usuariob2b6",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b8",
+                  "Activo": true,
+                  "GUID": "f5d83346-bd76-45d0-8e27-eb22b9f2a28c",
+                  "NombreCompleto": "usuariob2b8, usuariob2b8",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b9",
+                  "Activo": true,
+                  "GUID": "cbfed405-9af7-4905-a630-8ea0a56fbf7a",
+                  "NombreCompleto": "usuariob2b9, usuariob2b9",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2bfull",
+                  "Activo": true,
+                  "GUID": "f7a17faf-7ee0-47eb-baf8-659b56f22549",
+                  "NombreCompleto": "admin, usuarioB2BFull",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "b2b_usuariob2b_mismomail",
+                  "Activo": true,
+                  "GUID": "7f04a949-2e51-4efe-a9df-da2b32b5d4c5",
+                  "NombreCompleto": "admin, usuariob2b",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "bandejacobranza",
+                  "Activo": true,
+                  "GUID": "c0575de1-b90a-4077-b5ab-259fb3cf9378",
+                  "NombreCompleto": "APP_cobranza, NOM_bandeja",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "bandejaemision",
+                  "Activo": true,
+                  "GUID": "5b72f983-3f9d-4951-b311-ebaa2e3f9472",
+                  "NombreCompleto": "APP_emision, NOM_bandeja",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "belen suscripción",
+                  "Activo": true,
+                  "GUID": "8591e76b-c6f7-41c8-8c2c-b675e5fbe66c",
+                  "NombreCompleto": "Suscripcion, Belen",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "belen-cobranzas",
+                  "Activo": true,
+                  "GUID": "9ae7f25b-25d9-4e2a-80e7-771dfaa8a72a",
+                  "NombreCompleto": "Cobranzas, Belen",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "belen-comercial",
+                  "Activo": true,
+                  "GUID": "6f96ff4c-3e30-466f-9b04-11620b01fadd",
+                  "NombreCompleto": "Comercial, Belen",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "belen-siniestros",
+                  "Activo": true,
+                  "GUID": "c9b58b29-680a-4d7e-a604-16e6ccf69b7b",
+                  "NombreCompleto": "Siniestros, Belen",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "belen-soporte",
+                  "Activo": true,
+                  "GUID": "944f36f8-f46c-40c5-8596-13885ea12237",
+                  "NombreCompleto": "Soporte, Belen",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "bet",
+                  "Activo": true,
+                  "GUID": "67956016-8da1-4d43-b48e-aeff2dad9e35",
+                  "NombreCompleto": "ADMIN, Belen",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "cobranzas_administración",
+                  "Activo": true,
+                  "GUID": "28a37ed6-fc0a-4bde-abb7-1a135750c1bf",
+                  "NombreCompleto": "Administracion, Cobranzas",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "cobranzas_agencia",
+                  "Activo": true,
+                  "GUID": "c30585b4-8c9a-49f1-85a1-680adae75a5d",
+                  "NombreCompleto": "Agencia, Cobranzas",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "cobranzas_cc",
+                  "Activo": true,
+                  "GUID": "c7a13b72-7e83-4199-87be-e634fae5abf7",
+                  "NombreCompleto": "CC, Cobranzas",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "cobranzas_tesoreria",
+                  "Activo": true,
+                  "GUID": "62985327-b337-4313-a3d5-ef908415a4fe",
+                  "NombreCompleto": "Tesoreria, Cobranzas",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "dcuevas",
+                  "Activo": true,
+                  "GUID": "0780578e-dcdf-49a2-81d2-f31686719576",
+                  "NombreCompleto": "Cuevas, Darío",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "despacho",
+                  "Activo": true,
+                  "GUID": "97155f43-903b-452e-b33a-2595c9250fc8",
+                  "NombreCompleto": "despacho, despacho",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "dt",
+                  "Activo": true,
+                  "GUID": "efe39353-9a5e-40c2-bbe7-96b90c61b599",
+                  "NombreCompleto": "Togachensko, Daniela",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "durquilla@xiku.io",
+                  "Activo": true,
+                  "GUID": "bb309b2f-7270-4d36-8034-5438a37d5d17",
+                  "NombreCompleto": "Urquilla, Daiana",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "fcerroni2",
+                  "Activo": true,
+                  "GUID": "f22a355c-c7d4-4582-82ad-66fddf5fcebb",
+                  "NombreCompleto": "cerroni2, fcerroni2",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "fcpterceros",
+                  "Activo": true,
+                  "GUID": "b5a3fbda-3fd8-4663-8dde-417702de7d62",
+                  "NombreCompleto": "Cerroni, Florencia",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gaston",
+                  "Activo": true,
+                  "GUID": "b8b6bb40-bf07-4f5d-ba60-b47a32b3cfb7",
+                  "NombreCompleto": "Donati, Gaston",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "generales",
+                  "Activo": true,
+                  "GUID": "d396b9a2-655e-451c-be35-e939fa74c494",
+                  "NombreCompleto": "Pruebas API, Generales",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gestor",
+                  "Activo": true,
+                  "GUID": "575ffa2f-6044-4c3f-affe-cf780174f9a1",
+                  "NombreCompleto": "Gestor, Usuario",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gfreitas",
+                  "Activo": true,
+                  "GUID": "9ff7ce80-fe66-4e39-a8ec-3bc28b1bd3f7",
+                  "NombreCompleto": "Freitas, Gabriel",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "glucco",
+                  "Activo": true,
+                  "GUID": "8b53f41c-6156-4f07-8b18-e185761979d3",
+                  "NombreCompleto": "Lucco, Guillermo",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gmc",
+                  "Activo": true,
+                  "GUID": "f34b9f52-8116-49d1-be9d-108b6ee40104",
+                  "NombreCompleto": "Cocconi, Guillermo Mario",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gmedrano",
+                  "Activo": true,
+                  "GUID": "658995a9-17db-4290-ae70-42c3672e6018",
+                  "NombreCompleto": "Medrano, Gaston",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gmedranocomun",
+                  "Activo": true,
+                  "GUID": "41926113-2a7f-4ed2-bccb-231ee8c9329b",
+                  "NombreCompleto": "Medrano, Gaston",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "gojeda@xiku.io",
+                  "Activo": true,
+                  "GUID": "0682a8f0-80bb-43cc-a3dd-6e43505b5b86",
+                  "NombreCompleto": "Ojeda, Guido",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "ignacio@xiku.io",
+                  "Activo": true,
+                  "GUID": "6bd79fec-9976-4394-9c11-1e70e0f657a0",
+                  "NombreCompleto": "Diaz, Ignacio",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "intranet",
+                  "Activo": true,
+                  "GUID": "fc45f70b-e4f0-4c9b-8e97-9e597930581d",
+                  "NombreCompleto": "usuario, intranet",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "jef",
+                  "Activo": true,
+                  "GUID": "0206374f-3efb-4698-9594-9aa3f9bfad7f",
+                  "NombreCompleto": "Ferreyra, Johana",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "jefcore",
+                  "Activo": true,
+                  "GUID": "e9e32deb-ef10-4ffc-9571-dccd0695c57d",
+                  "NombreCompleto": "Core, Johana",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "jmf",
+                  "Activo": true,
+                  "GUID": "07cf0fae-2088-4c63-9bae-5fa4781fdece",
+                  "NombreCompleto": "Felizia, Josefina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "laracomercial",
+                  "Activo": true,
+                  "GUID": "10103518-e514-43d8-8ce4-377b48c2fcb4",
+                  "NombreCompleto": "Comercial, Lara",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "ler",
+                  "Activo": true,
+                  "GUID": "14ad4286-c403-4286-a483-d62a00db3a6f",
+                  "NombreCompleto": "Ruffino, Lilian Elisabet",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "lif",
+                  "Activo": true,
+                  "GUID": "42027bfd-d916-479b-a70b-3ee2b251f196",
+                  "NombreCompleto": "Ferrari, Lisandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "lifconvenio",
+                  "Activo": true,
+                  "GUID": "34b7ba15-c7f9-4c3e-8d2e-49d066ef497c",
+                  "NombreCompleto": "Ferrari, Lisandro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "lisaac-admin",
+                  "Activo": true,
+                  "GUID": "9436d066-f7ae-4b7a-ba6c-a2415ddb69d2",
+                  "NombreCompleto": "Isaac-Admin, Lara",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "lmc",
+                  "Activo": true,
+                  "GUID": "48dbbad0-b6f1-4573-a712-c8865d8f5d5f",
+                  "NombreCompleto": "Chiavassa, Luciano Mauricio",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "macarena",
+                  "Activo": true,
+                  "GUID": "a598d8f9-8e44-4ed6-8c78-eaa4d01476f8",
+                  "NombreCompleto": "Pucheta (Villa Maria), Macarena",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "map",
+                  "Activo": true,
+                  "GUID": "07e66c6f-cf41-46da-adcb-6fb239eecfd9",
+                  "NombreCompleto": "Pucheta (Córdoba), Macarena",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mapcobranzas",
+                  "Activo": true,
+                  "GUID": "541837e4-0075-40da-b718-4a2dee7513a5",
+                  "NombreCompleto": "Cobranzas (Casa central), Macarena",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mapcomercial",
+                  "Activo": true,
+                  "GUID": "48b68ba1-fb39-4510-bada-b9c7afc6e7c0",
+                  "NombreCompleto": "Pucheta (Rosario), Macarena",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mapgestor",
+                  "Activo": true,
+                  "GUID": "e2de15ed-abb2-4904-bd7c-3a73c6541b3a",
+                  "NombreCompleto": "Pucheta Gestor, Macarena",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mapsiniestros",
+                  "Activo": true,
+                  "GUID": "924e21f8-f1f3-4fd0-b94c-a1d04b55e4a7",
+                  "NombreCompleto": "Pucheta (Santa Fe), Macarena",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mateo",
+                  "Activo": true,
+                  "GUID": "8842cbfa-96bc-4083-9fd9-647c3b5a35c9",
+                  "NombreCompleto": "Avila, Mateo",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mauricio@xiku.io",
+                  "Activo": true,
+                  "GUID": "d2294e78-fcfe-445e-9103-f3f85eeabc91",
+                  "NombreCompleto": "Gomez, Mauricio",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mauro@xiku.io",
+                  "Activo": true,
+                  "GUID": "3347c838-26e7-4dba-8666-a9b77f06f22a",
+                  "NombreCompleto": "Albertengo, Mauro",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mfrias@xiku.io",
+                  "Activo": true,
+                  "GUID": "2196b849-9d98-43d9-ab51-8ba6bd560eeb",
+                  "NombreCompleto": "Frías, Matías",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mlp",
+                  "Activo": true,
+                  "GUID": "8b66243f-8f07-4b33-b03c-2911a6d8a927",
+                  "NombreCompleto": "pereyra, martin",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mmartinez@xiku.io",
+                  "Activo": true,
+                  "GUID": "7b09ad25-56c7-4617-8474-ed1b614aa257",
+                  "NombreCompleto": "Martinez, Micaela",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "mpucheta",
+                  "Activo": true,
+                  "GUID": "8b03bbc4-fd84-4a71-8adc-08c54178acc0",
+                  "NombreCompleto": "Pucheta (Rio Cuarto), Macarena",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "nramirez",
+                  "Activo": true,
+                  "GUID": "47de73fc-1431-4cba-92d3-028fcf06c24a",
+                  "NombreCompleto": "Ramirez, Nicolas",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "nramirez2",
+                  "Activo": true,
+                  "GUID": "7fbe7b06-1b5d-438c-bab0-b862f7739ece",
+                  "NombreCompleto": ", ",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "prueba",
+                  "Activo": true,
+                  "GUID": "ea773dcf-6f80-4b0c-8545-8315589c32f0",
+                  "NombreCompleto": "prueba, prueba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "pruebaalta",
+                  "Activo": true,
+                  "GUID": "ac93291c-b180-4d06-aa32-c18c603b712c",
+                  "NombreCompleto": "Alta Apellido, Alta",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rdiodati_cobranzas",
+                  "Activo": true,
+                  "GUID": "61a11f3c-776d-466a-b8e6-630df0c6ab90",
+                  "NombreCompleto": "Cobranzas, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rdiodati_comercial",
+                  "Activo": true,
+                  "GUID": "b7fb804b-a4de-4858-aa18-aa082ccfe331",
+                  "NombreCompleto": "Comercial, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rdiodati_siniestros",
+                  "Activo": true,
+                  "GUID": "62bba714-5a3d-4ddb-bb54-cfc5ceff8936",
+                  "NombreCompleto": "Siniestros, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rdiodati_soporte",
+                  "Activo": true,
+                  "GUID": "e7515602-1449-445c-b073-44bc3b91def1",
+                  "NombreCompleto": "Soporte, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rdiodati_suscripcion",
+                  "Activo": true,
+                  "GUID": "80a33fcd-3c81-492d-ace9-d2ae61cfd4a1",
+                  "NombreCompleto": "Suscripcion, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "red",
+                  "Activo": true,
+                  "GUID": "f10324cf-4826-44fe-b540-ea5b2b95ce7a",
+                  "NombreCompleto": "Admin, Regina",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "rmm",
+                  "Activo": true,
+                  "GUID": "28c913db-e7b2-4042-9d5b-22e656b2c522",
+                  "NombreCompleto": "Morel, Rodrigo Martin",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "seba",
+                  "Activo": true,
+                  "GUID": "6af8822f-d32d-489f-93f7-ae312e6b9837",
+                  "NombreCompleto": ", seba",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "sebastian.o.lucero@gmail.com",
+                  "Activo": true,
+                  "GUID": "fd46e532-1484-4601-b4cc-2d181c8596e2",
+                  "NombreCompleto": "Lucero, Sebastián",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "slucero",
+                  "Activo": true,
+                  "GUID": "070da0b6-4b82-4c3b-9efc-4a5f8d597b02",
+                  "NombreCompleto": "Lucero, Sebastian",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "sluceroo@xiku.io",
+                  "Activo": true,
+                  "GUID": "ece2aa29-e61a-41b6-999b-2478883a3a9c",
+                  "NombreCompleto": "Lucero, Sebastian",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "soporte_ac",
+                  "Activo": true,
+                  "GUID": "8db06297-af0b-4e79-8753-64f23e7887bb",
+                  "NombreCompleto": "Atencion Cliente, Soporte",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "soporte_full",
+                  "Activo": true,
+                  "GUID": "250abb9a-a5c0-40e2-b3fe-e2ec15655a29",
+                  "NombreCompleto": "Full, Soporte",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "soporte_pi",
+                  "Activo": true,
+                  "GUID": "6274fe58-68d8-4e72-b241-1d994d6edb47",
+                  "NombreCompleto": "Portal intermediario, Soporte",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "supervisor",
+                  "Activo": true,
+                  "GUID": "a5b9f488-f86b-43d5-ba2b-692d93f904da",
+                  "NombreCompleto": "Supervisor, Usuario",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuarioavisos",
+                  "Activo": true,
+                  "GUID": "6722d939-0687-4348-9094-d15aa49ef238",
+                  "NombreCompleto": "avisos, usuario",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2b",
+                  "Activo": true,
+                  "GUID": "9a3a8360-a4af-4dca-ac6c-2c2610a637ad",
+                  "NombreCompleto": "B2B, Usuario",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2bnoautorizado",
+                  "Activo": true,
+                  "GUID": "812dfc1f-fd6e-4800-9d7e-fc50d29c61e4",
+                  "NombreCompleto": "NoAutorizado, usuariob2b",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2bsinintermediario",
+                  "Activo": true,
+                  "GUID": "7f9843ac-108f-4b49-b6c2-a738e7b76895",
+                  "NombreCompleto": "SinIntermediario, usuariob2b",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "usuariob2bsinregistrar",
+                  "Activo": true,
+                  "GUID": "69d5d6a4-8eb1-420a-82a3-e21338e12f7c",
+                  "NombreCompleto": "SinRegistrar, b2b",
+                  "Bloqueado": false
+                },
+                {
+                  "UserName": "ygasca",
+                  "Activo": true,
+                  "GUID": "511923d1-9b9f-4fe6-bafa-66ecb6b6620f",
+                  "NombreCompleto": "Gasca, Yanina",
+                  "Bloqueado": false
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-listacumpleanios-vacia",
+      "nombre": "Seguridad.Usuarios.ListaCumpleanios (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Usuarios.ListaCumpleanios",
+          "entrada": {
+            "inListaCumpleanios": {
+              "RetornarAgencia": false,
+              "Hasta": {
+                "Mes": 0,
+                "Dia": 0
+              },
+              "Desde": {
+                "Mes": 0,
+                "Dia": 0
+              }
+            }
+          },
+          "lineaBase": {
+            "outListaCumpleanios": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-logueado",
+      "nombre": "Seguridad.Usuarios.Logueado (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Usuarios.Logueado",
+          "entrada": {},
+          "lineaBase": {
+            "Response": {
+              "Usuario": {
+                "Nombre": "",
+                "UserName": "",
+                "Email": "",
+                "GUID": "",
+                "Apellido": ""
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-roles",
+      "nombre": "Seguridad.Usuarios.Roles (datos de SEGURIDAD.segUserPreferencia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Usuarios.Roles",
+          "entrada": {
+            "Request": {
+              "UserGUID": "6079ce14-f4d8-48be-9964-ba88a31b0947"
+            }
+          },
+          "lineaBase": {
+            "Response": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-tienepermiso",
+      "nombre": "Seguridad.Usuarios.TienePermiso (datos de SISTEMA.sihAccesoLog)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Usuarios.TienePermiso",
+          "entrada": {
+            "Request": {
+              "Permiso": "",
+              "UserGUID": "ece2aa29-e61a-41b6-999b-2478883a3a9c",
+              "Aplicacion": "TER"
+            }
+          },
+          "lineaBase": {
+            "Response": {
+              "TienePermiso": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-tienerol",
+      "nombre": "Seguridad.Usuarios.TieneRol (datos de SEGURIDAD.segUserPreferencia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Seguridad.Usuarios.TieneRol",
+          "entrada": {
+            "Request": {
+              "Filtro": "",
+              "PorId": {
+                "RolId": "0"
+              },
+              "UserGUID": "6079ce14-f4d8-48be-9964-ba88a31b0947",
+              "PorNombre": {
+                "RolNombre": ""
+              }
+            }
+          },
+          "lineaBase": {
+            "Response": {
+              "TieneRol": false
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

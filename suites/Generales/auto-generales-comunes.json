@@ -1,0 +1,467 @@
+{
+  "nombre": "Auto - Generales.Comunes",
+  "kb": "Generales",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "generales-comunes-cifrado-crearsha256hash-vacia",
+      "nombre": "Generales.Comunes.Cifrado.CrearSha256Hash (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.Cifrado.CrearSha256Hash",
+          "entrada": {
+            "TextoPlano": ""
+          },
+          "lineaBase": {
+            "Cadena_Sha256Generada": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-monedas-get-vacia",
+      "nombre": "Generales.Comunes.Monedas.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.Monedas.Get",
+          "entrada": {
+            "inGetMoneda": {
+              "MonId": 0
+            }
+          },
+          "lineaBase": {
+            "outGetMoneda": {
+              "Errores": [
+                {
+                  "Mensaje": "Moneda 0 no encontrada",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-monedas-lista",
+      "nombre": "Generales.Comunes.Monedas.Lista (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.Monedas.Lista",
+          "entrada": {},
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tags-formatotag-vacia",
+      "nombre": "Generales.Comunes.Tags.FormatoTAG (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.Tags.FormatoTAG",
+          "entrada": {
+            "TagNombre": "",
+            "TagColorFondo": "",
+            "TagColorTexto": "",
+            "TagIcono": ""
+          },
+          "lineaBase": {
+            "TagFormat": "<span style=\"background: ; color: ;\" class=\"AttributeTagNoBorder CellMarginRight5 CellMarginBottom5\"></span>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tags-personas-lista-vacia",
+      "nombre": "Generales.Comunes.Tags.Personas.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.Tags.Personas.Lista",
+          "entrada": {
+            "inLista": {
+              "Operador": "",
+              "Tags": [
+                0
+              ]
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-dplista-vacia",
+      "nombre": "Generales.Comunes.TiposDocumento.dpLista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.dpLista",
+          "entrada": {
+            "PersonaTipo": "",
+            "PersonaSubTipo": 0
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-dplistacargarinlista-vacia",
+      "nombre": "Generales.Comunes.TiposDocumento.dpListaCargarInLista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.dpListaCargarInLista",
+          "entrada": {
+            "PersonaTipo": "",
+            "PersonaSubTipo": 0
+          },
+          "lineaBase": {
+            "inLista": {
+              "PersonaSubTipoId": 0,
+              "PersonaTipo": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-dplistacargarinlistapersonasubtipo",
+      "nombre": "Generales.Comunes.TiposDocumento.dpListaCargarinListaPersonaSubTipo (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.dpListaCargarinListaPersonaSubTipo",
+          "entrada": {
+            "DocTipoId": 80,
+            "PersonaTipo": ""
+          },
+          "lineaBase": {
+            "inListaPersonaSubTipo": {
+              "PersonaTipo": "",
+              "DocTipoId": 80
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-dplistacargarinlistapersonasubtipo-vacia",
+      "nombre": "Generales.Comunes.TiposDocumento.dpListaCargarinListaPersonaSubTipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.dpListaCargarinListaPersonaSubTipo",
+          "entrada": {
+            "DocTipoId": 0,
+            "PersonaTipo": ""
+          },
+          "lineaBase": {
+            "inListaPersonaSubTipo": {
+              "PersonaTipo": "",
+              "DocTipoId": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-dplistacargarinlistapersonatipo",
+      "nombre": "Generales.Comunes.TiposDocumento.dpListaCargarinListaPersonaTipo (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.dpListaCargarinListaPersonaTipo",
+          "entrada": {
+            "DocTipoId": 80
+          },
+          "lineaBase": {
+            "inListaPersonaTipo": {
+              "DocTipoId": 80
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-dplistacargarinlistapersonatipo-vacia",
+      "nombre": "Generales.Comunes.TiposDocumento.dpListaCargarinListaPersonaTipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.dpListaCargarinListaPersonaTipo",
+          "entrada": {
+            "DocTipoId": 0
+          },
+          "lineaBase": {
+            "inListaPersonaTipo": {
+              "DocTipoId": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-dplistapersonasubtipo",
+      "nombre": "Generales.Comunes.TiposDocumento.dpListaPersonaSubTipo (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.dpListaPersonaSubTipo",
+          "entrada": {
+            "DocTipoId": 80,
+            "PersonaTipo": ""
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-dplistapersonatipo",
+      "nombre": "Generales.Comunes.TiposDocumento.dpListaPersonaTipo (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.dpListaPersonaTipo",
+          "entrada": {
+            "DocTipoId": 80
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-get-vacia",
+      "nombre": "Generales.Comunes.TiposDocumento.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.Get",
+          "entrada": {
+            "inGet": {
+              "TipoDocumentoId": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "Errores": [
+                {
+                  "Mensaje": "Tipo de Documento 0 no encontrado",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-lista-vacia",
+      "nombre": "Generales.Comunes.TiposDocumento.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.Lista",
+          "entrada": {
+            "inLista": {
+              "PersonaSubTipoId": 0,
+              "PersonaTipo": ""
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-listapersonasubtipo",
+      "nombre": "Generales.Comunes.TiposDocumento.ListaPersonaSubTipo (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.ListaPersonaSubTipo",
+          "entrada": {
+            "inListaPersonaSubTipo": {
+              "PersonaTipo": "",
+              "DocTipoId": 80
+            }
+          },
+          "lineaBase": {
+            "outListaPersonaSubTipo": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tiposdocumento-listapersonatipo",
+      "nombre": "Generales.Comunes.TiposDocumento.ListaPersonaTipo (datos de SISTEMA.sihCompFiscal)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposDocumento.ListaPersonaTipo",
+          "entrada": {
+            "inListaPersonaTipo": {
+              "DocTipoId": 80
+            }
+          },
+          "lineaBase": {
+            "outListaPersonaTipo": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tipospersona-get-vacia",
+      "nombre": "Generales.Comunes.TiposPersona.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposPersona.Get",
+          "entrada": {
+            "Request": {
+              "SubTipoPersonaId": 0,
+              "PersonaTipo": ""
+            }
+          },
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "Indicar el Tipo de Persona",
+                  "Id": 100
+                },
+                {
+                  "Mensaje": "Indicar el Subtipo de Persona",
+                  "Id": 100
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tipospersona-lista-vacia",
+      "nombre": "Generales.Comunes.TiposPersona.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Generales.Comunes.TiposPersona.Lista",
+          "entrada": {
+            "Request": {
+              "PersonaTipo": ""
+            }
+          },
+          "lineaBase": {
+            "Response": {
+              "Errores": [
+                {
+                  "Mensaje": "No se encontraron subtipos de persona para el tipo ",
+                  "Id": 200
+                }
+              ],
+              "SubtiposPersona": []
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

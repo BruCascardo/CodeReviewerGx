@@ -1,0 +1,355 @@
+{
+  "nombre": "Auto - Sistema.MongoDB",
+  "kb": "Sistema",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "sistema-mongodb-codemongodb_disconnect",
+      "nombre": "Sistema.MongoDB.codeMongoDB_Disconnect (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_Disconnect",
+          "entrada": {},
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_docdeletebyid-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_DocDeleteById (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_DocDeleteById",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_docdeletebyjson-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_DocDeleteByJson (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_DocDeleteByJson",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_documentgetbyid-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_DocumentGetById (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_DocumentGetById",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_documentput-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_DocumentPut (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_DocumentPut",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_docupdatebyid-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_DocUpdateById (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_DocUpdateById",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_docupdatebyjson-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_DocUpdateByJson (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_DocUpdateByJson",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_docupsert-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_DocUpsert (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_DocUpsert",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_fielddeletebyid-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_FieldDeleteById (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_FieldDeleteById",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_fielddeletebyjson-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_FieldDeleteByJson (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_FieldDeleteByJson",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-mongodb-codemongodb_getbyjson-vacia",
+      "nombre": "Sistema.MongoDB.codeMongoDB_GetByJson (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.MongoDB.codeMongoDB_GetByJson",
+          "entrada": {
+            "inMongo_Entrada": {
+              "MongoCollection": "",
+              "MongoDocumentJson": "",
+              "FieldToRetrieve": "",
+              "MongoJsonQuery": "",
+              "MongoDoc_Id": 0,
+              "MongoJsonActionString": "",
+              "MongoDatabase": ""
+            }
+          },
+          "lineaBase": {
+            "outMongo_Salida": {
+              "jsonDocumentString": "",
+              "OkAccion": 0,
+              "NroDeletedDocuments": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

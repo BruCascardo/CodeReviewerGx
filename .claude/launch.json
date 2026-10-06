@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "gxpruebas-ui",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["gxpruebas.py", "ui", "--puerto", "8799", "--no-abrir"],
+      "port": 8799
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# Generado o temporal: se rearma solo
+__pycache__/
+*.pyc
+.cache/
+resultados/
+.papelera/

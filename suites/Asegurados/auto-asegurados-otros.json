@@ -1,0 +1,1397 @@
+{
+  "nombre": "Auto - Asegurados.Otros",
+  "kb": "Asegurados",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "asegurados-configuracion-dpevtacciones",
+      "nombre": "Asegurados.Configuracion.dpEvtAcciones (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Configuracion.dpEvtAcciones",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "EMAIL",
+                "IdNum": "0",
+                "Descripcion": "Email"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-diagnostico-dummy",
+      "nombre": "Asegurados.Diagnostico.Dummy (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Diagnostico.Dummy",
+          "entrada": {},
+          "lineaBase": {
+            "FechaHora": "2026-10-04T21:42:25"
+          },
+          "volatiles": [
+            "FechaHora"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asegurados-global-email_validar",
+      "nombre": "Asegurados.Global.Email_Validar (datos de SISTEMA.sitLogGrupoEmail)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Global.Email_Validar",
+          "entrada": {
+            "Email": "adistefano@xiku.io"
+          },
+          "lineaBase": {
+            "Valido": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-global-email_validar-vacia",
+      "nombre": "Asegurados.Global.Email_Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Global.Email_Validar",
+          "entrada": {
+            "Email": ""
+          },
+          "lineaBase": {
+            "Valido": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-global-generarrandomalfanumerico",
+      "nombre": "Asegurados.Global.GenerarRandomAlfanumerico (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Global.GenerarRandomAlfanumerico",
+          "entrada": {},
+          "lineaBase": {
+            "CodigoGenerado": "1C1F66"
+          },
+          "volatiles": [
+            "CodigoGenerado"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asegurados-global-llenasdtusuario",
+      "nombre": "Asegurados.Global.LlenaSdtUsuario (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Global.LlenaSdtUsuario",
+          "entrada": {},
+          "lineaBase": {
+            "sdtUsuario": {
+              "UserName": "",
+              "UserGUID": "",
+              "UserAplicacion": "ASE",
+              "UserEmail": "",
+              "UserFullName": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-mercadopago-mppreferencebuscar",
+      "nombre": "Asegurados.MercadoPago.MPPreferenceBuscar (datos de ASEGURADOS.ashMPPrefCuotas)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.MercadoPago.MPPreferenceBuscar",
+          "entrada": {
+            "MPPreferenceId": "1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1",
+            "MPOrderId": 0,
+            "MPPaymentId": 0,
+            "MPExternalReference": "",
+            "MPPrefEstado": "",
+            "MPPrefUserGUID": "",
+            "MPPrefUserName": "",
+            "MPPrefDateIns": "",
+            "MPCuoRamaId": 22,
+            "MPCuoPolizaNumero": 10127,
+            "MPCuoOperacionNumero": 1505017,
+            "MPCuoArticuloId": 608,
+            "MPCuoSuperpoliza": 1086,
+            "MPCuoSuplementoNumero": 17,
+            "MPCuoCuotaNumero": 3,
+            "MPCuoCuotasImporte": 61,
+            "MPCuoTipo": "CUO"
+          },
+          "lineaBase": {
+            "sdtPreferences": [
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-04-04T14:16:48",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-04-04T14:16:42",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":61}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-13\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "61.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 22,
+                    "MPCuoPolizaNumero": 10127,
+                    "MPCuoSuperpoliza": 1086,
+                    "MPCuoSuplementoNumero": 17,
+                    "MPCuoCuotaNumero": 3,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 608,
+                    "MPCuoOperacionNumero": 1505017,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-13",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-mercadopago-mppreferencebuscar-vacia",
+      "nombre": "Asegurados.MercadoPago.MPPreferenceBuscar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.MercadoPago.MPPreferenceBuscar",
+          "entrada": {
+            "MPPreferenceId": "",
+            "MPOrderId": 0,
+            "MPPaymentId": 0,
+            "MPExternalReference": "",
+            "MPPrefEstado": "",
+            "MPPrefUserGUID": "",
+            "MPPrefUserName": "",
+            "MPPrefDateIns": "",
+            "MPCuoRamaId": 0,
+            "MPCuoPolizaNumero": 0,
+            "MPCuoOperacionNumero": 0,
+            "MPCuoArticuloId": 0,
+            "MPCuoSuperpoliza": 0,
+            "MPCuoSuplementoNumero": 0,
+            "MPCuoCuotaNumero": 0,
+            "MPCuoCuotasImporte": 0,
+            "MPCuoTipo": ""
+          },
+          "lineaBase": {
+            "sdtPreferences": [
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-04-04T14:16:48",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-04-04T14:16:42",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":61}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-02a2d282-b3c9-4ac5-b5d4-ebec5c94d0e1\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-13\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "61.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 22,
+                    "MPCuoPolizaNumero": 10127,
+                    "MPCuoSuperpoliza": 1086,
+                    "MPCuoSuplementoNumero": 17,
+                    "MPCuoCuotaNumero": 3,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 608,
+                    "MPCuoOperacionNumero": 1505017,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-13",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2022-11-09T17:00:19",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-1761deec-f571-4226-97b1-0f5787f176e7",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2022-11-09T16:42:36",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":180}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-1761deec-f571-4226-97b1-0f5787f176e7\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-1761deec-f571-4226-97b1-0f5787f176e7\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-1761deec-f571-4226-97b1-0f5787f176e7\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"6\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "180.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 1,
+                    "MPCuoPolizaNumero": 240722,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 2,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6522525,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "6",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2024-02-07T10:22:02",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-1c4ccd81-4cdb-44b5-80d1-617e629d1e25",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2024-02-07T10:21:32",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":99400}],\"payer\":{\"name\":\" JORGE HUMBERTO\",\"surname\":\"BLANES\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-1c4ccd81-4cdb-44b5-80d1-617e629d1e25\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-1c4ccd81-4cdb-44b5-80d1-617e629d1e25\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-1c4ccd81-4cdb-44b5-80d1-617e629d1e25\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-37\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "49700.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 18,
+                    "MPCuoPolizaNumero": 94076,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 7,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7255058,
+                    "MPCuoMonedaId": ""
+                  },
+                  {
+                    "MPCuoCuotasImporte": "49700.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 18,
+                    "MPCuoPolizaNumero": 94076,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 8,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7255058,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-37",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-07-24T17:27:54",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-27ddfb21-5022-47bc-b53a-a1483d21e16f",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-07-24T17:27:35",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":39180}],\"payer\":{\"name\":\" JULIO CESAR\",\"surname\":\"SCARAFIA\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-27ddfb21-5022-47bc-b53a-a1483d21e16f\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-27ddfb21-5022-47bc-b53a-a1483d21e16f\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-27ddfb21-5022-47bc-b53a-a1483d21e16f\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-24\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "29500.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3582747,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 1,
+                    "MPCuoCuotaNumero": 4,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6843884,
+                    "MPCuoMonedaId": ""
+                  },
+                  {
+                    "MPCuoCuotasImporte": "450.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 12,
+                    "MPCuoPolizaNumero": 417701,
+                    "MPCuoSuperpoliza": 95306,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 7,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 12003,
+                    "MPCuoOperacionNumero": 7012357,
+                    "MPCuoMonedaId": ""
+                  },
+                  {
+                    "MPCuoCuotasImporte": "9230.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 17,
+                    "MPCuoPolizaNumero": 574741,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 6,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7003048,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-24",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-07-24T17:26:00",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-292d5d89-97c9-408a-b8f3-3e4938977186",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-07-24T17:25:48",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":69925.15}],\"payer\":{\"name\":\" GUSTAVO ARIEL\",\"surname\":\"ACHA\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-292d5d89-97c9-408a-b8f3-3e4938977186\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-292d5d89-97c9-408a-b8f3-3e4938977186\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-292d5d89-97c9-408a-b8f3-3e4938977186\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-22\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "25645.15",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3715444,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 3,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7098859,
+                    "MPCuoMonedaId": ""
+                  },
+                  {
+                    "MPCuoCuotasImporte": "44280.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3715444,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 4,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7098859,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-22",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-06-29T17:19:04",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-2abc2c2c-e67a-4582-ab60-f5c4952ba458",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-06-29T17:18:52",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":844431.47}],\"payer\":{\"name\":\"\",\"surname\":\"\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-2abc2c2c-e67a-4582-ab60-f5c4952ba458\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-2abc2c2c-e67a-4582-ab60-f5c4952ba458\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-2abc2c2c-e67a-4582-ab60-f5c4952ba458\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-18\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "674102.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3590529,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 2,
+                    "MPCuoCuotaNumero": 4,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6890370,
+                    "MPCuoMonedaId": ""
+                  },
+                  {
+                    "MPCuoCuotasImporte": "170329.47",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3590553,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 5,
+                    "MPCuoCuotaNumero": 3,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6890744,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-18",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-05-05T12:40:46",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-2ac70483-860d-44fd-8d17-d16b186120c9",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-05-05T12:40:15",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":61}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-2ac70483-860d-44fd-8d17-d16b186120c9\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-2ac70483-860d-44fd-8d17-d16b186120c9\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-2ac70483-860d-44fd-8d17-d16b186120c9\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-17\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "61.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 22,
+                    "MPCuoPolizaNumero": 10127,
+                    "MPCuoSuperpoliza": 1086,
+                    "MPCuoSuplementoNumero": 17,
+                    "MPCuoCuotaNumero": 4,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 608,
+                    "MPCuoOperacionNumero": 1505017,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-17",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "RCH",
+                "MPOrderData": "{\"id\":6439925701,\"status\":\"opened\",\"external_reference\":\"5\",\"preference_id\":\"1194788442-4e24ab62-e701-4322-83dd-ce9ece83d72c\",\"payments\":[{\"id\":51344864510,\"transaction_amount\":\"180.00000\",\"total_paid_amount\":\"180.00000\",\"shipping_cost\":\"0.00000\",\"currency_id\":\"ARS\",\"status\":\"rejected\",\"status_detail\":\"cc_rejected_other_reason\",\"operation_type\":\"regular_payment\",\"date_approved\":\"0000-00-00T00:00:00.000\",\"date_created\":\"0000-00-00T00:00:00\",\"last_modified\":\"0000-00-00T00:00:00\",\"amount_refunded\":\"0.00000\"}],\"shipments\":[],\"collector\":{\"id\":1194788442},\"marketplace\":\"NONE\",\"date_created\":\"0000-00-00T00:00:00\",\"last_updated\":\"0000-00-00T00:00:00\",\"shipping_cost\":\"0.00000\",\"total_amount\":\"180.00000\",\"site_id\":\"MLA\",\"paid_amount\":\"0.00000\",\"refunded_amount\":\"0.00000\",\"payer\":{\"id\":1194787699,\"email\":\"\"},\"items\":[{\"id\":\"\",\"category_id\":\"\",\"currency_id\":\"ARS\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"null\",\"title\":\"Pólizas\",\"quantity\":1,\"unit_price\":\"180.00000\"}],\"cancelled\":false,\"additional_info\":\"aseguradoX\",\"application_id\":0,\"order_status\":\"payment_required\"}",
+                "MPPrefDateUpd": "2022-11-09T16:15:01",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-4e24ab62-e701-4322-83dd-ce9ece83d72c",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2022-11-09T16:14:27",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":180}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-4e24ab62-e701-4322-83dd-ce9ece83d72c\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-4e24ab62-e701-4322-83dd-ce9ece83d72c\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-4e24ab62-e701-4322-83dd-ce9ece83d72c\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"5\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "180.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 1,
+                    "MPCuoPolizaNumero": 240722,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 2,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6522525,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "{\"id\":51344864510,\"token\":\"\",\"date_created\":\"0000-00-00T00:00:00\",\"date_approved\":\"0000-00-00T00:00:00\",\"date_last_updated\":\"0000-00-00T00:00:00\",\"money_release_date\":\"0000-00-00T00:00:00\",\"operation_type\":\"regular_payment\",\"issuer_id\":\"2\",\"payment_method_id\":\"amex\",\"payment_type_id\":\"credit_card\",\"status\":\"rejected\",\"status_detail\":\"cc_rejected_other_reason\",\"currency_id\":\"ARS\",\"description\":\"Pólizas\",\"live_mode\":true,\"collector_id\":1194788442,\"payer\":{\"type\":\"null\",\"id\":\"1194787699\",\"email\":\"null\",\"phone\":{\"area_code\":\"null\",\"number\":\"null\",\"extension\":\"null\"},\"first_name\":\"null\",\"last_name\":\"null\",\"identification\":{\"type\":\"null\",\"number\":\"null\"}},\"additional_info\":{\"items\":[{\"id\":\"null\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"null\",\"category_id\":\"null\",\"quantity\":1,\"unit_price\":180}],\"payer\":{\"first_name\":\" MONICA BEATRIZ\",\"last_name\":\"AGODINO\",\"registration_date\":\"0000-00-00T00:00:00\"}},\"external_reference\":\"5\",\"transaction_amount\":180,\"transaction_amount_refunded\":0,\"coupon_amount\":0,\"transaction_details\":{\"net_received_amount\":0,\"total_paid_amount\":180,\"overpaid_amount\":0,\"installment_amount\":180,\"external_resource_url\":\"null\",\"payment_method_reference_id\":\"null\"},\"fee_details\":[],\"captured\":true,\"binary_mode\":true,\"statement_descriptor\":\"Mercadopago*fake\",\"installments\":1,\"card\":{\"first_six_digits\":\"371180\",\"last_four_digits\":\"7522\",\"expiration_month\":11,\"expiration_year\":2025,\"date_created\":\"0000-00-00T00:00:00\",\"date_last_updated\":\"0000-00-00T00:00:00\",\"cardholder\":{\"name\":\"OTHE\",\"identification\":{\"number\":\"01111111\",\"type\":\"DNI\"}}},\"order\":{\"type\":\"mercadopago\",\"id\":6439925701}}",
+                "MPExternalReference": "5",
+                "MPPaymentId": "51344864510",
+                "MPOrderId": "6439925701"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-12-19T15:39:26",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-4e51d50c-18a1-4df4-882b-1c97f0074777",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-12-19T15:37:50",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":71410}],\"payer\":{\"name\":\" LUIS GASTON\",\"surname\":\"ARAYA\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-4e51d50c-18a1-4df4-882b-1c97f0074777\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-4e51d50c-18a1-4df4-882b-1c97f0074777\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-4e51d50c-18a1-4df4-882b-1c97f0074777\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-33\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "58820.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3759726,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 6,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7208863,
+                    "MPCuoMonedaId": ""
+                  },
+                  {
+                    "MPCuoCuotasImporte": "12590.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3764972,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 5,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7227761,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-33",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-12-27T14:25:25",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-631e7c3c-3aa7-4e99-b39d-a55b999c6a0b",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-12-27T14:25:13",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":4480}],\"payer\":{\"name\":\" JORGE HUMBERTO\",\"surname\":\"BLANES\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-631e7c3c-3aa7-4e99-b39d-a55b999c6a0b\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-631e7c3c-3aa7-4e99-b39d-a55b999c6a0b\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-631e7c3c-3aa7-4e99-b39d-a55b999c6a0b\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-34\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "4480.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3765471,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 5,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7227094,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-34",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-07-10T12:10:11",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-6af538e3-d95e-4c2c-88c9-a0d6a0d5ee37",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-07-07T15:24:21",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":2960.4}],\"payer\":{\"name\":\"\",\"surname\":\"\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-6af538e3-d95e-4c2c-88c9-a0d6a0d5ee37\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-6af538e3-d95e-4c2c-88c9-a0d6a0d5ee37\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-6af538e3-d95e-4c2c-88c9-a0d6a0d5ee37\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-21\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "2960.40",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3648536,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 1,
+                    "MPCuoCuotaNumero": 1,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6965750,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-21",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-07-07T15:21:29",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-764211ed-9526-41a0-a569-ec44f425694e",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-07-07T15:21:17",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":668401.09}],\"payer\":{\"name\":\"\",\"surname\":\"\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-764211ed-9526-41a0-a569-ec44f425694e\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-764211ed-9526-41a0-a569-ec44f425694e\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-764211ed-9526-41a0-a569-ec44f425694e\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-19\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "668401.09",
+                    "MPCuoTipo": "CON",
+                    "MPCuoRamaId": 1,
+                    "MPCuoPolizaNumero": 247740,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 1,
+                    "MPCuoCuotaNumero": 0,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6949877,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-19",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-12-27T14:29:57",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-7fde1c30-65fc-450d-b1f7-6f1a967c5458",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-12-27T14:29:45",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":136210}],\"payer\":{\"name\":\"\",\"surname\":\"\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-7fde1c30-65fc-450d-b1f7-6f1a967c5458\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-7fde1c30-65fc-450d-b1f7-6f1a967c5458\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-7fde1c30-65fc-450d-b1f7-6f1a967c5458\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-36\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "136210.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3737746,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 1,
+                    "MPCuoCuotaNumero": 2,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7190627,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-36",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-11-15T15:16:26",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-80ffdec7-ad71-44ad-8306-3fceb3c73769",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-11-15T10:29:18",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":67655.2}],\"payer\":{\"name\":\" GUSTAVO ARIEL\",\"surname\":\"ACHA\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-80ffdec7-ad71-44ad-8306-3fceb3c73769\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-80ffdec7-ad71-44ad-8306-3fceb3c73769\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-80ffdec7-ad71-44ad-8306-3fceb3c73769\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-31\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "67655.20",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3715444,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 2,
+                    "MPCuoCuotaNumero": 1,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7098859,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-31",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-07-25T08:47:25",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-90240374-be2b-4cfb-97e6-b35d58b96672",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-07-24T17:29:26",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":69925.15}],\"payer\":{\"name\":\" GUSTAVO ARIEL\",\"surname\":\"ACHA\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-90240374-be2b-4cfb-97e6-b35d58b96672\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-90240374-be2b-4cfb-97e6-b35d58b96672\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-90240374-be2b-4cfb-97e6-b35d58b96672\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-26\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "25645.15",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3715444,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 3,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7098859,
+                    "MPCuoMonedaId": ""
+                  },
+                  {
+                    "MPCuoCuotasImporte": "44280.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3715444,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 4,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7098859,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-26",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-02-22T15:00:16",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-9bee6cc0-ec18-43ad-9107-470a74a980d0",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2022-11-10T10:05:42",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":180}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-9bee6cc0-ec18-43ad-9107-470a74a980d0\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-9bee6cc0-ec18-43ad-9107-470a74a980d0\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-9bee6cc0-ec18-43ad-9107-470a74a980d0\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"8\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "180.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 1,
+                    "MPCuoPolizaNumero": 240722,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 2,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6522525,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "8",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-07-10T12:10:13",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-a89a3c91-5eed-4cdd-be61-037e0a7a030e",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-07-07T15:21:39",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":668401.09}],\"payer\":{\"name\":\"\",\"surname\":\"\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-a89a3c91-5eed-4cdd-be61-037e0a7a030e\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-a89a3c91-5eed-4cdd-be61-037e0a7a030e\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-a89a3c91-5eed-4cdd-be61-037e0a7a030e\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-20\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "668401.09",
+                    "MPCuoTipo": "CON",
+                    "MPCuoRamaId": 1,
+                    "MPCuoPolizaNumero": 247740,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 1,
+                    "MPCuoCuotaNumero": 0,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6949877,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-20",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2022-11-09T16:24:13",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-b656a54f-b879-4a9a-9d8b-d8506da00865",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2022-11-09T16:13:25",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":2699.35}],\"payer\":{\"name\":\" MAURO MARTIN\",\"surname\":\"ALBERTENGO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-b656a54f-b879-4a9a-9d8b-d8506da00865\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-b656a54f-b879-4a9a-9d8b-d8506da00865\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-b656a54f-b879-4a9a-9d8b-d8506da00865\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"4\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "2699.35",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3498851,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 1,
+                    "MPCuoCuotaNumero": 2,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6685184,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "4",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-04-04T14:17:17",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-b74b3692-4852-4f2f-8483-1cced72063f3",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-04-04T14:17:08",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":61}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-b74b3692-4852-4f2f-8483-1cced72063f3\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-b74b3692-4852-4f2f-8483-1cced72063f3\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-b74b3692-4852-4f2f-8483-1cced72063f3\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-14\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "61.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 22,
+                    "MPCuoPolizaNumero": 10127,
+                    "MPCuoSuperpoliza": 1086,
+                    "MPCuoSuplementoNumero": 17,
+                    "MPCuoCuotaNumero": 3,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 608,
+                    "MPCuoOperacionNumero": 1505017,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-14",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-04-04T14:17:34",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-be98d22e-2711-491e-838d-308087446931",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-04-04T14:17:28",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":61}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-be98d22e-2711-491e-838d-308087446931\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-be98d22e-2711-491e-838d-308087446931\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-be98d22e-2711-491e-838d-308087446931\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-15\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "61.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 22,
+                    "MPCuoPolizaNumero": 10127,
+                    "MPCuoSuperpoliza": 1086,
+                    "MPCuoSuplementoNumero": 17,
+                    "MPCuoCuotaNumero": 4,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 608,
+                    "MPCuoOperacionNumero": 1505017,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-15",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "RCH",
+                "MPOrderData": "{\"id\":6439468351,\"status\":\"opened\",\"external_reference\":\"2\",\"preference_id\":\"1194788442-ca952fab-b258-4388-8667-ff749e35d316\",\"payments\":[{\"id\":51343549972,\"transaction_amount\":\"180.00000\",\"total_paid_amount\":\"180.00000\",\"shipping_cost\":\"0.00000\",\"currency_id\":\"ARS\",\"status\":\"rejected\",\"status_detail\":\"cc_rejected_other_reason\",\"operation_type\":\"regular_payment\",\"date_approved\":\"0000-00-00T00:00:00.000\",\"date_created\":\"0000-00-00T00:00:00\",\"last_modified\":\"0000-00-00T00:00:00\",\"amount_refunded\":\"0.00000\"}],\"shipments\":[],\"collector\":{\"id\":1194788442},\"marketplace\":\"NONE\",\"date_created\":\"0000-00-00T00:00:00\",\"last_updated\":\"0000-00-00T00:00:00\",\"shipping_cost\":\"0.00000\",\"total_amount\":\"180.00000\",\"site_id\":\"MLA\",\"paid_amount\":\"0.00000\",\"refunded_amount\":\"0.00000\",\"payer\":{\"id\":1194787699,\"email\":\"\"},\"items\":[{\"id\":\"\",\"category_id\":\"\",\"currency_id\":\"ARS\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"null\",\"title\":\"Pólizas\",\"quantity\":1,\"unit_price\":\"180.00000\"}],\"cancelled\":false,\"additional_info\":\"aseguradoX\",\"application_id\":0,\"order_status\":\"payment_required\"}",
+                "MPPrefDateUpd": "2022-11-09T15:36:59",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-ca952fab-b258-4388-8667-ff749e35d316",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2022-11-09T15:35:51",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":180}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-ca952fab-b258-4388-8667-ff749e35d316\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-ca952fab-b258-4388-8667-ff749e35d316\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-ca952fab-b258-4388-8667-ff749e35d316\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"2\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "180.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 1,
+                    "MPCuoPolizaNumero": 240722,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 2,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6522525,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "{\"id\":51343549972,\"token\":\"\",\"date_created\":\"0000-00-00T00:00:00\",\"date_approved\":\"0000-00-00T00:00:00\",\"date_last_updated\":\"0000-00-00T00:00:00\",\"money_release_date\":\"0000-00-00T00:00:00\",\"operation_type\":\"regular_payment\",\"issuer_id\":\"2\",\"payment_method_id\":\"amex\",\"payment_type_id\":\"credit_card\",\"status\":\"rejected\",\"status_detail\":\"cc_rejected_other_reason\",\"currency_id\":\"ARS\",\"description\":\"Pólizas\",\"live_mode\":true,\"collector_id\":1194788442,\"payer\":{\"type\":\"null\",\"id\":\"1194787699\",\"email\":\"null\",\"phone\":{\"area_code\":\"null\",\"number\":\"null\",\"extension\":\"null\"},\"first_name\":\"null\",\"last_name\":\"null\",\"identification\":{\"type\":\"null\",\"number\":\"null\"}},\"additional_info\":{\"items\":[{\"id\":\"null\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"null\",\"category_id\":\"null\",\"quantity\":1,\"unit_price\":180}],\"payer\":{\"first_name\":\" MONICA BEATRIZ\",\"last_name\":\"AGODINO\",\"registration_date\":\"0000-00-00T00:00:00\"}},\"external_reference\":\"2\",\"transaction_amount\":180,\"transaction_amount_refunded\":0,\"coupon_amount\":0,\"transaction_details\":{\"net_received_amount\":0,\"total_paid_amount\":180,\"overpaid_amount\":0,\"installment_amount\":180,\"external_resource_url\":\"null\",\"payment_method_reference_id\":\"null\"},\"fee_details\":[],\"captured\":true,\"binary_mode\":true,\"statement_descriptor\":\"Mercadopago*fake\",\"installments\":1,\"card\":{\"first_six_digits\":\"371180\",\"last_four_digits\":\"7522\",\"expiration_month\":11,\"expiration_year\":2025,\"date_created\":\"0000-00-00T00:00:00\",\"date_last_updated\":\"0000-00-00T00:00:00\",\"cardholder\":{\"name\":\"OTHE\",\"identification\":{\"number\":\"01111111\",\"type\":\"DNI\"}}},\"order\":{\"type\":\"mercadopago\",\"id\":6439468351}}",
+                "MPExternalReference": "2",
+                "MPPaymentId": "51343549972",
+                "MPOrderId": "6439468351"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-07-24T17:29:06",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-cbd7c6b4-9199-4aa1-82f6-ec53f4e501c3",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-07-24T17:28:52",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":69925.15}],\"payer\":{\"name\":\" GUSTAVO ARIEL\",\"surname\":\"ACHA\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-cbd7c6b4-9199-4aa1-82f6-ec53f4e501c3\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-cbd7c6b4-9199-4aa1-82f6-ec53f4e501c3\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-cbd7c6b4-9199-4aa1-82f6-ec53f4e501c3\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-25\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "25645.15",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3715444,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 3,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7098859,
+                    "MPCuoMonedaId": ""
+                  },
+                  {
+                    "MPCuoCuotasImporte": "44280.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3715444,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 4,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7098859,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-25",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2024-10-14T10:05:53",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-dbf3b3b4-7877-44a0-9df2-462781eaf49a",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2024-10-14T09:54:09",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":29330}],\"payer\":{\"name\":\" JORGE HUMBERTO\",\"surname\":\"BLANES\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-dbf3b3b4-7877-44a0-9df2-462781eaf49a\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-dbf3b3b4-7877-44a0-9df2-462781eaf49a\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-dbf3b3b4-7877-44a0-9df2-462781eaf49a\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-151\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "29330.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3892894,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 2,
+                    "MPCuoCuotaNumero": 3,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7479962,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-151",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2022-11-10T09:40:12",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-ddbbc84b-7f51-4f3f-b5c4-826ecd45c165",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2022-11-10T09:25:08",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":180}],\"payer\":{\"name\":\" MONICA BEATRIZ\",\"surname\":\"AGODINO\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-ddbbc84b-7f51-4f3f-b5c4-826ecd45c165\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-ddbbc84b-7f51-4f3f-b5c4-826ecd45c165\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-ddbbc84b-7f51-4f3f-b5c4-826ecd45c165\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"7\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "180.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 1,
+                    "MPCuoPolizaNumero": 240722,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 2,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 6522525,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "7",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-07-24T17:26:49",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-e26b2139-e849-40be-88fc-e2c183c52ac2",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-07-24T17:26:37",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":25645.15}],\"payer\":{\"name\":\" GUSTAVO ARIEL\",\"surname\":\"ACHA\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-e26b2139-e849-40be-88fc-e2c183c52ac2\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-e26b2139-e849-40be-88fc-e2c183c52ac2\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-e26b2139-e849-40be-88fc-e2c183c52ac2\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-23\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "25645.15",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3715444,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 0,
+                    "MPCuoCuotaNumero": 3,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7098859,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-23",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              },
+              {
+                "MPPrefEstado": "CAN",
+                "MPOrderData": "",
+                "MPPrefDateUpd": "2023-12-27T14:29:09",
+                "MPPrefUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5    ",
+                "MPPreferenceId": "1194788442-fd251664-855b-47ec-b6d8-4112dcb4a6f8",
+                "MPPrefUserName": "admin",
+                "MPPrefDateIns": "2023-12-27T14:28:41",
+                "MPPreferenceData": "{\"items\":[{\"id\":\"\",\"title\":\"Pólizas\",\"description\":\"Recibos de Póliza\",\"picture_url\":\"\",\"category_id\":\"\",\"quantity\":1,\"currency_id\":\"ARS\",\"unit_price\":136210}],\"payer\":{\"name\":\"\",\"surname\":\"\",\"email\":\"test@xiku.io\",\"phone\":{\"area_code\":\"\",\"number\":\"\"},\"address\":{\"street_name\":\"\",\"street_number\":0,\"zip_code\":\"\"}},\"payment_methods\":{\"excluded_payment_methods\":[{\"id\":\"\"}],\"excluded_payment_types\":[{\"id\":\"atm\"},{\"id\":\"ticket\"}],\"default_payment_method_id\":\"\",\"installments\":1,\"default_installments\":1},\"back_urls\":{\"success\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"pending\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\",\"failure\":\"https://linuxdesa.int.xiku.io:443/aseguradosci/com.asegurados.asegurados.mercadopago.mercadopagoresultado\"},\"notification_url\":\"http://proxy.xiku.io:2201/aseguradosci/com.asegurados.asegurados.mercadopago.areceivenotifications?source_news=webhooks\",\"id\":\"1194788442-fd251664-855b-47ec-b6d8-4112dcb4a6f8\",\"init_point\":\"https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-fd251664-855b-47ec-b6d8-4112dcb4a6f8\",\"sandbox_init_point\":\"https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=1194788442-fd251664-855b-47ec-b6d8-4112dcb4a6f8\",\"operation_type\":\"regular_payment\",\"additional_info\":\"aseguradoX\",\"auto_return\":\"approved\",\"external_reference\":\"PA-35\",\"collector_id\":1194788442,\"client_id\":2334518933550966,\"binary_mode\":true,\"expires\":true,\"expiration_date_from\":\"0000-00-00T00:00:00\",\"expiration_date_to\":\"0000-00-00T00:00:00\"}",
+                "Cuotas": [
+                  {
+                    "MPCuoCuotasImporte": "136210.00",
+                    "MPCuoTipo": "CUO",
+                    "MPCuoRamaId": 4,
+                    "MPCuoPolizaNumero": 3737746,
+                    "MPCuoSuperpoliza": 0,
+                    "MPCuoSuplementoNumero": 1,
+                    "MPCuoCuotaNumero": 2,
+                    "MPCuoSucursalId": "CC",
+                    "MPCuoEmpresaId": "N",
+                    "MPCuoArticuloId": 0,
+                    "MPCuoOperacionNumero": 7190627,
+                    "MPCuoMonedaId": ""
+                  }
+                ],
+                "MPPaymentData": "",
+                "MPExternalReference": "PA-35",
+                "MPPaymentId": "0",
+                "MPOrderId": "0"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-persona-fechanacimientocontrol-vacia",
+      "nombre": "Asegurados.Persona.FechaNacimientoControl (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Persona.FechaNacimientoControl",
+          "entrada": {
+            "FechaNacimiento": ""
+          },
+          "lineaBase": {
+            "ok": false,
+            "Mensaje": "Fecha de Nacimiento incorrecta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-persona-obtenerdatosbylogin",
+      "nombre": "Asegurados.Persona.ObtenerDatosByLogin (datos de SISTEMA.sihCasoRevision)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Persona.ObtenerDatosByLogin",
+          "entrada": {
+            "UserAuthTypeName": "",
+            "UserName": "admin"
+          },
+          "lineaBase": {
+            "GAMUserGUID": "a2d964b3-914d-4178-a780-0c0b471533f5",
+            "GAMEmail": "mpereyra@xiku.io"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-persona-obtenerdatosbylogin-vacia",
+      "nombre": "Asegurados.Persona.ObtenerDatosByLogin (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Persona.ObtenerDatosByLogin",
+          "entrada": {
+            "UserAuthTypeName": "",
+            "UserName": ""
+          },
+          "lineaBase": {
+            "GAMUserGUID": "",
+            "GAMEmail": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-poliza-polizavigencia",
+      "nombre": "Asegurados.Poliza.polizaVigencia (datos de SISTEMA.sitRepActivacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Poliza.polizaVigencia",
+          "entrada": {
+            "FechaActual": "",
+            "FechaInicio": "2024-10-08T18:28",
+            "FechaFin": "2024-10-31T18:28"
+          },
+          "lineaBase": {
+            "Vigencia": "a partir del 08/10/2024",
+            "VigenciaTag": "EN **** DÍAS"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-poliza-polizavigencia-vacia",
+      "nombre": "Asegurados.Poliza.polizaVigencia (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Poliza.polizaVigencia",
+          "entrada": {
+            "FechaActual": "",
+            "FechaInicio": "",
+            "FechaFin": ""
+          },
+          "lineaBase": {
+            "Vigencia": "",
+            "VigenciaTag": "VIGENTE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-siniestro-consulta_daterangepickeroptions",
+      "nombre": "Asegurados.Siniestro.Consulta_DateRangePickerOptions (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Siniestro.Consulta_DateRangePickerOptions",
+          "entrada": {},
+          "lineaBase": {
+            "WWPDateRangePickerOptions": {
+              "Locale": {
+                "Format": "DD/MM/YYYY",
+                "Id": ""
+              },
+              "Ranges": [
+                {
+                  "StartDate": "2026-09-19T00:00:00",
+                  "DisplayName": "15 días",
+                  "EndDate": "2026-10-04T00:00:00"
+                },
+                {
+                  "StartDate": "2026-09-04T00:00:00",
+                  "DisplayName": "30 días",
+                  "EndDate": "2026-10-04T00:00:00"
+                },
+                {
+                  "StartDate": "2026-08-05T00:00:00",
+                  "DisplayName": "60 días",
+                  "EndDate": "2026-10-04T00:00:00"
+                },
+                {
+                  "StartDate": "2026-07-06T00:00:00",
+                  "DisplayName": "90 días",
+                  "EndDate": "2026-10-04T00:00:00"
+                }
+              ],
+              "PickerType": "custom",
+              "ShowCustomRangeLabel": true,
+              "DatePicker": {
+                "ShowWeekNumbers": false,
+                "Show": true,
+                "ShowDropdowns": false
+              }
+            }
+          },
+          "volatiles": [
+            "WWPDateRangePickerOptions.Ranges[*].EndDate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asegurados-siniestro-seguimientos-listakeycache",
+      "nombre": "Asegurados.Siniestro.Seguimientos.ListaKeyCache (datos de ASEGURADOS.ashPolizas)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Siniestro.Seguimientos.ListaKeyCache",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "PortalConsulta": "",
+              "Usuarios": [
+                {
+                  "Usuario": "",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 0
+                }
+              ],
+              "SiniestroNumero": 0,
+              "RamaId": 1,
+              "Productores": [
+                0
+              ]
+            }
+          },
+          "lineaBase": {
+            "Key": "SINIESTROS_SINIESTROS_SEGUIMIENTOS_LISTA_1_0_0_[0]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-siniestro-seguimientos-listakeycache-vacia",
+      "nombre": "Asegurados.Siniestro.Seguimientos.ListaKeyCache (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Siniestro.Seguimientos.ListaKeyCache",
+          "entrada": {
+            "Request": {
+              "DenunciaNumero": 0,
+              "PortalConsulta": "",
+              "Usuarios": [
+                {
+                  "Usuario": "",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 0
+                }
+              ],
+              "SiniestroNumero": 0,
+              "RamaId": 0,
+              "Productores": [
+                0
+              ]
+            }
+          },
+          "lineaBase": {
+            "Key": "SINIESTROS_SINIESTROS_SEGUIMIENTOS_LISTA_0_0_0_[0]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asegurados-usuarios-lista-vacia",
+      "nombre": "Asegurados.Usuarios.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Asegurados.Usuarios.Lista",
+          "entrada": {
+            "Request": {
+              "PersonaId": 0
+            }
+          },
+          "lineaBase": {
+            "Response": {}
+          }
+        }
+      ]
+    }
+  ]
+}

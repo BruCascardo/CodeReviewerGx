@@ -1,0 +1,1502 @@
+{
+  "nombre": "Auto - Intermediarios.Emision",
+  "kb": "Intermediarios_Fixesv22r000m0000",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "intermediarios-emision-cargasdtcuentacorriente_agrupado",
+      "nombre": "Intermediarios.Emision.cargaSdtCuentaCorriente_agrupado (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.cargaSdtCuentaCorriente_agrupado",
+          "entrada": {
+            "TipoVistaSupFecha": "",
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ]
+          },
+          "lineaBase": {
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              },
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 1,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              },
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 2,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "TOTAL",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-cargasdtcuentacorriente_agrupado-vacia",
+      "nombre": "Intermediarios.Emision.cargaSdtCuentaCorriente_agrupado (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.cargaSdtCuentaCorriente_agrupado",
+          "entrada": {
+            "TipoVistaSupFecha": "",
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ]
+          },
+          "lineaBase": {
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              },
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 1,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              },
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 2,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "TOTAL",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-cargasdtpolizas_suplemento",
+      "nombre": "Intermediarios.Emision.cargaSdtPolizas_Suplemento (datos de COTIZACION.cthCotizacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.cargaSdtPolizas_Suplemento",
+          "entrada": {
+            "Suplemento": {
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ],
+              "Suplemento": {
+                "Numero": 0,
+                "MedioPago": {
+                  "Nombre": "",
+                  "Tipo": "",
+                  "Referencia": ""
+                },
+                "Moneda": {
+                  "Nombre": "",
+                  "Id": "",
+                  "Cotizacion": "0.000000"
+                },
+                "Entrega": {
+                  "Tipo": "",
+                  "Errores": [
+                    {
+                      "Mensaje": "",
+                      "Id": 0
+                    }
+                  ],
+                  "Digital": {
+                    "NotifFechaHoraAcceso": "0000-00-00T00:00:00",
+                    "NotifId": "0",
+                    "NotifFechaHora": "0000-00-00T00:00:00",
+                    "Direcciones": [
+                      ""
+                    ]
+                  },
+                  "Impresion": {
+                    "UltimoLote": 0
+                  }
+                },
+                "Movimiento": {
+                  "SubTipoId": 0,
+                  "TipoNombre": "",
+                  "TipoId": 0,
+                  "SubTipoNombre": ""
+                },
+                "FechaEmision": "0000-00-00",
+                "CUIP": "",
+                "FechaVigenciaPago": "0000-00-00",
+                "Prima": "7908.15",
+                "PrimaSubTotal": "0.00",
+                "Impuestos": "40.53",
+                "Coasegurado": false,
+                "Premio": "10140.43",
+                "BonifPorcentaje": 0,
+                "FechaFin": "2026-12-31",
+                "BonifImporte": "0.00",
+                "FechaVigenciaCertificado": "0000-00-00",
+                "FechaHastaFacturado": "2026-10-15",
+                "Cobrado": "0.00",
+                "EndosoNumero": 0,
+                "FechaHoraInicio": "0000-00-00T00:00:00",
+                "FechaInicio": "2026-04-19",
+                "Anticipo": "0.00",
+                "Ajustes": "0.00",
+                "FechaHoraFin": "0000-00-00T00:00:00",
+                "ComprobanteFiscal": {
+                  "Numero": 0,
+                  "QR": "",
+                  "CAENumero": "0",
+                  "CAEFechaVencimiento": "0000-00-00",
+                  "Tipo": {
+                    "Nombre": "",
+                    "AFIP": "",
+                    "Letra": "",
+                    "Id": 0
+                  },
+                  "FechaEmision": "0000-00-00",
+                  "Id": "0",
+                  "PuntoVenta": 0,
+                  "Estado": ""
+                },
+                "Periodo": 0,
+                "Pagador": {
+                  "NombreExtension": "",
+                  "NombreCompleto": "CERRONI PODESTA, FLORENCIA INES",
+                  "CondicionIVA": {
+                    "Nombre": "",
+                    "NombreCorto": "",
+                    "Id": 0
+                  },
+                  "Id": 0
+                },
+                "TEA": 0,
+                "Contado": {
+                  "RecargoPercIVA": "0.00",
+                  "Importe": "0.00",
+                  "RecargoIVA": "0.00",
+                  "FacturaNumero": 0,
+                  "Descuento": "0.00",
+                  "ReferenciaBarcode": "",
+                  "Referencia": "",
+                  "FechaPago": "0000-00-00",
+                  "RecargoFinanciero": "197.7"
+                },
+                "FacturaNumero": 0,
+                "Saldo": "0.00",
+                "Recargos": "0.00",
+                "FechaAnualidad": "0000-00-00",
+                "PrimaComercial": "0.00",
+                "Facturacion": {
+                  "Nombre": "",
+                  "Id": 0
+                }
+              }
+            },
+            "sdtPolizas": {
+              "Solicitud": {
+                "Numero": "0",
+                "Emisor": "",
+                "Cotizacion": "0"
+              },
+              "Poliza": {
+                "FechaFinVigencia": "",
+                "MedioDePago": "",
+                "Moneda": {
+                  "Nombre": "",
+                  "Simbolo": "",
+                  "Id": 0
+                },
+                "Rama": {
+                  "ClassSD": "",
+                  "Nombre": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "ClassUnicode": ""
+                },
+                "Detalle": "",
+                "EstadoPago": "",
+                "Titulo": "",
+                "Superpoliza": "22508",
+                "EstadoContratoCodigo": "",
+                "Seccion": "",
+                "MedioDePagoTipo": "",
+                "FechaInicioVigencia": "",
+                "Descripcion": "",
+                "PermiteAnular": false,
+                "VigenciaEstado": "",
+                "MotivoAnuEnd": "",
+                "Articulo": "",
+                "FechaVigencia": "",
+                "PolizaDigital": "True",
+                "Vigencia": "",
+                "PermiteEndosar": false,
+                "EstadoContrato": "",
+                "Renovacion": {
+                  "PolizaPosterior": 0,
+                  "OperacionPosteriorFechaInicio": "0000-00-00",
+                  "OperacionPosterior": 0
+                },
+                "PolizaDigitalFechaEnvio": "",
+                "EstadoPagoCodigo": 0,
+                "PolizaDigitalAdherido": false
+              },
+              "Productor": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0,
+                "Email": "fcerroni@xiku.io",
+                "Telefono": ""
+              },
+              "Datos": {
+                "FechaFinVigencia": "0000-00-00",
+                "FechaFacturadoHasta": "0000-00-00",
+                "FechaInicioEndoso": "0000-00-00",
+                "FechaInicioVigencia": "0000-00-00"
+              },
+              "Organizador": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0
+              },
+              "Pagador": {
+                "Nombre": "",
+                "CondicionIVA": "",
+                "Id": 0
+              },
+              "Suplemento": {
+                "FechaFinVigencia": "",
+                "FechaVigencia": "",
+                "Prima": "7908.15",
+                "Impuestos": "40.53",
+                "Premio": "10140.43",
+                "EstadoPago": "",
+                "FechaDeEmision": "",
+                "BonifPorcentaje": "",
+                "FechaFacturadoHasta": "",
+                "Cobrado": "",
+                "Saldo": "",
+                "Datos": {
+                  "BonificacionPorcentaje": 0
+                },
+                "FechaInicioVigencia": "",
+                "Recargos": ""
+              },
+              "Asegurado": {
+                "Nombre": "",
+                "Email": "fcerroni@xiku.io",
+                "Telefono": "",
+                "Direccion": "",
+                "CondicionIVA": "",
+                "Id": 0,
+                "Documento": "",
+                "DireccionLink": "",
+                "Tags": [
+                  {
+                    "Id": 0
+                  }
+                ]
+              }
+            }
+          },
+          "lineaBase": {
+            "sdtPolizas": {
+              "Solicitud": {
+                "Numero": "0",
+                "Emisor": "",
+                "Cotizacion": "0"
+              },
+              "Poliza": {
+                "FechaFinVigencia": "",
+                "MedioDePago": "",
+                "Moneda": {
+                  "Nombre": "",
+                  "Simbolo": "",
+                  "Id": 0
+                },
+                "Rama": {
+                  "ClassSD": "",
+                  "Nombre": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "ClassUnicode": ""
+                },
+                "Detalle": "",
+                "EstadoPago": "",
+                "Titulo": "",
+                "Superpoliza": "22508",
+                "EstadoContratoCodigo": "",
+                "Seccion": "",
+                "MedioDePagoTipo": "",
+                "FechaInicioVigencia": "",
+                "Descripcion": "",
+                "PermiteAnular": false,
+                "VigenciaEstado": "",
+                "MotivoAnuEnd": "",
+                "Articulo": "",
+                "FechaVigencia": "",
+                "PolizaDigital": "True",
+                "Vigencia": "",
+                "PermiteEndosar": false,
+                "EstadoContrato": "",
+                "Renovacion": {
+                  "PolizaPosterior": 0,
+                  "OperacionPosteriorFechaInicio": "0000-00-00",
+                  "OperacionPosterior": 0
+                },
+                "PolizaDigitalFechaEnvio": "",
+                "EstadoPagoCodigo": 0,
+                "PolizaDigitalAdherido": false
+              },
+              "Productor": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0,
+                "Email": "fcerroni@xiku.io",
+                "Telefono": ""
+              },
+              "Datos": {
+                "FechaFinVigencia": "0000-00-00",
+                "FechaFacturadoHasta": "0000-00-00",
+                "FechaInicioEndoso": "0000-00-00",
+                "FechaInicioVigencia": "0000-00-00"
+              },
+              "Organizador": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0
+              },
+              "Pagador": {
+                "Nombre": "",
+                "CondicionIVA": "",
+                "Id": 0
+              },
+              "Suplemento": {
+                "FechaFinVigencia": "Vigente hasta 31/12/2026",
+                "FechaVigencia": "Vigencia 19/04/2026 - 31/12/2026",
+                "Prima": "Prima  0,00",
+                "Impuestos": "Impuestos  40,53",
+                "Premio": "Premio  10.140,43",
+                "EstadoPago": "",
+                "FechaDeEmision": "Emisión   /  /    ",
+                "BonifPorcentaje": "0.0000%",
+                "FechaFacturadoHasta": "Facturado hasta 15/10/2026",
+                "Cobrado": "Cobrado  0,00",
+                "Saldo": "Saldo  0,00",
+                "Datos": {
+                  "BonificacionPorcentaje": 0
+                },
+                "FechaInicioVigencia": "Vigente desde 19/04/2026",
+                "Recargos": "Recargos  0,00"
+              },
+              "Asegurado": {
+                "Nombre": "",
+                "Email": "fcerroni@xiku.io",
+                "Telefono": "",
+                "Direccion": "",
+                "CondicionIVA": "",
+                "Id": 0,
+                "Documento": "",
+                "DireccionLink": "",
+                "Tags": [
+                  {
+                    "Id": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-cargasdtpolizas_suplemento-vacia",
+      "nombre": "Intermediarios.Emision.cargaSdtPolizas_Suplemento (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.cargaSdtPolizas_Suplemento",
+          "entrada": {
+            "Suplemento": {
+              "Errores": [
+                {
+                  "Mensaje": "",
+                  "Id": 0
+                }
+              ],
+              "Suplemento": {
+                "Numero": 0,
+                "MedioPago": {
+                  "Nombre": "",
+                  "Tipo": "",
+                  "Referencia": ""
+                },
+                "Moneda": {
+                  "Nombre": "",
+                  "Id": "",
+                  "Cotizacion": "0.000000"
+                },
+                "Entrega": {
+                  "Tipo": "",
+                  "Errores": [
+                    {
+                      "Mensaje": "",
+                      "Id": 0
+                    }
+                  ],
+                  "Digital": {
+                    "NotifFechaHoraAcceso": "0000-00-00T00:00:00",
+                    "NotifId": "0",
+                    "NotifFechaHora": "0000-00-00T00:00:00",
+                    "Direcciones": [
+                      ""
+                    ]
+                  },
+                  "Impresion": {
+                    "UltimoLote": 0
+                  }
+                },
+                "Movimiento": {
+                  "SubTipoId": 0,
+                  "TipoNombre": "",
+                  "TipoId": 0,
+                  "SubTipoNombre": ""
+                },
+                "FechaEmision": "0000-00-00",
+                "CUIP": "",
+                "FechaVigenciaPago": "0000-00-00",
+                "Prima": "0.00",
+                "PrimaSubTotal": "0.00",
+                "Impuestos": "0.00",
+                "Coasegurado": false,
+                "Premio": "0.00",
+                "BonifPorcentaje": 0,
+                "FechaFin": "0000-00-00",
+                "BonifImporte": "0.00",
+                "FechaVigenciaCertificado": "0000-00-00",
+                "FechaHastaFacturado": "0000-00-00",
+                "Cobrado": "0.00",
+                "EndosoNumero": 0,
+                "FechaHoraInicio": "0000-00-00T00:00:00",
+                "FechaInicio": "0000-00-00",
+                "Anticipo": "0.00",
+                "Ajustes": "0.00",
+                "FechaHoraFin": "0000-00-00T00:00:00",
+                "ComprobanteFiscal": {
+                  "Numero": 0,
+                  "QR": "",
+                  "CAENumero": "0",
+                  "CAEFechaVencimiento": "0000-00-00",
+                  "Tipo": {
+                    "Nombre": "",
+                    "AFIP": "",
+                    "Letra": "",
+                    "Id": 0
+                  },
+                  "FechaEmision": "0000-00-00",
+                  "Id": "0",
+                  "PuntoVenta": 0,
+                  "Estado": ""
+                },
+                "Periodo": 0,
+                "Pagador": {
+                  "NombreExtension": "",
+                  "NombreCompleto": "",
+                  "CondicionIVA": {
+                    "Nombre": "",
+                    "NombreCorto": "",
+                    "Id": 0
+                  },
+                  "Id": 0
+                },
+                "TEA": 0,
+                "Contado": {
+                  "RecargoPercIVA": "0.00",
+                  "Importe": "0.00",
+                  "RecargoIVA": "0.00",
+                  "FacturaNumero": 0,
+                  "Descuento": "0.00",
+                  "ReferenciaBarcode": "",
+                  "Referencia": "",
+                  "FechaPago": "0000-00-00",
+                  "RecargoFinanciero": "0.00"
+                },
+                "FacturaNumero": 0,
+                "Saldo": "0.00",
+                "Recargos": "0.00",
+                "FechaAnualidad": "0000-00-00",
+                "PrimaComercial": "0.00",
+                "Facturacion": {
+                  "Nombre": "",
+                  "Id": 0
+                }
+              }
+            },
+            "sdtPolizas": {
+              "Solicitud": {
+                "Numero": "0",
+                "Emisor": "",
+                "Cotizacion": "0"
+              },
+              "Poliza": {
+                "FechaFinVigencia": "",
+                "MedioDePago": "",
+                "Moneda": {
+                  "Nombre": "",
+                  "Simbolo": "",
+                  "Id": 0
+                },
+                "Rama": {
+                  "ClassSD": "",
+                  "Nombre": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "ClassUnicode": ""
+                },
+                "Detalle": "",
+                "EstadoPago": "",
+                "Titulo": "",
+                "Superpoliza": "",
+                "EstadoContratoCodigo": "",
+                "Seccion": "",
+                "MedioDePagoTipo": "",
+                "FechaInicioVigencia": "",
+                "Descripcion": "",
+                "PermiteAnular": false,
+                "VigenciaEstado": "",
+                "MotivoAnuEnd": "",
+                "Articulo": "",
+                "FechaVigencia": "",
+                "PolizaDigital": "",
+                "Vigencia": "",
+                "PermiteEndosar": false,
+                "EstadoContrato": "",
+                "Renovacion": {
+                  "PolizaPosterior": 0,
+                  "OperacionPosteriorFechaInicio": "0000-00-00",
+                  "OperacionPosterior": 0
+                },
+                "PolizaDigitalFechaEnvio": "",
+                "EstadoPagoCodigo": 0,
+                "PolizaDigitalAdherido": false
+              },
+              "Productor": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0,
+                "Email": "",
+                "Telefono": ""
+              },
+              "Datos": {
+                "FechaFinVigencia": "0000-00-00",
+                "FechaFacturadoHasta": "0000-00-00",
+                "FechaInicioEndoso": "0000-00-00",
+                "FechaInicioVigencia": "0000-00-00"
+              },
+              "Organizador": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0
+              },
+              "Pagador": {
+                "Nombre": "",
+                "CondicionIVA": "",
+                "Id": 0
+              },
+              "Suplemento": {
+                "FechaFinVigencia": "",
+                "FechaVigencia": "",
+                "Prima": "",
+                "Impuestos": "",
+                "Premio": "",
+                "EstadoPago": "",
+                "FechaDeEmision": "",
+                "BonifPorcentaje": "",
+                "FechaFacturadoHasta": "",
+                "Cobrado": "",
+                "Saldo": "",
+                "Datos": {
+                  "BonificacionPorcentaje": 0
+                },
+                "FechaInicioVigencia": "",
+                "Recargos": ""
+              },
+              "Asegurado": {
+                "Nombre": "",
+                "Email": "",
+                "Telefono": "",
+                "Direccion": "",
+                "CondicionIVA": "",
+                "Id": 0,
+                "Documento": "",
+                "DireccionLink": "",
+                "Tags": [
+                  {
+                    "Id": 0
+                  }
+                ]
+              }
+            }
+          },
+          "lineaBase": {
+            "sdtPolizas": {
+              "Solicitud": {
+                "Numero": "0",
+                "Emisor": "",
+                "Cotizacion": "0"
+              },
+              "Poliza": {
+                "FechaFinVigencia": "",
+                "MedioDePago": "",
+                "Moneda": {
+                  "Nombre": "",
+                  "Simbolo": "",
+                  "Id": 0
+                },
+                "Rama": {
+                  "ClassSD": "",
+                  "Nombre": "",
+                  "Tipo": "",
+                  "Color": "",
+                  "Class": "",
+                  "ClassUnicode": ""
+                },
+                "Detalle": "",
+                "EstadoPago": "",
+                "Titulo": "",
+                "Superpoliza": "",
+                "EstadoContratoCodigo": "",
+                "Seccion": "",
+                "MedioDePagoTipo": "",
+                "FechaInicioVigencia": "",
+                "Descripcion": "",
+                "PermiteAnular": false,
+                "VigenciaEstado": "",
+                "MotivoAnuEnd": "",
+                "Articulo": "",
+                "FechaVigencia": "",
+                "PolizaDigital": "",
+                "Vigencia": "",
+                "PermiteEndosar": false,
+                "EstadoContrato": "",
+                "Renovacion": {
+                  "PolizaPosterior": 0,
+                  "OperacionPosteriorFechaInicio": "0000-00-00",
+                  "OperacionPosterior": 0
+                },
+                "PolizaDigitalFechaEnvio": "",
+                "EstadoPagoCodigo": 0,
+                "PolizaDigitalAdherido": false
+              },
+              "Productor": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0,
+                "Email": "",
+                "Telefono": ""
+              },
+              "Datos": {
+                "FechaFinVigencia": "0000-00-00",
+                "FechaFacturadoHasta": "0000-00-00",
+                "FechaInicioEndoso": "0000-00-00",
+                "FechaInicioVigencia": "0000-00-00"
+              },
+              "Organizador": {
+                "Nombre": "",
+                "Numero": 0,
+                "Tipo": 0
+              },
+              "Pagador": {
+                "Nombre": "",
+                "CondicionIVA": "",
+                "Id": 0
+              },
+              "Suplemento": {
+                "FechaFinVigencia": "Vigente hasta   /  /    ",
+                "FechaVigencia": "Vigencia /  / - /  /",
+                "Prima": "Prima  0,00",
+                "Impuestos": "Impuestos  0,00",
+                "Premio": "Premio  0,00",
+                "EstadoPago": "",
+                "FechaDeEmision": "Emisión   /  /    ",
+                "BonifPorcentaje": "0.0000%",
+                "FechaFacturadoHasta": "Facturado hasta   /  /    ",
+                "Cobrado": "Cobrado  0,00",
+                "Saldo": "Saldo  0,00",
+                "Datos": {
+                  "BonificacionPorcentaje": 0
+                },
+                "FechaInicioVigencia": "Vigente desde   /  /    ",
+                "Recargos": "Recargos  0,00"
+              },
+              "Asegurado": {
+                "Nombre": "",
+                "Email": "",
+                "Telefono": "",
+                "Direccion": "",
+                "CondicionIVA": "",
+                "Id": 0,
+                "Documento": "",
+                "DireccionLink": "",
+                "Tags": [
+                  {
+                    "Id": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-cuentacorrientewccalcgrptot",
+      "nombre": "Intermediarios.Emision.CuentaCorrienteWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.CuentaCorrienteWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosSuplementoNumero": 0,
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Cuota": "0,00",
+            "TotValue_Pago": "",
+            "TotValue_Saldo": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-dpmovimientotipo",
+      "nombre": "Intermediarios.Emision.dpMovimientoTipo (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.dpMovimientoTipo",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "Adicional": "",
+                "Descripcion": "PÓLIZA NUEVA",
+                "idNum": "1",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "RENOVACIÓN",
+                "idNum": "2",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "ENDOSO",
+                "idNum": "3",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "ANULACIÓN",
+                "idNum": "4",
+                "idChar": ""
+              },
+              {
+                "Adicional": "",
+                "Descripcion": "REHABILITACIÓN",
+                "idNum": "5",
+                "idChar": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-dpramasarticulos",
+      "nombre": "Intermediarios.Emision.dpRamasArticulos (datos de COTIZACION.cttRamaConfig)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.dpRamasArticulos",
+          "entrada": {
+            "InLista": {
+              "CotRamaId": 1,
+              "CotRamaCfgSec": 1
+            }
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polsupcomisioneswccalcgrptot",
+      "nombre": "Intermediarios.Emision.PolSupComisionesWCCalcGrpTot (datos de SERVICIOS.emhModificacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.PolSupComisionesWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupComisioness": [
+              {
+                "Moneda": {
+                  "Nombre": "",
+                  "Id": "",
+                  "Cotizacion": "0"
+                },
+                "SuplementoNumero": "1",
+                "BaseCalculo": "0.00",
+                "Intermediario": {
+                  "Nombre": "",
+                  "Numero": "",
+                  "Tipo": {
+                    "Nombre": "",
+                    "Id": ""
+                  }
+                },
+                "Importe": "0.00",
+                "Porcentaje": ""
+              }
+            ],
+            "GroupsdtPolSupComisionessSuplementoNumero": "",
+            "sdtPolizaParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Importe": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polsupcuentacorrienteccgfwccalcgrptot",
+      "nombre": "Intermediarios.Emision.PolSupCuentaCorrienteCCGFWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.PolSupCuentaCorrienteCCGFWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosPeriodo": "",
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Cuota": "0,00",
+            "TotValue_Pago": "",
+            "TotValue_Saldo": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polsupcuentacorrienteccgswccalcgrptot",
+      "nombre": "Intermediarios.Emision.PolSupCuentaCorrienteCCGSWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.PolSupCuentaCorrienteCCGSWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosSuplementoNumero": 0,
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Cuota": "0,00",
+            "TotValue_Pago": "",
+            "TotValue_Saldo": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polsupcuentacorrientecpgfcuotaswccalcgrptot",
+      "nombre": "Intermediarios.Emision.PolSupCuentaCorrienteCPGFCuotasWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.PolSupCuentaCorrienteCPGFCuotasWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientosCuotas": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosCuotasPeriodo": "",
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Cuota": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polsupcuentacorrientecpgfpagoswccalcgrptot",
+      "nombre": "Intermediarios.Emision.PolSupCuentaCorrienteCPGFPagosWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.PolSupCuentaCorrienteCPGFPagosWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientosPagos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosPagosPeriodo": "",
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Pago": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polsupcuentacorrientecpgscuotaswccalcgrptot",
+      "nombre": "Intermediarios.Emision.PolSupCuentaCorrienteCPGSCuotasWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.PolSupCuentaCorrienteCPGSCuotasWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientosCuotas": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosCuotasSuplementoNumero": 0,
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Cuota": "0,00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polsupcuentacorrientecpgspagoswccalcgrptot",
+      "nombre": "Intermediarios.Emision.PolSupCuentaCorrienteCPGSPagosWCCalcGrpTot (datos de SERVICIOS.cbhRendCuota)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Intermediarios.Emision.PolSupCuentaCorrienteCPGSPagosWCCalcGrpTot",
+          "entrada": {
+            "sdtPolSupCuentaCorrienteMovimientosPagos": [
+              {
+                "IngresoAsientoFecha": "",
+                "MedioPago": "REC",
+                "IngresoFecha": "",
+                "DebitoSecuencia": 0,
+                "Rendicion": "0",
+                "Estado": "",
+                "IngresoAsientoNumero": "",
+                "SuplementoNumero": 0,
+                "Fecha": "0000-00-00",
+                "EstadoDescripcion": "",
+                "Grupo": 0,
+                "DebitoEstado": "",
+                "Pendiente": "0.00",
+                "CuotaNumero": "1",
+                "Pago": "0.00",
+                "SuplementoDescripcion": "",
+                "SecuenciaNumero": "0",
+                "IngresoReciboNumero": "",
+                "FechaString": "",
+                "Cuota": "0.00",
+                "Periodo": "",
+                "RendicionMercadoPago": false,
+                "IngresoNumero": "",
+                "Tipo": "",
+                "GenerarLink": false,
+                "Saldo": "0.00",
+                "CheckCupon": false,
+                "Secuencia": "",
+                "Concepto": ""
+              }
+            ],
+            "GroupsdtPolSupCuentaCorrienteMovimientosPagosSuplementoNumero": 0,
+            "sdtPolizaParametrosJson": "",
+            "sdtCuentaCorrienteParametrosJson": ""
+          },
+          "lineaBase": {
+            "TotValue_Pago": ""
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,597 @@
+{
+  "nombre": "Auto - Sistema.Conversacion",
+  "kb": "Sistema",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "sistema-conversacion-armartagentidad",
+      "nombre": "Sistema.Conversacion.ArmarTagEntidad (datos de SISTEMA.sihConversacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.ArmarTagEntidad",
+          "entrada": {
+            "Entidad": "SOL",
+            "Estado": ""
+          },
+          "lineaBase": {
+            "Tag": "<span class=\"AttributeTagInfoLight CellMarginRight5\">Solicitud</span>",
+            "TooltipText": "Solicitud"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-armartagentidad-vacia",
+      "nombre": "Sistema.Conversacion.ArmarTagEntidad (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.ArmarTagEntidad",
+          "entrada": {
+            "Entidad": "",
+            "Estado": ""
+          },
+          "lineaBase": {
+            "Tag": "<span class=\"AttributeTagNeutral \">CONVERSACIÓN</span>",
+            "TooltipText": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-cantidadpendientes",
+      "nombre": "Sistema.Conversacion.CantidadPendientes (datos de SEGURIDAD.segUserPreferencia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.CantidadPendientes",
+          "entrada": {
+            "inCantidadPendientes": {
+              "ConversacionEntidad": "",
+              "ConversacionTipo": "",
+              "UserGUID": "6079ce14-f4d8-48be-9964-ba88a31b0947",
+              "RepositoryGUID": ""
+            }
+          },
+          "lineaBase": {
+            "outCantidadPendientes": {
+              "Cantidad": 0,
+              "Errores": [],
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-cantmsjsinleer",
+      "nombre": "Sistema.Conversacion.cantMsjSinLeer (datos de SISTEMA.sihCnvParticipante)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.cantMsjSinLeer",
+          "entrada": {
+            "CnvId": 1,
+            "CnvPartMsjSecLeido": 1
+          },
+          "lineaBase": {
+            "CnvPartMsjSinLeer": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-cnvevento_validarnotificados",
+      "nombre": "Sistema.Conversacion.CnvEvento_ValidarNotificados (datos de SISTEMA.sihCnvEvento)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.CnvEvento_ValidarNotificados",
+          "entrada": {
+            "CnvId": 52,
+            "CnvEvtId": "MENSAJE",
+            "ParticipantesActuales": [
+              0
+            ],
+            "ParticipantesMencionados": [
+              0
+            ],
+            "Tiempo": 0
+          },
+          "lineaBase": {
+            "EnviarNotificacion": true,
+            "ParticipantesPendientes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-get-vacia",
+      "nombre": "Sistema.Conversacion.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.Get",
+          "entrada": {
+            "inGet": {
+              "ConversacionId": "0"
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "ConversacionId": "0",
+              "ConversacionEntidad": "",
+              "ConversacionEntidadReferencia": "",
+              "ConversacionLink": "",
+              "ConversacionTipo": "",
+              "ConversacionNombre": "",
+              "ConversacionEstado": "ABI"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-lista",
+      "nombre": "Sistema.Conversacion.Lista (datos de SISTEMA.sihConversacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.Lista",
+          "entrada": {
+            "inLista": {
+              "CnvTipo": "EXT",
+              "UserGUID": "",
+              "SoloPendientes": false,
+              "GAMRepGUID": "",
+              "CnvEntidad": "SOL"
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "Errores": [
+                {
+                  "Mensaje": "El Id de Usuario no puede estar vacío.",
+                  "Id": 100
+                },
+                {
+                  "Mensaje": "El Id de Repositorio no puede estar vacío.",
+                  "Id": 101
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-menciones-vacia",
+      "nombre": "Sistema.Conversacion.Menciones (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.Menciones",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[{\"Id\":\"03c41c46-b08b-47d8-b250-8a2268f69c6d\",\"dn\":\"admin\",\"t\":[\"admin\",\"CORE, ADMIN\"]},{\"Id\":\"b2f568e7-f660-4c4b-81de-a59f1e8997b6\",\"dn\":\"admin3\",\"t\":[\"admin3\",\"User, Admi\"]},{\"Id\":\"18407a0c-3a02-439d-823a-cb9b0b0c1e35\",\"dn\":\"agaravano\",\"t\":[\"agaravano\",\"Garavano Viotti, Alejandro\"]},{\"Id\":\"306da65a-e8e3-497e-a0ee-5171dde065ce\",\"dn\":\"agaravanofiltro\",\"t\":[\"agaravanofiltro\",\"Garavano, Alejandro\"]},{\"Id\":\"c4f1e55d-52ba-4b51-99a3-9338de37bf3e\",\"dn\":\"agenciacordoba\",\"t\":[\"agenciacordoba\",\", agenciacordoba\"]}]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-mensaje-tiempo",
+      "nombre": "Sistema.Conversacion.Mensaje.Tiempo (datos de SISTEMA.sihCnvParticipante)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.Mensaje.Tiempo",
+          "entrada": {
+            "inTiempo": {
+              "CnvId": "1",
+              "UserGUID": "03c41c46-b08b-47d8-b250-8a2268f69c6d",
+              "GAMRepGUID": "3d6f97a2-9bd1-4fb9-9a0b-7af13b75784d"
+            }
+          },
+          "lineaBase": {
+            "outTiempo": {
+              "Minutos": "60000"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-mensajeswp_lista",
+      "nombre": "Sistema.Conversacion.MensajesWP_Lista (datos de SISTEMA.sihConversacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.MensajesWP_Lista",
+          "entrada": {
+            "inMensajesWP_Lista": {
+              "Tipo": "",
+              "Texto": "",
+              "SoloPendiente": false,
+              "Entidad": "SOL"
+            }
+          },
+          "lineaBase": {
+            "sdtMensajesWP": [],
+            "sdtOutput": {
+              "Messages": [],
+              "Log": "",
+              "Errores": [
+                {
+                  "Mensaje": "El Id de Usuario no puede estar vacío.",
+                  "Id": 100
+                }
+              ],
+              "Data": {},
+              "Ok": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-modificarparticipantes_lista",
+      "nombre": "Sistema.Conversacion.ModificarParticipantes_Lista (datos de SISTEMA.sihConversacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.ModificarParticipantes_Lista",
+          "entrada": {
+            "CnvId": 1,
+            "Busqueda": ""
+          },
+          "lineaBase": {
+            "sdtModificarParticipantes_Lista": [
+              {
+                "Nombre": "admin ",
+                "Usuario": "admin",
+                "Tipo": "INT",
+                "Activo": true,
+                "CnvId": "1",
+                "GUID": "03c41c46-b08b-47d8-b250-8a2268f69c6d",
+                "Id": 1,
+                "FechaHoraIngreso": "2023-12-14T15:22:32",
+                "RepositoryId": 2,
+                "EsParticipante": true,
+                "RepositoryGUID": "3d6f97a2-9bd1-4fb9-9a0b-7af13b75784d"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-modificarparticipantes_lista-vacia",
+      "nombre": "Sistema.Conversacion.ModificarParticipantes_Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.ModificarParticipantes_Lista",
+          "entrada": {
+            "CnvId": 0,
+            "Busqueda": ""
+          },
+          "lineaBase": {
+            "sdtModificarParticipantes_Lista": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-participante-lista",
+      "nombre": "Sistema.Conversacion.Participante.Lista (datos de SISTEMA.sihConversacion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.Participante.Lista",
+          "entrada": {
+            "inLista": {
+              "CnvId": "1"
+            }
+          },
+          "lineaBase": {
+            "outLista": {
+              "Participantes": [
+                {
+                  "Nombre": "admin ",
+                  "Usuario": "admin",
+                  "Tipo": "INT",
+                  "Activo": true,
+                  "CnvId": "1",
+                  "GUID": "03c41c46-b08b-47d8-b250-8a2268f69c6d",
+                  "Id": 1,
+                  "FechaHoraIngreso": "2023-12-14T15:22:32",
+                  "RepositoryId": 2,
+                  "RepositoryGUID": "3d6f97a2-9bd1-4fb9-9a0b-7af13b75784d"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-participante-lista-vacia",
+      "nombre": "Sistema.Conversacion.Participante.Lista (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.Participante.Lista",
+          "entrada": {
+            "inLista": {
+              "CnvId": "0"
+            }
+          },
+          "lineaBase": {
+            "outLista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-participante-mjesnoleidos",
+      "nombre": "Sistema.Conversacion.Participante.mjesNoLeidos (datos de SISTEMA.sihCnvMensaje)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.Participante.mjesNoLeidos",
+          "entrada": {
+            "inMsjSinLeer": {
+              "UsuarioGUID": "",
+              "ConversacionId": "0",
+              "ParticipanteId": 0,
+              "RepositoryGUID": ""
+            },
+            "outMsjSinLeer": {
+              "total": 0,
+              "FechaHora": "2023-12-14T18:22:32",
+              "sdtOutput": {
+                "Messages": [
+                  {
+                    "Type": 0,
+                    "Params": {},
+                    "Origen": "INT",
+                    "Code": "",
+                    "Texto": ""
+                  }
+                ],
+                "Log": "",
+                "Errores": [
+                  {
+                    "Mensaje": "",
+                    "Id": 0
+                  }
+                ],
+                "Data": {},
+                "Ok": false
+              },
+              "cantidad": 0
+            }
+          },
+          "lineaBase": {
+            "outMsjSinLeer": {
+              "total": 0,
+              "FechaHora": "2023-12-14T18:22:32",
+              "sdtOutput": {
+                "Messages": [
+                  {
+                    "Type": 0,
+                    "Params": {},
+                    "Origen": "INT",
+                    "Code": "",
+                    "Texto": ""
+                  }
+                ],
+                "Log": "",
+                "Errores": [
+                  {
+                    "Mensaje": "",
+                    "Id": 0
+                  },
+                  {
+                    "Mensaje": "El id de la conversación es obligatorio. inMsjSinLeer: {\"ConversacionId\":\"0\",\"ParticipanteId\":0,\"UsuarioGUID\":\"\",\"RepositoryGUID\":\"\"}",
+                    "Id": 100
+                  }
+                ],
+                "Data": {},
+                "Ok": false
+              },
+              "cantidad": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-participante-mjesnoleidos-vacia",
+      "nombre": "Sistema.Conversacion.Participante.mjesNoLeidos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.Participante.mjesNoLeidos",
+          "entrada": {
+            "inMsjSinLeer": {
+              "UsuarioGUID": "",
+              "ConversacionId": "0",
+              "ParticipanteId": 0,
+              "RepositoryGUID": ""
+            },
+            "outMsjSinLeer": {
+              "total": 0,
+              "FechaHora": "0000-00-00T00:00:00",
+              "sdtOutput": {
+                "Messages": [
+                  {
+                    "Type": 0,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": ""
+                  }
+                ],
+                "Log": "",
+                "Errores": [
+                  {
+                    "Mensaje": "",
+                    "Id": 0
+                  }
+                ],
+                "Data": {},
+                "Ok": false
+              },
+              "cantidad": 0
+            }
+          },
+          "lineaBase": {
+            "outMsjSinLeer": {
+              "total": 0,
+              "FechaHora": "0000-00-00T00:00:00",
+              "sdtOutput": {
+                "Messages": [
+                  {
+                    "Type": 0,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": ""
+                  }
+                ],
+                "Log": "",
+                "Errores": [
+                  {
+                    "Mensaje": "",
+                    "Id": 0
+                  },
+                  {
+                    "Mensaje": "El id de la conversación es obligatorio. inMsjSinLeer: {\"ConversacionId\":\"0\",\"ParticipanteId\":0,\"UsuarioGUID\":\"\",\"RepositoryGUID\":\"\"}",
+                    "Id": 100
+                  }
+                ],
+                "Data": {},
+                "Ok": false
+              },
+              "cantidad": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-participantes-vacia",
+      "nombre": "Sistema.Conversacion.Participantes (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.Participantes",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sistema-conversacion-usuariosporcasotipo-vacia",
+      "nombre": "Sistema.Conversacion.UsuariosPorCasoTipo (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Sistema.Conversacion.UsuariosPorCasoTipo",
+          "entrada": {
+            "SearchTxt": ""
+          },
+          "lineaBase": {
+            "OptionsJson": "[]"
+          }
+        }
+      ]
+    }
+  ]
+}

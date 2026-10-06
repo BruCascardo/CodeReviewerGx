@@ -1,0 +1,318 @@
+{
+  "nombre": "Interfases - Registro (ejemplo)",
+  "kb": "Generales",
+  "descripcion": "Ejemplo de suite sobre las APIs List/Get/Set/Delete de Generales.Interfases.Registro. Todo corre con rollback: no deja datos en la base.",
+  "opciones": {
+    "transaccion": "rollback",
+    "recortarEspacios": true
+  },
+  "variables": {
+    "itf": 1,
+    "tipoPrueba": "ZZPRUEBA"
+  },
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "list-interfase-existente",
+      "nombre": "List de una interfase existente devuelve sus registros",
+      "etiquetas": [
+        "list",
+        "lectura"
+      ],
+      "pasos": [
+        {
+          "nombre": "List",
+          "objeto": "Generales.Interfases.Registro.List",
+          "entrada": {
+            "inList": {
+              "ItfId": "${itf}"
+            }
+          },
+          "esperado": {
+            "outList": {
+              "Output": {
+                "Ok": true
+              }
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outList.Registros",
+              "op": "largo_min",
+              "valor": 1,
+              "descripcion": "tiene al menos un registro"
+            },
+            {
+              "ruta": "outList.Registros[*].ItfId",
+              "op": "igual",
+              "valor": 1,
+              "cada": true,
+              "descripcion": "todos son de la interfase pedida"
+            },
+            {
+              "ruta": "outList.Registros[*].Tipo",
+              "op": "contiene",
+              "valor": "DETALLE"
+            }
+          ],
+          "lineaBase": {
+            "outList": {
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Data": {},
+                "Ok": true
+              },
+              "Registros": [
+                {
+                  "Nombre": "HEADER",
+                  "Tipo": "CABECERA  ",
+                  "Orden": 1,
+                  "Longitud": 280,
+                  "Contexto": "LOTE_CABECERA",
+                  "Fin": "CRLF",
+                  "ValorId": "0                                                 ",
+                  "ItfId": 1
+                },
+                {
+                  "Nombre": "DETALLE",
+                  "Tipo": "DETALLE   ",
+                  "Orden": 2,
+                  "Longitud": 280,
+                  "Contexto": "LOTE_DETALLES",
+                  "Fin": "CRLF",
+                  "ValorId": "5                                                 ",
+                  "ItfId": 1
+                },
+                {
+                  "Nombre": "TRAILER",
+                  "Tipo": "PIE       ",
+                  "Orden": 3,
+                  "Longitud": 280,
+                  "Contexto": "LOTE_CABECERA",
+                  "Fin": "CRLF",
+                  "ValorId": "9                                                 ",
+                  "ItfId": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "list-interfase-inexistente",
+      "nombre": "List de una interfase inexistente da NO_EXISTE",
+      "etiquetas": [
+        "list",
+        "errores"
+      ],
+      "pasos": [
+        {
+          "nombre": "List",
+          "objeto": "Generales.Interfases.Registro.List",
+          "entrada": {
+            "inList": {
+              "ItfId": 999999
+            }
+          },
+          "esperado": {
+            "outList": {
+              "Output": {
+                "Ok": false
+              }
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outList.Registros",
+              "op": "vacio",
+              "descripcion": "GeneXus omite la coleccion si nunca se cargo (no devuelve [])"
+            },
+            {
+              "ruta": "outList.Output.Messages[*].Code",
+              "op": "contiene",
+              "valor": "NO_EXISTE"
+            },
+            {
+              "ruta": "outList.Output.Messages[0].Type",
+              "op": "igual",
+              "valor": 1
+            },
+            {
+              "ruta": "outList.Output.Messages[0].Origen",
+              "op": "igual",
+              "valor": "Generales.Interfases.Registro.List"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alta-consulta-baja",
+      "nombre": "Alta, consulta y baja de un registro (escenario)",
+      "etiquetas": [
+        "escenario",
+        "set",
+        "get",
+        "delete"
+      ],
+      "pasos": [
+        {
+          "nombre": "Alta",
+          "objeto": "Generales.Interfases.Registro.Set",
+          "entrada": {
+            "inSet": {
+              "ItfId": "${itf}",
+              "Tipo": "zzprueba",
+              "Nombre": "registro de prueba",
+              "Fin": "LF",
+              "Longitud": 10,
+              "Orden": 9
+            }
+          },
+          "esperado": {
+            "outSet": {
+              "Output": {
+                "Ok": true
+              },
+              "RegTipo": "${tipoPrueba}",
+              "ItfId": "${itf}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outSet.Output.Messages[0].Code",
+              "op": "igual",
+              "valor": "OK"
+            },
+            {
+              "ruta": "outSet.Output.Messages[0].Type",
+              "op": "igual",
+              "valor": 2
+            }
+          ],
+          "guardar": {
+            "regTipo": "outSet.RegTipo"
+          }
+        },
+        {
+          "nombre": "Quedo en la tabla, en mayusculas",
+          "sql": "select ItfRegTipo, ItfRegNombre from gntItfRegistro where ItfId = ${itf} and ItfRegTipo = '${regTipo}'",
+          "ds": "GENERALES",
+          "verificaciones": [
+            {
+              "ruta": "cantidad",
+              "op": "igual",
+              "valor": 1
+            },
+            {
+              "ruta": "filas[0].ItfRegNombre",
+              "op": "igual",
+              "valor": "REGISTRO DE PRUEBA"
+            }
+          ]
+        },
+        {
+          "nombre": "Get",
+          "objeto": "Generales.Interfases.Registro.Get",
+          "entrada": {
+            "inGet": {
+              "ItfId": "${itf}",
+              "RegTipo": "${regTipo}"
+            }
+          },
+          "esperado": {
+            "outGet": {
+              "Output": {
+                "Ok": true
+              }
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outGet",
+              "op": "contiene",
+              "valor": "Registro",
+              "descripcion": "devuelve la estructura del registro"
+            }
+          ]
+        },
+        {
+          "nombre": "Baja",
+          "objeto": "Generales.Interfases.Registro.Delete",
+          "entrada": {
+            "inDelete": {
+              "ItfId": "${itf}",
+              "RegTipo": "${regTipo}"
+            }
+          },
+          "esperado": {
+            "outDelete": {
+              "Output": {
+                "Ok": true
+              }
+            }
+          }
+        },
+        {
+          "nombre": "Ya no esta en la tabla",
+          "sql": "select count(*) as n from gntItfRegistro where ItfId = ${itf} and ItfRegTipo = '${regTipo}'",
+          "ds": "GENERALES",
+          "verificaciones": [
+            {
+              "ruta": "filas[0].n",
+              "op": "igual",
+              "valor": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "set-sin-tipo",
+      "nombre": "Set sin tipo de registro da REQUERIDO",
+      "etiquetas": [
+        "set",
+        "errores",
+        "datos"
+      ],
+      "datos": [
+        {
+          "tipo": ""
+        },
+        {
+          "tipo": "   "
+        }
+      ],
+      "pasos": [
+        {
+          "nombre": "Set",
+          "objeto": "Generales.Interfases.Registro.Set",
+          "entrada": {
+            "inSet": {
+              "ItfId": "${itf}",
+              "Tipo": "${tipo}",
+              "Nombre": "x",
+              "Fin": "LF"
+            }
+          },
+          "esperado": {
+            "outSet": {
+              "Output": {
+                "Ok": false
+              }
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outSet.Output.Messages[*].Code",
+              "op": "contiene",
+              "valor": "REQUERIDO"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,615 @@
+{
+  "nombre": "Auto - Cobranzas.Otros",
+  "kb": "Cobranzas",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cobranzas-cargo_cuotificarporplanid",
+      "nombre": "Cobranzas.Cargo_CuotificarPorPlanId (datos de COBRANZAS.cbhCargo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Cargo_CuotificarPorPlanId",
+          "entrada": {
+            "PlanPagoId": 0,
+            "CargoImporte": 267882,
+            "CargoCapital": 241093.8,
+            "CargoIntereses": 26788.2,
+            "CargoIncRecFinanciero": false,
+            "CargoFechaInicio": "2026-08-10",
+            "CargoFechaFin": "2027-01-10",
+            "CargoCantCuotasOriginal": 6
+          },
+          "lineaBase": {
+            "Resultado": {
+              "CargoCantidadDeCuotas": 0,
+              "CargoErrorCodigo": 8,
+              "CargoImporteIntereses": "0.00",
+              "CargoErrorMensaje": "cbtPlanPago no encontrado para PlanPagoId=0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-cargo_determinarcantidadcuotas",
+      "nombre": "Cobranzas.Cargo_DeterminarCantidadCuotas (datos de COBRANZAS.cbhCargo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Cargo_DeterminarCantidadCuotas",
+          "entrada": {
+            "PlanPagoDetId": 0,
+            "CargoFechaInicio": "2026-08-10",
+            "CargoFechaFin": "2027-01-10",
+            "CargoCantCuotasOriginal": 6
+          },
+          "lineaBase": {
+            "CantidadCuotas": 0,
+            "PlanPagoDetPlazoFinanciado": 0,
+            "ErrorCodigo": 9,
+            "ErrorMensaje": "PlanPagoDetalle no encontrado para PlanPagoDetId=0",
+            "Razonamiento": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-cargocuota_calcularimportes",
+      "nombre": "Cobranzas.CargoCuota_CalcularImportes (datos de COBRANZAS.cbhCargo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.CargoCuota_CalcularImportes",
+          "entrada": {
+            "PlanPagoDetId": 0,
+            "PlanPagoDetPlazoFinanciado": 0,
+            "CantidadCuotas": 0,
+            "CargoImporte": 267882,
+            "CargoCapital": 241093.8,
+            "CargoIntereses": 26788.2,
+            "CargoIncRecFinanciero": false
+          },
+          "lineaBase": {
+            "Cuotas": [],
+            "CargoInteresesTotal": 0,
+            "ErrorCodigo": 9,
+            "ErrorMensaje": "PlanPagoDetalle no encontrado para PlanPagoDetId=0",
+            "Razonamiento": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-cargocuota_calcularvencimientos",
+      "nombre": "Cobranzas.CargoCuota_CalcularVencimientos (datos de COBRANZAS.cbtPlanPagoVencimiento)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.CargoCuota_CalcularVencimientos",
+          "entrada": {
+            "PlanPagoVencId": 1,
+            "CargoFechaInicio": "",
+            "CantidadCuotas": 0,
+            "PlanPagoVencAjRegla": false,
+            "PlanPagoVencAjReglaOrden": "",
+            "PlanPagoVencAjReglaDia": ""
+          },
+          "lineaBase": {
+            "Vencimientos": [],
+            "ErrorCodigo": 0,
+            "ErrorMensaje": "",
+            "Razonamiento": [
+              {
+                "RazonamientoOrden": 1,
+                "RazonamientoTitulo": "Paso 2 - Vencimientos (DIA_FIJO)",
+                "RazonamientoDetalle": "Forma DIA_FIJO: todas las cuotas vencen el dia 31 de meses consecutivos, comenzando por el mes de CargoFechaInicio (    -  -  )."
+              },
+              {
+                "RazonamientoOrden": 2,
+                "RazonamientoTitulo": "Paso 3 - Ajuste por dia de cliente",
+                "RazonamientoDetalle": "PlanPagoVencAjRegla = false. No se aplica ningun ajuste adicional de dia de semana."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-cargocuota_calcularvencimientos-vacia",
+      "nombre": "Cobranzas.CargoCuota_CalcularVencimientos (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.CargoCuota_CalcularVencimientos",
+          "entrada": {
+            "PlanPagoVencId": 0,
+            "CargoFechaInicio": "",
+            "CantidadCuotas": 0,
+            "PlanPagoVencAjRegla": false,
+            "PlanPagoVencAjReglaOrden": "",
+            "PlanPagoVencAjReglaDia": ""
+          },
+          "lineaBase": {
+            "Vencimientos": [],
+            "ErrorCodigo": 9,
+            "ErrorMensaje": "cbtPlanPagoVencimiento no encontrado para PlanPagoVencId=0",
+            "Razonamiento": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-fecha_ajustaradiasemana-vacia",
+      "nombre": "Cobranzas.Fecha_AjustarADiaSemana (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Fecha_AjustarADiaSemana",
+          "entrada": {
+            "FechaOriginal": "",
+            "DiaSemana": "",
+            "Orden": ""
+          },
+          "lineaBase": {
+            "Fecha": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-fecha_obtenernesimodiasemanadelmes-vacia",
+      "nombre": "Cobranzas.Fecha_ObtenerNEsimoDiaSemanaDelMes (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Fecha_ObtenerNEsimoDiaSemanaDelMes",
+          "entrada": {
+            "Anio": 0,
+            "Mes": 0,
+            "DiaSemana": "",
+            "Orden": ""
+          },
+          "lineaBase": {
+            "Fecha": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-masterpagemenu",
+      "nombre": "Cobranzas.MasterPageMenu (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.MasterPageMenu",
+          "entrada": {},
+          "lineaBase": {
+            "Menu": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cuotas-validar-vacia",
+      "nombre": "Cobranzas.PlanesPago.Cuotas.Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.PlanesPago.Cuotas.Validar",
+          "entrada": {
+            "PlanPagoDetId": 0
+          },
+          "lineaBase": {
+            "outValidar": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "La cuotificación no existe."
+                  },
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "Falta el nombre."
+                  },
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "Falta elegir cómo se reparten las cuotas."
+                  },
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "Falta elegir cómo se reparte el importe."
+                  }
+                ],
+                "Log": "",
+                "Ok": false
+              },
+              "MjeError": "• La cuotificación no existe.\r\n• Falta el nombre.\r\n• Falta elegir cómo se reparten las cuotas.\r\n• Falta elegir cómo se reparte el importe.",
+              "Estado": "INC"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-recargos-validar-vacia",
+      "nombre": "Cobranzas.PlanesPago.Recargos.Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.PlanesPago.Recargos.Validar",
+          "entrada": {
+            "RecEscalaId": 0,
+            "RecEscalaVigDesde": ""
+          },
+          "lineaBase": {
+            "outValidar": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "Vigencia Desde es obligatoria."
+                  },
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "La vigencia de la escala no existe."
+                  },
+                  {
+                    "Type": 0,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "La vigencia no tiene tramos cargados."
+                  }
+                ],
+                "Log": "",
+                "Ok": false
+              },
+              "MjeError": "• Vigencia Desde es obligatoria.\r\n• La vigencia de la escala no existe.",
+              "Estado": "INC"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-validar-vacia",
+      "nombre": "Cobranzas.PlanesPago.Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.PlanesPago.Validar",
+          "entrada": {
+            "PlanPagoId": 0
+          },
+          "lineaBase": {
+            "outValidar": {
+              "Output": {
+                "Messages": [
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "El plan no existe."
+                  },
+                  {
+                    "Type": 1,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "Falta el nombre del plan."
+                  },
+                  {
+                    "Type": 0,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "Falta elegir la cuotificación."
+                  },
+                  {
+                    "Type": 0,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "Falta elegir el esquema de vencimientos."
+                  },
+                  {
+                    "Type": 0,
+                    "Params": {},
+                    "Origen": "",
+                    "Code": "",
+                    "Texto": "Falta elegir la escala de recargo."
+                  }
+                ],
+                "Log": "",
+                "Ok": false
+              },
+              "MjeError": "• El plan no existe.\r\n• Falta el nombre del plan.",
+              "Estado": "INC"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-vencimientos-validar",
+      "nombre": "Cobranzas.PlanesPago.Vencimientos.Validar (datos de COBRANZAS.cbtPlanPagoVencimiento)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.PlanesPago.Vencimientos.Validar",
+          "entrada": {
+            "PlanPagoVencId": 1
+          },
+          "lineaBase": {
+            "outValidar": {
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Ok": true
+              },
+              "MjeError": "",
+              "Estado": "COM"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-vencimientos-validar-vacia",
+      "nombre": "Cobranzas.PlanesPago.Vencimientos.Validar (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.PlanesPago.Vencimientos.Validar",
+          "entrada": {
+            "PlanPagoVencId": 0
+          },
+          "lineaBase": {
+            "outValidar": {
+              "Output": {
+                "Messages": [],
+                "Log": "",
+                "Ok": true
+              },
+              "MjeError": "El esquema de vencimientos no existe.",
+              "Estado": "INC"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ui-sidebaritemsdp",
+      "nombre": "Cobranzas.UI.SidebarItemsDP (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.UI.SidebarItemsDP",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "hasSubItems": false,
+                "activeItem": "",
+                "icon": "",
+                "id": "",
+                "title": "",
+                "target": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-valores-clasetagsegunconciliacion-vacia",
+      "nombre": "Cobranzas.Valores.ClaseTagSegunConciliacion (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Valores.ClaseTagSegunConciliacion",
+          "entrada": {
+            "ValConciliado": false
+          },
+          "lineaBase": {
+            "Class": "AttributeTagWarning"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-valores-clasetagsegunestado-vacia",
+      "nombre": "Cobranzas.Valores.ClaseTagSegunEstado (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Valores.ClaseTagSegunEstado",
+          "entrada": {
+            "domValorEstado": ""
+          },
+          "lineaBase": {
+            "Class": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-valores-dpbancoslista",
+      "nombre": "Cobranzas.Valores.dpBancosLista (datos de COBRANZAS.gntEmpresa)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Valores.dpBancosLista",
+          "entrada": {
+            "inLista": {
+              "Filtros": {
+                "Alias": "",
+                "EntFinId": 0,
+                "CBU": "",
+                "EmpId": 1
+              }
+            }
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-valores-validarcambioestado-vacia",
+      "nombre": "Cobranzas.Valores.ValidarCambioEstado (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Valores.ValidarCambioEstado",
+          "entrada": {
+            "inCambiarEstado": {
+              "CambioManual": false,
+              "ValId": "0",
+              "EstadoDestino": ""
+            }
+          },
+          "lineaBase": {
+            "sdtOutput": {
+              "Messages": [],
+              "Log": "",
+              "Ok": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-valores-verificarvalorexistente",
+      "nombre": "Cobranzas.Valores.VerificarValorExistente (datos de COBRANZAS.cbtValorTipo)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Cobranzas.Valores.VerificarValorExistente",
+          "entrada": {
+            "inVerificarValorExistente": {
+              "ValImporte": "0.00",
+              "ValTipoId": 1,
+              "ValId": "0",
+              "ValTipoEquivalente": "CHE",
+              "EntFinId": 0,
+              "DepositoId": "0",
+              "ValFecha": "0000-00-00",
+              "ValReferencia": "",
+              "CtaBancariaId": 0,
+              "ValCheqFechaPago": "0000-00-00"
+            }
+          },
+          "lineaBase": {
+            "outVerificarValorExistente": {
+              "Ok": false
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

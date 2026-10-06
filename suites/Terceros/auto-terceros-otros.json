@@ -1,0 +1,1231 @@
+{
+  "nombre": "Auto - Terceros.Otros",
+  "kb": "Terceros",
+  "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback",
+    "timeoutMs": 30000
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "terceros-configuracion-aseguradoras-get",
+      "nombre": "Terceros.Configuracion.Aseguradoras.Get (datos de TERCEROS.odtAseguradora)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Configuracion.Aseguradoras.Get",
+          "entrada": {
+            "inGet": {
+              "OdAsegId": 2
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "OdAsegId": 2,
+              "OdAsegNombre": "SMG COMPAÑIA ARGENTINA DE SEGUROS S.A."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-configuracion-aseguradoras-get-vacia",
+      "nombre": "Terceros.Configuracion.Aseguradoras.Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Configuracion.Aseguradoras.Get",
+          "entrada": {
+            "inGet": {
+              "OdAsegId": 0
+            }
+          },
+          "lineaBase": {
+            "outGet": {
+              "OdAsegId": 0,
+              "OdAsegNombre": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-configuracion-dpevtacciones",
+      "nombre": "Terceros.Configuracion.dpEvtAcciones (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Configuracion.dpEvtAcciones",
+          "entrada": {},
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "EMAIL",
+                "IdNum": "0",
+                "Descripcion": "Email"
+              },
+              {
+                "IdChar": "HIST",
+                "IdNum": "0",
+                "Descripcion": "Historial"
+              },
+              {
+                "IdChar": "PUSH",
+                "IdNum": "0",
+                "Descripcion": "Notificación Interna"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-configuracion-odasegnombre_get",
+      "nombre": "Terceros.Configuracion.OdAsegNombre_Get (datos de TERCEROS.odtAseguradora)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Configuracion.OdAsegNombre_Get",
+          "entrada": {
+            "OdAsegId": 2
+          },
+          "lineaBase": {
+            "OdAsegNombre": "SMG COMPAÑIA ARGENTINA DE SEGUROS S.A."
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-configuracion-odasegnombre_get-vacia",
+      "nombre": "Terceros.Configuracion.OdAsegNombre_Get (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Configuracion.OdAsegNombre_Get",
+          "entrada": {
+            "OdAsegId": 0
+          },
+          "lineaBase": {
+            "OdAsegNombre": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-contexto-contexto_atributos",
+      "nombre": "Terceros.Contexto.Contexto_Atributos (datos de SISTEMA.sitCondicion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Contexto.Contexto_Atributos",
+          "entrada": {
+            "Contexto": "COMP"
+          },
+          "lineaBase": {
+            "Atributos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-contexto-denuncia-atributos",
+      "nombre": "Terceros.Contexto.Denuncia.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Contexto.Denuncia.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Siniestro: Numero",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Id": "Siniestro.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Siniestro: Fecha",
+                "TipoDato": "DATE",
+                "Uso": "AMB",
+                "Id": "Siniestro.Fecha",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Denuncia: Numero",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Id": "Siniestro.DenunciaNumero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Denuncia: Fecha",
+                "TipoDato": "DATE",
+                "Uso": "AMB",
+                "Id": "Siniestro.DenunciaFecha",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Póliza: Número",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Id": "Siniestro.Poliza.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rama: Número",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Id": "Siniestro.Rama.Id",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rama: Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Siniestro.Rama.Nombre",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Rama: Tipo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Siniestro.Rama.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Siniestro.Poliza.Componente.Descripcion",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Componente: Patente",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Siniestro.Poliza.Componente.Vehiculo.Patente",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tomador: Nombre",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Siniestro.Poliza.Tomador.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Link: Intermediarios",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Siniestro.Links.Intermediarios",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Link: Asegurados",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Siniestro.Links.Asegurados",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-contexto-dpplantillas",
+      "nombre": "Terceros.Contexto.dpPlantillas (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Contexto.dpPlantillas",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "Salida": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-contexto-dpplantillas-vacia",
+      "nombre": "Terceros.Contexto.dpPlantillas (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Contexto.dpPlantillas",
+          "entrada": {
+            "ContextoId": ""
+          },
+          "lineaBase": {
+            "Salida": [
+              {
+                "IdChar": "",
+                "IdNum": "1",
+                "Descripcion": "CODIGO DE VERIFICACIÓN (DESDE CONSULTA)"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "2",
+                "Descripcion": "NUEVO RECLAMO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "3",
+                "Descripcion": "CODIGO DE VERIFICACION (NUEVO RECLAMANTE)"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "4",
+                "Descripcion": "PEDIDO DE DOCUMENTACIÓN DE RECLAMO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "5",
+                "Descripcion": "NUEVO MENSAJE (DE GESTOR)"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "6",
+                "Descripcion": "OFRECIMIENTO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "7",
+                "Descripcion": "NOTIFICACIÓN"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "9",
+                "Descripcion": "RECHAZO RECLAMO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "11",
+                "Descripcion": "NUEVO MENSAJE (DE RECLAMANTE)"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "30",
+                "Descripcion": "ANULACIÓN RECLAMO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "68",
+                "Descripcion": "CONFORMIDAD ACEPTADA"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "76",
+                "Descripcion": "CAMBIO DE GESTOR"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "98",
+                "Descripcion": "DENUNCIA NUEVA TOMADOR"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "99",
+                "Descripcion": "DENUNCIA NUEVA PRODUCTOR"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "113",
+                "Descripcion": "DENUNCIA COMPARTIDA"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "117",
+                "Descripcion": "RECUPERAR CONTRASEÑA"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "118",
+                "Descripcion": "RECUPERAR CONTRASEÑA"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "138",
+                "Descripcion": "COMPROBANTE ORDEN"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "160",
+                "Descripcion": "CONFORMIDAD CANCELADA POR USUARIO INTERNO"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "161",
+                "Descripcion": "CANCELACION DE CONFORMIDAD ACEPTADA POR RECLAMANTE"
+              },
+              {
+                "IdChar": "",
+                "IdNum": "162",
+                "Descripcion": "CANCELACION DE CONFORMIDAD RECHAZADA RECLAMANTE"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-contexto-plantillas_listafiltrada",
+      "nombre": "Terceros.Contexto.Plantillas_ListaFiltrada (datos de SISTEMA.sitEvtAccion)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Contexto.Plantillas_ListaFiltrada",
+          "entrada": {
+            "ContextoId": "COMP"
+          },
+          "lineaBase": {
+            "outPlantillas_Lista": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-contexto-plantillas_listafiltrada-vacia",
+      "nombre": "Terceros.Contexto.Plantillas_ListaFiltrada (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Contexto.Plantillas_ListaFiltrada",
+          "entrada": {
+            "ContextoId": ""
+          },
+          "lineaBase": {
+            "outPlantillas_Lista": {
+              "Plantillas": [
+                {
+                  "Nombre": "CODIGO DE VERIFICACIÓN (DESDE CONSULTA)",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-07-17T11:45:41",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 1,
+                  "TextoId": "3"
+                },
+                {
+                  "Nombre": "NUEVO RECLAMO",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-05-09T11:58:17",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 2,
+                  "TextoId": "14"
+                },
+                {
+                  "Nombre": "CODIGO DE VERIFICACION (NUEVO RECLAMANTE)",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-07-17T11:46:22",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCM",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 3,
+                  "TextoId": "18"
+                },
+                {
+                  "Nombre": "PEDIDO DE DOCUMENTACIÓN DE RECLAMO",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-05-09T11:58:44",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 4,
+                  "TextoId": "58"
+                },
+                {
+                  "Nombre": "NUEVO MENSAJE (DE GESTOR)",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-05-09T12:03:48",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 5,
+                  "TextoId": "95"
+                },
+                {
+                  "Nombre": "OFRECIMIENTO",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-05-09T12:04:18",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 6,
+                  "TextoId": "204"
+                },
+                {
+                  "Nombre": "NOTIFICACIÓN",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-07-17T11:47:44",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 7,
+                  "TextoId": "216"
+                },
+                {
+                  "Nombre": "RECHAZO RECLAMO",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-10-28T10:59:24",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 9,
+                  "TextoId": "220"
+                },
+                {
+                  "Nombre": "NUEVO MENSAJE (DE RECLAMANTE)",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-07-17T11:48:17",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 11,
+                  "TextoId": "256"
+                },
+                {
+                  "Nombre": "ANULACIÓN RECLAMO",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-07-17T11:48:35",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "00000000-0000-0000-0000-000000000000",
+                  "Id": 30,
+                  "TextoId": "714"
+                },
+                {
+                  "Nombre": "CONFORMIDAD ACEPTADA",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2023-12-29T10:34:26",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "d277bbfd-fbb3-4395-9b37-6806e8370a19",
+                  "Id": 68,
+                  "TextoId": "841"
+                },
+                {
+                  "Nombre": "CAMBIO DE GESTOR",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2023-12-29T10:34:37",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "d8825faf-5c86-4c5d-b909-761c9478504d",
+                  "Id": 76,
+                  "TextoId": "868"
+                },
+                {
+                  "Nombre": "DENUNCIA NUEVA TOMADOR",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-05-29T15:59:51",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "DENUN",
+                  "GUID": "bb55245d-84a8-48ff-a591-9147f964dbfd",
+                  "Id": 98,
+                  "TextoId": "992"
+                },
+                {
+                  "Nombre": "DENUNCIA NUEVA PRODUCTOR",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-05-29T15:58:44",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "DENUN",
+                  "GUID": "0fbd9f95-9517-4d4e-891b-32a3504b9b5b",
+                  "Id": 99,
+                  "TextoId": "993"
+                },
+                {
+                  "Nombre": "DENUNCIA COMPARTIDA",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-05-29T16:00:15",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "DENUN",
+                  "GUID": "a61d638b-dd01-4358-a860-7fbbfe0de328",
+                  "Id": 113,
+                  "TextoId": "1034"
+                },
+                {
+                  "Nombre": "RECUPERAR CONTRASEÑA",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-07-22T09:24:55",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "SOPORTE",
+                  "GUID": "43a63abc-2da2-40f6-a56c-674cca68497c",
+                  "Id": 117,
+                  "TextoId": "1151"
+                },
+                {
+                  "Nombre": "RECUPERAR CONTRASEÑA",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-07-22T09:25:45",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "SOPORTE",
+                  "GUID": "f687681a-2656-4223-a387-d92cc26dd7ce",
+                  "Id": 118,
+                  "TextoId": "1152"
+                },
+                {
+                  "Nombre": "COMPROBANTE ORDEN",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2024-11-01T09:55:40",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "DENUN",
+                  "GUID": "9a8a5623-7fd0-4e19-9e06-b0ab3e8d36f7",
+                  "Id": 138,
+                  "TextoId": "1446"
+                },
+                {
+                  "Nombre": "CONFORMIDAD CANCELADA POR USUARIO INTERNO",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-10-27T11:30:37",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "cc46e079-0134-4ab3-bc8d-5073775ec7b0",
+                  "Id": 160,
+                  "TextoId": "1869"
+                },
+                {
+                  "Nombre": "CANCELACION DE CONFORMIDAD ACEPTADA POR RECLAMANTE",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-09-15T12:31:06",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "df8c0c03-8ca7-4158-8af1-0406e5033134",
+                  "Id": 161,
+                  "TextoId": "1870"
+                },
+                {
+                  "Nombre": "CANCELACION DE CONFORMIDAD RECHAZADA RECLAMANTE",
+                  "Tipo": "EMAIL",
+                  "Usuario": "admin",
+                  "UltimaModificacion": "2025-10-27T14:34:01",
+                  "AplicacionId": "TER  ",
+                  "ContextoId": "RCL",
+                  "GUID": "2f7d0f3f-6329-4f62-824b-15eb17c2c257",
+                  "Id": 162,
+                  "TextoId": "1871"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-contexto-reclamante-atributos",
+      "nombre": "Terceros.Contexto.Reclamante.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Contexto.Reclamante.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Reclamante: Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Reclamante.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Reclamante: Email",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamante.Email",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Reclamante: Código de Verificación",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamante.CodigoVerificacion",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-contexto-reclamo-atributos",
+      "nombre": "Terceros.Contexto.Reclamo.Atributos (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Contexto.Reclamo.Atributos",
+          "entrada": {},
+          "lineaBase": {
+            "Atributos": [
+              {
+                "Nombre": "Reclamante: Nombre Completo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Reclamante.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Reclamante: Email",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamante.Email",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Reclamante: Código de Verificación",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamante.CodigoVerificacion",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Número de Reclamo",
+                "TipoDato": "NUM",
+                "Uso": "AMB",
+                "Id": "Reclamo.Numero",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Estado de Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "AMB",
+                "Id": "Reclamo.Estado",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Link de Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.Link",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Link Interno de Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.LinkInterno",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Link a Conformidad de Pagos del Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.LinkConformidadPagos",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Link para Mensajes",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.LinkMensajes",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Reclamo: Nombre de Gestor",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.Gestor.NombreCompleto",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Mensaje de Notificación de Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.Notificacion.Mensaje",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Moneda del Ofrecimiento para Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.Ofrecimiento.Moneda",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Importe Ofrecido para Reclamo",
+                "TipoDato": "NUM",
+                "Uso": "PLA",
+                "Id": "Reclamo.Ofrecimiento.Importe",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Tipo de Ofrecimiento para Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.Ofrecimiento.Tipo",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Taller del ofrecimiento para Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.Ofrecimiento.Taller",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Link Aceptar ofrecimiento para Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.Ofrecimiento.LinkAceptar",
+                "ListaValores": false
+              },
+              {
+                "Nombre": "Link Rechazar ofrecimiento para Reclamo",
+                "TipoDato": "CHAR",
+                "Uso": "PLA",
+                "Id": "Reclamo.Ofrecimiento.LinkRechazar",
+                "ListaValores": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-diagnostico-dummy",
+      "nombre": "Terceros.Diagnostico.Dummy (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Diagnostico.Dummy",
+          "entrada": {},
+          "lineaBase": {
+            "FechaHora": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-global-llenasdtusuario",
+      "nombre": "Terceros.Global.LlenaSdtUsuario (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.Global.LlenaSdtUsuario",
+          "entrada": {},
+          "lineaBase": {
+            "sdtUsuario": {
+              "UserName": "",
+              "UserGUID": "",
+              "UserAplicacion": "TER",
+              "UserEmail": "",
+              "UserFullName": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-masterpagemenu",
+      "nombre": "Terceros.MasterPageMenu (sin parametros de entrada)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.MasterPageMenu",
+          "entrada": {},
+          "lineaBase": {
+            "Menu": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamospatente",
+      "nombre": "Terceros.ReclamosPatente (datos de TERCEROS.trhRclDanio)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.ReclamosPatente",
+          "entrada": {
+            "RclDanioVehPAtente": "112233"
+          },
+          "lineaBase": {
+            "ColReclamos": [
+              2
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamospatente-vacia",
+      "nombre": "Terceros.ReclamosPatente (entrada vacia)",
+      "etiquetas": [
+        "auto"
+      ],
+      "descripcion": "Caso generado: la salida aprobada es la de la KB al generarlo. Devuelve listas de mas de 50 elementos: se compara solo la estructura.",
+      "pasos": [
+        {
+          "nombre": "Ejecutar",
+          "objeto": "Terceros.ReclamosPatente",
+          "entrada": {
+            "RclDanioVehPAtente": ""
+          },
+          "comparar": "estructura",
+          "lineaBase": {
+            "ColReclamos": [
+              1,
+              2,
+              2,
+              2,
+              2,
+              3,
+              3,
+              5,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              32,
+              32,
+              33,
+              33,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              43,
+              44,
+              46,
+              47,
+              48,
+              49,
+              49,
+              49,
+              50,
+              51,
+              51,
+              51,
+              53,
+              53,
+              53,
+              53,
+              54,
+              55,
+              56,
+              57,
+              57,
+              59,
+              59,
+              59,
+              60,
+              61,
+              61,
+              61,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              70,
+              73,
+              74,
+              74,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              83,
+              83,
+              84,
+              85,
+              85,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              96,
+              97,
+              97,
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              104,
+              105,
+              106,
+              107,
+              108,
+              109,
+              110,
+              111,
+              112,
+              113,
+              114,
+              115,
+              116,
+              117,
+              118,
+              119,
+              120,
+              121,
+              122,
+              122,
+              123,
+              124,
+              125,
+              126,
+              127,
+              128,
+              129,
+              130,
+              131,
+              132,
+              133,
+              134,
+              135,
+              136,
+              137,
+              138,
+              139,
+              140,
+              141,
+              141,
+              142,
+              143,
+              144,
+              144,
+              145,
+              146,
+              148,
+              149,
+              150,
+              150,
+              151,
+              152,
+              153,
+              156,
+              158,
+              160,
+              160,
+              161,
+              162,
+              163,
+              164,
+              165,
+              166,
+              167,
+              168,
+              170,
+              171,
+              172,
+              173,
+              174,
+              175,
+              176,
+              176,
+              178,
+              179,
+              180,
+              180,
+              181,
+              182,
+              18201,
+              18202,
+              18202,
+              18202,
+              18203,
+              18204,
+              18205,
+              18206,
+              18206,
+              18207,
+              18208,
+              18209,
+              18209,
+              18209,
+              18210,
+              18210,
+              18210,
+              18211,
+              18211,
+              18212,
+              18212,
+              18212,
+              18213,
+              18213,
+              18213,
+              18214,
+              18215,
+              18215,
+              18215,
+              18216,
+              18217,
+              18219,
+              180220,
+              180221,
+              180222,
+              180223,
+              180224,
+              180225,
+              180226,
+              180227,
+              180229,
+              180229,
+              180229,
+              180230,
+              180231,
+              180233,
+              180235,
+              180236,
+              180237,
+              180238,
+              180238,
+              180238,
+              180239,
+              180240,
+              180241,
+              180242,
+              180245,
+              180247,
+              180249,
+              180250,
+              180251,
+              180252,
+              180253,
+              180254,
+              180255,
+              180256,
+              180257,
+              180258,
+              180259,
+              180260,
+              180263,
+              180265,
+              180266,
+              180267,
+              180268,
+              180272,
+              180274,
+              180275,
+              180276,
+              180277,
+              180278,
+              180279,
+              180279
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
