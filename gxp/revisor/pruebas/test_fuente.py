@@ -152,6 +152,31 @@ b_line_i(22,1,3,cmd,6,[ t('',107,22,0),t('A',23,0,0),t(=,10,6,0),t([ t('Col',23,
         self.assertEqual(fu.sentencias[0].objetos(), [(1, "Generales.Global.JSON_Property")])
         self.assertEqual(fu.sentencias[1].texto, "&A = &Col.Item(1).Registro")
 
+    def test_when_none(self):
+        # Fragmento de Cobranzas.PlanesPago.Validar: el When none llega como If GXLvl8 = 0 despues del EndFor.
+        fu = leer("X.P", r"""
+b_line_i([ 8,0 ],1,1,cmd,0,[ t('',107,8,0),t('GXLvl8',23,0,0),t(=,10,0,0),t('0',3,0,0) ]).
+b_line_i(8,2,1,cmd,9,[ t('',121,8,0),t(table,3,8,10),t(49,3,8,10) ]).
+b_line_i([ 8,1 ],2,1,cmd,8,[ t('',107,8,0),t('GXLvl8',23,8,0),t(=,10,8,0),t('1',3,8,0) ]).
+b_line_i(10,2,1,cmd,9,[ t('',107,10,0),t('A',23,9,0),t(=,10,9,0),t(1,3,9,0) ]).
+b_line_i(17,2,1,cmd,9,[ t('',128,17,0) ]).
+b_line_i([ 17,1 ],1,3,cmd,9,[ t('',109,17,0),t('GXLvl8',23,9,0),t(=,10,9,0),t('0',3,9,0) ]).
+b_line_i(18,1,3,cmd,10,[ t('',109,18,0),t('A',23,9,0),t(=,10,9,0),t(2,3,9,0) ]).
+b_line_i(19,1,3,cmd,10,[ t('',118,19,0) ]).
+b_line_i(20,1,3,cmd,10,[ t('',111,20,0) ]).
+b_line_i(21,1,3,cmd,10,[ t('',111,21,0) ]).
+b_line_i(22,1,3,cmd,10,[ t('',118,22,0) ]).
+""", extra="table_i(49,[ cbtPlanPago ]).")
+        self.assertEqual(fu.texto(), """\
+    8  For Each cbtPlanPago
+   10      &A = 1
+   17  When none
+   18      If &A = 2
+   19          Return
+   20      EndIf
+   21  EndFor
+   22  Return""")
+
     def test_extensiones_de_especificacion(self):
         from gxp.revisor.fuente import es_spec
         self.assertTrue(es_spec("Set.sp0"))

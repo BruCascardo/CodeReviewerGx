@@ -14,6 +14,7 @@ from ..comparacion import Opciones, aprobada, clave, obtener, parcial, resumir, 
 from ..config import CFG
 from ..efectos import efectos_actuales, separar
 from ..motor import MotorError, ejecutar_objeto, ejecutar_sql, fin_transaccion, motor
+from ..revisor import salida as control_salida
 from ..util import slug
 
 MAX_DIFERENCIAS = 200  # en el resultado; el resumen las cuenta todas
@@ -145,6 +146,8 @@ def correr_paso(kb, paso, vars_, opciones, fila_idx=None, grabar=False):
     if not r.get("ok"):
         res["estado"] = "error"
         return res
+    if res.get("tipo") == "objeto":
+        res["advertencias"].extend(control_salida.controlar(kb.nombre, res["objeto"], datos))
 
     opts = Opciones(**{**opciones, "ignorar": paso.get("ignorar") or [], "volatiles": paso.get("volatiles") or []})
     try:

@@ -24,6 +24,7 @@ python gxpruebas.py revisar   --kb Generales --objeto Generales.Interfases.Regis
 
 - **Para leer el código de un objeto, usá `revisar --fuente`**: es el fuente GX tal como está en el IDE (sacado de la especificación), no el Java generado. Citá los números de línea que muestra.
 - **Antes de proponer código GX**, corré `revisar --objeto` sobre lo que vas a tocar y respetá las buenas prácticas que marca (están en `LEEME.md`, sección «Revisor de buenas prácticas»). No agregues excepciones a `revisor.json` sin que el usuario lo pida y dé el motivo.
+- Los avisos «Buenas practicas (...)» en un paso de `ejecutar` o `correr` vienen del control del `sdtOutput` devuelto (Ok y mensajes, éxito = `Type` Debug). No hacen fallar el caso: mostráselos al usuario igual.
 - **Después de un build**, `revisar --kb X --cambiados` revisa lo que el build volvió a especificar y marca **NUEVO** lo que no estaba antes. Si la vigilancia del build está activa, eso ya corrió: mirá la revisión más reciente en `resultados\revisiones\` (`"origen": "build"`). Mostrale al usuario primero los hallazgos nuevos.
 
 - **Antes de cambiar un objeto compartido**, mirá con `grafo --objeto` quién lo usa (también desde otras KBs) para saber qué puede romperse. Las relaciones marcadas «solo en la versión publicada» existen en el `.jar` publicado del módulo pero no en la KB local.

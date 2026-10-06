@@ -293,6 +293,7 @@ def _sentencias(fu, crudas):
             s = Sentencia(fu, linea, None, toks, generada)
         salida.append(s)
     _for_in(salida)
+    _when_none(salida)
     _indentar(salida)
     return salida
 
@@ -319,14 +320,38 @@ def _for_in(ss):
                 s.clave, s.generada = "endfor", False
 
 
-def _es_contador(toks):
-    return bool(toks) and isinstance(toks[0], Comp) and isinstance(toks[0].args[0], str) and toks[0].args[0].startswith("GXV")
+def _when_none(ss):
+    """'When none' llega expandido: GXLvl8 = 0 / For Each ... GXLvl8 = 1 ... / EndFor (en la linea del When
+    none) / If GXLvl8 = 0 (generado) ... / EndIf (en la linea del EndFor). Se marca como 'whennone' y 'endfor'."""
+    for i, s in enumerate(ss):
+        if not (s.clave == "if" and s.generada and i and ss[i - 1].clave == "endfor" and ss[i - 1].codigo == 128
+                and _es_contador(s.tokens, "GXLvl")):
+            continue
+        ss[i - 1].clave = "whennone"
+        s.clave = "whennone_si"
+        abiertos = 0
+        for fin in ss[i + 1:]:
+            if fin.clave == "if":
+                abiertos += 1
+            elif fin.clave == "endif":
+                if not abiertos:
+                    fin.clave = "endfor"
+                    break
+                abiertos -= 1
+
+
+def _es_contador(toks, prefijo="GXV"):
+    return bool(toks) and isinstance(toks[0], Comp) and isinstance(toks[0].args[0], str) and toks[0].args[0].startswith(prefijo)
 
 
 def _efecto(s):
     if s.clave == "forin":
         return "abre"
-    if s.clave == "endfor" and s.codigo == 115:
+    if s.clave == "whennone":
+        return "medio"
+    if s.clave == "whennone_si":
+        return None
+    if s.clave == "endfor" and s.codigo in (111, 115):
         return "cierra"
     info = SENTENCIAS.get(s.codigo)
     return info[2] if info else None
@@ -485,8 +510,10 @@ def texto_sentencia(fu, s):
         if len(item) > 2 and isinstance(item[2], Comp) and isinstance(item[2].args[0], list):
             col = ".".join(_miembro(fu, p, i) for i, p in enumerate(item[2].args[0][:-1]))
         return f"For {var} in {col}"
-    if s.clave == "endfor" and s.codigo == 115:
+    if s.clave == "endfor" and s.codigo in (111, 115):
         return "EndFor"
+    if s.clave == "whennone":
+        return "When none"
     palabra = SENTENCIAS.get(s.codigo, ("", f"«sentencia {s.codigo}»", None))[1]
     resto = texto(fu, s.tokens)
     if s.clave == "call" and s.tokens:

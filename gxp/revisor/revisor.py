@@ -9,7 +9,7 @@ import json
 import os
 from pathlib import Path
 
-from . import configuracion, fuente, lineabase
+from . import configuracion, fuente, lineabase, sdts
 from .reglas import SEVERIDADES, cargar as cargar_reglas
 from ..config import RESULTADOS
 
@@ -25,6 +25,14 @@ class Contexto:
         self.kb_nombre = kb.nombre
         self.conf = conf
         self._java = {}
+        self._sdts = {}
+
+    def rutas_sdt(self, tipo, buscado):
+        """Rutas dentro de un valor de tipo 'tipo' donde hay un SDT 'buscado' (ver sdts.rutas)."""
+        clave = (tipo.lower(), buscado.lower())
+        if clave not in self._sdts:
+            self._sdts[clave] = sdts.rutas(self.kb, tipo, buscado)
+        return self._sdts[clave]
 
     def java(self, objeto):
         """Texto del Java generado del objeto (con su _impl), o None si no esta generado."""
