@@ -1,6 +1,6 @@
 """Pantalla Explorar y SQL: catalogo de objetos, detalle, describir, ejecutar y consultas."""
 from ..rutas import ErrorApi, kb, mensaje, ruta
-from ... import catalogo, motor, suites
+from ... import campos, catalogo, motor, suites
 
 
 @ruta("GET", "/api/objetos")
@@ -30,6 +30,26 @@ def describir(q, _b):
     except motor.NoEjecutable as e:
         raise ErrorApi(str(e), 409)
     return {"parametros": d["parametros"], "plantillaEntrada": d["plantillaEntrada"], "aviso": d["aviso"]}
+
+
+@ruta("GET", "/api/campos")
+def ayuda_campos(q, _b):
+    """Dominio enumerado o tabla de la que es clave cada campo de la entrada (para los combos del formulario)."""
+    try:
+        return campos.de_objeto(kb(q.get("kb")), q.get("nombre", ""))
+    except KeyError as e:
+        raise ErrorApi(mensaje(e), 404)
+
+
+@ruta("POST", "/api/valoresClave")
+def valores_clave(_q, b):
+    """Valores que existen en la base para un campo que es la clave de una tabla."""
+    try:
+        return campos.valores(kb(b.get("kb")), b.get("atributo", ""), b.get("filtros"), b.get("buscar", ""))
+    except KeyError as e:
+        raise ErrorApi(mensaje(e), 404)
+    except motor.MotorError as e:
+        raise ErrorApi(str(e), 400)
 
 
 @ruta("POST", "/api/ejecutar")

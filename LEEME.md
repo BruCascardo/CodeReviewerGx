@@ -21,7 +21,7 @@ No hace falta instalar nada más: no usa librerías externas.
 ## Flujo recomendado
 
 1. Compilá en GeneXus (Build).
-2. En **Explorar**, elegí el objeto. GxPruebas arma un formulario a partir de los SDT de entrada. Ejecutalo y mirá la salida. Si querés ver qué cambió en la base, agregá **consultas SQL después**: corren en la misma transacción, así que ven los cambios antes del rollback.
+2. En **Explorar**, elegí el objeto. GxPruebas arma un formulario a partir de los SDT de entrada, con **combos** en los campos de un dominio enumerado y en los que son la clave de una tabla (ver más abajo). Ejecutalo y mirá la salida. Si querés ver qué cambió en la base, agregá **consultas SQL después**: corren en la misma transacción, así que ven los cambios antes del rollback.
 3. **Guardar como caso**: queda en una suite (`suites\<KB>\<suite>.json`) y la salida que viste queda **aprobada**. Al guardar se ejecuta una vez más: lo que da distinto (fechas, ids nuevos) se marca como «cambia solo». Marcá lo que además tiene que cumplirse siempre: GxPruebas lo sugiere, con `Ok` y los códigos de mensaje ya marcados. Si la ejecución terminó en excepción, el caso queda como «tiene que terminar con este error».
 4. En **Suites**, corré todo después de cada cambio, o dejá que corra solo después de cada build. Si algo cambió, ves un resumen («`Registros[*].Importe`: 100 → 110 en 12 de 40 elementos»). Si el cambio es correcto, **aceptá la salida**; si es un campo que no importa, **ignoralo**.
 
@@ -29,7 +29,7 @@ No hace falta instalar nada más: no usa librerías externas.
 
 | Pantalla | Para qué |
 |---|---|
-| **Explorar** | Catálogo de procedimientos y Data Providers sacado de la especificación. Para cada uno: parámetros con su dirección y tipo Java, entrada como formulario o JSON, consultas SQL después, rollback o commit, salida en árbol (los espacios finales de los `Character` se ven como `·`), consola, excepción, navegación (tablas, índices, filtros) y warnings de especificación. |
+| **Explorar** | Catálogo de procedimientos y Data Providers sacado de la especificación. Para cada uno: parámetros con su dirección y tipo Java, entrada como formulario (con combos) o JSON, consultas SQL después, rollback o commit, salida en árbol (los espacios finales de los `Character` se ven como `·`), consola, excepción, navegación (tablas, índices, filtros) y warnings de especificación. |
 | **Suites** | Casos con sus pasos. Correr todo, los seleccionados o los fallidos. Aprobar salidas. Resumen de qué cambió, con «Es correcto: aceptar esta salida», «Ignorar» y «Comparar solo estructura». Editor de casos con ayudantes. Opciones, variables y preparación por suite. |
 | **Historial** | Todas las corridas, con su detalle y descarga en JUnit XML o JSON. |
 | **Revisión** | Las buenas prácticas de cada objeto, **lo recién modificado primero** (por la fecha de su especificación), agrupado en Hoy, Ayer, Esta semana, etc. Filtros: todos, con problemas o solo **nuevos**; búsqueda; una KB o todas. Cada objeto despliega sus hallazgos (línea, sentencia, cómo arreglarlo) y **Ver fuente** muestra el código GX con las líneas marcadas. **Revisar cambios** revisa lo modificado desde la última revisión (lo mismo que hace solo el build). |
@@ -214,6 +214,15 @@ python gxpruebas.py vigilar --kb Generales --etiqueta auto   :: corre las suites
 python gxpruebas.py revisar --kb Generales --objeto ...      :: buenas prácticas en el fuente GX
 ```
 
+## Combos en el formulario de entrada
+
+Al lado de algunos campos del formulario aparece **▾** (o `Alt+↓` / `F4` en el campo). El campo se sigue pudiendo escribir a mano: `${variable}`, valores inválidos para probar validaciones, etc.
+
+- **Dominio enumerado** (`Fin` de tipo `Generales\RegistroFin`): los valores del dominio con su descripción. Salen de la especificación del objeto o, si no los trae, de la de las transacciones.
+- **Clave de una tabla** (`ItfId`): los valores que hay en la base, con el atributo descriptor de la transacción (`select ItfId, ItfNombre from gntInterfase`). Un campo es clave de una tabla si se llama igual que el último atributo de su clave primaria: `ItfId` es la de `gntInterfase`, no la de `gntItfRegistro`. Si la clave es compuesta, se filtra por los otros campos de la clave que estén en el mismo nivel de la entrada (`CargoPlanSec` por el `CargoId` de la misma cuota). Se traen las primeras 300 filas; si hay más, lo que se escribe en el filtro se busca en la base (por el valor o la descripción). La consulta corre en el motor y termina con rollback.
+
+Limitaciones: solo se reconocen las tablas de las transacciones de la misma KB, y un campo con otro nombre que el atributo (`Id`, `Tipo`) no tiene combo de claves. Las consultas usan la sintaxis de MySQL (`CAST(... AS CHAR)`).
+
 ## Cómo funciona por dentro
 
 - **Catálogo:** lee los XML de navegación (`GXSPC*\GEN*\NVG\**.xml`) que deja la especificación. De ahí salen los objetos, los parámetros con `in`/`out`/`inout`, la navegación y los warnings.
@@ -228,6 +237,7 @@ python gxpruebas.py revisar --kb Generales --objeto ...      :: buenas práctica
 | Paquete | Qué hace |
 | --- | --- |
 | `kbs.py`, `catalogo.py`, `config.py`, `util.py` | KBs encontradas, objetos y parámetros, `config.json`, lectura y escritura de JSON |
+| `campos\` | combos del formulario: dominio de cada campo de la entrada, tablas con su clave y valores de la base |
 | `motor\` | el proceso Java de cada KB: describir, ejecutar, SQL, fin de transacción |
 | `suites\` | formato y almacén de las suites, ejecución de pasos y casos, salidas aprobadas, corridas, reportes |
 | `comparacion\` | comparación con `esperado` y la salida aprobada, operadores de `verificaciones`, volátiles |

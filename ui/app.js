@@ -9,6 +9,7 @@ const E = {
   filtros: new Set(["Procedure", "DataProvider"]),
   obj: null,          // detalle del objeto seleccionado
   desc: null,         // describir (tipos y plantilla)
+  campos: {},         // ayuda de los campos de la entrada (dominios enumerados y claves): /api/campos
   entrada: {},
   modoEntrada: almacen.leer("modoEntrada", "form"),
   sqlDespues: [],
@@ -243,7 +244,7 @@ function pintarListaObjetos() {
 async function seleccionarObjeto(nombre) {
   const det = $("#detalle-objeto");
   vaciar(det, h("div", { class: "vacio-grande" }, cargando(`Cargando ${nombre}…`)));
-  E.desc = null; E.ultimoRes = null; E.pendientes = []; E.sqlDespues = []; E.transaccion = "rollback";
+  E.desc = null; E.campos = {}; E.ultimoRes = null; E.pendientes = []; E.sqlDespues = []; E.transaccion = "rollback";
   try {
     E.obj = await GET("/api/objeto", { kb: E.kb, nombre });
   } catch (e) {
@@ -257,11 +258,16 @@ async function seleccionarObjeto(nombre) {
   E.entrada = borrador || {};
   E.sqlDespues = almacen.leer(`sql.${E.kb}.${E.obj.nombre}`, []);
   pintarObjeto();
-  // describir: arranca el motor si hace falta (la primera vez tarda unos segundos)
+  // describir: arranca el motor si hace falta (la primera vez tarda unos segundos). La ayuda de los campos
+  // (combos) sale de la especificacion: si falla, el formulario queda sin combos.
   try {
-    const d = await GET("/api/describir", { kb: E.kb, nombre: E.obj.nombre });
+    const [d, campos] = await Promise.all([
+      GET("/api/describir", { kb: E.kb, nombre: E.obj.nombre }),
+      GET("/api/campos", { kb: E.kb, nombre: E.obj.nombre }).catch(() => ({})),
+    ]);
     if (E.obj?.nombre !== nombre) return;
     E.desc = d;
+    E.campos = campos;
     if (!borrador) E.entrada = clonar(d.plantillaEntrada);
     pintarObjeto();
   } catch (e) {
@@ -321,6 +327,55 @@ function pintarObjeto() {
     pests);
 }
 
+// ---------------------------------------------------------------------- combos de la entrada
+// La ayuda de /api/campos viene por ruta en minusculas y con [*] en las listas: inset.items[*].itfid
+const rutaCampo = (ruta) => ruta.toLowerCase().replace(/\[\d+\]/g, "[*]");
+const textosClave = new Map(); // "kb|atributo" -> Map(valor -> texto), de las consultas ya hechas
+
+/** opciones.combo de formularioJson: valores del dominio enumerado o, si el campo es la clave de una tabla,
+ *  los que hay en la base (filtrados por los otros campos de la clave que esten en el mismo nivel). */
+function comboCampo(kb, ayudas) {
+  return (ruta, padre) => {
+    const a = ayudas?.[rutaCampo(ruta)];
+    if (!a) return null;
+    if (a.valores) {
+      const valores = a.valores.map((v) => {
+        const texto = [v.descripcion, v.nombre].find((t) => t && t !== String(v.valor)) || "";
+        return { valor: v.valor, texto };
+      });
+      return {
+        titulo: `Dominio ${a.dominio || ""}`,
+        valores,
+        textoDe: (x) => valores.find((v) => String(v.valor) === String(x).trim())?.texto,
+      };
+    }
+    const c = a.clave;
+    const clave = `${kb}|${c.atributo}`;
+    if (!textosClave.has(clave)) textosClave.set(clave, new Map());
+    const textos = textosClave.get(clave);
+    return {
+      titulo: `${c.tabla}${c.titulo && c.titulo !== c.tabla ? ` (${c.titulo})` : ""} · ${c.atributo}`,
+      textoDe: (x) => textos.get(String(x).trim()),
+      cargar: async (buscar) => {
+        const filtros = {};
+        if (padre && !Array.isArray(padre)) for (const [k, v] of Object.entries(padre)) if (v === null || typeof v !== "object") filtros[k] = v;
+        const r = await POST("/api/valoresClave", { kb, atributo: c.atributo, filtros, buscar });
+        const n = r.claves.length;
+        const otras = r.claves.slice(0, -1).map((k, i) => [k, i]).filter(([k]) => !(k in r.filtros));
+        const valores = r.filas.map((f) => {
+          const fila = r.columnas.map((col) => f[col]);
+          const desc = r.descripcion ? String(fila[n] ?? "").trim() : "";
+          const texto = [otras.map(([k, i]) => `${k}=${fila[i]}`).join(" "), desc].filter(Boolean).join(" · ");
+          textos.set(String(fila[n - 1]).trim(), texto);
+          return { valor: fila[n - 1], texto };
+        });
+        const usados = Object.entries(r.filtros).map(([k, v]) => `${k} = ${v}`).join(", ");
+        return { valores, truncado: r.truncado, nota: usados ? `Filtrado por ${usados}.` : "" };
+      },
+    };
+  };
+}
+
 function contarNiveles(niveles) { let n = 0; const r = (l) => l.forEach((x) => { n++; r(x.subniveles || []); }); r(niveles || []); return n; }
 
 function panelEjecutar() {
@@ -333,7 +388,8 @@ function panelEjecutar() {
       editorTexto = editorJson(E.entrada, { filas: 16, alCambiar: (v, ok) => { if (ok && v !== undefined) { E.entrada = v; guardarBorrador(); } } });
       vaciar(cajaEntrada, editorTexto);
     } else {
-      formulario = formularioJson(E.entrada, E.desc?.plantillaEntrada, (v) => { E.entrada = v; guardarBorrador(); });
+      formulario = formularioJson(E.entrada, E.desc?.plantillaEntrada, (v) => { E.entrada = v; guardarBorrador(); },
+        { combo: comboCampo(E.kb, E.campos) });
       vaciar(cajaEntrada, Object.keys(E.entrada || {}).length ? formulario : h("div", { class: "muted chico" },
         E.desc ? "Este objeto no recibe parámetros de entrada." : cargando("Preparando la plantilla (la primera vez se inicia el motor Java)…")));
     }

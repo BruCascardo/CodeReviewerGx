@@ -452,7 +452,8 @@
               "MjeError": "El esquema de vencimientos no existe.",
               "Estado": "INC"
             }
-          }
+          },
+          "comparar": "estructura"
         }
       ]
     },

@@ -268,8 +268,9 @@ function editorJson(valor, { alCambiar, filas = 14, placeholder = "" } = {}) {
 /**
  * Formulario editable para un valor JSON. 'plantilla' (opcional) da el elemento modelo de cada lista
  * para el boton "+ agregar". alCambiar(valor) se llama en cada cambio.
+ * opciones.combo(ruta, padre) (opcional) da los valores sugeridos de un campo (ver listaValores), o null.
  */
-function formularioJson(valorInicial, plantilla, alCambiar) {
+function formularioJson(valorInicial, plantilla, alCambiar, opciones = {}) {
   let datos = clonar(valorInicial) ?? {};
   const cont = h("div", { class: "form-json" });
   const cerrados = new Set();
@@ -300,6 +301,24 @@ function formularioJson(valorInicial, plantilla, alCambiar) {
     }
     return inp;
   };
+  // Campo con valores sugeridos: el texto se sigue pudiendo escribir (${variables}, valores invalidos).
+  const conCombo = (inp, ruta, padre) => {
+    const c = opciones.combo && opciones.combo(ruta, padre);
+    if (!c) return { control: inp };
+    const desc = h("span", { class: "combo-desc" });
+    const ponerDesc = () => { const t = c.textoDe ? c.textoDe(inp.value) : ""; desc.textContent = t || ""; desc.title = t || ""; };
+    const abrir = () => listaValores(caja, c, inp.value, (valor) => {
+      inp.value = String(valor);
+      inp.dispatchEvent(new Event("input"));
+      inp.focus();
+    });
+    inp.addEventListener("input", ponerDesc);
+    inp.addEventListener("keydown", (ev) => { if ((ev.key === "ArrowDown" && ev.altKey) || ev.key === "F4") { ev.preventDefault(); abrir(); } });
+    const caja = h("div", { class: "combo" }, inp,
+      h("button", { class: "btn chico fantasma icono", type: "button", title: `${c.titulo}\nVer los valores (Alt+↓)`, tabindex: -1, onclick: abrir }, "▾"), desc);
+    ponerDesc();
+    return { control: caja, titulo: c.titulo };
+  };
   const render = (v, ruta, poner) => {
     if (Array.isArray(v)) {
       const caja = h("div");
@@ -309,7 +328,7 @@ function formularioJson(valorInicial, plantilla, alCambiar) {
           h("button", { class: "btn fantasma icono chico quitar", title: "Quitar elemento", onclick: () => { v.splice(i, 1); avisar(); pintar(); } }, "✕"),
           h("div", { class: "idx" }, `[${i}]`),
           item && typeof item === "object" ? render(item, r, (nv) => { v[i] = nv; })
-            : entrada(item, (nv) => { v[i] = nv; })));
+            : celda(item, r, v, (nv) => { v[i] = nv; })));
       });
       caja.appendChild(h("button", {
         class: "btn chico", onclick: () => {
@@ -331,7 +350,8 @@ function formularioJson(valorInicial, plantilla, alCambiar) {
             render(hijo, r, (nv) => { v[k] = nv; }));
           caja.appendChild(fs);
         } else {
-          caja.appendChild(h("div", { class: "campo" }, h("label", { title: r }, k), entrada(hijo, (nv) => { v[k] = nv; })));
+          const { control, titulo } = celda(hijo, r, v, (nv) => { v[k] = nv; }, true);
+          caja.appendChild(h("div", { class: "campo" }, h("label", { title: titulo ? `${r}\n${titulo}` : r }, k), control));
         }
       }
       if (!Object.keys(v).length) caja.appendChild(h("div", { class: "muted chico" }, "(sin campos)"));
@@ -339,11 +359,99 @@ function formularioJson(valorInicial, plantilla, alCambiar) {
     }
     return h("div", { class: "campo" }, h("label", null, ruta || "valor"), entrada(v, (nv) => { datos = nv; }));
   };
+  // Control de un valor simple, con su combo si lo tiene. 'padre' es el objeto o lista que lo contiene.
+  function celda(v, ruta, padre, poner, conTitulo = false) {
+    const inp = entrada(v, poner);
+    const r = typeof v === "boolean" ? { control: inp } : conCombo(inp, ruta, padre);
+    return conTitulo ? r : r.control;
+  }
   const pintar = () => vaciar(cont, render(datos, "", (nv) => { datos = nv; }));
   pintar();
   cont.poner = (v) => { datos = clonar(v) ?? {}; pintar(); };
   cont.valor = () => clonar(datos);
   return cont;
+}
+
+// ---------------------------------------------------------------------- lista de valores (combo)
+/**
+ * Lista desplegable debajo de 'ancla' para elegir un valor. 'fuente' es
+ *   {titulo, valores: [{valor, texto}]}                                  valores fijos (dominio enumerado)
+ *   {titulo, cargar: async (buscar) => ({valores, truncado, nota})}      valores de la base
+ * Con 'cargar', si la lista vino truncada, lo que se escribe en el filtro se busca en la base.
+ * alElegir(valor) recibe el valor elegido.
+ */
+function listaValores(ancla, fuente, actual, alElegir) {
+  cerrarMenu();
+  const filtro = h("input", { type: "text", placeholder: "Filtrar…", spellcheck: "false" });
+  const lista = h("div", { class: "lista-valores" });
+  const pie = h("div", { class: "pie-valores" });
+  const m = h("div", { class: "menu combo-menu" }, h("div", { class: "titulo-menu" }, fuente.titulo), filtro, lista, pie);
+  const igual = (v) => String(v.valor).trim() === String(actual ?? "").trim();
+  let valores = fuente.valores || null, truncado = false, nota = "", error = "", activo = 0, visibles = [], buscado = "", espera = null;
+  const elegir = (v) => { cerrarMenu(); alElegir(v.valor); };
+  const marcar = () => $$("button", lista).forEach((b, i) => b.classList.toggle("activo", i === activo));
+  const mover = (d) => {
+    activo = Math.max(0, Math.min(activo + d, visibles.length - 1));
+    marcar();
+    $$("button", lista)[activo]?.scrollIntoView({ block: "nearest" });
+  };
+  const pintar = () => {
+    const t = filtro.value.trim().toLowerCase();
+    visibles = (valores || []).filter((v) => !t || String(v.valor).toLowerCase().includes(t) || (v.texto || "").toLowerCase().includes(t));
+    activo = Math.max(0, Math.min(activo, visibles.length - 1));
+    const aviso = (x) => h("div", { class: "muted chico", style: { padding: "6px 10px" } }, x);
+    vaciar(lista, error ? h("div", { class: "error-caja chico" }, error)
+      : valores === null ? aviso(cargando("Consultando la base…"))
+      : visibles.length ? visibles.map((v, i) => h("button", {
+          type: "button", class: igual(v) ? "elegido" : "",
+          onmousedown: (ev) => ev.preventDefault(), onclick: () => elegir(v),
+          onmousemove: () => { if (activo !== i) { activo = i; marcar(); } },
+        }, h("span", { class: "mono" }, String(v.valor)), v.texto ? h("span", { class: "muted" }, v.texto) : null))
+      : aviso("Sin coincidencias."));
+    pie.textContent = [nota, truncado ? `Se muestran los primeros ${valores.length}: lo que escribas se busca en la base.` : ""].filter(Boolean).join(" ");
+    pie.style.display = pie.textContent ? "" : "none";
+    marcar();
+  };
+  const cargar = async (buscar) => {
+    buscado = buscar;
+    try {
+      const r = await fuente.cargar(buscar);
+      if (buscado !== buscar) return;
+      ({ valores, truncado = false, nota = "" } = r);
+      error = "";
+    } catch (e) { error = e.message; valores = []; }
+    if (menuAbierto !== m) return;
+    pintar();
+    if (!buscar) { activo = Math.max(0, visibles.findIndex(igual)); mover(0); }
+  };
+  filtro.addEventListener("input", () => {
+    activo = 0; pintar();
+    // Si la base tiene mas filas que las traidas, se busca en la base (y se vuelve a la lista completa al borrar).
+    if (fuente.cargar && (truncado || buscado)) {
+      clearTimeout(espera);
+      espera = setTimeout(() => cargar(filtro.value.trim()), 300);
+    }
+  });
+  filtro.addEventListener("keydown", (ev) => {
+    if (ev.key === "ArrowDown") { ev.preventDefault(); mover(1); }
+    else if (ev.key === "ArrowUp") { ev.preventDefault(); mover(-1); }
+    else if (ev.key === "Enter") { ev.preventDefault(); if (visibles[activo]) elegir(visibles[activo]); }
+    else if (ev.key === "Escape" || ev.key === "Tab") { if (ev.key === "Escape") { ev.preventDefault(); ev.stopPropagation(); } cerrarMenu(); ancla.querySelector("input")?.focus(); }
+  });
+  document.body.appendChild(m);
+  const r = ancla.getBoundingClientRect();
+  m.style.minWidth = Math.max(r.width, 260) + "px";
+  m.style.left = Math.max(8, Math.min(r.left, innerWidth - m.offsetWidth - 8)) + "px";
+  const abajo = innerHeight - r.bottom - 10;
+  if (abajo >= 240 || abajo >= r.top) { m.style.top = (r.bottom + 2) + "px"; m.style.maxHeight = abajo + "px"; }
+  else { m.style.bottom = (innerHeight - r.top + 2) + "px"; m.style.maxHeight = (r.top - 10) + "px"; }
+  menuAbierto = m;
+  setTimeout(() => document.addEventListener("mousedown", cerrarMenuFuera), 0);
+  pintar();
+  activo = Math.max(0, visibles.findIndex(igual));
+  mover(0);
+  filtro.focus();
+  if (valores === null) cargar("");
 }
 
 // ---------------------------------------------------------------------- tablas
