@@ -4,7 +4,8 @@
     "WorkWithPlus*",
     "GAM*",
     "GeneXus.*",
-    "*LoadDVCombo"
+    "*LoadDVCombo",
+    "Cobranzas.Global.sdtErroresToSdtOutput"
   ],
   "ignorarGeneradosPorPattern": true,
   "reglas": {
