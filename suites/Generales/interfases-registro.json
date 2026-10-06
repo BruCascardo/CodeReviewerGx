@@ -190,6 +190,11 @@
               "ruta": "outSet.Output.Messages[0].Type",
               "op": "igual",
               "valor": 2
+            },
+            {
+              "ruta": "outSet.Output.Messages[0].Code",
+              "op": "igual",
+              "valor": "OK"
             }
           ],
           "guardar": {

@@ -9,7 +9,7 @@ import json
 import os
 from pathlib import Path
 
-from . import configuracion, fuente, lineabase, sdts
+from . import configuracion, fuente, lineabase, sdts, transacciones
 from .reglas import SEVERIDADES, cargar as cargar_reglas
 from ..config import RESULTADOS
 
@@ -26,6 +26,7 @@ class Contexto:
         self.conf = conf
         self._java = {}
         self._sdts = {}
+        self._trns = {}
 
     def rutas_sdt(self, tipo, buscado):
         """Rutas dentro de un valor de tipo 'tipo' donde hay un SDT 'buscado' (ver sdts.rutas)."""
@@ -33,6 +34,13 @@ class Contexto:
         if clave not in self._sdts:
             self._sdts[clave] = sdts.rutas(self.kb, tipo, buscado)
         return self._sdts[clave]
+
+    def transaccion(self, tipo):
+        """La transaccion (clave y autonumerados) de un Business Component, o None (ver transacciones.py)."""
+        clave = tipo.lower()
+        if clave not in self._trns:
+            self._trns[clave] = transacciones.de_tipo(self.kb, tipo)
+        return self._trns[clave]
 
     def java(self, objeto):
         """Texto del Java generado del objeto (con su _impl), o None si no esta generado."""

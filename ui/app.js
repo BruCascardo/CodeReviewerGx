@@ -57,8 +57,9 @@ async function iniciar() {
   $("#motor-detener").addEventListener("click", () => accionMotor("detener"));
   $("#motor-log").addEventListener("click", verLogMotor);
   document.addEventListener("keydown", teclas);
-  // Al volver de GeneXus: relee el catálogo para que aparezca lo recién especificado o compilado.
-  window.addEventListener("focus", () => { if (E.kb) cargarObjetos(); if (E.vista === "revision") cargarRevision(); });
+  // Al volver de GeneXus: relee el catálogo para que aparezca lo recién especificado o compilado. La
+  // Revisión se actualiza en segundo plano y solo si cambió algo (ver refrescarRevision).
+  window.addEventListener("focus", () => { if (E.kb) cargarObjetos(); if (E.vista === "revision") refrescarRevision(); });
 
   if (!E.kb) {
     vaciar($("#detalle-objeto"), h("div", { class: "vacio-grande" }, h("h3", null, "No encontré KBs compiladas"),
@@ -163,7 +164,7 @@ function avisosBuild(au) {
       cantNuevos ? [" ", h("a", { href: "#", onclick: (ev) => { ev.preventDefault(); ev.stopPropagation(); t.remove(); if (r.kb !== E.kb) { $("#kb").value = r.kb; cambiarKb(r.kb); } RV.filtro = "nuevos"; RV.armada = false; irA("revision"); } }, "Ver revisión")] : null),
       ok ? "ok" : "error", ok ? 8000 : 0);
     if (E.vista === "historial") pintarHistorial();
-    if (E.vista === "revision" && r.revision) cargarRevision();
+    if (E.vista === "revision" && r.revision) cargarRevision(false, true);
     if (E.suite && r.corridas?.some((c) => c.suite === E.suite._id)) abrirSuite(E.suite._id);
   }
 }

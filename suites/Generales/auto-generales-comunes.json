@@ -71,7 +71,34 @@
           "objeto": "Generales.Comunes.Monedas.Lista",
           "entrada": {},
           "lineaBase": {
-            "outLista": {}
+            "outLista": {
+              "Monedas": [
+                {
+                  "Nombre": "PESOS",
+                  "MonId": 1,
+                  "Simbolo": "$",
+                  "NombreCorto": "PESOS",
+                  "CodigoISO": "ARS",
+                  "Origen": "NAC"
+                },
+                {
+                  "Nombre": "DOLARES",
+                  "MonId": 2,
+                  "Simbolo": "US$",
+                  "NombreCorto": "DOLARES",
+                  "CodigoISO": "USD",
+                  "Origen": "EXT"
+                },
+                {
+                  "Nombre": "REAL",
+                  "MonId": 3,
+                  "Simbolo": "R$",
+                  "NombreCorto": "R",
+                  "CodigoISO": "BRL",
+                  "Origen": "EXT"
+                }
+              ]
+            }
           }
         }
       ]

@@ -4,7 +4,9 @@
   fuente.py         lee el fuente de la especificacion (.sp0); toda la tabla de codigos de GeneXus esta ahi
   estructura.py     bloques del fuente: que esta dentro de que If, Case, For Each o Sub
   sdts.py           estructura de los SDT (GXSDT_*.sp0): en que ruta de un parametro hay un sdtOutput
+  transacciones.py  clave de las transacciones y sus autonumerados (para los Business Components)
   flujo.py          caminos del fuente siguiendo el Ok y los mensajes de un sdtOutput
+  altas.py          que entidades crea un objeto con BCs y que parte de su clave devuelve
   salida.py         control de los sdtOutput de las ejecuciones reales (capa dinamica, la usan las suites)
   reglas/           una regla por archivo; se registran solas
   configuracion.py  revisor.json: reglas activas, parametros, objetos ignorados y excepciones

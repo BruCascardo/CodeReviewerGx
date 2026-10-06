@@ -8,9 +8,14 @@ const RV = {
   texto: "",
   abiertos: new Set(),                                // "kb|objeto" desplegados
   pedido: 0,                                          // descarta respuestas viejas
+  enCurso: false,                                     // hay un pedido sin respuesta
   siguiente: null,
   armada: false,
+  firma: "",                                          // lo que muestra la primera página (para no repintar igual)
+  cargada: 0,                                         // cuándo se cargó por última vez (ms)
 };
+
+const REFRESCO_MIN_MS = 15000;  // al volver a la ventana, como mucho un refresco cada 15 s
 
 const SEVERIDAD = { error: "Error", advertencia: "Advertencia" };
 
@@ -78,19 +83,41 @@ function paramsRevision(desde = 0) {
   return q;
 }
 
-async function cargarRevision(mas = false) {
-  const lista = $("#rv-lista"), pie = $("#rv-pie");
+// Al volver a la ventana (desde GeneXus u otra pestaña): actualiza en segundo plano, sin vaciar la lista,
+// y solo si pasó un rato y no hay otro pedido en curso.
+function refrescarRevision() {
+  if (!RV.armada || RV.enCurso || Date.now() - RV.cargada < REFRESCO_MIN_MS) return;
+  cargarRevision(false, true);
+}
+
+// mas: agrega la página siguiente. silencioso: no muestra «Revisando…» ni repite los avisos, y si la
+// primera página no cambió no toca la lista (se conservan los desplegados, la posición y lo cargado con
+// «Cargar más»); si cambió, la repinta en el mismo lugar del scroll.
+async function cargarRevision(mas = false, silencioso = false) {
+  const lista = $("#rv-lista"), pie = $("#rv-pie"), cont = $("#contenido-revision");
   const n = ++RV.pedido;
-  if (!mas) vaciar(lista, h("div", { class: "vacio-grande" }, cargando("Revisando los objetos recién modificados…")));
-  else vaciar(pie, cargando());
+  RV.enCurso = true;
+  if (mas) vaciar(pie, cargando());
+  else if (!silencioso) vaciar(lista, h("div", { class: "vacio-grande" }, cargando("Revisando los objetos recién modificados…")));
   let r;
   try { r = await GET("/api/revision", paramsRevision(mas ? RV.siguiente : 0)); } catch (e) {
-    if (n === RV.pedido) vaciar(lista, h("div", { class: "error-caja" }, e.message));
+    if (n === RV.pedido) {
+      RV.enCurso = false;
+      if (!silencioso) vaciar(lista, h("div", { class: "error-caja" }, e.message));
+    }
     return;
   }
   if (n !== RV.pedido) return;
+  RV.enCurso = false;
+  RV.cargada = Date.now();
+  pintarInfoRevision(r, !silencioso);
+  if (!mas) {
+    const firma = JSON.stringify([RV.filtro, RV.todas, RV.texto, r.objetos, r.siguiente]);
+    if (silencioso && firma === RV.firma) return;
+    RV.firma = firma;
+  }
   RV.siguiente = r.siguiente;
-  pintarInfoRevision(r);
+  const scroll = cont.scrollTop;
   if (!mas) vaciar(lista);
   if (!mas && !r.objetos.length) {
     const que = { todos: "objetos revisables", problemas: "objetos con problemas", nuevos: "problemas nuevos" }[RV.filtro];
@@ -104,9 +131,10 @@ async function cargarRevision(mas = false) {
   }
   lista.dataset.grupo = grupo || "";
   vaciar(pie, r.siguiente != null ? h("button", { class: "btn", onclick: () => cargarRevision(true) }, "Cargar más") : null);
+  if (silencioso) cont.scrollTop = scroll;
 }
 
-function pintarInfoRevision(r) {
+function pintarInfoRevision(r, avisar = true) {
   const cambiados = r.kbs.reduce((s, k) => s + (k.cambiados || 0), 0);
   const sinBase = r.kbs.filter((k) => !k.lineaBase).map((k) => k.kb);
   const ultima = r.kbs.map((k) => k.lineaBase).filter(Boolean).sort().pop();
@@ -118,7 +146,7 @@ function pintarInfoRevision(r) {
   const btn = $("#rv-revisar");
   btn.textContent = cambiados ? `Revisar cambios (${cambiados})` : "Revisar cambios";
   btn.classList.toggle("prim", cambiados > 0);
-  for (const a of r.avisos || []) toast(a, "aviso");
+  if (avisar) for (const a of r.avisos || []) toast(a, "aviso");
 }
 
 function contadoresRevision(o) {

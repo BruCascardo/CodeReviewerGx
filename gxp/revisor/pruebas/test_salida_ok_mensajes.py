@@ -2,7 +2,8 @@ import unittest
 
 from gxp.revisor import salida
 from gxp.revisor.configuracion import Configuracion
-from gxp.revisor.pruebas import leer
+from gxp.revisor.pruebas import (asignar, asignar_campo, do, fin_si, fin_sub, leer, linea, llamar, si, si_igual,
+                                 sino, sub, tipo, volver)
 from gxp.revisor.reglas import cargar
 
 # Variables como las declara el .sp0. outSet es un SDT con un campo Output de tipo sdtOutput (ver Ctx).
@@ -22,80 +23,23 @@ enum_value_info_i(2,37,'GeneXus\MessageTypes').
 OUT = "t([ t('Outset',23,0,0),t('Output',3,0,0) ],29,0,0)"
 
 
-def _b(linea, codigo, *toks):
-    return f"b_line_i({linea},1,1,cmd,0,[ t('',{codigo},{linea},0){''.join(',' + t for t in toks)} ])."
-
-
-def ok(linea, valor, salida="Outset"):
+def ok(n, valor, salida="Outset"):
     v = "t('TRUE',40,0,0)" if valor else "t('FALSE',41,0,0)"
     campo = f"t([ t('{salida}',23,0,0),t('Output',3,0,0),t('Ok',3,0,0) ],29,0,0)" if salida == "Outset" else \
         f"t([ t('{salida}',23,0,0),t('Ok',3,0,0) ],29,0,0)"
-    return _b(linea, 107, campo, "t(=,10,0,0)", v)
+    return linea(n, 107, campo, "t(=,10,0,0)", v)
 
 
-def tipo(valor):
-    return f"t([ 37,'{valor}' ],44,0,0)"
-
-
-def add_message(linea, tipo_msg, salida=OUT):
+def add_message(n, tipo_msg, salida=OUT):
     """Sistema.Output.AddMessage("x", MessageTypes.<tipo>, <salida>)"""
-    return _b(linea, 104, "t(o(1,'Sistema\\Output\\AddMessage'),28,0,0)", "t('\"x\"',3,0,0)", "t(',',7,0,0)",
-              tipo(tipo_msg), "t(',',7,0,0)", salida)
+    return linea(n, 104, "t(o(1,'Sistema\\Output\\AddMessage'),28,0,0)", "t('\"x\"',3,0,0)", "t(',',7,0,0)",
+                 tipo(tipo_msg), "t(',',7,0,0)", salida)
 
 
-def asignar(linea, var, *valor):
-    return _b(linea, 107, f"t('{var}',23,0,0)", "t(=,10,0,0)", *valor)
-
-
-def asignar_campo(linea, var, campo, *valor):
-    return _b(linea, 107, f"t([ t('{var}',23,0,0),t('{campo}',3,0,0) ],29,0,0)", "t(=,10,0,0)", *valor)
-
-
-def messages_add(linea, var="Message"):
+def messages_add(n, var="Message"):
     """&outSet.Output.Messages.Add(&Message)"""
-    return _b(linea, 107, "t([ t('Outset',23,0,0),t('Output',3,0,0),t('Messages',3,0,0),t('add(',1,0,0) ],31,0,0)",
-              f"t('{var}',23,0,0)", "t(')',4,0,0)")
-
-
-def si(linea, *cond):
-    return _b(linea, 109, *cond)
-
-
-def si_igual(linea, var, valor_tipo):
-    return si(linea, f"t('{var}',23,0,0)", "t(=,10,0,0)", tipo(valor_tipo))
-
-
-def sino(linea):
-    return _b(linea, 110)
-
-
-def fin_si(linea):
-    return _b(linea, 111)
-
-
-def volver(linea):
-    return _b(linea, 118)
-
-
-def do(linea, sub):
-    return _b(linea, 145, f"t('''{sub}''',3,0,0)")
-
-
-def sub(linea, nombre):
-    return _b(linea, 143, f"t('''{nombre}''',3,0,0)")
-
-
-def fin_sub(linea):
-    return _b(linea, 144)
-
-
-def llamar(linea, objeto, *args):
-    toks = [f"t(o(1,'{objeto}'),28,0,0)"]
-    for i, a in enumerate(args):
-        if i:
-            toks.append("t(',',7,0,0)")
-        toks.append(a)
-    return _b(linea, 104, *toks)
+    return linea(n, 107, "t([ t('Outset',23,0,0),t('Output',3,0,0),t('Messages',3,0,0),t('add(',1,0,0) ],31,0,0)",
+                 f"t('{var}',23,0,0)", "t(')',4,0,0)")
 
 
 def fuente(*lineas, variables=VARIABLES):
@@ -191,18 +135,18 @@ class Estatica(unittest.TestCase):
         fu = fuente(
             ok(1, True),
             si(2, "t('Hayerror',23,0,0)"),
-            _b(3, 107, "t('GXV1',23,0,0)", "t(=,10,0,0)", "t(1,3,0,0)").replace("b_line_i(3,", "b_line_i([ 3,0 ],"),
-            _b(3, 114, "t('GXV1',23,0,0)", "t(<=,10,0,0)", "t([ t('Msgs',23,0,0),t('Count',3,0,0) ],29,0,0)")
+            linea(3, 107, "t('GXV1',23,0,0)", "t(=,10,0,0)", "t(1,3,0,0)").replace("b_line_i(3,", "b_line_i([ 3,0 ],"),
+            linea(3, 114, "t('GXV1',23,0,0)", "t(<=,10,0,0)", "t([ t('Msgs',23,0,0),t('Count',3,0,0) ],29,0,0)")
             .replace("b_line_i(3,", "b_line_i([ 3,2 ],"),
-            _b(3, 107, "t('M',23,0,0)", "t(=,10,0,0)", "t([ t('Msgs',23,0,0),t('item(',1,0,0) ],31,0,0)",
+            linea(3, 107, "t('M',23,0,0)", "t(=,10,0,0)", "t([ t('Msgs',23,0,0),t('item(',1,0,0) ],31,0,0)",
                "t('GXV1',23,0,0)", "t(')',4,0,0)").replace("b_line_i(3,", "b_line_i([ 3,3 ],"),
             si(4, "t([ t('M',23,0,0),t('Type',3,0,0) ],29,0,0)", "t(=,10,0,0)", tipo("Error")),
             asignar(5, "Msgtype", tipo("Error")),
             do(6, "AGREGARMENSAJE"),
             fin_si(7),
-            _b(8, 107, "t('GXV1',23,0,0)", "t(=,10,0,0)", "t('GXV1',23,0,0)", "t(+,5,0,0)", "t(1,3,0,0)")
+            linea(8, 107, "t('GXV1',23,0,0)", "t(=,10,0,0)", "t('GXV1',23,0,0)", "t(+,5,0,0)", "t(1,3,0,0)")
             .replace("b_line_i(8,", "b_line_i([ 8,1 ],"),
-            _b(8, 115).replace("b_line_i(8,", "b_line_i([ 8,2 ],"),
+            linea(8, 115).replace("b_line_i(8,", "b_line_i([ 8,2 ],"),
             sino(9),
             asignar(10, "Msgtype", tipo("Debug")), do(11, "AGREGARMENSAJE"),
             fin_si(12),
@@ -227,13 +171,13 @@ class Estatica(unittest.TestCase):
             sino(5),
             add_message(6, "Debug", "t('Sdtoutput',23,0,0)"),
             fin_si(7),
-            _b(8, 107, OUT, "t(=,10,0,0)", "t('Sdtoutput',23,0,0)"))
+            linea(8, 107, OUT, "t(=,10,0,0)", "t('Sdtoutput',23,0,0)"))
         self.assertEqual(revisar(fu), [])
 
     def test_coleccion_errores_y_count(self):
         # Estilo Sistema.Conversacion.CnvEvento_Crear: &sdtOutput.Errores.Add() y Ok = False si Count <> 0.
         variables = VARIABLES.replace("[ 'Outset',out ]", "[ 'Sdtoutput',out ]")
-        errores_add = _b(3, 107, "t([ t('Sdtoutput',23,0,0),t('Errores',3,0,0),t('add(',1,0,0) ],31,0,0)",
+        errores_add = linea(3, 107, "t([ t('Sdtoutput',23,0,0),t('Errores',3,0,0),t('add(',1,0,0) ],31,0,0)",
                          "t('M',23,0,0)", "t(')',4,0,0)")
         fu = fuente(
             ok(1, True, salida="Sdtoutput"),
