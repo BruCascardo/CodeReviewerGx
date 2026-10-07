@@ -808,7 +808,10 @@
               "TextoDelimitador": " ",
               "FormatoFecha2": "mm  "
             }
-          }
+          },
+          "ignorar": [
+            "Interfase.Registros[*].Orden"
+          ]
         }
       ]
     },

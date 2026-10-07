@@ -1,10 +1,10 @@
-"""Comandos sobre los objetos de una KB: kbs, objetos, describir, ejecutar, sql."""
+"""Comandos sobre los objetos de una KB: kbs, objetos, describir, ejecutar, sql, plan."""
 import json
 import sys
 from pathlib import Path
 
 from .consola import c, error, imprimir_json
-from .. import catalogo, kbs, motor, suites
+from .. import catalogo, kbs, motor, plan, suites
 
 
 def cmd_kbs(a):
@@ -101,6 +101,43 @@ def cmd_sql(a):
     return 0
 
 
+_COLOR_NIVEL = {"alto": "rojo", "medio": "amarillo", "bajo": "gris"}
+
+
+def cmd_plan(a):
+    kb = kbs.obtener(a.kb)
+    try:
+        r = plan.calcular(kb, a.objeto)
+    except (KeyError, plan.SinFuente, motor.MotorError) as e:
+        error(str(e).strip("'\""))
+        return 2
+    if a.json:
+        imprimir_json(r)
+        return 0
+    print(f"{r['objeto']}: {len(r['sentencias'])} sentencias, "
+          + ", ".join(f"{n} {k}" for k, n in r["resumen"].items() if n) if r["hallazgos"] else
+          f"{r['objeto']}: {len(r['sentencias'])} sentencias, sin recomendaciones")
+    for av in r["avisos"]:
+        print(c("  " + av, "gris"))
+    for h in r["hallazgos"]:
+        print(c(f"\n[{h['nivel']}] ", _COLOR_NIVEL[h["nivel"]]) + h["titulo"]
+              + c(f"  ({h['cursor'] or 'navegacion'}, {h['origen']})", "gris"))
+        if h["detalle"]:
+            print("    " + h["detalle"])
+        if h["sugerencia"]:
+            print("    Sugerencia: " + h["sugerencia"])
+    if a.detalle:
+        for s in r["sentencias"]:
+            print(c(f"\n{s['cursor']} {s['tipo'].upper()} ({', '.join(s['tablas'])})", "gris"))
+            print("    " + (s["explicado"] or s["sql"]))
+            for f in s["plan"]:
+                print(f"    {f.get('table')}: {f.get('type')} key={f.get('key')} rows={f.get('rows')} "
+                      f"filtered={f.get('filtered')} {f.get('Extra') or ''}")
+            if s["error"]:
+                print(c("    " + s["error"], "rojo"))
+    return 0
+
+
 def registrar(sub):
     p = sub.add_parser("kbs", help="KBs encontradas")
     p.set_defaults(fn=cmd_kbs)
@@ -132,3 +169,10 @@ def registrar(sub):
     p.add_argument("--max", type=int, default=200)
     p.add_argument("query")
     p.set_defaults(fn=cmd_sql)
+
+    p = sub.add_parser("plan", help="plan de ejecucion (EXPLAIN) de las sentencias SQL de un objeto y recomendaciones")
+    p.add_argument("--kb", required=True)
+    p.add_argument("--objeto", required=True)
+    p.add_argument("--detalle", action="store_true", help="muestra cada sentencia con su EXPLAIN")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(fn=cmd_plan)

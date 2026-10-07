@@ -264,6 +264,48 @@ table.difs td { font-family: var(--mono); font-size: 12px; overflow-wrap: anywhe
 table.difs td.esp { color: var(--ok); }
 table.difs td.obt { color: var(--falla); }
 
+/* ------------------------------------------------------------------ ficha de un caso (Suites) */
+.ficha-barra { margin-bottom: 8px; }
+.ficha .paso { background: var(--panel); }
+.ficha .paso.estado-falla, .ficha .paso.estado-error { border-color: var(--falla); }
+.num-paso { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gris-2); color: var(--texto-2); font-size: 11.5px; font-weight: 700; flex: none; }
+.controles { border: 1px solid var(--borde); border-radius: 6px; padding: 8px 10px; margin-bottom: 10px; background: var(--panel-2); }
+.controles-cab { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; font-size: 13px; }
+.control { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 10px; padding: 6px 0; border-top: 1px solid var(--borde); align-items: start; }
+.controles-cab + .control, .controles-cab + .aviso-caja + .control { border-top: 0; }
+.control-t { color: var(--texto-2); font-size: 12.5px; font-weight: 600; padding-top: 2px; display: flex; gap: 5px; align-items: center; }
+.control-t .ayuda { display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; border: 1px solid var(--borde-fuerte); color: var(--texto-3); font-size: 10px; cursor: help; font-weight: 400; }
+.control-c { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; min-width: 0; font-size: 13px; }
+.control-c > .espacio { flex: 1; }
+.ic-control { width: 16px; flex: none; text-align: center; font-weight: 700; }
+.ic-control.ok { color: var(--ok); }
+.ic-control.mal { color: var(--falla); }
+.ic-control.pend { color: var(--texto-3); }
+.grupo-seg.chico button { padding: 2px 9px; font-size: 12px; }
+.lista-verif { display: flex; flex-direction: column; gap: 2px; width: 100%; }
+.lista-verif .verif { align-items: flex-start; padding: 3px 4px; border-radius: 5px; }
+.lista-verif .verif:hover { background: var(--panel); }
+.lista-verif .verif .btn { visibility: hidden; }
+.lista-verif .verif:hover .btn, .lista-verif .verif .btn:focus { visibility: visible; }
+.verif-texto { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.verif.pend { color: var(--texto-2); }
+.cambios { margin-bottom: 10px; }
+.salida-paso { margin-top: 4px; }
+.datos-caso { margin-bottom: 10px; }
+.datos-caso .tabla-scroll { max-height: 180px; margin-top: 4px; }
+.previa-verif { min-height: 18px; }
+.celda-valor { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.fila-previa { grid-column: 1 / -1; border-top: 1px solid var(--borde); padding-top: 8px; overflow-wrap: anywhere; }
+.ok-texto { color: var(--ok); }
+.mal-texto { color: var(--falla); }
+.arbol .marca { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 999px; font-family: var(--sans); font-size: 10.5px; line-height: 16px; background: var(--gris-2); color: var(--texto-2); vertical-align: 1px; }
+.arbol .marca.ok { background: var(--ok-2); color: var(--ok); }
+.arbol .marca.mal { background: var(--falla-2); color: var(--falla); }
+.arbol .marca.vol { background: var(--aviso-2); color: var(--aviso); }
+.arbol .marca.guarda { background: var(--acento-2); color: var(--acento); }
+.arbol li.apagado > .hoja, .arbol li.apagado > ul { opacity: .45; }
+.arbol li.apagado > .hoja { text-decoration: line-through; }
+
 .progreso { height: 6px; background: var(--gris-2); border-radius: 999px; overflow: hidden; }
 .progreso > div { height: 100%; background: var(--acento); transition: width .2s; }
 .progreso.ok > div { background: var(--ok); }
@@ -276,6 +318,19 @@ table.difs td.obt { color: var(--falla); }
 .nivel dl { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 2px 10px; margin: 6px 0 0; font-size: 12.5px; }
 .nivel dt { color: var(--texto-3); }
 .nivel dd { margin: 0; font-family: var(--mono); font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* ------------------------------------------------------------------ plan de ejecucion */
+.plan { margin-bottom: 10px; }
+.titulo-seccion { margin: 14px 0 4px; font-size: 13px; }
+.hallazgo-plan { border: 1px solid var(--borde); border-left: 4px solid var(--borde-fuerte); border-radius: 6px; padding: 7px 10px; margin: 6px 0; display: flex; flex-direction: column; gap: 3px; background: var(--panel); }
+.hallazgo-plan.alto { border-left-color: var(--falla); }
+.hallazgo-plan.medio { border-left-color: var(--aviso); }
+.hallazgo-plan .sugerencia { color: var(--texto-2); }
+.sentencia-plan { border: 1px solid var(--borde); border-radius: 6px; padding: 4px 10px; margin: 6px 0; background: var(--panel-2); }
+.sentencia-plan > summary { cursor: pointer; padding: 3px 0; font-size: 12.5px; }
+.sentencia-plan[open] > summary { margin-bottom: 6px; }
+.sentencia-plan pre.sql-plan { font-size: 12px; max-height: 200px; margin-bottom: 4px; }
+.sentencia-plan .tabla { margin: 6px 0; }
 
 /* ------------------------------------------------------------------ modales, menus, avisos */
 .velo { position: fixed; inset: 0; background: rgba(10, 14, 22, .45); display: grid; place-items: center; z-index: 50; padding: 20px; }

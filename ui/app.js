@@ -10,6 +10,7 @@ const E = {
   obj: null,          // detalle del objeto seleccionado
   desc: null,         // describir (tipos y plantilla)
   campos: {},         // ayuda de los campos de la entrada (dominios enumerados y claves): /api/campos
+  plan: null,         // plan de ejecucion del objeto seleccionado (/api/plan), o {cargando} / {error}
   entrada: {},
   modoEntrada: almacen.leer("modoEntrada", "form"),
   sqlDespues: [],
@@ -22,6 +23,7 @@ const E = {
   resultados: {},     // casoId(fila) -> resultado de la corrida en curso o cargada
   trabajo: null,
   abiertos: new Set(),
+  sinCorrer: new Set(), // casos a los que se les cambio lo que controlan despues de su ultimo resultado
   corridasCache: {},
 };
 
@@ -244,7 +246,7 @@ function pintarListaObjetos() {
 async function seleccionarObjeto(nombre) {
   const det = $("#detalle-objeto");
   vaciar(det, h("div", { class: "vacio-grande" }, cargando(`Cargando ${nombre}…`)));
-  E.desc = null; E.campos = {}; E.ultimoRes = null; E.pendientes = []; E.sqlDespues = []; E.transaccion = "rollback";
+  E.desc = null; E.campos = {}; E.plan = null; E.ultimoRes = null; E.pendientes = []; E.sqlDespues = []; E.transaccion = "rollback";
   try {
     E.obj = await GET("/api/objeto", { kb: E.kb, nombre });
   } catch (e) {
@@ -522,8 +524,21 @@ function verHistorialSesion() {
 }
 
 function panelNavegacion() {
+  const raiz = h("div");
+  const pintar = () => vaciar(raiz, contenidoNavegacion(pintar));
+  pintar();
+  return raiz;
+}
+
+function contenidoNavegacion(repintar) {
   const o = E.obj;
-  if (!o.niveles?.length) return h("div", { class: "muted", style: { padding: "10px 0" } }, "El objeto no tiene For Each / accesos a la base en su navegación (o usa Business Components).");
+  const cajaPlan = h("div", { class: "plan" }, vistaPlan(E.plan));
+  const barra = h("div", { class: "fila", style: { marginBottom: "8px" } },
+    h("button", { class: "btn prim", disabled: !!E.plan?.cargando, onclick: () => calcularPlan(repintar),
+      title: "EXPLAIN de MySQL de cada sentencia SQL del objeto (sacadas del Java generado) y recomendaciones" },
+    E.plan && !E.plan.cargando ? "↻ Recalcular plan de ejecución" : "Calcular plan de ejecución"),
+    h("span", { class: "muted chico" }, "Corre EXPLAIN en la base local (no ejecuta las sentencias) y revisa los índices de cada tabla."));
+  if (!o.niveles?.length) return h("div", null, barra, cajaPlan, h("div", { class: "muted", style: { padding: "10px 0" } }, "El objeto no tiene For Each / accesos a la base en su navegación (o usa Business Components)."));
   const nivel = (n) => h("div", { class: "nivel" },
     h("div", { class: "fila" }, h("b", null, n.tipo || "Nivel"), n.tabla ? pill(n.tabla, "acento") : null,
       n.linea ? h("span", { class: "muted chico" }, `línea ${n.linea}`) : null,
@@ -539,7 +554,65 @@ function panelNavegacion() {
       n.join?.length ? [h("dt", null, "Navega"), h("dd", null, n.join.join(", "))] : null,
       n.actualiza?.length ? [h("dt", null, "Actualiza"), h("dd", null, n.actualiza.join(", "))] : null),
     (n.subniveles || []).map(nivel));
-  return h("div", null, h("div", { class: "muted chico", style: { marginBottom: "6px" } }, "Según la última especificación (GXSPC…/NVG). Los filtros que no aparecen en «Empieza en / Mientras» recorren la tabla."), o.niveles.map(nivel));
+  return h("div", null, barra, cajaPlan,
+    h("h4", { class: "titulo-seccion" }, "Navegación de GeneXus"),
+    h("div", { class: "muted chico", style: { marginBottom: "6px" } }, "Según la última especificación (GXSPC…/NVG). Los filtros que no aparecen en «Empieza en / Mientras» recorren la tabla."), o.niveles.map(nivel));
+}
+
+// ---------------------------------------------------------------------- plan de ejecucion
+async function calcularPlan(repintar) {
+  const nombre = E.obj.nombre;
+  E.plan = { cargando: true };
+  repintar();
+  let r;
+  try { r = await POST("/api/plan", { kb: E.kb, nombre }); } catch (e) { r = { error: e.message }; }
+  if (E.obj?.nombre !== nombre) return;
+  E.plan = r;
+  repintar();
+}
+
+const CLASE_NIVEL = { alto: "falla", medio: "aviso", bajo: "" };
+const ORIGEN_PLAN = { indices: "por los índices", explain: "según el EXPLAIN", "indices+explain": "por los índices y el EXPLAIN", navegacion: "por la navegación GX" };
+
+function vistaPlan(p) {
+  if (!p) return null;
+  if (p.cargando) return h("div", { class: "muted", style: { padding: "6px 0" } }, cargando("Calculando el plan (EXPLAIN de cada sentencia)…"));
+  if (p.error) return h("div", { class: "error-caja" }, "No se pudo calcular el plan:\n" + p.error);
+  const detalles = [];
+  const abrir = (i) => { const d = detalles[i]; if (!d) return; d.open = true; d.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+  const hallazgo = (x) => h("div", { class: `hallazgo-plan ${x.nivel}` },
+    h("div", { class: "fila" }, pill(x.nivel, CLASE_NIVEL[x.nivel]), h("b", null, x.titulo)),
+    x.detalle ? h("div", { class: "chico" }, x.detalle) : null,
+    x.sugerencia ? h("div", { class: "chico sugerencia" }, h("b", null, "Sugerencia: "), x.sugerencia) : null,
+    h("div", { class: "chico muted" }, ORIGEN_PLAN[x.origen] || x.origen,
+      x.cursor ? [" · ", h("a", { href: "#", onclick: (ev) => { ev.preventDefault(); abrir(x.sentencia); } }, `sentencia ${x.cursor}`)] : null));
+  const r = p.resumen || {};
+  const cab = h("div", { class: "fila", style: { margin: "4px 0 8px" } },
+    h("b", null, p.hallazgos.length ? `${p.hallazgos.length} recomendación(es)` : "Sin recomendaciones"),
+    ["alto", "medio", "bajo"].filter((n) => r[n]).map((n) => pill(`${r[n]} ${n}`, CLASE_NIVEL[n])),
+    h("span", { class: "muted chico" }, `${p.sentencias.length} sentencia(s) · ${fmtMs(p.ms)}`));
+  const columnas = ["table", "type", "possible_keys", "key", "rows", "filtered", "Extra"];
+  const sentencia = (s, i) => {
+    const d = h("details", { class: "sentencia-plan" },
+      h("summary", null,
+        h("span", { class: "mono" }, s.cursor), " ", pill(s.tipo.toUpperCase()), s.dinamica ? pill("dinámica", "acento") : null, " ",
+        h("span", { class: "muted" }, s.tablas.join(", ")),
+        s.hallazgos.length ? [" ", ["alto", "medio", "bajo"].map((n) => { const k = s.hallazgos.filter((x) => x.nivel === n).length; return k ? pill(`${k} ${n}`, CLASE_NIVEL[n]) : null; })] : null,
+        s.error ? [" ", pill("error", "falla")] : null),
+      h("pre", { class: "bloque sql-plan" }, s.explicado || s.sql),
+      s.explicado && s.explicado !== s.sql ? h("div", { class: "chico muted" }, "Los ? se reemplazaron por valores de una fila de la tabla (o de ejemplo) para el EXPLAIN.") : null,
+      s.error ? h("div", { class: "error-caja" }, s.error) : null,
+      s.nota ? h("div", { class: "chico muted", style: { margin: "4px 0" } }, s.nota) : null,
+      s.plan.length ? tablaFilas(columnas, s.plan) : (s.tipo === "insert" ? h("div", { class: "chico muted" }, "INSERT: no tiene plan de acceso.") : null),
+      s.hallazgos.map(hallazgo));
+    detalles[i] = d;
+    return d;
+  };
+  return h("div", null, cab,
+    (p.avisos || []).map((a) => h("div", { class: "aviso-caja" }, a)),
+    p.hallazgos.map(hallazgo),
+    p.sentencias.length ? h("div", { style: { marginTop: "10px" } }, h("b", { class: "chico" }, "Sentencias"), p.sentencias.map(sentencia))
+      : h("div", { class: "muted chico" }, "El Java del objeto no tiene sentencias SQL propias."));
 }
 
 function panelMensajes() {
@@ -753,12 +826,18 @@ function pintarSuite() {
     const est = estadoCaso(c);
     const abierto = E.abiertos.has(c.id);
     const pasos = c.pasos.map((p) => p.objeto ? corto(p.objeto) : "SQL").join(" → ");
+    const actuales = idsResultado(c).map((i) => E.resultados[i]).filter(Boolean);
+    const motivo = est && est.estado !== "ok" && actuales.length ? motivoFalla(actuales) : "";
+    const controla = resumenControles(c);
     const tr = h("tr", { class: `clic ${abierto ? "sel" : ""}` },
       h("td", { onclick: (ev) => ev.stopPropagation() }, h("input", { type: "checkbox", checked: seleccion.has(c.id), onchange: (ev) => { ev.target.checked ? seleccion.add(c.id) : seleccion.delete(c.id); actualizarBotones(); } })),
-      h("td", null, est ? h("span", { class: "fila", style: { gap: "6px" } }, h("span", { class: `punto-estado ${est.estado}` }), h("span", { class: "chico" }, NOMBRE_ESTADO[est.estado]), est.actual ? null : h("span", { class: "muted chico", title: fmtFecha(est.fecha) }, "·")) : h("span", { class: "muted chico" }, c.omitir ? "omitido" : "—")),
+      h("td", null, est ? h("span", { class: "fila", style: { gap: "6px" } }, h("span", { class: `punto-estado ${est.estado}` }), h("span", { class: "chico" }, NOMBRE_ESTADO[est.estado]), est.actual ? null : h("span", { class: "muted chico", title: `Resultado del ${fmtFecha(est.fecha)}` }, "·")) : h("span", { class: "muted chico" }, c.omitir ? "omitido" : "sin correr"),
+        E.sinCorrer.has(c.id) ? h("div", { class: "chico", style: { color: "var(--aviso)" }, title: "Cambiaste lo que controla: el estado es de antes" }, "cambiado, sin correr") : null),
       h("td", null, h("div", null, h("b", null, c.nombre), c.omitir ? [" ", pill("omitido")] : null),
+        motivo ? h("div", { class: "chico", style: { color: "var(--falla)", marginTop: "1px" } }, motivo) : null,
         h("div", { class: "fila", style: { gap: "4px", marginTop: "2px" } }, (c.etiquetas || []).map((e) => pill(e)), c.datos?.length ? pill(`${c.datos.length} filas de datos`, "acento") : null,
-          c.pasos.some((p) => p.lineaBase !== undefined && p.lineaBase !== null) ? pill("salida aprobada", "acento") : null)),
+          h("span", { class: `chico ${controla.length ? "muted" : ""}`, style: controla.length ? {} : { color: "var(--aviso)" }, title: "Lo que controla el caso" },
+            controla.length ? "Controla: " + controla.join(" · ") : "No controla nada todavía"))),
       h("td", { class: "chico mono" }, pasos),
       h("td", { class: "chico muted" }, est ? fmtMs(est.ms) : ""),
       h("td", { onclick: (ev) => ev.stopPropagation() }, h("div", { class: "fila", style: { gap: "2px", flexWrap: "nowrap" } },
@@ -793,7 +872,7 @@ function pintarSuite() {
       h("div", { class: "cab" },
         h("button", { class: "btn prim", disabled: corriendo, onclick: () => correrSuite({}) }, "▶ Correr todo"),
         btnSel, btnFallidos,
-        h("button", { class: "btn", disabled: corriendo, title: "Corre y guarda las salidas como resultado esperado", onclick: grabarLineasBase }, "● Grabar líneas base"),
+        h("button", { class: "btn", disabled: corriendo, title: "Corre los casos (los seleccionados, o todos) y sus salidas actuales pasan a ser las aprobadas", onclick: grabarLineasBase }, "● Aprobar salidas actuales"),
         h("span", { class: "espacio" }),
         filtro, etiquetas.length ? selEtq : null,
         h("button", { class: "btn", onclick: () => editarCaso(null) }, "+ Caso"),
@@ -816,54 +895,37 @@ function pintarSuite() {
 function detalleCaso(c, est) {
   const ids = idsResultado(c);
   const cont = h("div");
-  const mostrar = (resultados) => {
-    vaciar(cont);
-    if (!resultados.length) {
-      cont.appendChild(h("div", { class: "muted" }, "Sin resultados todavía. Corré el caso para verlo acá."));
-    }
-    const defPaso = (paso) => E.suite.casos.find((x) => x.id === c.id)?.pasos[paso];
-    for (const r of resultados) {
-      cont.appendChild(vistaResultado(r, {
-        caso: E.suite.casos.find((x) => x.id === c.id),
-        alAceptar: async (paso, datos, fila, pr) => {
-          // Lo principal es no dar por buena una salida incorrecta: si no cumple lo que el caso exige, se pregunta.
-          const malas = (pr?.verificaciones || []).filter((v) => !v.ok);
-          if (malas.length && !(await confirmar(`Esta salida NO cumple ${malas.length} verificación(es) del caso:\n\n${malas.map((v) => `• ${v.descripcion || `${v.ruta} ${v.op} ${resumirValor(v.valor, 40)}`}`).join("\n")}\n\nSi la aceptás, esas verificaciones van a seguir fallando. ¿Aceptarla igual?`, { si: "Aceptar igual", peligro: true }))) return;
-          try {
-            await POST("/api/lineabase", { suite: E.suite._id, caso: c.id, paso, fila, datos });
-            toast("Salida aprobada: de ahora en más se compara contra esta", "ok");
-            await abrirSuite(E.suite._id, true);
-          } catch (e) { toast(e.message, "error"); }
-        },
-        alIgnorar: async (paso, ruta) => {
-          const p = defPaso(paso);
-          if (!(p.ignorar = p.ignorar || []).includes(ruta)) p.ignorar.push(ruta);
-          await guardarSuite(`No se compara más ${ruta} en «${p.nombre || p.objeto}». Volvé a correr el caso para verificar.`);
-        },
-        alModo: async (paso, modo) => {
-          const p = defPaso(paso);
-          if (modo === "estructura") p.comparar = "estructura"; else delete p.comparar;
-          await guardarSuite(modo === "estructura" ? `«${p.nombre || p.objeto}» compara solo la estructura, Ok y los códigos de mensaje` : `«${p.nombre || p.objeto}» compara toda la salida`);
-        },
-        alVerificar: (paso, ruta, valor, ev) => menuVerificacion(ev, ruta, valor, async (v) => {
-          const caso = E.suite.casos.find((x) => x.id === c.id);
-          const p = caso.pasos[paso];
-          if (v.ignorar) (p.ignorar = p.ignorar || []).includes(v.ignorar) || p.ignorar.push(v.ignorar);
-          else (p.verificaciones = p.verificaciones || []).push(v);
-          await guardarSuite(v.ignorar ? `Se ignorará ${v.ignorar}` : `Verificación agregada al paso «${p.nombre || p.objeto}»`);
-        }),
-      }));
-    }
-  };
+  const mostrar = (resultados, fecha) => vaciar(cont, fichaCaso({
+    caso: c, resultados, fecha, sinCorrer: E.sinCorrer.has(c.id),
+    correr: () => correrSuite({ casos: [c.id] }),
+    editarJson: () => editarCaso(c.id),
+    // Cambia la definicion del caso (lo que controla) y la guarda. El resultado que se ve queda viejo.
+    guardar: async (mutar, mensaje) => {
+      const caso = E.suite.casos.find((x) => x.id === c.id);
+      mutar(caso);
+      E.sinCorrer.add(c.id);
+      await guardarSuite(mensaje);
+    },
+    aceptar: async (paso, datos, fila, pr) => {
+      // Lo principal es no dar por buena una salida incorrecta: si no cumple lo que el caso exige, se pregunta.
+      const malas = (pr?.verificaciones || []).filter((v) => !v.ok);
+      if (malas.length && !(await confirmar(`Esta salida NO cumple ${malas.length} verificación(es) del caso:\n\n${malas.map((v) => `• ${v.descripcion || `${v.ruta} ${v.op} ${resumirValor(v.valor, 40)}`}`).join("\n")}\n\nSi la aceptás, esas verificaciones van a seguir fallando. ¿Aceptarla igual?`, { si: "Aceptar igual", peligro: true }))) return;
+      try {
+        await POST("/api/lineabase", { suite: E.suite._id, caso: c.id, paso, fila, datos });
+        E.sinCorrer.add(c.id);
+        toast("Salida aprobada: de ahora en más se compara contra esta. Corré el caso para confirmarlo.", "ok");
+        await abrirSuite(E.suite._id, true);
+      } catch (e) { toast(e.message, "error"); }
+    },
+  }));
   const actuales = ids.map((i) => E.resultados[i]).filter(Boolean);
-  if (actuales.length) { mostrar(actuales); return cont; }
+  if (actuales.length) { mostrar(actuales, actuales[0].fecha || null); return cont; }
   if (est?.corrida) {
     cont.appendChild(cargando("Cargando el último resultado…"));
     obtenerCorrida(est.corrida).then((cor) => {
       const rs = cor.casos.filter((r) => ids.includes(r.id));
-      rs.forEach((r) => (E.resultados[r.id] = r));
-      mostrar(rs);
-      if (rs.length) cont.prepend(h("div", { class: "muted chico", style: { marginBottom: "6px" } }, `Resultado de la corrida del ${fmtFecha(cor.fin)}`));
+      rs.forEach((r) => (E.resultados[r.id] = { ...r, fecha: cor.fin }));
+      mostrar(rs.map((r) => E.resultados[r.id]), cor.fin);
     }).catch(() => mostrar([]));
     return cont;
   }
@@ -895,7 +957,7 @@ async function correrSuite({ casos, grabar = false }) {
   if (E.trabajo) return;
   if (casos && !casos.length) return;
   const s = E.suite;
-  for (const c of s.casos) if (!casos || casos.includes(c.id)) idsResultado(c).forEach((i) => delete E.resultados[i]);
+  for (const c of s.casos) if (!casos || casos.includes(c.id)) { idsResultado(c).forEach((i) => delete E.resultados[i]); E.sinCorrer.delete(c.id); }
   try {
     const r = await POST("/api/corridas", { suite: s._id, casos, grabar });
     E.trabajo = { id: r.trabajo, suite: s._id, desde: 0, estado: "esperando", casos: [], total: 0, grabar };
@@ -917,7 +979,7 @@ async function sondearTrabajo() {
   E.trabajo = null;
   const tot = r.totales || {};
   if (r.estado === "error") toast("La corrida falló: " + (r.error || ""), "error");
-  else toast(`Corrida terminada: ${tot.ok || 0} ok, ${tot.falla || 0} con fallas, ${tot.error || 0} con errores${r.lineasBaseGrabadas ? ` · ${r.lineasBaseGrabadas} líneas base grabadas` : ""}`,
+  else toast(`Corrida terminada: ${tot.ok || 0} ok, ${tot.falla || 0} con fallas, ${tot.error || 0} con errores${r.lineasBaseGrabadas ? ` · ${r.lineasBaseGrabadas} salidas aprobadas` : ""}`,
     (tot.falla || tot.error) ? "error" : "ok", 6000);
   if (E.suite?._id === t.suite) await abrirSuite(t.suite, true);
   cargarSuites();
@@ -934,7 +996,7 @@ function pintarProgreso() {
   const pct = t.total ? Math.round((t.casos.length / t.total) * 100) : 0;
   vaciar(cont, h("div", { style: { padding: "10px 14px", borderBottom: "1px solid var(--borde)" } },
     h("div", { class: "fila", style: { marginBottom: "6px" } }, h("span", { class: "cargando" }),
-      h("b", null, t.grabar ? "Grabando líneas base…" : "Corriendo…"), h("span", { class: "muted" }, `${t.casos.length} de ${t.total || "?"}`),
+      h("b", null, t.grabar ? "Aprobando salidas…" : "Corriendo…"), h("span", { class: "muted" }, `${t.casos.length} de ${t.total || "?"}`),
       h("div", { class: "contadores" }, pill(`${tot.ok} ok`, "ok"), tot.falla ? pill(`${tot.falla} fallas`, "falla") : null, tot.error ? pill(`${tot.error} errores`, "error") : null),
       h("span", { class: "espacio" }),
       h("button", { class: "btn chico peligro", onclick: () => POST(`/api/trabajo/cancelar?id=${t.id}`) }, "Cancelar")),
@@ -1128,7 +1190,7 @@ async function pintarHistorial() {
           h("td", null, fmtFecha(c.fin || c.inicio)),
           h("td", null, h("b", null, c.suiteNombre), h("div", { class: "muted mono chico" }, c.suite)),
           h("td", null, c.kb),
-          h("td", null, h("div", { class: "contadores" }, pill(`${t.ok || 0} ok`, "ok"), t.falla ? pill(`${t.falla} fallas`, "falla") : null, t.error ? pill(`${t.error} errores`, "error") : null, t.omitido ? pill(`${t.omitido} omitidos`) : null, c.grabar ? pill("grabó líneas base", "aviso") : null, c.origen === "build" ? pill("después del build", "acento") : null)),
+          h("td", null, h("div", { class: "contadores" }, pill(`${t.ok || 0} ok`, "ok"), t.falla ? pill(`${t.falla} fallas`, "falla") : null, t.error ? pill(`${t.error} errores`, "error") : null, t.omitido ? pill(`${t.omitido} omitidos`) : null, c.grabar ? pill("aprobó salidas", "aviso") : null, c.origen === "build" ? pill("después del build", "acento") : null)),
           h("td", { class: "muted" }, fmtMs(c.ms)),
           h("td", null, h("a", { href: `/api/junit?id=${encodeURIComponent(c.id)}`, onclick: (ev) => ev.stopPropagation(), title: "Descargar JUnit XML" }, "JUnit")));
       }))) : h("div", { class: "vacio-grande" }, h("h3", null, "Todavía no hay corridas")));
@@ -1240,7 +1302,7 @@ async function pintarAyuda() {
       h("li", null, "Compilá la KB en GeneXus (Build). El motor detecta la recompilación y se reinicia solo."),
       h("li", null, h("b", null, "Explorar"), ": elegí el objeto, completá la entrada (formulario o JSON) y ejecutá. Agregá consultas SQL para ver qué cambió en la base."),
       h("li", null, h("b", null, "Guardar como caso"), ": la salida que viste queda aprobada. Lo que cambia solo (fechas, ids nuevos) se detecta ejecutando una vez más. Marcá lo que además tiene que cumplirse siempre (Ok y los códigos ya vienen marcados)."),
-      h("li", null, h("b", null, "Suites"), ": corré todo después de cada cambio (o dejá que corra solo después de cada build). Si algo cambió, ves un resumen de qué cambió: si es correcto, aceptá la salida; si es un campo que no importa, ignoralo.")),
+      h("li", null, h("b", null, "Suites"), ": corré todo después de cada cambio (o dejá que corra solo después de cada build). Abrí un caso para ver «Qué controla» cada paso (salida aprobada, verificaciones, campos que no se comparan) y cambiarlo ahí mismo. Si algo cambió: si es correcto, aceptá la salida; si es un campo que puede cambiar, dejá de compararlo.")),
     h("h3", null, "Formato de un caso"),
     ej(`{
   "nombre": "Alta y consulta",

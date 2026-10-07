@@ -1,6 +1,8 @@
 """Pantallas Suites e Historial: suites, casos, corridas en segundo plano, resultados y salidas aprobadas."""
+import re
+
 from ..rutas import Archivo, ErrorApi, mensaje, ruta
-from ... import suites
+from ... import comparacion, suites
 from ...suites import almacen, resultados, trabajos
 
 
@@ -53,6 +55,16 @@ def agregar_caso(_q, b):
 def aceptar_linea_base(_q, b):
     suites.aceptar_linea_base(b["suite"], b["caso"], int(b["paso"]), b.get("fila"), b.get("datos"))
     return {"ok": True}
+
+
+@ruta("POST", "/api/verificar")
+def verificar(_q, b):
+    """Evalua una verificacion contra una salida (la vista previa del editor de verificaciones)."""
+    v = b.get("verificacion") or {}
+    try:
+        return comparacion.verificar(b.get("datos"), v, comparacion.Opciones(**(b.get("opciones") or {})))
+    except (ValueError, TypeError, re.error) as e:
+        return {**v, "ok": False, "obtenido": None, "mensaje": f"verificacion invalida: {e}"}
 
 
 @ruta("POST", "/api/corridas")

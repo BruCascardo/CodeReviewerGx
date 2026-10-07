@@ -23,14 +23,14 @@ No hace falta instalar nada más: no usa librerías externas.
 1. Compilá en GeneXus (Build).
 2. En **Explorar**, elegí el objeto. GxPruebas arma un formulario a partir de los SDT de entrada, con **combos** en los campos de un dominio enumerado y en los que son la clave de una tabla (ver más abajo). Ejecutalo y mirá la salida. Si querés ver qué cambió en la base, agregá **consultas SQL después**: corren en la misma transacción, así que ven los cambios antes del rollback.
 3. **Guardar como caso**: queda en una suite (`suites\<KB>\<suite>.json`) y la salida que viste queda **aprobada**. Al guardar se ejecuta una vez más: lo que da distinto (fechas, ids nuevos) se marca como «cambia solo». Marcá lo que además tiene que cumplirse siempre: GxPruebas lo sugiere, con `Ok` y los códigos de mensaje ya marcados. Si la ejecución terminó en excepción, el caso queda como «tiene que terminar con este error».
-4. En **Suites**, corré todo después de cada cambio, o dejá que corra solo después de cada build. Si algo cambió, ves un resumen («`Registros[*].Importe`: 100 → 110 en 12 de 40 elementos»). Si el cambio es correcto, **aceptá la salida**; si es un campo que no importa, **ignoralo**.
+4. En **Suites**, corré todo después de cada cambio, o dejá que corra solo después de cada build. Si algo cambió, ves un resumen («`Registros[*].Importe`: 100 → 110 en 12 de 40 elementos»). Si el cambio es correcto, **aceptá la salida**; si es un campo que puede cambiar, **dejá de compararlo**. Al abrir un caso, cada paso muestra **Qué controla** y se configura ahí mismo (ver «Configurar un caso» más abajo).
 
 ## Qué hay en cada pantalla
 
 | Pantalla | Para qué |
 |---|---|
-| **Explorar** | Catálogo de procedimientos y Data Providers sacado de la especificación. Para cada uno: parámetros con su dirección y tipo Java, entrada como formulario (con combos) o JSON, consultas SQL después, rollback o commit, salida en árbol (los espacios finales de los `Character` se ven como `·`), consola, excepción, navegación (tablas, índices, filtros) y warnings de especificación. |
-| **Suites** | Casos con sus pasos. Correr todo, los seleccionados o los fallidos. Aprobar salidas. Resumen de qué cambió, con «Es correcto: aceptar esta salida», «Ignorar» y «Comparar solo estructura». Editor de casos con ayudantes. Opciones, variables y preparación por suite. |
+| **Explorar** | Catálogo de procedimientos y Data Providers sacado de la especificación. Para cada uno: parámetros con su dirección y tipo Java, entrada como formulario (con combos) o JSON, consultas SQL después, rollback o commit, salida en árbol (los espacios finales de los `Character` se ven como `·`), consola, excepción, navegación (tablas, índices, filtros) con el **plan de ejecución** y sus recomendaciones, y warnings de especificación. |
+| **Suites** | Casos con sus pasos. Cada fila dice qué controla el caso y, si falló, por qué. Al abrir un caso, cada paso muestra **Qué controla** (salida aprobada, verificaciones, esperado, campos que no se comparan, valores que cambian solos, variables que guarda) con el resultado de la última corrida, y se edita ahí mismo. La salida aparece marcada con lo que se controla. Correr todo, los seleccionados o los fallidos; aprobar salidas. Opciones, variables y preparación por suite. |
 | **Historial** | Todas las corridas, con su detalle y descarga en JUnit XML o JSON. |
 | **Revisión** | Las buenas prácticas de cada objeto, **lo recién modificado primero** (por la fecha de su especificación), agrupado en Hoy, Ayer, Esta semana, etc. Filtros: todos, con problemas o solo **nuevos**; búsqueda; una KB o todas. Cada objeto despliega sus hallazgos (línea, sentencia, cómo arreglarlo) y **Ver fuente** muestra el código GX con las líneas marcadas. **Revisar cambios** revisa lo modificado desde la última revisión (lo mismo que hace solo el build). |
 | **SQL** | Consultas contra cualquier datasource de la KB, usando la misma conexión que la aplicación. Siempre con rollback. |
@@ -75,7 +75,7 @@ No hace falta instalar nada más: no usa librerías externas.
 
 Cada paso se puede validar de cuatro formas, y se pueden combinar:
 
-- **`lineaBase`:** la **salida aprobada**. No hace falta escribirla: se aprueba la salida que viste («Guardar como caso», «Aceptar esta salida» o `correr --grabar`). Se compara así:
+- **`lineaBase`:** la **salida aprobada**. No hace falta escribirla: se aprueba la salida que viste («Guardar como caso», «Sí: aceptar esta salida», «Aprobar salidas actuales» o `correr --grabar`). Se compara así:
   - Por defecto, toda la salida tiene que coincidir.
   - Con `"comparar": "estructura"` solo se controlan los campos, sus tipos, `Ok` y los códigos de mensaje (como conjunto: el orden no importa). Sirve para listados con datos de la base que cambian.
   - En las rutas de `volatiles` (se detectan solas, ejecutando dos veces) solo se controla que el campo exista y tenga el mismo tipo. Las rutas de `ignorar` no se comparan.
@@ -97,6 +97,19 @@ Cada paso se puede validar de cuatro formas, y se pueden combinar:
 - la salida de un paso anterior: `${alta.outSet.RegTipo}`, con el nombre del paso en minúsculas;
 - lo que se le mandó a un paso anterior: `${alta.entrada.inSet.Tipo}`. Sirve para no escribir valores esperados a mano: por ejemplo, que el Get devuelva lo que recibió el Set;
 - las predefinidas `${hoy}`, `${ahora}`, `${aleatorio}`, `${uuid}` y `${caso}`.
+
+### Configurar un caso (pantalla Suites)
+
+Al abrir un caso, cada paso tiene dos partes:
+
+- **Qué controla**: sale de la definición del caso, así que se ve aunque nunca se haya corrido. Cada control lleva ✔ o ✖ según la última corrida (con lo obtenido cuando falla), o ○ si todavía no se corrió con él.
+  - **Salida aprobada**: «Toda la salida» o «Solo estructura», o «Aprobar la salida de esta corrida» si no tiene.
+  - **Verificaciones**: se agregan con **+ Agregar verificación** o haciendo clic en un valor de la salida. El editor autocompleta el campo con las rutas de la última salida, muestra su valor y dice si la verificación se cumple con esa salida antes de guardarla.
+  - **Esperado**, **Tiene que terminar con error**, **No se comparan**, **Cambian solos** y **Guarda**: se ven y se quitan desde ahí.
+  - Si el paso no controla nada, lo avisa: da OK siempre que no termine con error.
+- **Salida de la corrida**: el árbol marca lo que ya se controla («✔ verificado», «no se compara», «cambia solo», «→ ${variable}») y abre solo las ramas con marcas o diferencias. Si hubo cambios contra la salida aprobada, arriba aparece **Qué cambió**, con «Sí: aceptar esta salida» y «No comparar» por campo.
+
+Cada cambio se guarda en la suite al momento. Hasta que vuelvas a correr el caso, la fila dice «cambiado, sin correr» y la ficha avisa que el resultado es de antes. En la lista, cada caso resume qué controla («Controla: salida aprobada · 3 verificaciones») y, si falló, por qué («1 verificación no se cumple · 2 cambios en la salida»). Lo demás (nombre, etiquetas, entrada, datos) se edita con **Editar JSON**.
 
 ## Pruebas automáticas después de cada build
 
@@ -209,10 +222,34 @@ python gxpruebas.py ejecutar --kb Generales --objeto ... --entrada @entrada.json
 python gxpruebas.py describir --kb Generales --objeto Generales.Interfases.Registro.Set
 python gxpruebas.py objetos --kb Generales --buscar interfases
 python gxpruebas.py sql --kb Generales --ds GENERALES "select * from gntInterfase"
+python gxpruebas.py plan --kb Generales --objeto Generales.Empresas.Get [--detalle]   :: plan de ejecución y recomendaciones
 python gxpruebas.py suites
 python gxpruebas.py vigilar --kb Generales --etiqueta auto   :: corre las suites después de cada build
 python gxpruebas.py revisar --kb Generales --objeto ...      :: buenas prácticas en el fuente GX
 ```
+
+## Plan de ejecución
+
+En **Explorar**, pestaña **Navegación**, **Calcular plan de ejecución** (o `gxpruebas.py plan`) toma las sentencias SQL que GeneXus generó para el objeto (los cursores del `.java`, también los dinámicos de los filtros opcionales), le pide a MySQL el `EXPLAIN` de cada una y las revisa contra los índices de la base. No ejecuta las sentencias: termina con rollback.
+
+Para el `EXPLAIN`, cada `?` se reemplaza por el valor de una fila real de la tabla: con un valor que no existe, MySQL resuelve la búsqueda por clave antes de ejecutar y no muestra el plan. Las consultas dinámicas se analizan con todos sus filtros opcionales puestos.
+
+Recomendaciones (de mayor a menor nivel: alto, medio, bajo):
+
+| Regla | Qué detecta |
+|---|---|
+| `sin-indice` | Ningún índice empieza por las columnas filtradas: recorre toda la tabla. Alto si es un `UPDATE` o `DELETE`. |
+| `join-sin-indice` | La tabla del join no tiene índice por las columnas de la relación: la recorre por cada fila de la otra. |
+| `tabla-completa` | `SELECT` sin filtros sobre una tabla de 1000 filas o más. |
+| `orden-sin-indice` | El `ORDER BY` no sale de un índice: MySQL ordena aparte (filesort). Bajo si el filtro ya usa un índice. |
+| `like-comodin` | `LIKE '%...'` (buscar «contiene»): no puede usar índice. |
+| `funcion-columna` | `UPPER(col) = ...`: la función sobre la columna impide usar el índice. |
+| `recorrido-completo`, `recorre-indice` | MySQL recorre toda la tabla o un índice entero (solo si lee 100 filas o más). |
+| `poco-selectivo` | Lee muchas filas por un índice y descarta casi todas con filtros que no están en el índice. |
+| `tabla-temporal` | MySQL arma una tabla temporal (GROUP BY, fórmulas de agregación, orden por otra tabla). |
+| `consulta-anidada` | Un For Each adentro de otro, sobre otra tabla: una consulta por cada registro de afuera (N+1). |
+
+Lo que sale de los índices no depende de los datos: mantiene su nivel aunque la base local tenga pocas filas, y sube uno si la tabla ya tiene 10.000 o más. Lo que solo dice el `EXPLAIN` depende de los datos locales, que pueden ser muy distintos de los de producción: la pantalla avisa qué tablas tienen menos de 100 filas. Si el `EXPLAIN` muestra que MySQL sí usa un índice, se descarta lo que dijo el análisis de índices para esa tabla.
 
 ## Combos en el formulario de entrada
 
@@ -238,6 +275,7 @@ Limitaciones: solo se reconocen las tablas de las transacciones de la misma KB, 
 | --- | --- |
 | `kbs.py`, `catalogo.py`, `config.py`, `util.py` | KBs encontradas, objetos y parámetros, `config.json`, lectura y escritura de JSON |
 | `campos\` | combos del formulario: dominio de cada campo de la entrada, tablas con su clave y valores de la base |
+| `plan\` | plan de ejecución: sentencias SQL del `.java`, `EXPLAIN`, índices de la base y recomendaciones |
 | `motor\` | el proceso Java de cada KB: describir, ejecutar, SQL, fin de transacción |
 | `suites\` | formato y almacén de las suites, ejecución de pasos y casos, salidas aprobadas, corridas, reportes |
 | `comparacion\` | comparación con `esperado` y la salida aprobada, operadores de `verificaciones`, volátiles |

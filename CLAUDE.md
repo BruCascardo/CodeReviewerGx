@@ -13,6 +13,7 @@ python gxpruebas.py describir --kb Generales --objeto Generales.Interfases.Regis
 python gxpruebas.py ejecutar  --kb Generales --objeto Generales.Interfases.Registro.Get --entrada "{\"inGet\":{\"ItfId\":1,\"RegTipo\":\"DETALLE\"}}"
 python gxpruebas.py ejecutar  --kb Generales --objeto ... --entrada @archivo.json --sql "GENERALES: select ..."
 python gxpruebas.py sql       --kb Generales --ds GENERALES "select ..."
+python gxpruebas.py plan      --kb Generales --objeto Generales.Empresas.Get [--detalle]   :: EXPLAIN de sus sentencias SQL y recomendaciones de indices
 python gxpruebas.py correr    [suite] [--kb KB] [--filtro texto] [--etiqueta e] [--detalle]
 python gxpruebas.py correr    <suite> --grabar        :: aprueba las salidas: solo si el usuario confirma que son las correctas
 python gxpruebas.py objetos   --kb Generales --buscar texto

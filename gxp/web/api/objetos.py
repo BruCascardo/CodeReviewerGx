@@ -1,6 +1,6 @@
 """Pantalla Explorar y SQL: catalogo de objetos, detalle, describir, ejecutar y consultas."""
 from ..rutas import ErrorApi, kb, mensaje, ruta
-from ... import campos, catalogo, motor, suites
+from ... import campos, catalogo, motor, plan, suites
 
 
 @ruta("GET", "/api/objetos")
@@ -48,6 +48,19 @@ def valores_clave(_q, b):
         return campos.valores(kb(b.get("kb")), b.get("atributo", ""), b.get("filtros"), b.get("buscar", ""))
     except KeyError as e:
         raise ErrorApi(mensaje(e), 404)
+    except motor.MotorError as e:
+        raise ErrorApi(str(e), 400)
+
+
+@ruta("POST", "/api/plan")
+def plan_ejecucion(_q, b):
+    """Plan de ejecucion (EXPLAIN) de las sentencias SQL del objeto, con recomendaciones."""
+    try:
+        return plan.calcular(kb(b.get("kb")), b.get("nombre", ""))
+    except KeyError as e:
+        raise ErrorApi(mensaje(e), 404)
+    except plan.SinFuente as e:
+        raise ErrorApi(str(e), 409)
     except motor.MotorError as e:
         raise ErrorApi(str(e), 400)
 

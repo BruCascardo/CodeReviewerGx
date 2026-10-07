@@ -171,11 +171,12 @@ function subpestanas(pestanas, inicial) {
 
 // ---------------------------------------------------------------------- arbol JSON
 /**
- * opciones: { alClic(ruta, valor, evento), resaltar: Set de rutas, abrirHasta: profundidad, raiz: ruta base }
+ * opciones: { alClic(ruta, valor, evento), resaltar: Set de rutas, abrirHasta: profundidad, raiz: ruta base,
+ *             marcas(ruta) -> [{texto, clase, title}] etiquetas al lado del valor (clase "apagada" atenua la rama) }
  * Los textos muestran los espacios finales (tipicos de los Character de GeneXus) como "·".
  */
 function arbolJson(valor, opciones = {}) {
-  const { alClic, resaltar = new Set(), abrirHasta = 3, raiz = "" } = opciones;
+  const { alClic, resaltar = new Set(), abrirHasta = 3, raiz = "", marcas } = opciones;
   const marcado = (ruta) => resaltar.has(ruta);
   const valorHoja = (v) => {
     if (v === null || v === undefined) return h("span", { class: "z" }, "null");
@@ -189,6 +190,11 @@ function arbolJson(valor, opciones = {}) {
     }
     return h("span", { class: "s" }, JSON.stringify(s));
   };
+  const etiquetas = (li, ruta) => {
+    const ms = marcas ? marcas(ruta) || [] : [];
+    if (ms.some((m) => m.clase === "apagada")) li.classList.add("apagado");
+    return ms.map((m) => h("span", { class: `marca ${m.clase || ""}`, title: m.title || "" }, m.texto));
+  };
   const nodo = (k, v, ruta, prof) => {
     const li = h("li");
     const etiqueta = k === null ? null : h("span", { class: "k" }, typeof k === "number" ? `[${k}]` : k, ": ");
@@ -199,18 +205,21 @@ function arbolJson(valor, opciones = {}) {
       const meta = h("span", { class: "meta" }, esLista ? `[${v.length}]` : `{${claves.length}}`);
       const cab = h("span", { class: `hoja ${marcado(ruta) ? "dif" : ""}`, title: ruta || "$" }, etiqueta, meta);
       if (alClic) cab.addEventListener("click", (ev) => { ev.stopPropagation(); alClic(ruta, v, ev); });
-      li.append(tg, cab);
+      li.append(tg, cab, ...etiquetas(li, ruta));
       const ul = h("ul");
       for (const c of claves) ul.appendChild(nodo(c, v[c], rutaHija(ruta, c), prof + 1));
       li.appendChild(ul);
-      if (prof >= abrirHasta || claves.length === 0) li.classList.add("cerrado");
+      // Se abre solo lo que tiene adentro una diferencia o una marca (salvo las que apagan la rama).
+      // (en una lista, solo los primeros elementos: una regla con [*] marca a todos)
+      const interesa = (typeof k !== "number" || k < 3) && ul.querySelector(".dif, .marca:not(.apagada)");
+      if ((prof >= abrirHasta && !interesa) || claves.length === 0) li.classList.add("cerrado");
       if (claves.length === 0) tg.textContent = " ";
       tg.addEventListener("click", () => { li.classList.toggle("cerrado"); tg.textContent = li.classList.contains("cerrado") ? "▸" : "▾"; });
       if (li.classList.contains("cerrado") && claves.length) tg.textContent = "▸";
     } else {
       const hoja = h("span", { class: `hoja ${marcado(ruta) ? "dif" : ""}`, title: ruta }, etiqueta, valorHoja(v));
       if (alClic) hoja.addEventListener("click", (ev) => { ev.stopPropagation(); alClic(ruta, v, ev); });
-      li.append(h("span", { class: "tg" }, " "), hoja);
+      li.append(h("span", { class: "tg" }, " "), hoja, ...etiquetas(li, ruta));
     }
     return li;
   };
@@ -471,8 +480,9 @@ function tablaFilas(columnas, filas, { max = 2000 } = {}) {
 
 // ---------------------------------------------------------------------- resultado de un caso
 /**
- * Muestra el resultado de un caso (pasos, diferencias, verificaciones, salidas).
- * ctx: { suiteId, caso (definicion), alAceptar(pasoIdx, datos, fila), alVerificar(pasoIdx, ruta, valor, ev) }
+ * Muestra el resultado de un caso (pasos, diferencias, verificaciones, salidas): Explorar e Historial. La
+ * pantalla Suites usa la ficha del caso (casos.js), que ademas muestra y edita lo que controla cada paso.
+ * ctx: { caso (definicion), alVerificar(pasoIdx, ruta, valor, ev), abrirTodo }
  */
 function vistaResultado(res, ctx = {}) {
   const cont = h("div");
@@ -537,13 +547,11 @@ function vistaPaso(p, idx, res, ctx, abierto) {
     if (grupos.length) {
       const cuantos = (g) => g.de && g.cantidad > 1 ? ` · en ${g.cantidad} de ${g.de} elementos` : g.cantidad > 1 ? ` · ${g.cantidad} veces` : "";
       cuerpo.appendChild(h("table", { class: "tabla difs", style: { marginBottom: "10px" } },
-        h("thead", null, h("tr", null, h("th", null, "Qué cambió"), h("th", null, p.conLineaBase ? "Aprobado" : "Esperado"), h("th", null, "Obtenido"), h("th", null, ""))),
+        h("thead", null, h("tr", null, h("th", null, "Qué cambió"), h("th", null, p.conLineaBase ? "Aprobado" : "Esperado"), h("th", null, "Obtenido"))),
         h("tbody", null, grupos.map((g) => h("tr", null,
           h("td", null, h("code", null, g.ruta), h("div", { class: "chico muted" }, textoCambio(g), cuantos(g), g.origen === "lineaBase" ? "" : " · según «esperado»")),
           h("td", { class: "esp" }, g.tipo === "sobra" ? "—" : resumirValor(g.ejemplos[0].esperado, 140)),
-          h("td", { class: "obt" }, g.tipo === "falta" ? "—" : resumirValor(g.ejemplos[0].obtenido, 140)),
-          h("td", null, ctx.alIgnorar && idx >= 0 && g.origen === "lineaBase" && g.tipo !== "clave" && !esCampoClave(g.ruta)
-            ? h("button", { class: "btn chico", title: "No comparar más este campo en este paso (no es un error real)", onclick: () => ctx.alIgnorar(idx, g.ruta) }, "Ignorar") : null))))));
+          h("td", { class: "obt" }, g.tipo === "falta" ? "—" : resumirValor(g.ejemplos[0].obtenido, 140)))))));
       if (p.diferenciasOmitidas) cuerpo.appendChild(h("div", { class: "muted chico", style: { marginBottom: "8px" } }, `(${p.diferenciasOmitidas} diferencias más, incluidas en los totales)`));
     }
     if ((p.verificaciones || []).length) {
@@ -576,21 +584,6 @@ function vistaPaso(p, idx, res, ctx, abierto) {
     const acciones = h("div", { class: "fila", style: { marginTop: "8px" } });
     if (p.datos !== undefined && p.datos !== null) {
       acciones.appendChild(h("button", { class: "btn chico", onclick: () => copiar(json(p.datos)) }, "Copiar salida"));
-      if (ctx.alAceptar && idx >= 0 && p.estado !== "error") {
-        acciones.appendChild(h("button", {
-          class: `btn chico ${grupos.some((g) => g.origen === "lineaBase") ? "prim" : ""}`, title: "Esta salida pasa a ser la aprobada: de aquí en adelante se compara contra ella",
-          onclick: () => ctx.alAceptar(idx, p.datos, res.fila, p),
-        }, !p.conLineaBase ? "Aprobar esta salida" : grupos.length ? "Es correcto: aceptar esta salida" : "Aceptar esta salida"));
-      }
-      if (ctx.alModo && idx >= 0 && p.conLineaBase) {
-        const estr = p.comparar === "estructura";
-        acciones.appendChild(h("button", {
-          class: "btn chico",
-          title: estr ? "Volver a comparar todos los valores con la salida aprobada"
-            : "Para salidas con datos de la base que cambian: controla los campos, sus tipos, Ok y los códigos de mensaje, sin comparar los valores",
-          onclick: () => ctx.alModo(idx, estr ? "todo" : "estructura"),
-        }, estr ? "Comparar toda la salida" : "Comparar solo estructura"));
-      }
       if (ctx.alVerificar) acciones.appendChild(h("span", { class: "muted chico" }, "Tip: hacé clic en un valor de la salida para agregar una verificación."));
     }
     if (acciones.childNodes.length) cuerpo.appendChild(acciones);
@@ -600,8 +593,9 @@ function vistaPaso(p, idx, res, ctx, abierto) {
   return caja;
 }
 
-/** Menu para crear una verificacion a partir de un valor de la salida. Llama a alElegir(verificacion). */
-function menuVerificacion(ev, ruta, valor, alElegir) {
+/** Menu para crear una verificacion a partir de un valor de la salida. Llama a alElegir(verificacion).
+ *  alOtra() (opcional) abre el editor completo de verificaciones. */
+function menuVerificacion(ev, ruta, valor, alElegir, alOtra) {
   const r = ruta || "$";
   const esObj = valor && typeof valor === "object";
   const ops = [];
@@ -628,6 +622,8 @@ function menuVerificacion(ev, ruta, valor, alElegir) {
   ops.push({ texto: "No está vacío", accion: () => alElegir({ ruta, op: "no_vacio" }) });
   ops.push({ texto: `Es de tipo ${valor === null ? "nulo" : Array.isArray(valor) ? "lista" : typeof valor === "number" ? "numero" : typeof valor === "boolean" ? "booleano" : typeof valor === "string" ? "texto" : "objeto"}`,
     accion: () => alElegir({ ruta, op: "tipo", valor: valor === null ? "nulo" : Array.isArray(valor) ? "lista" : typeof valor === "number" ? "numero" : typeof valor === "boolean" ? "booleano" : typeof valor === "string" ? "texto" : "objeto" }) });
+  if (alOtra) ops.push({ texto: "Otra condición…", accion: alOtra });
+  ops.push("-");
   ops.push({ texto: "No comparar este campo (cambia y no es un error)", accion: () => alElegir({ ignorar: ruta.replace(/\[\d+\]/g, "[*]") }) });
   ops.push({ texto: "Copiar ruta", accion: () => copiar(ruta) });
   menu(ev.clientX, ev.clientY, r, ops);

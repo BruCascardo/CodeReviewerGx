@@ -9,6 +9,8 @@ Uso:
                                 --entrada "{\\"inGet\\": {\\"ItfId\\": 1, \\"RegTipo\\": \\"DETALLE\\"}}" [--commit] \\
                                 [--sql "GENERALES: select count(*) n from gntItfRegistro"]
   python gxpruebas.py sql       --kb Generales --ds GENERALES "select * from gntInterfase"
+  python gxpruebas.py plan      --kb Generales --objeto Generales.Empresas.Get [--detalle] [--json]
+                                plan de ejecucion (EXPLAIN) de sus sentencias SQL y recomendaciones
   python gxpruebas.py correr    [suite ...] [--kb Generales] [--etiqueta x] [--filtro texto]
                                 [--grabar] [--junit salida.xml] [--json] [--detalle]
   python gxpruebas.py suites    [--kb Generales]
@@ -21,7 +23,7 @@ o errores, 2 si no se pudo correr. Las suites se nombran por su id (Generales/in
 ruta de archivo o por una parte unica del nombre.
 
 Cada modulo registra sus comandos con registrar(sub) y la logica vive en los paquetes de gxp:
-  objetos.py   kbs, objetos, describir, ejecutar, sql
+  objetos.py   kbs, objetos, describir, ejecutar, sql, plan
   suites.py    correr, suites, vigilar, generar
   grafo.py     grafo, ui
   revisar.py   revisar
