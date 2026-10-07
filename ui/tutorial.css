@@ -1,0 +1,105 @@
+/* GxPruebas - tutorial visual (tutorial.js). Usa los colores de app.css: funciona en claro y oscuro. */
+
+/* ---------------------------------------------------------------- botón que lo abre */
+.tut-abrir { position: relative; }
+.tut-abrir.nuevo::after { content: ""; position: absolute; top: -3px; right: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--acento); box-shadow: 0 0 0 2px var(--panel); animation: latido 1.6s infinite; }
+.lateral .cab .tut-abrir { width: 100%; margin-top: 6px; }
+
+/* ---------------------------------------------------------------- ventana */
+.tut { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 16px; }
+.tut-indice { margin: 0; padding: 0 0 0 4px; list-style: none; counter-reset: paso; border-right: 1px solid var(--borde); }
+.tut-indice li { counter-increment: paso; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 13px; color: var(--texto-2); display: flex; gap: 8px; margin-right: 8px; }
+.tut-indice li::before { content: counter(paso); flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--gris-2); color: var(--texto-2); font-size: 11px; font-weight: 600; display: grid; place-items: center; }
+.tut-indice li:hover { background: var(--panel-2); }
+.tut-indice li.activo { background: var(--acento-2); color: var(--acento); font-weight: 600; }
+.tut-indice li.activo::before { background: var(--acento); color: #fff; }
+.tut-principal { min-width: 0; }
+.tut-titulo { margin: 12px 0 4px; font-size: 16px; }
+.tut-texto { line-height: 1.5; color: var(--texto); }
+.tut-texto code, .tut-codigo { font-family: var(--mono); font-size: 12px; }
+.tut-texto code { background: var(--gris-2); padding: 1px 4px; border-radius: 4px; }
+.tut-codigo { margin: 0; padding: 8px 10px; background: var(--panel-2); border: 1px solid var(--borde); border-radius: 6px; white-space: pre-wrap; word-break: break-word; color: var(--texto-2); }
+.tut-pie { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+@media (max-width: 760px) {
+  .tut { grid-template-columns: 1fr; }
+  .tut-indice { display: flex; flex-wrap: wrap; gap: 4px; border-right: 0; }
+  .tut-indice li { font-size: 0; padding: 2px; margin: 0; }
+  .tut-indice li::before { font-size: 11px; }
+}
+
+/* ---------------------------------------------------------------- lienzo, cursor y nota */
+.tut-lienzo { position: relative; height: 340px; overflow: hidden; border-radius: 10px; background: var(--bg); border: 1px solid var(--borde); user-select: none; }
+.tut-cursor { position: absolute; left: 0; top: 0; z-index: 20; transition: transform .7s cubic-bezier(.45, .05, .25, 1); pointer-events: none; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .3)); }
+.tut-cursor svg { display: block; transform-origin: 2px 2px; transition: transform .15s; }
+.tut-cursor.clic svg { transform: scale(.82); }
+.tut-onda { position: absolute; z-index: 19; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 2px solid var(--acento); pointer-events: none; animation: tut-onda .6s ease-out forwards; }
+@keyframes tut-onda { from { transform: scale(.3); opacity: .9; } to { transform: scale(1.4); opacity: 0; } }
+.tut-nota { position: absolute; left: 50%; bottom: 10px; z-index: 18; transform: translate(-50%, 6px); max-width: calc(100% - 24px); padding: 5px 12px; border-radius: 999px; background: var(--texto); color: var(--panel); font-size: 12.5px; font-weight: 600; opacity: 0; transition: opacity .25s, transform .25s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tut-nota.ver { opacity: .92; transform: translate(-50%, 0); }
+
+/* ---------------------------------------------------------------- estados que anima el guion */
+.tut-oculto { display: none !important; }
+.tut-aparece { animation: tut-aparece .28s ease-out; }
+@keyframes tut-aparece { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.tut-foco { outline: 2px solid var(--acento); outline-offset: 2px; border-radius: 4px; animation: tut-foco .9s ease-in-out; }
+@keyframes tut-foco { 0%, 100% { outline-color: var(--acento); } 50% { outline-color: transparent; } }
+.escribiendo::after { content: "│"; color: var(--acento); animation: tut-caret .8s steps(1) infinite; margin-left: 1px; }
+@keyframes tut-caret { 50% { opacity: 0; } }
+
+/* ---------------------------------------------------------------- maqueta de la app */
+.tut-ventana { position: absolute; inset: 12px 12px 0; background: var(--panel); border: 1px solid var(--borde); border-bottom: 0; border-radius: 8px 8px 0 0; box-shadow: var(--sombra); font-size: 12.5px; }
+.tut-barra { display: flex; align-items: center; gap: 4px; padding: 6px 10px; border-bottom: 1px solid var(--borde); }
+.tut-logo { width: 16px; height: 16px; border-radius: 4px; background: var(--acento); color: #fff; font-size: 10px; display: grid; place-items: center; margin-right: 6px; }
+.tut-pest { padding: 2px 8px; border-radius: 5px; color: var(--texto-2); }
+.tut-pest.activa { background: var(--acento-2); color: var(--acento); font-weight: 600; }
+.tut-cuerpo { position: relative; padding: 10px 12px; height: calc(100% - 31px); box-sizing: border-box; }
+.tut-cols { display: flex; gap: 12px; height: 100%; }
+.tut-lista { width: 150px; flex: none; border-right: 1px solid var(--borde); padding-right: 8px; }
+.tut-item { padding: 4px 6px; border-radius: 5px; color: var(--texto-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tut-item.sel { background: var(--acento-2); color: var(--acento); font-weight: 600; }
+.tut-panel { flex: 1; min-width: 0; position: relative; }
+.tut-sub { font-weight: 600; color: var(--texto-2); margin-bottom: 4px; }
+.tut-campo { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.tut-campo > label { width: 104px; flex: none; color: var(--texto-2); }
+.tut-input { display: inline-block; min-width: 140px; min-height: 18px; padding: 3px 7px; border: 1px solid var(--borde-fuerte); border-radius: 5px; background: var(--panel); font-family: var(--mono); font-size: 12px; white-space: pre; overflow: hidden; text-overflow: ellipsis; max-width: 100%; box-sizing: border-box; }
+.tut-input.chico { min-width: 0; padding: 1px 6px; }
+.tut-input.var, .tut-v.var { color: var(--acento); font-style: italic; background: var(--acento-2); }
+.tut-desple { padding: 1px 6px; border: 1px solid var(--borde); border-radius: 5px; color: var(--texto-2); }
+.tut-desc { color: var(--texto-3); font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tut-fila { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+.tut-fila.fin { justify-content: flex-end; margin-top: 10px; }
+.tut-fila .btn { cursor: default; }
+.tut-menu, .tut-pop { position: absolute; z-index: 5; background: var(--panel); border: 1px solid var(--borde-fuerte); border-radius: 8px; box-shadow: var(--sombra-2); padding: 4px; min-width: 300px; max-width: calc(100% - 20px); }
+.tut-menu-tit { padding: 4px 8px 6px; font-size: 11.5px; color: var(--texto-3); border-bottom: 1px solid var(--borde); margin-bottom: 3px; }
+.tut-menu-tit:empty { display: none; }
+.tut-op { display: flex; gap: 10px; align-items: baseline; padding: 3px 8px; border-radius: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tut-op .mono { font-size: 11.5px; flex: none; }
+.tut-op .muted { overflow: hidden; text-overflow: ellipsis; }
+.tut-op.dinamica .mono { font-style: italic; color: var(--acento); }
+.tut-op.dinamica + .tut-op:not(.dinamica) { border-top: 1px solid var(--borde-fuerte); border-radius: 0; }
+.tut-op.apagada { opacity: .5; }
+.tut-salida { margin-top: 8px; padding: 6px 8px; border: 1px solid var(--borde); border-radius: 6px; background: var(--panel-2); font-family: var(--mono); font-size: 12px; line-height: 1.7; position: relative; }
+.tut-linea { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tut-k { color: var(--j-clave); }
+.tut-v { border-radius: 4px; padding: 0 2px; transition: background .3s; }
+.tut-v.texto { color: var(--j-texto); }
+.tut-v.num { color: var(--j-numero); }
+.tut-v.bool { color: var(--j-bool); }
+.tut-v.marcado { background: var(--ok-2); box-shadow: inset 0 -2px 0 var(--ok); }
+.tut-controles { padding: 6px 8px; border: 1px solid var(--borde); border-radius: 6px; line-height: 1.7; color: var(--ok); }
+.tut-controles > div:first-child { color: var(--texto-2); }
+.tut-sql { padding: 6px 8px; min-height: 18px; border: 1px solid var(--borde-fuerte); border-radius: 6px; background: var(--panel); font-family: var(--mono); font-size: 12px; white-space: pre-wrap; word-break: break-word; margin: 4px 0; }
+.tut-sql.alto { min-height: 44px; }
+.tut-modal { position: absolute; z-index: 6; top: 18px; left: 0; right: 0; margin: 0 auto; width: min(470px, calc(100% - 20px)); background: var(--panel); border: 1px solid var(--borde-fuerte); border-radius: 9px; box-shadow: var(--sombra-2); }
+.tut-modal-cab { padding: 7px 12px; font-weight: 600; border-bottom: 1px solid var(--borde); }
+.tut-modal-cuerpo { padding: 8px 12px; }
+.tut-form { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 6px 8px; align-items: center; }
+.tut-form > label { color: var(--texto-2); }
+.tut-tabla { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 12px; }
+.tut-tabla th { text-align: left; font-weight: 600; color: var(--texto-3); padding: 3px 6px; border-bottom: 1px solid var(--borde); }
+.tut-tabla td { padding: 3px 6px; border-bottom: 1px solid var(--borde); vertical-align: top; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tut-tabla td.mono { font-family: var(--mono); font-size: 11.5px; }
+.tut-toast { position: absolute; z-index: 7; right: 12px; bottom: 44px; padding: 7px 12px; border-radius: 7px; background: var(--ok-2); color: var(--ok); border: 1px solid var(--ok); font-weight: 600; box-shadow: var(--sombra); }
+.tut-franja { margin: 6px 0; padding: 6px 10px; border-radius: 6px; background: var(--acento-2); color: var(--acento); font-weight: 600; }
+.tut-cambio { margin-top: 8px; padding: 8px 10px; border: 1px solid var(--falla); border-radius: 6px; background: var(--falla-2); }
+.tut-nota-fija { margin-top: 10px; color: var(--texto-2); font-family: var(--mono); font-size: 12px; }

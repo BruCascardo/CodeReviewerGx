@@ -59,6 +59,8 @@ async function iniciar() {
   $("#buscar-suite").addEventListener("input", pintarListaSuites);
   $("#suites-todas").addEventListener("change", cargarSuites);
   $("#nueva-suite").addEventListener("click", nuevaSuite);
+  $("#tutorial-cab").replaceWith(botonTutorial());
+  $("#tutorial-vacio").replaceWith(h("div", { style: { marginTop: "14px" } }, botonTutorial("🎓 Ver el tutorial: cómo armar pruebas", "btn")));
   $("#motor-reiniciar").addEventListener("click", () => accionMotor("reiniciar"));
   $("#motor-detener").addEventListener("click", () => accionMotor("detener"));
   $("#motor-log").addEventListener("click", verLogMotor);
@@ -96,7 +98,8 @@ async function cambiarKb(kb, inicial = false) {
   vaciar($("#lista-objetos"), h("div", { class: "vacio" }, cargando("Leyendo la especificación…")));
   if (!inicial) {
     vaciar($("#detalle-objeto"), h("div", { class: "vacio-grande" }, h("h3", null, "Elegí un procedimiento o Data Provider")));
-    vaciar($("#detalle-suite"), h("div", { class: "vacio-grande" }, h("h3", null, "Elegí una suite")));
+    vaciar($("#detalle-suite"), h("div", { class: "vacio-grande" }, h("h3", null, "Elegí una suite"),
+      h("div", { style: { marginTop: "14px" } }, botonTutorial("🎓 Ver el tutorial: cómo armar pruebas", "btn"))));
   }
   await Promise.all([cargarObjetos(), cargarSuites()]);
   const ultimo = almacen.leer(`obj.${kb}`, null);
@@ -1011,7 +1014,8 @@ function pintarSuite() {
         h("th", { style: { width: "28px" } }, h("input", { type: "checkbox", checked: todosSel, onchange: (ev) => { vs.forEach((c) => ev.target.checked ? seleccion.add(c.id) : seleccion.delete(c.id)); pintarTabla(); actualizarBotones(); } })),
         h("th", { style: { width: "80px" } }, "Estado"), h("th", null, "Caso"), h("th", null, "Pasos"), h("th", { style: { width: "80px" } }, "Tiempo"), h("th", { style: { width: "130px" } }, ""))),
       h("tbody", null, vs.map((c) => filaCaso(c)))) : h("div", { class: "vacio-grande" }, h("h3", null, "La suite no tiene casos"),
-      h("div", null, "Agregá uno con ", h("b", null, "+ Caso"), " o desde ", h("b", null, "Explorar → Guardar como caso"), ".")));
+      h("div", null, "Agregá uno con ", h("b", null, "+ Caso"), " o desde ", h("b", null, "Explorar → Guardar como caso"), "."),
+      h("div", { style: { marginTop: "14px" } }, botonTutorial("🎓 Ver el tutorial: cómo armar pruebas", "btn"))));
   };
   const filaCaso = (c) => {
     const est = estadoCaso(c);
@@ -1695,6 +1699,7 @@ async function pintarAyuda() {
   const ej = (t) => h("pre", { class: "bloque" }, t);
   vaciar(cont, h("div", { style: { maxWidth: "980px" } },
     h("h2", { class: "titulo" }, "Cómo funciona GxPruebas"),
+    h("p", null, botonTutorial("🎓 Tutorial animado: cómo armar pruebas que no dependen de la base", "btn")),
     h("p", null, "GxPruebas ejecuta las clases Java que generó GeneXus, sin pasar por el IDE ni por Tomcat. Lee la especificación (",
       h("code", null, "GXSPC…\\NVG"), ") para saber los objetos y sus parámetros, y usa el ", h("code", null, "client.cfg"), " de la KB para conectarse a la base. ",
       "Cada caso corre en una transacción que por defecto se deshace al final: podés dar de alta, modificar y borrar sin dejar rastros."),

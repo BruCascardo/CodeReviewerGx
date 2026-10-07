@@ -19,7 +19,7 @@ Uso:
                                 corre las suites despues de cada build (la interfaz lo hace sola si
                                 'despuesDelBuild.activo' es true en config.json)
   python gxpruebas.py compartido estado|inicializar|subir|bajar|editar|historial|restaurar|papelera
-                                base compartida de suites y configuracion (ver LEEME.md)
+                                base compartida de suites y configuracion (ver README.md)
 
 'correr' sin suites corre todas (o todas las de --kb). Devuelve codigo 0 si todo paso, 1 si hubo fallas
 o errores, 2 si no se pudo correr. Las suites se nombran por su id (Generales/interfases-registro), por
