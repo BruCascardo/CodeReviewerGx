@@ -9,7 +9,7 @@ from urllib.parse import parse_qs, urlparse
 
 from . import api  # noqa: F401  (registra las rutas)
 from .rutas import RUTAS, Archivo, ErrorApi
-from .. import VERSION, automatico, grafo, motor
+from .. import VERSION, automatico, compartido, grafo, motor
 from ..config import CFG, UI
 
 _LOCALES = ("127.0.0.1", "localhost")
@@ -66,6 +66,10 @@ class Manejador(BaseHTTPRequestHandler):
             return self._json(e.codigo, {"error": str(e)})
         except motor.MotorError as e:
             return self._json(500, {"error": str(e), "motor": True})
+        except compartido.Conflicto as e:
+            return self._json(409, {"error": str(e)})
+        except (compartido.SinConexion, compartido.SinPermiso) as e:
+            return self._json(503, {"error": f"Base compartida: {e}"})
         except Exception as e:
             return self._json(500, {"error": f"{type(e).__name__}: {e}", "traza": traceback.format_exc()})
         if isinstance(r, Archivo):

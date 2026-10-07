@@ -1,6 +1,6 @@
 """Estado general, KBs, motores y ayuda."""
 from ..rutas import ErrorApi, kb, ruta
-from ... import VERSION, automatico, comparacion, kbs, motor, suites
+from ... import VERSION, automatico, comparacion, compartido, kbs, motor, suites
 from ...config import CFG
 
 
@@ -12,6 +12,7 @@ def estado(_q, _b):
         "motores": [m.info() for m in motor.motores()],
         "opcionesSuite": CFG["opcionesSuite"],
         "automatico": automatico.estado(),
+        "compartido": {"activo": compartido.activo(), "base": compartido.descripcion(), "error": compartido.ultimo_error()},
     }
 
 

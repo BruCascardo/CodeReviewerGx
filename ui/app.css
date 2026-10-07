@@ -91,6 +91,8 @@ nav.pestanas button.activa { color: var(--acento); border-bottom-color: var(--ac
   display: flex; align-items: center; gap: 8px; padding: 4px 6px 4px 10px; border: 1px solid var(--borde);
   border-radius: 999px; background: var(--panel-2); font-size: 12.5px; white-space: nowrap;
 }
+.motor-chip[hidden] { display: none; }
+#compartido { padding-right: 10px; }
 .motor-chip .led { width: 8px; height: 8px; border-radius: 50%; background: var(--texto-3); }
 .motor-chip[data-estado="listo"] .led { background: var(--ok); }
 .motor-chip[data-estado="ocupado"] .led, .motor-chip[data-estado="iniciando"] .led { background: var(--aviso); animation: latido 1s infinite; }
@@ -342,6 +344,12 @@ table.difs td.obt { color: var(--falla); }
 .modal > .pie { padding: 10px 16px; border-top: 1px solid var(--borde); display: flex; justify-content: flex-end; gap: 8px; }
 .form-grid { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 10px 12px; align-items: center; }
 .form-grid > label { color: var(--texto-2); }
+.ayuda-desplegable { margin-top: 6px; border: 1px solid var(--borde); border-radius: 6px; background: var(--panel-2); }
+.ayuda-desplegable > summary { cursor: pointer; padding: 6px 10px; color: var(--acento); font-weight: 500; }
+.ayuda-desplegable[open] > summary { border-bottom: 1px solid var(--borde); }
+.ayuda-desplegable .cuerpo-ayuda { padding: 8px 12px 10px; font-size: 12.5px; }
+.ayuda-desplegable .cuerpo-ayuda p { margin: 0 0 6px; }
+.ayuda-desplegable .tabla td { vertical-align: top; }
 .form-grid input[type=text], .form-grid select, .form-grid textarea { width: 100%; }
 
 .menu { position: fixed; z-index: 60; background: var(--panel); border: 1px solid var(--borde); border-radius: 8px; box-shadow: var(--sombra-2); padding: 4px; min-width: 240px; max-width: 420px; }

@@ -4,3 +4,8 @@ __pycache__/
 .cache/
 resultados/
 .papelera/
+
+# Datos de conexion de cada uno a la base compartida (ver .env.ejemplo)
+.env
+# Copias de 'gxpruebas.py compartido bajar'
+exportado/

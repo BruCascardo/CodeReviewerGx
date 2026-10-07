@@ -236,6 +236,15 @@ function arbolJson(valor, opciones = {}) {
 }
 
 // ---------------------------------------------------------------------- editor JSON (texto)
+// Los errores de JSON más comunes al escribir un caso a mano, explicados.
+function pistaJson(t) {
+  const pistas = [];
+  const sinComillas = t.match(/[:[,]\s*(\$\{[^}"]*\})/);
+  if (sinComillas) pistas.push(`Las variables van entre comillas: "${sinComillas[1]}" (si el valor es solo la variable, conserva su tipo: un número sigue siendo número).`);
+  if (/,\s*[}\]]/.test(t)) pistas.push("Sobra una coma antes de un } o un ]: el último elemento no lleva coma.");
+  return pistas.length ? " → " + pistas.join(" ") : "";
+}
+
 function editorJson(valor, { alCambiar, filas = 14, placeholder = "" } = {}) {
   const ta = h("textarea", { class: "codigo", rows: filas, spellcheck: "false", placeholder });
   ta.value = valor === undefined ? "" : json(valor);
@@ -249,7 +258,7 @@ function editorJson(valor, { alCambiar, filas = 14, placeholder = "" } = {}) {
       alCambiar && alCambiar(v, true);
       return true;
     } catch (e) {
-      estado.textContent = "JSON inválido: " + e.message; estado.style.color = "var(--falla)";
+      estado.textContent = "JSON inválido: " + e.message + pistaJson(t); estado.style.color = "var(--falla)";
       alCambiar && alCambiar(undefined, false);
       return false;
     }
@@ -478,6 +487,54 @@ function tablaFilas(columnas, filas, { max = 2000 } = {}) {
     h("tbody", null, filas.slice(0, max).map((f) => h("tr", null, cols.map((c) => celda(Array.isArray(f) ? f[cols.indexOf(c)] : f[c])))))));
 }
 
+// ---------------------------------------------------------------------- script previo
+// Bloques {ds, sql}: el script previo de una suite o el SQL previo de Explorar. Cada bloque puede tener varias
+// sentencias separadas por ";". El elemento devuelto tiene .valor(): los bloques que tienen texto.
+function editorScript(bloques, datasources, { alCambiar, filas = 5, placeholder = "" } = {}) {
+  const lista = clonar(bloques || []);
+  const cont = h("div");
+  const avisar = () => alCambiar && alCambiar(lista);
+  const pintar = () => vaciar(cont, lista.map((b, i) => {
+    if (!b.ds && datasources.length) b.ds = datasources[datasources.length - 1]; // el que se usa sin nombre
+    const opciones = [...datasources, ...(b.ds && !datasources.includes(b.ds) ? [b.ds] : [])];
+    return h("div", { class: "fila", style: { marginBottom: "6px", alignItems: "flex-start", flexWrap: "nowrap" } },
+      h("select", { style: { width: "auto", flex: "none" }, onchange: (ev) => { b.ds = ev.target.value; avisar(); } }, opciones.map((d) => h("option", { value: d, selected: d === b.ds ? "" : null }, d))),
+      h("textarea", { class: "codigo", rows: filas, spellcheck: "false", placeholder, style: { flex: 1, width: "auto", minWidth: 0 }, oninput: (ev) => { b.sql = ev.target.value; avisar(); } }, b.sql || ""),
+      h("button", { class: "btn fantasma icono", title: "Quitar", onclick: () => { lista.splice(i, 1); avisar(); pintar(); } }, "✕"));
+  }), h("button", { class: "btn chico", onclick: () => { lista.push({ ds: datasources[datasources.length - 1] || "", sql: "" }); avisar(); pintar(); } },
+    lista.length ? "+ otro datasource" : "+ sentencias"));
+  pintar();
+  cont.valor = () => lista.filter((b) => (b.sql || "").trim()).map((b) => ({ ds: b.ds || "", sql: b.sql }));
+  return cont;
+}
+
+// El resultado del script previo: una línea (sentencias, filas cambiadas, tiempo) y el detalle por sentencia.
+function vistaScript(sp, titulo = "Script previo") {
+  if (!sp) return null;
+  const sents = sp.bloques.flatMap((b) => b.sentencias);
+  const filas = sents.reduce((a, s) => a + (s.actualizadas || 0), 0);
+  const det = h("div", { style: { display: sp.estado === "ok" ? "none" : "block", marginTop: "6px" } },
+    sp.bloques.map((b) => h("div", { style: { marginBottom: "6px" } },
+      b.ds ? h("div", { class: "chico muted" }, b.ds) : null,
+      b.sentencias.length ? tablaFilas(["Sentencia", "Filas", "ms"], b.sentencias.map((s) => ({
+        Sentencia: s.sql, Filas: s.actualizadas ?? (s.filas !== undefined ? `${s.filas} (consulta)` : "—"), ms: s.ms,
+      }))) : null,
+      b.error ? h("div", { class: "error-caja" }, b.error) : null)));
+  const cab = h("div", { class: "fila", style: { cursor: "pointer" }, title: "Ver cada sentencia" },
+    h("span", { class: `punto-estado ${sp.estado}` }), h("b", null, titulo), pillEstado(sp.estado),
+    h("span", { class: "muted chico" }, `${sents.length} sentencia${sents.length === 1 ? "" : "s"} · ${filas} filas cambiadas · ${fmtMs(sp.ms)}`,
+      sp.veces > 1 ? ` · corrió ${sp.veces} veces` : ""),
+    h("span", { class: "espacio" }), h("span", { class: "chico muted" }, "detalle ▾"));
+  cab.addEventListener("click", () => { det.style.display = det.style.display === "none" ? "block" : "none"; });
+  return h("div", { style: { border: "1px solid var(--borde)", borderRadius: "8px", padding: "8px 10px", marginBottom: "8px", background: "var(--panel-2)" } }, cab, det);
+}
+
+// Casos encadenados: las variables que el caso recibió de los anteriores (lo que guardaron con «guardar»).
+function variablesRecibidas(vars) {
+  return h("div", { class: "chico", style: { margin: "0 0 8px" } }, h("span", { class: "muted" }, "Recibió de los casos anteriores: "),
+    Object.entries(vars).map(([k, v], i) => [i ? ", " : "", h("code", null, "${" + k + "}"), " = ", h("code", null, resumirValor(v, 40))]));
+}
+
 // ---------------------------------------------------------------------- resultado de un caso
 /**
  * Muestra el resultado de un caso (pasos, diferencias, verificaciones, salidas): Explorar e Historial. La
@@ -491,14 +548,16 @@ function vistaResultado(res, ctx = {}) {
     h("span", { class: `punto-estado ${res.estado}` }), NOMBRE_ESTADO[res.estado] || res.estado,
     h("span", { style: { fontWeight: 400 } }, res.nombre ? ` · ${res.nombre}` : ""),
     h("span", { class: "der" }, res.transaccion ? `transacción: ${res.transaccion} · ` : "", ms)));
+  if (res.scriptPrevio) cont.appendChild(vistaScript(res.scriptPrevio, ctx.tituloScript));
+  if (res.variablesRecibidas) cont.appendChild(variablesRecibidas(res.variablesRecibidas));
   for (const a of res.advertencias || []) cont.appendChild(h("div", { class: "aviso-caja" }, "⚠ ", a));
   const pasos = res.pasos || [];
   const sinPrep = pasos.filter((p) => !p.preparacion);
   pasos.forEach((p, i) => {
     const idxDef = p.preparacion ? -1 : sinPrep.indexOf(p);
-    cont.appendChild(vistaPaso(p, idxDef, res, ctx, ctx.abrirTodo || pasos.length === 1 || p.estado !== "ok"));
+    cont.appendChild(vistaPaso(p, idxDef, res, ctx, (ctx.abrirTodo && !p.preparacion) || pasos.length === 1 || p.estado !== "ok"));
   });
-  if (!pasos.length) cont.appendChild(h("div", { class: "muted" }, "El caso no tiene pasos."));
+  if (!pasos.length && !res.scriptPrevio) cont.appendChild(h("div", { class: "muted" }, "El caso no tiene pasos."));
   return cont;
 }
 
@@ -595,7 +654,7 @@ function vistaPaso(p, idx, res, ctx, abierto) {
 
 /** Menu para crear una verificacion a partir de un valor de la salida. Llama a alElegir(verificacion).
  *  alOtra() (opcional) abre el editor completo de verificaciones. */
-function menuVerificacion(ev, ruta, valor, alElegir, alOtra) {
+function menuVerificacion(ev, ruta, valor, alElegir, alOtra, alVariable) {
   const r = ruta || "$";
   const esObj = valor && typeof valor === "object";
   const ops = [];
@@ -625,6 +684,7 @@ function menuVerificacion(ev, ruta, valor, alElegir, alOtra) {
   if (alOtra) ops.push({ texto: "Otra condición…", accion: alOtra });
   ops.push("-");
   ops.push({ texto: "No comparar este campo (cambia y no es un error)", accion: () => alElegir({ ignorar: ruta.replace(/\[\d+\]/g, "[*]") }) });
+  if (alVariable) ops.push({ texto: "Guardar como variable… (para usarla como ${nombre})", accion: alVariable });
   ops.push({ texto: "Copiar ruta", accion: () => copiar(ruta) });
   menu(ev.clientX, ev.clientY, r, ops);
 }

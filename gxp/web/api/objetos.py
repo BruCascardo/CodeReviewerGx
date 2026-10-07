@@ -68,7 +68,8 @@ def plan_ejecucion(_q, b):
 @ruta("POST", "/api/ejecutar")
 def ejecutar(_q, b):
     return suites.ejecutar_suelto(kb(b.get("kb")), b.get("objeto"), b.get("entrada"), b.get("sql"),
-                                  b.get("transaccion", "rollback"), b.get("variables"), b.get("opciones"), b.get("timeoutMs"))
+                                  b.get("transaccion", "rollback"), b.get("variables"), b.get("opciones"), b.get("timeoutMs"),
+                                  b.get("sqlPrevio"))
 
 
 @ruta("POST", "/api/sql")

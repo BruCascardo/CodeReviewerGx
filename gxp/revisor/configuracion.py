@@ -1,8 +1,9 @@
-"""revisor.json: que reglas corren, con que severidad y parametros, que objetos no se revisan y las
-excepciones (cada una con su motivo)."""
+"""revisor.json (o, con la base compartida activa, su documento config/revisor): que reglas corren, con que
+severidad y parametros, que objetos no se revisan y las excepciones (cada una con su motivo)."""
 import fnmatch
 import json
 
+from .. import compartido
 from ..config import RAIZ
 
 ARCHIVO = RAIZ / "revisor.json"
@@ -65,6 +66,21 @@ class Configuracion:
 
 
 def cargar():
+    if compartido.activo():
+        try:
+            doc = compartido.leer(compartido.CONFIG, "revisor")
+        except KeyError:
+            return Configuracion(origen="base compartida (sin configuracion del revisor)")
+        conf = Configuracion(doc["datos"], origen=f"base compartida (version {doc['version']}, {doc['por']}, {doc['actualizado']})")
+        local = None
+        try:
+            local = json.loads(ARCHIVO.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            pass
+        if local is not None and local != doc["datos"]:
+            conf.avisos.append("revisor.json local no se usa y es distinto del de la base compartida: los cambios se "
+                               "hacen con 'python gxpruebas.py compartido editar revisor'")
+        return conf
     if not ARCHIVO.exists():
         return Configuracion(origen=None)
     try:

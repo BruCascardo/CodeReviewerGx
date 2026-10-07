@@ -25,7 +25,8 @@ def suite(q, _b):
 def guardar(_q, b):
     s = b.get("suite") or {}
     if b.get("id"):
-        return {"id": almacen.guardar(b["id"], s)}
+        sid = almacen.guardar(b["id"], s, version=b.get("version"))
+        return {"id": sid, "version": s.get("_version")}
     try:
         return {"id": almacen.guardar_nueva(s, pisar=bool(b.get("pisar")))}
     except ValueError as e:
@@ -43,7 +44,8 @@ def agregar_caso(_q, b):
     if not b.get("id"):
         raise ErrorApi("Falta la suite")
     caso = b.get("caso") or {}
-    sid, caso_id = almacen.agregar_caso(b["id"], caso, bool(b.get("reemplazar")), b.get("nombreSuite"), b.get("kb", ""))
+    sid, caso_id = almacen.agregar_caso(b["id"], caso, bool(b.get("reemplazar")), b.get("nombreSuite"), b.get("kb", ""),
+                                        b.get("scriptPrevio"))
     r = {"id": sid, "casoId": caso_id}
     # Con salida aprobada: se ejecuta una vez mas para marcar los valores que cambian solos (fechas, ids).
     if b.get("detectarVolatiles", True) and any(p.get("lineaBase") is not None for p in caso.get("pasos") or []):

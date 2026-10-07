@@ -8,6 +8,7 @@ Uso:
   python gxpruebas.py ejecutar  --kb Generales --objeto Generales.Interfases.Registro.Get \\
                                 --entrada "{\\"inGet\\": {\\"ItfId\\": 1, \\"RegTipo\\": \\"DETALLE\\"}}" [--commit] \\
                                 [--sql "GENERALES: select count(*) n from gntItfRegistro"]
+                                [--sql-previo "GENERALES: delete from gntItfRegistro"]   antes del objeto
   python gxpruebas.py sql       --kb Generales --ds GENERALES "select * from gntInterfase"
   python gxpruebas.py plan      --kb Generales --objeto Generales.Empresas.Get [--detalle] [--json]
                                 plan de ejecucion (EXPLAIN) de sus sentencias SQL y recomendaciones
@@ -17,6 +18,8 @@ Uso:
   python gxpruebas.py vigilar   [--kb Generales] [--etiqueta auto] [--espera 15] [--sin-notificar]
                                 corre las suites despues de cada build (la interfaz lo hace sola si
                                 'despuesDelBuild.activo' es true en config.json)
+  python gxpruebas.py compartido estado|inicializar|subir|bajar|editar|historial|restaurar|papelera
+                                base compartida de suites y configuracion (ver LEEME.md)
 
 'correr' sin suites corre todas (o todas las de --kb). Devuelve codigo 0 si todo paso, 1 si hubo fallas
 o errores, 2 si no se pudo correr. Las suites se nombran por su id (Generales/interfases-registro), por
@@ -27,16 +30,17 @@ Cada modulo registra sus comandos con registrar(sub) y la logica vive en los paq
   suites.py    correr, suites, vigilar, generar
   grafo.py     grafo, ui
   revisar.py   revisar
+  compartido.py  compartido (base compartida)
   consola.py   colores y JSON
 """
 import argparse
 import sys
 
-from . import grafo, objetos, revisar, suites
+from . import compartido as cmd_compartido, grafo, objetos, revisar, suites
 from .consola import error
-from .. import motor
+from .. import compartido, motor
 
-_MODULOS = (grafo, objetos, suites, revisar)
+_MODULOS = (grafo, objetos, suites, revisar, cmd_compartido)
 
 
 def armar_parser():
@@ -61,6 +65,9 @@ def main(argv=None):
         return 2
     except motor.MotorError as e:
         error(f"Error del motor: {e}")
+        return 2
+    except (compartido.SinConexion, compartido.SinPermiso, compartido.Conflicto) as e:
+        error(f"Base compartida: {e}")
         return 2
     finally:
         if a.cmd != "ui":

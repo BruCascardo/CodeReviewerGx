@@ -93,6 +93,35 @@ def fin_transaccion(kb, modo):
         return {"ok": False, "errores": [str(e)]}
 
 
+def marcar(kb, datasources, otros=()):
+    """Savepoint en la conexion de cada datasource (despues del script previo de una suite): en 'datasources'
+    tiene que poder y en 'otros', los que se pueda. Hasta el fin de la transaccion, el commit y el rollback de
+    los objetos en esos datasources se simulan (no llegan a la base). Devuelve los nombres marcados.
+    MotorError si no se pudo."""
+    r = motor(kb).pedir("marcar", timeout_ms=60000, ds=list(datasources), otros=list(otros))
+    if not r.get("ok"):
+        raise MotorError(r.get("error") or "No se pudo marcar el savepoint")
+    return r.get("ds") or []
+
+
+def volver(kb):
+    """Deshace lo hecho despues de marcar(): hasta el savepoint en los datasources marcados y todo en los
+    demas. Nunca lanza: devuelve {ok, puntos (restaurados), commits y rollbacks (simulados), perdidos, errores}."""
+    try:
+        return motor(kb).pedir("volver", timeout_ms=60000)
+    except MotorError as e:
+        return {"ok": False, "puntos": 0, "perdidos": [], "errores": [str(e)]}
+
+
+def avanzar(kb):
+    """Casos encadenados: al terminar un caso no deshace nada; lo hecho pasa a ser lo confirmado (un rollback en
+    el caso siguiente vuelve ahi). Nunca lanza: devuelve lo mismo que volver()."""
+    try:
+        return motor(kb).pedir("avanzar", timeout_ms=60000)
+    except MotorError as e:
+        return {"ok": False, "puntos": 0, "perdidos": [], "errores": [str(e)]}
+
+
 def consulta_suelta(kb, ds, query, timeout_ms=60000, maximo=1000, confirmar=False):
     """Una consulta aislada (pantalla SQL, comando 'sql'): toma el motor y termina con rollback, salvo
     confirmar=True. Devuelve (respuesta, datos)."""

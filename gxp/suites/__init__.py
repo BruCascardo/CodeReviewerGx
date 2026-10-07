@@ -9,6 +9,7 @@ Una suite es un JSON en suites/<KB>/<nombre>.json:
   "opciones": {"transaccion": "rollback", "recortarEspacios": true, "toleranciaNumerica": 0.000001,
                "listasParciales": false, "timeoutMs": 120000},
   "variables": {"itf": 1},
+  "scriptPrevio": [{"ds": "GENERALES", "sql": "delete from a; delete from b"}],   # opcional, ver script.py
   "preparacion": [ <pasos que corren al principio de cada caso, dentro de su transaccion> ],
   "casos": [
     {
@@ -34,6 +35,7 @@ Una suite es un JSON en suites/<KB>/<nombre>.json:
 # Modulos:
 #   almacen.py     suites guardadas: formato normalizado, lectura, escritura, listado
 #   variables.py   ${variables} de los pasos
+#   script.py      script previo: sentencias, entorno de la corrida (savepoint por caso, rollback al final)
 #   ejecucion.py   ejecucion de pasos y casos contra el motor; ejecucion suelta (Explorar)
 #   grabacion.py   salidas aprobadas y valores que cambian solos
 #   corridas.py    corrida de una suite

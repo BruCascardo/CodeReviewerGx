@@ -46,6 +46,9 @@
               "Log": "",
               "Ok": true
             }
+          },
+          "guardar": {
+            "idItf": "sdtInterfase.Id"
           }
         }
       ]
@@ -525,7 +528,7 @@
           "nombre": "Ejecutar",
           "objeto": "Cobranzas.Integraciones.Interfases.Registros.Lista",
           "entrada": {
-            "ItfId": 1
+            "ItfId": "${IdItf}"
           },
           "lineaBase": {
             "Registros": [
@@ -565,7 +568,14 @@
               "Log": "",
               "Ok": true
             }
-          }
+          },
+          "verificaciones": [
+            {
+              "ruta": "Registros[*].ItfId",
+              "op": "igual",
+              "valor": "${idItf}"
+            }
+          ]
         }
       ]
     },

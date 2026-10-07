@@ -1,5 +1,6 @@
 """Resultados de las corridas: resultados/<id>.json (las ultimas 300) y resultados/estado.json, con el
 estado de la ultima corrida de cada caso (lo que muestra la interfaz al abrir una suite)."""
+import json
 import threading
 from pathlib import Path
 
@@ -32,8 +33,19 @@ def actualizar_estado(corrida):
         s = est.setdefault(corrida["suite"], {})
         for c in corrida["casos"]:
             s[c["id"]] = {"estado": c["estado"], "fecha": corrida["fin"], "ms": c["ms"], "corrida": corrida["id"]}
+            if c.get("variablesGuardadas"):
+                s[c["id"]]["variables"] = _acotar(c["variablesGuardadas"])
         s["_resumen"] = {"fecha": corrida["fin"], "totales": corrida["totales"], "corrida": corrida["id"], "estado": corrida["estado"]}
         escribir_json(_archivo_estado(), est, sangria=1)
+
+
+def _acotar(variables, maximo=1000):
+    """Las variables que guardo un caso, para el estado: un valor muy grande queda resumido."""
+    salida = {}
+    for k, v in variables.items():
+        texto = json.dumps(v, ensure_ascii=False)
+        salida[k] = v if len(texto) <= maximo else {"_resumido": texto[:maximo] + "…"}
+    return salida
 
 
 def guardar_corrida(corrida):

@@ -1,4 +1,5 @@
-"""Suites guardadas: suites/<KB>/<nombre>.json. Formato normalizado, lectura, escritura, borrado (a la
+"""Suites guardadas: suites/<KB>/<nombre>.json o, con la base compartida activa (gxp/compartido), la tabla
+gxp_documentos con el mismo id (<KB>/<nombre>). Formato normalizado, lectura, escritura, borrado (a la
 papelera) y listado con un resumen por suite."""
 import datetime as dt
 import json
@@ -6,6 +7,8 @@ import threading
 from pathlib import Path
 
 from .resultados import estado
+from .script import bloques
+from .. import compartido
 from ..config import SUITES
 from ..util import escribir_json, slug
 
@@ -29,7 +32,18 @@ def ruta_suite(suite_id: str) -> Path:
     return p
 
 
+def _id(suite_id: str) -> str:
+    """El id normalizado (sin barras invertidas ni .json), validado como ruta_suite."""
+    return _id_de_ruta(ruta_suite(suite_id))
+
+
 def existe(suite_id: str) -> bool:
+    if compartido.activo():
+        try:
+            compartido.leer(compartido.SUITE, _id(suite_id))
+            return True
+        except KeyError:
+            return False
     return ruta_suite(suite_id).exists()
 
 
@@ -43,6 +57,10 @@ def normalizar(s: dict) -> dict:
     s.setdefault("opciones", {})
     s.setdefault("variables", {})
     s.setdefault("preparacion", [])
+    if "scriptPrevio" in s:
+        s["scriptPrevio"] = bloques(s["scriptPrevio"])
+        if not s["scriptPrevio"]:
+            del s["scriptPrevio"]
     casos = []
     usados = set()
     for c in s.get("casos") or []:
@@ -64,7 +82,12 @@ def normalizar(s: dict) -> dict:
 
 
 def cargar(suite_id: str) -> dict:
-    """La suite normalizada, con '_id'. KeyError si no existe."""
+    """La suite normalizada, con '_id' (y '_version' en la base compartida). KeyError si no existe."""
+    if compartido.activo():
+        doc = compartido.leer(compartido.SUITE, _id(suite_id))
+        s = normalizar(doc["datos"])
+        s.update(_id=doc["clave"], _version=doc["version"], _actualizado=doc["actualizado"], _por=doc["por"])
+        return s
     p = ruta_suite(suite_id)
     if not p.exists():
         raise KeyError(f"No existe la suite {suite_id}")
@@ -73,8 +96,17 @@ def cargar(suite_id: str) -> dict:
     return s
 
 
-def guardar(suite_id: str, s: dict) -> str:
-    """Graba la suite (sin las claves internas que empiezan con '_'). Devuelve su id."""
+def guardar(suite_id: str, s: dict, version=None) -> str:
+    """Graba la suite (sin las claves internas que empiezan con '_'). Devuelve su id. En la base compartida,
+    si la suite trae la '_version' con que se leyo (o se pasa 'version'), falla con compartido.Conflicto
+    cuando otro la grabo en el medio; despues de grabar, '_version' queda con la nueva."""
+    if compartido.activo():
+        version = version if version is not None else s.get("_version")
+        limpia = normalizar({k: v for k, v in s.items() if not k.startswith("_")})
+        sid = _id(suite_id)
+        s["_version"] = compartido.grabar(compartido.SUITE, sid, limpia, kb=limpia["kb"], resumen=resumen_de(limpia),
+                                          version=version)
+        return sid
     s = normalizar({k: v for k, v in s.items() if not k.startswith("_")})
     p = ruta_suite(suite_id)
     with _lock:
@@ -93,7 +125,14 @@ def guardar_nueva(s: dict, pisar=False) -> str:
 
 
 def borrar(suite_id: str):
-    """Mueve la suite a la papelera (.papelera/<nombre>_<fecha>.json)."""
+    """Mueve la suite a la papelera (.papelera/<nombre>_<fecha>.json; en la base compartida, la marca como
+    borrada: 'compartido restaurar' la recupera)."""
+    if compartido.activo():
+        try:
+            compartido.borrar(compartido.SUITE, _id(suite_id))
+        except KeyError:
+            pass
+        return
     p = ruta_suite(suite_id)
     if p.exists():
         papelera = SUITES.parent / ".papelera"
@@ -101,13 +140,15 @@ def borrar(suite_id: str):
         p.replace(papelera / f"{p.stem}_{dt.datetime.now():%Y%m%d_%H%M%S}.json")
 
 
-def agregar_caso(suite_id, caso, reemplazar=False, nombre_suite=None, kb=""):
+def agregar_caso(suite_id, caso, reemplazar=False, nombre_suite=None, kb="", script_previo=None):
     """Agrega un caso a la suite (la crea si no existe). Con 'reemplazar' y un id, pisa el caso con ese id.
-    Devuelve (id de la suite, id del caso)."""
+    Con 'script_previo', ademas reemplaza el script previo de la suite. Devuelve (id de la suite, id del caso)."""
     if existe(suite_id):
         s = cargar(suite_id)
     else:
         s = normalizar({"nombre": nombre_suite or suite_id.split("/")[-1], "kb": kb, "casos": []})
+    if script_previo:
+        s["scriptPrevio"] = bloques(script_previo)
     if reemplazar and caso.get("id"):
         s["casos"] = [caso if c["id"] == caso["id"] else c for c in s["casos"]]
         if not any(c["id"] == caso["id"] for c in s["casos"]):
@@ -123,7 +164,18 @@ def agregar_caso(suite_id, caso, reemplazar=False, nombre_suite=None, kb=""):
 
 def ids_de(kb_nombre, prefijo=""):
     """Ids de las suites de una KB cuyo nombre de archivo empieza con 'prefijo'."""
+    if compartido.activo():
+        inicio = f"{kb_nombre}/{prefijo}".lower()
+        return [d["clave"] for d in compartido.listar(compartido.SUITE)
+                if d["clave"].lower().startswith(inicio) and "/" not in d["clave"][len(kb_nombre) + 1:]]
     return [f"{kb_nombre}/{p.stem}" for p in sorted((SUITES / kb_nombre).glob(prefijo + "*.json"))]
+
+
+def resumen_de(s: dict) -> dict:
+    """Lo que muestra el listado de una suite normalizada (en la base compartida se graba junto a la suite)."""
+    return {"nombre": s["nombre"], "kb": s["kb"], "descripcion": s["descripcion"], "casos": len(s["casos"]),
+            "etiquetas": sorted({e for c in s["casos"] for e in c.get("etiquetas", [])}),
+            "scriptPrevio": bool(s.get("scriptPrevio"))}
 
 
 _resumenes = {}  # ruta -> (mtime_ns, tamano, resumen): una suite se relee solo si cambio el archivo
@@ -135,9 +187,7 @@ def _resumen(p: Path):
     if previo and previo[:2] == (st.st_mtime_ns, st.st_size):
         return previo[2]
     try:
-        s = normalizar(json.loads(p.read_text(encoding="utf-8")))
-        r = {"nombre": s["nombre"], "kb": s["kb"], "descripcion": s["descripcion"], "casos": len(s["casos"]),
-             "etiquetas": sorted({e for c in s["casos"] for e in c.get("etiquetas", [])})}
+        r = resumen_de(normalizar(json.loads(p.read_text(encoding="utf-8"))))
     except Exception as e:
         r = {"nombre": p.stem, "kb": "", "error": str(e), "casos": 0}
     _resumenes[str(p)] = (st.st_mtime_ns, st.st_size, r)
@@ -147,9 +197,17 @@ def _resumen(p: Path):
 def listar(kb: str = None):
     """Resumen de cada suite (de una KB o de todas), con el resultado de su ultima corrida. Las suites con
     el JSON roto se listan con 'error' (de cualquier KB: no se sabe de cual son)."""
-    SUITES.mkdir(parents=True, exist_ok=True)
     est = estado()
     salida = []
+    if compartido.activo():
+        for d in compartido.listar(compartido.SUITE):
+            r = d["resumen"] or {"nombre": d["clave"].split("/")[-1], "kb": d["kb"], "error": "sin resumen", "casos": 0}
+            if kb and "error" not in r and r["kb"].lower() != kb.lower():
+                continue
+            salida.append({"id": d["clave"], **r, "ultimo": est.get(d["clave"], {}).get("_resumen"),
+                           "actualizado": d["actualizado"], "por": d["por"]})
+        return salida
+    SUITES.mkdir(parents=True, exist_ok=True)
     for p in sorted(SUITES.rglob("*.json")):
         try:
             r = _resumen(p)

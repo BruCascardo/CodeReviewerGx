@@ -8,12 +8,26 @@ from .. import kbs, motor, suites
 from ..config import CFG
 
 
+def _texto_script(sp):
+    """Una linea con el resultado del script previo (y, si fallo, el error)."""
+    n = sum(len(b["sentencias"]) for b in sp["bloques"])
+    filas = sum(s.get("actualizadas") or 0 for b in sp["bloques"] for s in b["sentencias"])
+    if sp["estado"] == "ok":
+        return c(f"  script previo: {n} sentencias, {filas} filas cambiadas, {sp['ms']} ms", "gris")
+    return c(f"  script previo con error: {sp.get('error')}", "rojo")
+
+
 def _imprimir_progreso(detalle):
-    """Funcion de progreso para correr_suite: imprime cada caso a medida que termina."""
+    """Funcion de progreso para correr_suite: imprime cada caso a medida que termina (y el script previo)."""
     vistos = [0]
+    veces = [0]
     marcas = {"ok": c("OK   ", "verde"), "falla": c("FALLA", "rojo"), "error": c("ERROR", "rojo"), "omitido": c("OMIT ", "gris")}
 
     def progreso(cor):
+        sp = cor.get("scriptPrevio")
+        if sp and sp.get("veces", 1) != veces[0]:
+            veces[0] = sp.get("veces", 1)
+            print(_texto_script(sp))
         for caso in cor["casos"][vistos[0]:]:
             print(f"  {marcas[caso['estado']]} {caso['nombre']}  {c(str(caso['ms']) + ' ms', 'gris')}")
             if caso["estado"] in ("falla", "error") or (detalle and caso["estado"] != "omitido"):
@@ -46,6 +60,9 @@ def cmd_correr(a):
             total["error"] += 1
             continue
         corridas.append(cor)
+        if cor.get("encadenados") and (a.filtro or a.etiqueta) and not a.json:
+            print(c("  Los casos de esta suite estan encadenados: si corriste solo algunos, los que dependen de otros "
+                    "pueden fallar.", "amarillo"))
         for k, v in cor["totales"].items():
             total[k] = total.get(k, 0) + v
         if a.grabar and not a.json:

@@ -14,6 +14,8 @@ const E = {
   entrada: {},
   modoEntrada: almacen.leer("modoEntrada", "form"),
   sqlDespues: [],
+  sqlPrevio: [],      // SQL previo de Explorar ({ds, sql}), por KB: corre antes del objeto, como el script previo de una suite
+  usarPrevio: false,
   transaccion: "rollback",
   ultimoRes: null,
   pendientes: [],     // verificaciones elegidas desde la salida: {paso, ruta, op, valor} o {paso, ignorar}
@@ -25,6 +27,7 @@ const E = {
   abiertos: new Set(),
   sinCorrer: new Set(), // casos a los que se les cambio lo que controlan despues de su ultimo resultado
   corridasCache: {},
+  scriptCorrida: {},  // suite -> resultado del script previo en la última corrida de esta sesión
 };
 
 const slug = (t) => (t || "").trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^\w-]+/g, "-").replace(/^-+|-+$/g, "") || "suite";
@@ -146,6 +149,11 @@ async function refrescarMotor() {
   if (auKb === "corriendo") { txt = "corriendo las pruebas del build…"; chip.dataset.estado = "ocupado"; }
   $("#motor-texto").textContent = txt;
   avisosBuild(au);
+  const co = est.compartido || {}, chipCo = $("#compartido");
+  chipCo.hidden = !co.activo;
+  chipCo.dataset.estado = co.error ? "error" : "listo";
+  $("#compartido-texto").textContent = co.error ? "base compartida: sin conexión" : "base compartida";
+  chipCo.title = `${co.base || ""}\n\n${co.error ? co.error + "\nSe usa la copia local; no se puede grabar." : "Las suites y la configuración se leen y graban ahí."}`;
   chip.title = m ? `Motor de ${m.kb}\nestado: ${m.estado}${m.pid ? "\npid " + m.pid : ""}${m.msInicio ? "\narranque: " + fmtMs(m.msInicio) : ""}\npedidos: ${m.pedidos}${m.error ? "\n\n" + m.error : ""}` : "Motor Java de la KB (se inicia solo al ejecutar)";
 }
 
@@ -259,6 +267,8 @@ async function seleccionarObjeto(nombre) {
   const borrador = almacen.leer(`entrada.${E.kb}.${E.obj.nombre}`, null);
   E.entrada = borrador || {};
   E.sqlDespues = almacen.leer(`sql.${E.kb}.${E.obj.nombre}`, []);
+  E.sqlPrevio = almacen.leer(`sqlPrevio.${E.kb}`, []);
+  E.usarPrevio = almacen.leer(`usarPrevio.${E.kb}`, false);
   pintarObjeto();
   // describir: arranca el motor si hace falta (la primera vez tarda unos segundos). La ayuda de los campos
   // (combos) sale de la especificacion: si falla, el formulario queda sin combos.
@@ -284,6 +294,8 @@ function guardarBorrador() {
   if (!E.obj) return;
   almacen.guardar(`entrada.${E.kb}.${E.obj.nombre}`, E.entrada);
   almacen.guardar(`sql.${E.kb}.${E.obj.nombre}`, E.sqlDespues);
+  almacen.guardar(`sqlPrevio.${E.kb}`, E.sqlPrevio);
+  almacen.guardar(`usarPrevio.${E.kb}`, E.usarPrevio);
 }
 
 function pintarObjeto() {
@@ -414,6 +426,30 @@ function panelEjecutar() {
     h("button", { class: "btn fantasma icono", title: "Quitar", onclick: () => { E.sqlDespues.splice(i, 1); guardarBorrador(); pintarSql(); } }, "✕"))));
   pintarSql();
 
+  // SQL previo: es de la KB (no del objeto), para dejar la base igual antes de probar cualquier objeto.
+  const cajaPrevio = h("div");
+  const pintarPrevio = () => vaciar(cajaPrevio, E.usarPrevio ? editorScript(E.sqlPrevio, ds, {
+    filas: 3, placeholder: "delete from tabla_hija;\ndelete from tabla;",
+    alCambiar: (l) => { E.sqlPrevio = l; guardarBorrador(); },
+  }) : null);
+  pintarPrevio();
+  const chkPrevio = h("input", { type: "checkbox", checked: E.usarPrevio, onchange: (ev) => { E.usarPrevio = ev.target.checked; guardarBorrador(); pintarPrevio(); } });
+  const copiarDeSuite = async (ev) => {
+    const { clientX: x, clientY: y } = ev;
+    let lista = [];
+    try { lista = (await GET("/api/suites", { kb: E.kb })).filter((s) => s.scriptPrevio); } catch (e) { toast(e.message, "error"); return; }
+    if (!lista.length) { toast("Ninguna suite de esta KB tiene script previo", "", 3000); return; }
+    menu(x, y, "Copiar el script previo de", lista.map((s) => ({
+      texto: s.nombre, accion: async () => {
+        try {
+          const su = await GET("/api/suite", { id: s.id });
+          E.sqlPrevio = clonar(su.scriptPrevio || []); E.usarPrevio = true; chkPrevio.checked = true;
+          guardarBorrador(); pintarPrevio();
+        } catch (e) { toast(e.message, "error"); }
+      },
+    })));
+  };
+
   const resultado = h("div", { id: "resultado-ejecucion" });
   pintarResultadoEjecucion(resultado);
 
@@ -423,6 +459,11 @@ function panelEjecutar() {
       h("button", { class: "btn chico", title: "Volver a la plantilla vacía", onclick: () => { E.entrada = clonar(E.desc?.plantillaEntrada || {}); guardarBorrador(); pintarEntrada(); } }, "Plantilla"),
       h("button", { class: "btn chico", title: "Copiar la entrada como JSON", onclick: () => copiar(json(E.entrada)) }, "Copiar")),
     h("div", { class: "cuerpo" }, cajaEntrada,
+      h("div", { class: "sep" }),
+      h("div", { class: "fila", style: { marginBottom: "6px" } }, h("label", { class: "chk" }, chkPrevio, h("b", null, "SQL previo")),
+        h("span", { class: "muted chico" }, "Corre antes del objeto, en la misma transacción (por ejemplo, para vaciar tablas). Se deshace al final."), h("span", { class: "espacio" }),
+        h("button", { class: "btn chico", onclick: copiarDeSuite }, "Copiar de una suite…")),
+      cajaPrevio,
       h("div", { class: "sep" }),
       h("div", { class: "fila", style: { marginBottom: "6px" } }, h("b", null, "Consultas SQL después"),
         h("span", { class: "muted chico" }, "Corren en la misma transacción: ven los cambios aunque después se deshagan."), h("span", { class: "espacio" }),
@@ -455,7 +496,7 @@ function pintarResultadoEjecucion(cont = $("#resultado-ejecucion")) {
   if (E.ultimoRes === "corriendo") { vaciar(cont, h("div", { style: { padding: "30px 0", textAlign: "center" } }, cargando("Ejecutando…"))); return; }
   const res = E.ultimoRes;
   const vista = vistaResultado(res, {
-    abrirTodo: true,
+    abrirTodo: true, tituloScript: "SQL previo",
     alVerificar: (idx, ruta, valor, ev) => menuVerificacion(ev, ruta, valor, (v) => {
       E.pendientes.push({ paso: idx, ...v });
       pintarPendientes(pend);
@@ -495,6 +536,7 @@ async function ejecutarObjeto() {
   const enviado = {
     objeto: E.obj.nombre, entrada: clonar(E.entrada), transaccion: E.transaccion,
     sql: clonar(E.sqlDespues.filter((s) => (s.query || "").trim())),
+    sqlPrevio: E.usarPrevio ? clonar(E.sqlPrevio.filter((s) => (s.sql || "").trim())) : [],
   };
   try {
     const res = await POST("/api/ejecutar", { kb: E.kb, ...enviado });
@@ -642,6 +684,37 @@ async function guardarComoCaso() {
   const pasoObj = res.pasos[0];
   // Lo que se ejecutó de verdad (el resultado de una ejecución vieja restaurada del historial lo trae igual).
   const env = res.enviado || { objeto: E.obj.nombre, entrada: E.entrada, transaccion: E.transaccion, sql: E.sqlDespues.filter((s) => (s.query || "").trim()) };
+  if (res.scriptPrevio?.estado === "error") { toast("El SQL previo terminó con error: corregilo y ejecutá de nuevo antes de guardar.", "error"); return; }
+  // La salida se obtuvo después del SQL previo: el caso tiene que correr sobre la misma base. Puede pasar a ser
+  // el script previo de la suite (corre una vez antes de todos sus casos) o los primeros pasos del caso.
+  const previo = env.sqlPrevio || [];
+  const firma = (l) => JSON.stringify((l || []).map((b) => [b.ds || "", (b.sql || "").trim()]));
+  const selPrevio = h("select");
+  const notaPrevio = h("div", { class: "muted chico", style: { marginTop: "3px" } });
+  const filaPrevio = h("div", { style: { display: previo.length ? "contents" : "none" } }, h("label", null, "SQL previo"), h("div", null, selPrevio, notaPrevio));
+  const actualizarPrevio = async () => {
+    if (!previo.length) return;
+    const id = selSuite.value;
+    let actual = null;
+    if (id !== "__nueva") { try { actual = (await GET("/api/suite", { id })).scriptPrevio || null; } catch { /* nueva o borrada */ } }
+    if (selSuite.value !== id) return;
+    const igual = !!actual && firma(actual) === firma(previo);
+    const casos = suitesKb.find((s) => s.id === id)?.casos || 0;
+    vaciar(selPrevio, (igual ? [["nada", "Ya es el script previo de la suite"]] : [
+      ["suite", actual ? "Usarlo como script previo de la suite (reemplaza el actual)" : "Usarlo como script previo de la suite"],
+      ["pasos", "Agregarlo como primeros pasos del caso"],
+      ["nada", "No guardarlo"],
+    ]).map(([v, t]) => h("option", { value: v }, t)));
+    selPrevio.value = igual ? "nada" : actual ? "pasos" : "suite";
+    const notar = () => {
+      notaPrevio.textContent = selPrevio.value !== "suite" ? ""
+        : "Corre una vez antes de todos los casos de la suite y cada caso arranca de esa base." + (casos ? ` Los ${casos} casos que ya tiene también van a correr sobre ella.` : "");
+    };
+    selPrevio.onchange = notar;
+    notar();
+  };
+  selSuite.addEventListener("change", actualizarPrevio);
+  actualizarPrevio();
   // Excepción: el caso pasa si vuelve a terminar con este mismo error (y falla si termina bien o con otro).
   const conExcepcion = pasoObj?.estado === "error" && !!pasoObj.error;
   const textoError = conExcepcion ? pasoObj.error.split("\n")[0].slice(0, 150) : "";
@@ -672,6 +745,7 @@ async function guardarComoCaso() {
     h("label", null, "Suite"), selSuite, filaNueva,
     h("label", null, "Nombre del caso"), nombreCaso,
     h("label", null, "Etiquetas"), etiquetas,
+    filaPrevio,
     ...(conExcepcion
       ? [h("label", null, "Resultado"), h("label", { class: "chk" }, chkError, "Tiene que terminar con este error: ", h("code", null, textoError))]
       : [h("label", null, "Comparar con esta salida"), h("div", null, modoCmp,
@@ -707,6 +781,8 @@ async function guardarComoCaso() {
             });
           });
         }
+        const modoPrevio = previo.length ? selPrevio.value : "nada";
+        if (modoPrevio === "pasos") pasos.unshift(...previo.map((b, i) => ({ nombre: `SQL previo ${i + 1}`, sql: b.sql, ds: b.ds })));
         const caso = {
           nombre: nombreCaso.value.trim() || corto(E.obj.nombre),
           etiquetas: etiquetas.value.split(",").map((x) => x.trim()).filter(Boolean),
@@ -716,7 +792,7 @@ async function guardarComoCaso() {
         const id = nuevo ? `${E.kb}/${slug(nombreSuite.value)}` : selSuite.value;
         const espera = toast(cargando("Guardando: se ejecuta una vez más para ver qué valores cambian solos…"), "", 0);
         try {
-          const r = await POST("/api/suite/caso", { id, kb: E.kb, nombreSuite: nombreSuite.value.trim(), caso });
+          const r = await POST("/api/suite/caso", { id, kb: E.kb, nombreSuite: nombreSuite.value.trim(), caso, ...(modoPrevio === "suite" ? { scriptPrevio: previo } : {}) });
           almacen.guardar(`ultimaSuite.${E.kb}`, r.id);
           E.pendientes = [];
           pintarResultadoEjecucion();
@@ -865,9 +941,13 @@ function pintarSuite() {
   vaciar(det,
     h("h2", { class: "titulo" }, s.nombre),
     h("div", { class: "subtitulo" }, pill(s.kb || "sin KB", "acento"), h("span", { class: "mono chico" }, s._id), `${s.casos.length} casos`,
+      s._version ? h("span", { class: "chico muted", title: "Versión en la base compartida" }, `v${s._version} · ${s._por || "?"} · ${fmtFecha(s._actualizado)}`) : null,
       ult ? h("span", { class: "chico" }, "última corrida ", fmtFecha(ult.fecha), " · ", `${ult.totales.ok}✔ ${ult.totales.falla}✖ ${ult.totales.error}⚠`) : null,
-      s.opciones?.transaccion === "commit" ? pill("commit", "aviso") : pill(s.opciones?.transaccion || "rollback")),
+      s.opciones?.transaccion === "commit" ? pill("commit", "aviso") : pill(s.opciones?.transaccion || "rollback"),
+      s.opciones?.casosEncadenados ? pill("casos encadenados", "acento") : null),
     s.descripcion ? h("div", { class: "muted", style: { marginBottom: "10px" } }, s.descripcion) : null,
+    franjaScript(s),
+    panelVariables(s),
     h("div", { class: "tarjeta" },
       h("div", { class: "cab" },
         h("button", { class: "btn prim", disabled: corriendo, onclick: () => correrSuite({}) }, "▶ Correr todo"),
@@ -877,7 +957,7 @@ function pintarSuite() {
         filtro, etiquetas.length ? selEtq : null,
         h("button", { class: "btn", onclick: () => editarCaso(null) }, "+ Caso"),
         h("button", { class: "btn", onclick: (ev) => menu(ev.clientX, ev.clientY, null, [
-          { texto: "Opciones, variables y preparación…", accion: editarOpcionesSuite },
+          { texto: "Opciones, script previo, variables y preparación…", accion: editarOpcionesSuite },
           { texto: "Editar JSON completo…", accion: editarJsonSuite },
           { texto: "Duplicar suite", accion: duplicarSuite },
           { texto: "Descargar JSON", accion: () => descargar(`${slug(s.nombre)}.json`, json(limpiarSuite(s))) },
@@ -946,7 +1026,7 @@ function limpiarSuite(s) {
 
 async function guardarSuite(mensaje) {
   try {
-    await api("PUT", "/api/suite", { id: E.suite._id, suite: limpiarSuite(E.suite) });
+    await api("PUT", "/api/suite", { id: E.suite._id, version: E.suite._version, suite: limpiarSuite(E.suite) });
     if (mensaje) toast(mensaje, "ok", 2000);
     await abrirSuite(E.suite._id, true);
     cargarSuites();
@@ -957,6 +1037,8 @@ async function correrSuite({ casos, grabar = false }) {
   if (E.trabajo) return;
   if (casos && !casos.length) return;
   const s = E.suite;
+  if (s.opciones?.casosEncadenados && casos && casos.length < s.casos.length
+    && !(await confirmar("Los casos de esta suite están encadenados: cada uno sigue de lo que dejó el anterior. Si corrés solo algunos, los que dependen de otros pueden fallar.\n¿Seguir?", { si: "Correr igual" }))) return;
   for (const c of s.casos) if (!casos || casos.includes(c.id)) { idsResultado(c).forEach((i) => delete E.resultados[i]); E.sinCorrer.delete(c.id); }
   try {
     const r = await POST("/api/corridas", { suite: s._id, casos, grabar });
@@ -974,11 +1056,13 @@ async function sondearTrabajo() {
   for (const c of r.casos) { t.casos.push(c); E.resultados[c.id] = c; }
   t.desde = r.cantidad;
   t.estado = r.estado; t.total = r.total || t.total; t.error = r.error;
+  if (r.scriptPrevio) E.scriptCorrida[t.suite] = r.scriptPrevio;
   if (E.suite?._id === t.suite) { pintarProgreso(); E.repintarTablaSuite && E.repintarTablaSuite(); }
   if (["esperando", "corriendo"].includes(r.estado)) { setTimeout(sondearTrabajo, 350); return; }
   E.trabajo = null;
   const tot = r.totales || {};
   if (r.estado === "error") toast("La corrida falló: " + (r.error || ""), "error");
+  else if (r.scriptPrevio?.estado === "error") toast("El script previo terminó con error: no se corrió ningún caso. " + (r.scriptPrevio.error || ""), "error", 0);
   else toast(`Corrida terminada: ${tot.ok || 0} ok, ${tot.falla || 0} con fallas, ${tot.error || 0} con errores${r.lineasBaseGrabadas ? ` · ${r.lineasBaseGrabadas} salidas aprobadas` : ""}`,
     (tot.falla || tot.error) ? "error" : "ok", 6000);
   if (E.suite?._id === t.suite) await abrirSuite(t.suite, true);
@@ -1068,7 +1152,7 @@ function editarCaso(id) {
     }, "+ Fila de datos (parametrizar)"),
     h("div", { class: "sep" }),
     h("div", { class: "chico muted" }, h("b", null, "Recordatorio"), h("br"),
-      "• ", h("code", null, "${variable}"), " usa variables de la suite, de ", h("code", null, "datos"), " o de ", h("code", null, "guardar"), ".", h("br"),
+      "• ", h("code", null, "${variable}"), " usa variables de la suite, de ", h("code", null, "datos"), " o de ", h("code", null, "guardar"), ". Va entre comillas: ", h("code", null, "\"ItfId\": \"${idItf}\""), ". Se reemplaza en ", h("code", null, "entrada"), ", ", h("code", null, "sql"), ", ", h("code", null, "esperado"), ", ", h("code", null, "verificaciones"), " y ", h("code", null, "lineaBase"), ".", h("br"),
       "• ", h("code", null, "esperado"), ": coincidencia parcial.", h("br"),
       "• ", h("code", null, "verificaciones"), ": {ruta, op, valor, cada}.", h("br"),
       "• ", h("code", null, "lineaBase"), ": la salida aprobada. Con ", h("code", null, "\"comparar\": \"estructura\""), " solo se controlan campos, tipos, Ok y códigos. ", h("code", null, "volatiles"), ": cambian solos (solo el tipo). ", h("code", null, "ignorar"), ": no se comparan.", h("br"),
@@ -1096,6 +1180,155 @@ function editarCaso(id) {
   });
 }
 
+// El script previo de la suite (arriba de los casos): qué hace y, si corrió en esta sesión, cómo terminó.
+function franjaScript(s) {
+  const sp = s.scriptPrevio || [];
+  const enc = !!s.opciones?.casosEncadenados;
+  const ultimo = E.scriptCorrida[s._id];
+  if (!sp.length && !enc) return null;
+  const dss = [...new Set(sp.map((b) => b.ds || "el datasource por defecto"))].join(", ");
+  const texto = !sp.length ? "Cada caso sigue de lo que dejó el anterior. Toda la corrida es una transacción y al final se deshace."
+    : enc ? `En ${dss}. Corre una vez antes del primer caso; cada caso sigue de lo que dejó el anterior y al final se deshace todo.`
+      : `En ${dss}. Corre una vez antes de los casos; cada caso arranca de esa base y al final se deshace todo.`;
+  return h("div", { class: "tarjeta", style: { marginBottom: "10px" } },
+    h("div", { class: "cab" }, h("h3", null, sp.length ? "Script previo" : "Casos encadenados"),
+      sp.length && enc ? pill("casos encadenados", "acento") : null,
+      h("span", { class: "muted chico" }, texto),
+      h("span", { class: "espacio" }),
+      h("button", { class: "btn chico", onclick: editarOpcionesSuite }, "Editar")),
+    ultimo ? h("div", { class: "cuerpo" }, vistaScript(ultimo, "Última corrida")) : null);
+}
+
+// Explicación de las variables (desplegable en las opciones de la suite).
+// Las variables de la suite: de dónde sale cada una, su último valor y qué casos la usan (con avisos si no les llega).
+const PREDEFINIDAS = ["hoy", "ahora", "aleatorio", "uuid", "caso"];
+function variablesDeSuite(s) {
+  const vars = new Map(); // nombre -> {origenes: [], valor, hay, fecha, usan: [], avisos: []}
+  const de = (k) => vars.get(k) || vars.set(k, { origenes: [], hay: false, usan: [], avisos: [], guardanEn: [] }).get(k);
+  for (const [k, v] of Object.entries(s.variables || {})) Object.assign(de(k), { valor: v, hay: true }).origenes.push(["Variables de la suite"]);
+  const ultimo = (caso) => {
+    // El último valor que guardó el caso: de la corrida de esta sesión o de la última guardada.
+    for (const id of idsResultado(caso).slice().reverse()) {
+      const r = E.resultados[id];
+      if (r?.variablesGuardadas) return { v: r.variablesGuardadas, fecha: null };
+    }
+    for (const id of idsResultado(caso).slice().reverse()) {
+      const e = (s._estado || {})[id];
+      if (e?.variables) return { v: e.variables, fecha: e.fecha };
+    }
+    return null;
+  };
+  const anotar = (k, u) => {
+    if (u && k in u.v) { const x = de(k); x.valor = u.v[k]; x.hay = true; x.fecha = u.fecha; }
+  };
+  for (const p of s.preparacion || []) for (const [k, r] of Object.entries(p.guardar || {})) {
+    de(k).origenes.push(["Preparación, paso «", p.nombre || p.objeto || "SQL", "» ← ", h("code", null, r)]);
+    for (const c of s.casos) anotar(k, ultimo(c));
+  }
+  s.casos.forEach((c, ci) => {
+    const cols = [...new Set((c.datos || []).flatMap((f) => Object.keys(f || {})))];
+    for (const k of cols) {
+      const x = de(k);
+      x.origenes.push(["Columna de «datos» del caso «", c.nombre, "»: ", h("code", null, (c.datos || []).map((f) => resumirValor(f?.[k], 20)).join(" · "))]);
+      x.porFila = true;
+    }
+    c.pasos.forEach((p) => {
+      for (const [k, r] of Object.entries(p.guardar || {})) {
+        de(k).origenes.push(["Guarda el caso «", c.nombre, "», paso «", p.nombre || p.objeto || "SQL", "» ← ", h("code", null, r)]);
+        de(k).guardanEn.push(ci);
+        anotar(k, ultimo(c));
+      }
+    });
+  });
+  // Quién usa cada una (y las que se usan sin estar definidas en ningún lado).
+  s.casos.forEach((c, ci) => {
+    const pasosPropios = new Set(c.pasos.map((p) => slug(p.nombre || p.objeto || "SQL").replace(/-/g, "_")));
+    const usadas = new Set([...JSON.stringify(c.pasos).matchAll(/\$\{\s*([A-Za-z_][\w]*)/g)].map((m) => m[1]));
+    for (const k of usadas) {
+      if (PREDEFINIDAS.includes(k) || pasosPropios.has(k)) continue;
+      const x = de(k);
+      x.usan.push(c.nombre);
+      if (!x.guardanEn.length || x.guardanEn.includes(ci) || (c.datos || []).some((f) => f && k in f)) continue;
+      if (!s.opciones?.casosEncadenados) x.avisos.push(`No le llega a «${c.nombre}»: con casos aislados, lo que guarda un caso no pasa a los demás.`);
+      else if (Math.min(...x.guardanEn) > ci) x.avisos.push(`«${c.nombre}» corre antes del caso que la guarda: no le va a llegar.`);
+    }
+  });
+  for (const [k, x] of vars) if (!x.origenes.length) x.avisos.push("No está definida en ningún lado: ni en las variables de la suite, ni en «datos», ni la guarda un paso.");
+  return [...vars.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+}
+
+function panelVariables(s) {
+  const lista = variablesDeSuite(s);
+  if (!lista.length) return null;
+  const conAviso = lista.filter(([, x]) => x.avisos.length).length;
+  const abierto = almacen.leer("panelVariables", false);
+  const valor = (x) => {
+    if (x.porFila && !x.hay) return h("span", { class: "muted" }, "una por fila de datos");
+    if (!x.hay) return h("span", { class: "muted" }, "todavía no se asignó (corré la suite)");
+    const v = x.valor && typeof x.valor === "object" && "_resumido" in x.valor ? x.valor._resumido : x.valor;
+    return [h("code", null, resumirValor(v, 60)), x.fecha ? h("div", { class: "chico muted" }, fmtFecha(x.fecha)) : null];
+  };
+  const tabla = h("table", { class: "tabla" },
+    h("thead", null, h("tr", null, h("th", null, "Variable"), h("th", null, "De dónde sale"), h("th", null, "Último valor"), h("th", null, "La usan"))),
+    h("tbody", null, lista.map(([k, x]) => h("tr", null,
+      h("td", null, h("code", null, "${" + k + "}")),
+      h("td", null, x.origenes.length ? x.origenes.map((o) => h("div", null, o)) : h("span", { class: "muted" }, "—"),
+        x.avisos.map((a) => h("div", { class: "chico", style: { color: "var(--aviso)", marginTop: "2px" } }, "⚠ ", a))),
+      h("td", null, valor(x)),
+      h("td", { class: "chico" }, x.usan.length ? x.usan.join(", ") : h("span", { class: "muted" }, "ningún caso"))))));
+  const det = h("details", { open: abierto || undefined, class: "tarjeta", style: { marginBottom: "10px" } },
+    h("summary", { class: "cab", style: { cursor: "pointer" } }, h("h3", null, `Variables (${lista.length})`),
+      conAviso ? pill(`${conAviso} con aviso`, "aviso") : null,
+      h("span", { class: "muted chico" }, "De dónde sale cada ${variable}, el último valor que tomó y qué casos la usan.")),
+    h("div", { class: "cuerpo" }, tabla,
+      h("div", { class: "chico muted", style: { marginTop: "6px" } }, "Los valores que guardan los pasos son los de la última corrida. Las variables de la suite se cambian en Más → Opciones."),
+      ayudaVariables()));
+  det.addEventListener("toggle", () => almacen.guardar("panelVariables", det.open));
+  return det;
+}
+
+function ayudaVariables() {
+  const c = (t) => h("code", null, t);
+  const ej = (t) => h("pre", { class: "bloque", style: { margin: "4px 0 8px" } }, t);
+  const tit = (t) => h("div", { style: { fontWeight: 600, margin: "10px 0 4px" } }, t);
+  const fila = (...cols) => h("tr", null, cols.map((x) => h("td", null, x)));
+  return h("details", { class: "ayuda-desplegable" },
+    h("summary", null, "¿Cómo funcionan las variables? Tocá acá para ver la explicación y ejemplos"),
+    h("div", { class: "cuerpo-ayuda" },
+      h("p", null, "Una variable es un valor con nombre. En cualquier parte de un caso (la entrada de un objeto, una consulta SQL, «esperado», una verificación o la salida aprobada) escribís ",
+        c("${nombre}"), " y GxPruebas lo reemplaza por su valor. Si el texto es solo ", c('"${nombre}"'), ", el valor mantiene su tipo: un número sigue siendo número."),
+      tit("De dónde sale cada variable"),
+      h("table", { class: "tabla" },
+        h("thead", null, h("tr", null, h("th", null, "Origen"), h("th", null, "Cómo se crea"), h("th", null, "Hasta dónde llega"))),
+        h("tbody", null,
+          fila("Variables de la suite", ["En este campo: ", c('{"itf": 1}'), " → ", c("${itf}")], "Todos los casos."),
+          fila("Columna de «datos»", ["En el caso: ", c('"datos": [{"tipo": "AAA"}, {"tipo": "BBB"}]'), ". El caso se repite una vez por fila."], "Esa fila. Si se llama igual que una variable de la suite, gana la de la fila."),
+          fila(["Lo que guarda un paso (", c("guardar"), ")"], ["En el paso: ", c('"guardar": {"cupon": "outSet.CuponId"}'), ". También haciendo clic en un valor de la salida del caso → «Guardar como variable»."],
+            ["Los pasos siguientes del mismo caso. Con ", h("b", null, "casos encadenados"), ", también los casos que corren después."]),
+          fila("La salida de un paso anterior", ["Automática, con el nombre del paso en minúsculas y _ en vez de espacios: ", c("${alta.outSet.CuponId}")], "Los pasos siguientes del mismo caso."),
+          fila("La entrada de un paso anterior", ["Automática: ", c("${alta.entrada.inSet.Importe}"), ". Sirve para no escribir dos veces un valor esperado."], "Los pasos siguientes del mismo caso."),
+          fila("Predefinidas", [c("${hoy}"), " ", c("${ahora}"), " ", c("${uuid}"), " ", c("${aleatorio}"), " ", c("${caso}")], "Siempre."))),
+      tit("Dentro de un caso: un paso le pasa un valor al siguiente"),
+      ej(`"pasos": [
+  { "nombre": "Alta", "objeto": "Cupones.Set",
+    "entrada": { "inSet": { "Importe": 100 } },
+    "guardar": { "cupon": "outSet.CuponId" } },        ← guarda el id que devolvió el Set
+  { "nombre": "Uso", "objeto": "Cupones.Usar",
+    "entrada": { "inUsar": { "CuponId": "\${cupon}" } } }  ← y lo usa acá
+]`),
+      tit("De un caso a otro: depende de «Entre un caso y otro»"),
+      h("ul", { style: { margin: "0 0 6px", paddingLeft: "18px" } },
+        h("li", null, h("b", null, "Cada caso arranca de cero: "), "cada caso empieza solo con las variables de la suite y su fila de datos. Lo que guardó otro caso no le llega: si lo usa, falla con «Variable no definida» y el error dice qué caso la guarda."),
+        h("li", null, h("b", null, "Cada caso sigue de lo que dejó el anterior: "), "lo que un caso guarda con ", c("guardar"), " llega como variable a todos los casos que corren después. Solo pasa lo de ", c("guardar"), ": ", c("${alta.outSet...}"), " no pasa de un caso a otro.")),
+      ej(`Caso 1 «Crear cupón»:   { "objeto": "Cupones.Set", ..., "guardar": { "cupon": "outSet.CuponId" } }
+Caso 2 «Usar cupón»:    { "objeto": "Cupones.Usar", "entrada": { "inUsar": { "CuponId": "\${cupon}" } } }`),
+      h("p", { class: "muted chico", style: { margin: "0 0 6px" } }, "Con casos encadenados el orden importa: si corrés solo el caso 2, nadie guardó ", c("${cupon}"), " y falla. Corré la suite completa. Si el caso que se repite por «datos» tiene una columna con el mismo nombre que una variable guardada, en esa fila gana la columna."),
+      tit("En la salida aprobada (lineaBase)"),
+      h("p", null, "También se reemplazan: si en la salida aprobada ponés ", c('"ItfId": "${idItf}"'), ", ese campo tiene que dar el valor que tenga la variable en esa corrida, aunque cambie de una corrida a otra. Al aprobar una salida nueva, los campos donde pusiste una variable la conservan. Si la variable no existe, el texto se compara tal cual."),
+      tit("Dónde ver las variables"),
+      h("p", { style: { margin: 0 } }, "En la suite, el panel «Variables» muestra de dónde sale cada una, el último valor que tomó y qué casos la usan, con un aviso si alguna no le va a llegar a un caso.")));
+}
+
 function editarOpcionesSuite() {
   const s = E.suite;
   const op = { transaccion: "rollback", recortarEspacios: true, toleranciaNumerica: 0.000001, listasParciales: false, timeoutMs: 120000, ...(s.opciones || {}) };
@@ -1107,28 +1340,71 @@ function editarOpcionesSuite() {
   const listas = h("input", { type: "checkbox", checked: op.listasParciales });
   const tol = h("input", { type: "text", value: String(op.toleranciaNumerica) });
   const tmo = h("input", { type: "text", value: String(op.timeoutMs) });
-  const vars = editorJson(s.variables || {}, { filas: 6 });
-  const prep = editorJson(s.preparacion || [], { filas: 6 });
+  // Vacíos se muestran sin {} ni [] para que se vea el ejemplo del placeholder.
+  const vars = editorJson(Object.keys(s.variables || {}).length ? s.variables : undefined, {
+    filas: 4, placeholder: 'Ejemplo:\n{\n  "itf": 1,\n  "tipoPrueba": "ZZPRUEBA"\n}',
+  });
+  const prep = editorJson((s.preparacion || []).length ? s.preparacion : undefined, {
+    filas: 8, placeholder: 'Ejemplo:\n[\n  { "nombre": "Alta del registro que usan los casos",\n    "objeto": "Generales.Interfases.Registro.Set",\n    "entrada": { "inSet": { "ItfId": "${itf}", "Tipo": "${tipoPrueba}", "Nombre": "x", "Fin": "LF" } },\n    "guardar": { "regTipo": "outSet.RegTipo" } },\n  { "nombre": "Sin movimientos", "sql": "delete from tabla where ...", "ds": "GENERALES" }\n]',
+  });
+  const nota = (...t) => h("div", { class: "muted chico", style: { marginTop: "3px" } }, ...t);
+  const etq = (t) => h("label", { style: { alignSelf: "start", paddingTop: "6px" } }, t);
+  const seccion = (t) => h("div", { class: "fila-previa" }, h("b", null, t));
+  const dsKb = (E.kbs.find((k) => k.nombre === s.kb)?.datasources || []).map((d) => d.nombre);
+  const script = editorScript(s.scriptPrevio || [], dsKb, { filas: 7, placeholder: "delete from tabla_hija;\ndelete from tabla;" });
+  const entre = h("select", null, [
+    ["aislados", "Cada caso arranca de cero: de la base que deja el script previo (recomendado)"],
+    ["encadenados", "Cada caso sigue de lo que dejó el anterior"],
+  ].map(([v, t]) => h("option", { value: v, selected: (op.casosEncadenados ? "encadenados" : "aislados") === v ? "" : null }, t)));
+  const notaEntre = h("div", { class: "muted chico", style: { marginTop: "3px" } });
+  const notar = () => {
+    notaEntre.textContent = entre.value === "encadenados"
+      ? "Por ejemplo, el caso 1 crea un cupón y el 2 lo usa. Lo que un caso guarda con «guardar» llega como ${variable} a los casos siguientes. Toda la corrida es una transacción y al final se deshace. Si corrés solo algunos casos, los que dependen de otros pueden fallar."
+      : "Cada caso (y cada fila de datos) no ve lo que hicieron los anteriores: se puede correr uno solo o en cualquier orden. Sin script previo, cada caso corre en su propia transacción.";
+  };
+  entre.addEventListener("change", notar);
+  notar();
   modal({
     titulo: "Opciones de la suite", ancho: true,
     cuerpo: h("div", { class: "form-grid" },
       h("label", null, "Nombre"), nombre, h("label", null, "Descripción"), desc, h("label", null, "KB"), kb,
+      seccion("Antes de los casos"),
+      etq("Script previo"), h("div", null, script,
+        nota("SQL que corre ", h("b", null, "una sola vez"), ", antes del primer caso, por ejemplo para dejar vacías las tablas que usan. Al final de la corrida se deshace todo, el script incluido. Usá «delete from»: truncate, drop o alter confirmarían la transacción y no se aceptan.")),
+      etq("Preparación de cada caso"), h("div", null, prep,
+        nota("Pasos que corren ", h("b", null, "al principio de cada caso"), " (y de cada fila de datos), antes de sus propios pasos y en su misma transacción. Sirven para lo que todos los casos necesitan, por ejemplo dar de alta un registro. Se escriben igual que los pasos de un caso: un ",
+          h("code", null, "objeto"), " con su ", h("code", null, "entrada"), ", o un ", h("code", null, "sql"), " con su ", h("code", null, "ds"), ". Con ", h("code", null, "guardar"),
+          ", un valor de la salida queda como ", h("code", null, "${variable}"), " para los pasos del caso. No se comparan: solo tienen que terminar bien. Si uno falla, el caso queda en error y no se corre.")),
+      etq("Entre un caso y otro"), h("div", null, entre, notaEntre),
+      seccion("Datos de los casos"),
+      etq("Variables"), h("div", null, vars,
+        nota("Valores con nombre que los casos usan escribiendo ", h("code", null, "${nombre}"), " en la entrada, en las consultas SQL, en «esperado» y en las verificaciones (por ejemplo ", h("code", null, '"ItfId": "${itf}"'),
+          "). Sirven para no repetir un mismo dato en todos los casos y cambiarlo en un solo lugar."),
+        ayudaVariables()),
+      seccion("Ejecución y comparación"),
       h("label", null, "Transacción"), tx,
       h("label", null, "Comparación"), h("div", { style: { display: "flex", flexDirection: "column", gap: "4px" } },
         h("label", { class: "chk" }, recortar, "Ignorar espacios al final de los textos (Character de GeneXus)"),
         h("label", { class: "chk" }, listas, "Listas parciales en «esperado»: cada elemento esperado tiene que estar, en cualquier orden")),
       h("label", null, "Tolerancia numérica"), tol,
-      h("label", null, "Tiempo máximo por paso (ms)"), tmo,
-      h("label", null, "Variables"), vars,
-      h("label", null, "Preparación (pasos)"), prep),
+      h("label", null, "Tiempo máximo por paso (ms)"), tmo),
     botones: [{ texto: "Cancelar" }, {
       texto: "Guardar", prim: true, accion: async () => {
         const v = vars.valor(), p = prep.valor();
         if (v === undefined && vars.textarea.value.trim()) { toast("Variables: JSON inválido", "error"); return false; }
         if (p === undefined && prep.textarea.value.trim()) { toast("Preparación: JSON inválido", "error"); return false; }
+        if (v !== undefined && (typeof v !== "object" || v === null || Array.isArray(v))) { toast('Variables: tiene que ser un objeto, por ejemplo {"itf": 1}', "error"); return false; }
+        if (p !== undefined && (!Array.isArray(p) || p.some((x) => !x || typeof x !== "object" || !(x.objeto || x.sql)))) {
+          toast("Preparación: tiene que ser una lista de pasos [ {...}, {...} ], cada uno con «objeto» o «sql»", "error"); return false;
+        }
+        const sp = script.valor();
+        const enc = entre.value === "encadenados";
+        if ((sp.length || enc) && tx.value === "commit") { toast(`Con ${sp.length ? "script previo" : "casos encadenados"} la suite no puede correr con commit: confirmaría todo lo anterior.`, "error"); return false; }
+        if (sp.length) s.scriptPrevio = sp; else delete s.scriptPrevio;
+        const opciones = { ...(s.opciones || {}), transaccion: tx.value, recortarEspacios: recortar.checked, listasParciales: listas.checked, toleranciaNumerica: Number(tol.value) || 0, timeoutMs: Number(tmo.value) || 120000 };
+        if (enc) opciones.casosEncadenados = true; else delete opciones.casosEncadenados;
         Object.assign(s, {
-          nombre: nombre.value.trim() || s.nombre, descripcion: desc.value, kb: kb.value, variables: v || {}, preparacion: p || [],
-          opciones: { transaccion: tx.value, recortarEspacios: recortar.checked, listasParciales: listas.checked, toleranciaNumerica: Number(tol.value) || 0, timeoutMs: Number(tmo.value) || 120000 },
+          nombre: nombre.value.trim() || s.nombre, descripcion: desc.value, kb: kb.value, variables: v || {}, preparacion: p || [], opciones,
         });
         await guardarSuite("Opciones guardadas");
       },
@@ -1144,7 +1420,7 @@ function editarJsonSuite() {
       texto: "Guardar", prim: true, accion: async () => {
         const v = ed.valor();
         if (!v) { toast("JSON inválido", "error"); return false; }
-        E.suite = { ...v, _id: E.suite._id, _estado: E.suite._estado };
+        E.suite = { ...v, _id: E.suite._id, _version: E.suite._version, _estado: E.suite._estado };
         await guardarSuite("Suite guardada");
       },
     }],
@@ -1225,6 +1501,7 @@ async function verCorrida(id) {
         h("span", { class: "muted" }, `${c.kb} · ${fmtMs(c.ms)}`), h("span", { class: "espacio" }),
         h("a", { class: "btn chico", href: `/api/junit?id=${encodeURIComponent(c.id)}` }, "Descargar JUnit"),
         h("button", { class: "btn chico", onclick: () => descargar(`${c.id}.json`, json(c)) }, "Descargar JSON")),
+      vistaScript(c.scriptPrevio),
       lista),
     botones: [
       ...(fallidos.length ? [{ texto: `Volver a correr los ${fallidos.length} fallidos`, accion: async () => { irA("suites"); await abrirSuite(c.suite); correrSuite({ casos: fallidos }); } }] : []),
@@ -1296,7 +1573,18 @@ async function pintarAyuda() {
     h("p", null, "GxPruebas ejecuta las clases Java que generó GeneXus, sin pasar por el IDE ni por Tomcat. Lee la especificación (",
       h("code", null, "GXSPC…\\NVG"), ") para saber los objetos y sus parámetros, y usa el ", h("code", null, "client.cfg"), " de la KB para conectarse a la base. ",
       "Cada caso corre en una transacción que por defecto se deshace al final: podés dar de alta, modificar y borrar sin dejar rastros."),
-    h("div", { class: "aviso-caja" }, "⚠ Si un procedimiento tiene ", h("b", null, "Commit on exit = Yes"), " o hace ", h("code", null, "Commit"), ", sus cambios quedan grabados aunque el caso haga rollback. GxPruebas lo avisa con «hace commit»."),
+    h("div", { class: "aviso-caja" }, "⚠ Si un procedimiento tiene ", h("b", null, "Commit on exit = Yes"), " o hace ", h("code", null, "Commit"), ", sus cambios quedan grabados aunque el caso haga rollback. GxPruebas lo avisa con «hace commit». Con script previo no pasa: ese commit se simula y no llega a la base."),
+    h("h3", null, "Script previo: casos que no dependen de los datos"),
+    h("p", null, "Para que las salidas no cambien según lo que haya en la base, la suite puede tener un ", h("b", null, "script previo"),
+      " (Suites → Más → Opciones): sentencias que dejan la base en un estado conocido, por ejemplo vacía (",
+      h("code", null, "delete from tabla_hija; delete from tabla;"), "). Toda la corrida es una sola transacción:"),
+    h("ol", null,
+      h("li", null, "El script corre una sola vez, al empezar."),
+      h("li", null, "Cada caso (y cada fila de ", h("code", null, "datos"), ") arranca de la base que dejó el script y, al terminar, vuelve a ella: no ve lo que hicieron los casos anteriores, así que se puede correr uno solo, los fallidos o en cualquier orden. Con ", h("b", null, "casos encadenados"), " (en las mismas opciones), cada caso sigue de lo que dejó el anterior: el 1 crea un cupón y el 2 lo usa."),
+      h("li", null, "Al final se deshace todo, el script incluido: la base queda como estaba.")),
+    h("p", null, "Mientras tanto, el commit y el rollback de los objetos se simulan (no llegan a la base): los objetos que hacen commit se pueden probar igual. Lo que corre en otra unidad de trabajo (", h("i", null, "Execute in new LUW"), ", como PrcLog) usa otra conexión y no toca esta transacción. No se aceptan ",
+      h("code", null, "truncate"), ", ", h("code", null, "drop"), " ni ", h("code", null, "alter"), " (en MySQL confirman la transacción) ni casos con commit. En ", h("b", null, "Explorar"),
+      ", el ", h("b", null, "SQL previo"), " hace lo mismo antes de cada ejecución, y «Copiar de una suite» trae el script de una suite."),
     h("h3", null, "Flujo de trabajo"),
     h("ol", null,
       h("li", null, "Compilá la KB en GeneXus (Build). El motor detecta la recompilación y se reinicia solo."),
@@ -1335,6 +1623,9 @@ async function pintarAyuda() {
     h("h3", null, "Variables"),
     h("p", null, h("code", null, "${nombre}"), " se reemplaza por: las ", h("b", null, "variables"), " de la suite, la fila de ", h("b", null, "datos"), ", lo que se ", h("b", null, "guardó"), " en pasos anteriores, la salida completa de un paso anterior (", h("code", null, "${alta.outSet.RegTipo}"), ", con el nombre del paso en minúsculas y _ en vez de espacios), lo que se le mandó a un paso anterior (", h("code", null, "${alta.entrada.inSet.Tipo}"), ": por ejemplo, que el Get devuelva lo que recibió el Set) y las predefinidas ",
       h("code", null, "${hoy}"), " ", h("code", null, "${ahora}"), " ", h("code", null, "${aleatorio}"), " ", h("code", null, "${uuid}"), " ", h("code", null, "${caso}"), ". Si el texto es solo la variable, se conserva su tipo (número, objeto…)."),
+    h("p", null, "Lo que se guarda con ", h("code", null, "guardar"), " llega a los pasos siguientes del mismo caso. Con ", h("b", null, "casos encadenados"),
+      " (Opciones de la suite → Entre un caso y otro), también a los casos que corren después: el caso 1 guarda ", h("code", null, "${cupon}"), " y el caso 2 lo usa. Para guardar un valor, hacé clic en él en la salida del caso → «Guardar como variable»."),
+    ayudaVariables(),
     h("h3", null, "Línea de comandos"),
     ej(`python gxpruebas.py correr                         todas las suites (código de salida 1 si algo falla)
 python gxpruebas.py correr interfases-registro --detalle

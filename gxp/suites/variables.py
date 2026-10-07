@@ -6,6 +6,9 @@
   - las predefinidas ${hoy}, ${ahora}, ${aleatorio}, ${uuid} y ${caso}.
 
 Si el texto es solo "${x}", se reemplaza por el valor con su tipo (un numero sigue siendo numero).
+
+En la salida aprobada ('lineaBase') tambien se reemplazan, pero sin exigir que existan (estricto=False): una
+variable que no esta definida queda como texto, por si la salida real tiene un "${...}" propio.
 """
 import copy
 import datetime as dt
@@ -41,18 +44,52 @@ def _como_texto(v):
     return v if isinstance(v, str) else json.dumps(v, ensure_ascii=False)
 
 
-def sustituir(obj, vars_):
-    """Reemplaza las ${variables} en cualquier estructura. VariableIndefinida si falta alguna."""
+def sustituir(obj, vars_, estricto=True):
+    """Reemplaza las ${variables} en cualquier estructura. VariableIndefinida si falta alguna (sin 'estricto',
+    la deja como esta)."""
     if isinstance(obj, str):
+        if "${" not in obj:
+            return obj
+
+        def valor(nombre, texto):
+            try:
+                return _valor(nombre, vars_)
+            except VariableIndefinida:
+                if estricto:
+                    raise
+                return texto
         m = _VAR.fullmatch(obj.strip())
         if m:
-            return _valor(m.group(1), vars_)
-        return _VAR.sub(lambda m: _como_texto(_valor(m.group(1), vars_)), obj)
+            return valor(m.group(1), obj)
+        return _VAR.sub(lambda m: _como_texto(valor(m.group(1), m.group(0))), obj)
     if isinstance(obj, list):
-        return [sustituir(x, vars_) for x in obj]
+        return [sustituir(x, vars_, estricto) for x in obj]
     if isinstance(obj, dict):
-        return {k: sustituir(v, vars_) for k, v in obj.items()}
+        return {k: sustituir(v, vars_, estricto) for k, v in obj.items()}
     return obj
+
+
+def con_variables(obj):
+    """True si en algun texto de la estructura hay una ${variable}."""
+    if isinstance(obj, str):
+        return bool(_VAR.search(obj))
+    if isinstance(obj, list):
+        return any(con_variables(x) for x in obj)
+    if isinstance(obj, dict):
+        return any(con_variables(x) for x in obj.values())
+    return False
+
+
+def reponer_variables(plantilla, nuevo):
+    """Al aprobar una salida nueva: donde la salida aprobada anterior tenia una ${variable}, se conserva (si el
+    campo sigue estando). Lo demas queda con el valor nuevo."""
+    if isinstance(plantilla, str) and _VAR.search(plantilla):
+        return plantilla
+    if isinstance(plantilla, dict) and isinstance(nuevo, dict):
+        return {k: reponer_variables(plantilla[k], v) if k in plantilla else v for k, v in nuevo.items()}
+    if isinstance(plantilla, list) and isinstance(nuevo, list):
+        return [reponer_variables(plantilla[i], v) if i < len(plantilla) else v for i, v in enumerate(nuevo)]
+    return nuevo
 
 
 def variables_base(suite, fila, caso):

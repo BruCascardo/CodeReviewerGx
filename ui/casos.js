@@ -156,6 +156,7 @@ function pasosCaso(ctx, res) {
   const preps = (res?.pasos || []).filter((p) => p.preparacion);
   const cont = h("div");
   for (const a of res?.advertencias || []) cont.appendChild(h("div", { class: "aviso-caja" }, "⚠ ", a));
+  if (res?.variablesRecibidas) cont.appendChild(variablesRecibidas(res.variablesRecibidas));
   for (const p of preps) if (p.estado !== "ok") cont.appendChild(h("div", { class: "error-caja" }, `Preparación «${p.nombre}»: ${p.error || NOMBRE_ESTADO[p.estado]}`));
   const n = ctx.caso.pasos.length;
   ctx.caso.pasos.forEach((def, i) => cont.appendChild(tarjetaPaso(ctx, def, prs[i] || null, i, res, n)));
@@ -296,7 +297,7 @@ function controlesPaso(ctx, def, pr, i, res) {
 
   // 6. Variables que guarda
   if (def.guardar && Object.keys(def.guardar).length) {
-    fila("Guarda", "Valores de la salida que usan los pasos siguientes como ${variable}.",
+    fila("Guarda", "Valores de la salida que usan los pasos siguientes como ${variable} (con casos encadenados, también los casos siguientes).",
       h("div", { class: "chips" }, Object.entries(def.guardar).map(([k, r]) => h("span", { class: "chip" },
         h("code", null, "${" + k + "}"), " ← ", h("code", null, r),
         h("button", { title: "Quitar", onclick: () => cambiar((p) => { delete p.guardar[k]; if (!Object.keys(p.guardar).length) delete p.guardar; }, `Ya no se guarda \${${k}}`) }, "✕")))));
@@ -374,8 +375,19 @@ function salidaPaso(ctx, def, pr, i, res) {
     if (v.ignorar) { if (!(p.ignorar = p.ignorar || []).includes(v.ignorar)) p.ignorar.push(v.ignorar); }
     else (p.verificaciones = p.verificaciones || []).push(v);
   }, v.ignorar ? `No se compara más ${v.ignorar}` : "Verificación agregada");
+  const guardarVariable = async (ruta) => {
+    // Nombre sugerido: el último campo de la ruta (outSet.CuponId -> cuponId).
+    const ultimo = (ruta.split(".").pop() || "valor").replace(/\[.*$/, "").replace(/\W/g, "");
+    const sugerido = ultimo ? ultimo[0].toLowerCase() + ultimo.slice(1) : "valor";
+    const nombre = await pedirTexto("Guardar como variable", `Nombre de la variable para ${ruta}. Los pasos siguientes la usan escribiendo \${nombre}; con casos encadenados, también los casos siguientes.`, sugerido);
+    if (nombre === null) return;
+    const k = nombre.trim().replace(/^\$\{|\}$/g, "");
+    if (!/^[A-Za-z_]\w*$/.test(k)) { toast("El nombre solo puede tener letras, números y _, y no puede empezar con un número", "error"); return; }
+    ctx.guardar((caso) => { (caso.pasos[i].guardar = caso.pasos[i].guardar || {})[k] = ruta; }, `Se guarda \${${k}}`);
+  };
   const alClic = (ruta, valor, ev) => menuVerificacion(ev, ruta, valor, agregarVerif,
-    () => editorVerificacion({ v: { ruta, op: valor && typeof valor === "object" ? "no_vacio" : "igual", valor: typeof valor === "string" ? valor.trimEnd() : valor && typeof valor === "object" ? undefined : valor }, datos: pr.datos, alGuardar: agregarVerif }));
+    () => editorVerificacion({ v: { ruta, op: valor && typeof valor === "object" ? "no_vacio" : "igual", valor: typeof valor === "string" ? valor.trimEnd() : valor && typeof valor === "object" ? undefined : valor }, datos: pr.datos, alGuardar: agregarVerif }),
+    () => guardarVariable(ruta));
   const resaltar = new Set([...(pr.diferencias || []).map((d) => d.ruta), ...gruposDiferencias(pr).flatMap((g) => g.ejemplos.map((e) => e.ruta))]);
   const pests = [];
   if (pr.datos !== undefined && pr.datos !== null) {

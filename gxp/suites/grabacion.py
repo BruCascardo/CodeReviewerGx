@@ -8,6 +8,7 @@ import time
 
 from . import almacen
 from .ejecucion import correr_caso, linea_base_de, nombre_paso
+from .variables import reponer_variables
 from .. import catalogo, kbs
 from ..comparacion import detectar_volatiles, volatiles_por_valor
 from ..config import CFG
@@ -22,7 +23,11 @@ def _sumar_volatiles(paso, nuevas):
 
 
 def _poner_linea_base(caso, paso, fila, datos):
-    """Guarda 'datos' como salida aprobada del paso (con 'datos' en el caso, la de esa fila)."""
+    """Guarda 'datos' como salida aprobada del paso (con 'datos' en el caso, la de esa fila). Los campos donde la
+    salida aprobada anterior tenia una ${variable} la conservan."""
+    anterior = linea_base_de(paso, fila if caso.get("datos") else None)
+    if anterior is not None:
+        datos = reponer_variables(anterior, datos)
     if caso.get("datos") and fila is not None:
         lb = paso.get("lineaBase") if isinstance(paso.get("lineaBase"), list) else []
         while len(lb) <= fila:
@@ -33,11 +38,12 @@ def _poner_linea_base(caso, paso, fila, datos):
         paso["lineaBase"] = datos
 
 
-def hace_commit(kb, caso, opciones):
-    """Motivo por el que no conviene volver a ejecutar el caso (graba de verdad), o None."""
+def hace_commit(kb, caso, opciones, simulado=False):
+    """Motivo por el que no conviene volver a ejecutar el caso (graba de verdad), o None. 'simulado': corre con
+    script previo, y el motor simula el commit de los objetos."""
     if (caso.get("transaccion") or opciones.get("transaccion", "rollback")) == "commit":
         return "el caso corre con commit"
-    for p in caso["pasos"]:
+    for p in [] if simulado else caso["pasos"]:
         if p.get("objeto"):
             try:
                 if catalogo.hace_commit(kb, catalogo.buscar(kb, p["objeto"])["nombre"]):
@@ -47,14 +53,15 @@ def hace_commit(kb, caso, opciones):
     return None
 
 
-def segunda_ejecucion(kb, suite, caso, opciones, inicio):
-    """Vuelve a correr el caso para ver que valores cambian solos. Devuelve (resultados, motivo si no se corrio)."""
-    motivo = hace_commit(kb, caso, opciones)
+def segunda_ejecucion(kb, suite, caso, opciones, inicio, entorno=None):
+    """Vuelve a correr el caso (en el entorno de la corrida) para ver que valores cambian solos. Devuelve
+    (resultados, motivo si no se corrio)."""
+    motivo = hace_commit(kb, caso, opciones, bool(entorno and entorno.activo))
     if motivo:
         return None, motivo
     # Al menos un segundo despues: una fecha con hora que cambia sola tiene que poder dar distinto.
     time.sleep(max(0.0, 1.1 - (time.time() - inicio)))
-    return correr_caso(kb, suite, caso, opciones, grabar=True), None
+    return correr_caso(kb, suite, caso, opciones, grabar=True, entorno=entorno), None
 
 
 def aplicar_grabacion(caso, resultados, segunda=None, motivo_sin_segunda=None, campos=None):
@@ -94,7 +101,10 @@ def volatiles_de_caso(suite_id, caso_id):
     kb = kbs.obtener(suite["kb"])
     opciones = {**CFG["opcionesSuite"], **(suite.get("opciones") or {})}
     salida = {"volatiles": {}, "avisos": []}
-    motivo = hace_commit(kb, caso, opciones)
+    motivo = hace_commit(kb, caso, opciones, bool(suite.get("scriptPrevio")))
+    if opciones.get("casosEncadenados"):
+        motivo = ("los casos de la suite estan encadenados y este depende de los anteriores. Para aprobar la salida "
+                  "que da dentro de la cadena, corre la suite con «Aprobar salidas actuales»")
     rs = None if motivo else correr_caso(kb, suite, caso, opciones, grabar=True)
     sin_correr = [{"fila": fi if caso.get("datos") else None, "pasos": []} for fi in range(len(caso.get("datos") or [None]))]
     for res in rs or sin_correr:

@@ -2,7 +2,7 @@
 
 Pruebas genéricas sobre el Java que genera GeneXus, con interfaz gráfica y línea de comandos.
 
-Ejecuta **cualquier procedimiento o Data Provider** de cualquier KB compilada, sin el IDE ni Tomcat. Cada caso corre en una transacción que por defecto se deshace al final: se puede dar de alta, modificar y borrar sin dejar datos en la base.
+Ejecuta **cualquier procedimiento o Data Provider** de cualquier KB compilada, sin el IDE ni Tomcat. Cada caso corre en una transacción que por defecto se deshace al final: se puede dar de alta, modificar y borrar sin dejar datos en la base. Con un **script previo**, la suite arranca de una base conocida (por ejemplo, vacía) y las salidas no dependen de los datos que haya (ver «Script previo»).
 
 ## Cómo se usa
 
@@ -16,7 +16,7 @@ Ejecuta **cualquier procedimiento o Data Provider** de cualquier KB compilada, s
 - La KB compilada al menos una vez: tienen que existir `JavaModel\web\build\classes` y `build\libs`.
 - La base de datos de la KB levantada (MySQL local).
 
-No hace falta instalar nada más: no usa librerías externas.
+No hace falta instalar nada más: no usa librerías externas. La única excepción es la **base compartida** (ver más abajo), que necesita PyMySQL: `python -m pip install -r requirements.txt`.
 
 ## Flujo recomendado
 
@@ -29,8 +29,8 @@ No hace falta instalar nada más: no usa librerías externas.
 
 | Pantalla | Para qué |
 |---|---|
-| **Explorar** | Catálogo de procedimientos y Data Providers sacado de la especificación. Para cada uno: parámetros con su dirección y tipo Java, entrada como formulario (con combos) o JSON, consultas SQL después, rollback o commit, salida en árbol (los espacios finales de los `Character` se ven como `·`), consola, excepción, navegación (tablas, índices, filtros) con el **plan de ejecución** y sus recomendaciones, y warnings de especificación. |
-| **Suites** | Casos con sus pasos. Cada fila dice qué controla el caso y, si falló, por qué. Al abrir un caso, cada paso muestra **Qué controla** (salida aprobada, verificaciones, esperado, campos que no se comparan, valores que cambian solos, variables que guarda) con el resultado de la última corrida, y se edita ahí mismo. La salida aparece marcada con lo que se controla. Correr todo, los seleccionados o los fallidos; aprobar salidas. Opciones, variables y preparación por suite. |
+| **Explorar** | Catálogo de procedimientos y Data Providers sacado de la especificación. Para cada uno: parámetros con su dirección y tipo Java, entrada como formulario (con combos) o JSON, **SQL previo** (por ejemplo, para vaciar tablas antes de ejecutar; se puede copiar el script previo de una suite), consultas SQL después, rollback o commit, salida en árbol (los espacios finales de los `Character` se ven como `·`), consola, excepción, navegación (tablas, índices, filtros) con el **plan de ejecución** y sus recomendaciones, y warnings de especificación. |
+| **Suites** | Casos con sus pasos. Cada fila dice qué controla el caso y, si falló, por qué. Al abrir un caso, cada paso muestra **Qué controla** (salida aprobada, verificaciones, esperado, campos que no se comparan, valores que cambian solos, variables que guarda) con el resultado de la última corrida, y se edita ahí mismo. La salida aparece marcada con lo que se controla. Correr todo, los seleccionados o los fallidos; aprobar salidas. Script previo (arriba de los casos, con el resultado de la última corrida), opciones, variables y preparación por suite. |
 | **Historial** | Todas las corridas, con su detalle y descarga en JUnit XML o JSON. |
 | **Revisión** | Las buenas prácticas de cada objeto, **lo recién modificado primero** (por la fecha de su especificación), agrupado en Hoy, Ayer, Esta semana, etc. Filtros: todos, con problemas o solo **nuevos**; búsqueda; una KB o todas. Cada objeto despliega sus hallazgos (línea, sentencia, cómo arreglarlo) y **Ver fuente** muestra el código GX con las líneas marcadas. **Revisar cambios** revisa lo modificado desde la última revisión (lo mismo que hace solo el build). |
 | **SQL** | Consultas contra cualquier datasource de la KB, usando la misma conexión que la aplicación. Siempre con rollback. |
@@ -44,6 +44,7 @@ No hace falta instalar nada más: no usa librerías externas.
   "kb": "Generales",
   "opciones": { "transaccion": "rollback", "recortarEspacios": true },
   "variables": { "itf": 1 },
+  "scriptPrevio": [ { "ds": "GENERALES", "sql": "delete from gntItfRegCampo;\ndelete from gntItfRegistro;" } ],
   "preparacion": [],
   "casos": [
     {
@@ -97,6 +98,46 @@ Cada paso se puede validar de cuatro formas, y se pueden combinar:
 - la salida de un paso anterior: `${alta.outSet.RegTipo}`, con el nombre del paso en minúsculas;
 - lo que se le mandó a un paso anterior: `${alta.entrada.inSet.Tipo}`. Sirve para no escribir valores esperados a mano: por ejemplo, que el Get devuelva lo que recibió el Set;
 - las predefinidas `${hoy}`, `${ahora}`, `${aleatorio}`, `${uuid}` y `${caso}`.
+
+Las variables se reemplazan en `entrada`, `sql`, `esperado`, `verificaciones` y también en la salida aprobada (`lineaBase`): con `"ItfId": "${idItf}"` ahí, el campo tiene que dar el valor que tenga la variable en esa corrida. Al aprobar una salida nueva, los campos donde había una variable la conservan. En `lineaBase`, una variable que no existe se compara como texto (por si la salida real tiene un `${...}` propio).
+
+En la pantalla Suites, el panel **Variables** muestra cada `${variable}` de la suite: de dónde sale (variables de la suite, columna de `datos`, o qué caso y paso la guarda), el último valor que tomó, qué casos la usan, y un aviso si no le va a llegar a alguno (casos aislados, un caso que corre antes del que la guarda, o una variable que nadie define).
+
+Lo que se guarda con `guardar` llega a los pasos siguientes **del mismo caso**. Con **casos encadenados** también llega a los casos que corren después (ver «Casos aislados o encadenados»). Para guardar un valor sin escribir JSON: clic en él en la salida del caso → «Guardar como variable». La explicación completa, con ejemplos, está en Opciones de la suite → Variables → «¿Cómo funcionan las variables?».
+
+- **`scriptPrevio`** (opcional): corre una vez antes de todos los casos y cada caso arranca de la base que deja (ver «Script previo»).
+- **`opciones.casosEncadenados`** (opcional): `true` para que cada caso siga de lo que dejó el anterior, en lugar de arrancar de cero (ver «Casos aislados o encadenados»).
+- **`preparacion`** (opcional): pasos que corren al principio de **cada** caso, dentro de su transacción.
+- Un paso `sql` puede tener varias sentencias separadas por `;`: corren en orden y la salida es la de la última.
+
+### Script previo
+
+Sirve para que las salidas no varíen según los datos que haya en la base: el script deja la base en un estado conocido (por ejemplo, vacía) y los casos cargan solo los datos que necesitan, con resultados que se saben de antemano. Se escribe en **Suites → Más → Opciones** (uno o varios bloques, cada uno en un datasource) y se ve arriba de los casos.
+
+Con script previo, **toda la corrida es una sola transacción**:
+
+1. Rollback, el script (una sola vez) y un savepoint en cada datasource MySQL de la KB.
+2. Cada caso, y cada fila de `datos`, corre y al terminar vuelve al savepoint (o, con casos encadenados, sigue: ver abajo).
+3. Al final, rollback de todo, el script incluido: la base queda como estaba.
+
+#### Casos aislados o encadenados
+
+En **Opciones → Entre un caso y otro** se elige qué ve cada caso:
+
+- **Cada caso arranca de cero** (por defecto): al terminar, la base vuelve a como la dejó el script. Ningún caso ve lo que hicieron los anteriores, así que se puede correr uno solo, los fallidos o en cualquier orden, y da lo mismo. Sin script previo, cada caso corre en su propia transacción, como siempre.
+- **Cada caso sigue de lo que dejó el anterior** (`"opciones": {"casosEncadenados": true}`): lo que hace un caso queda para el siguiente. Por ejemplo, el caso 1 crea un cupón y el 2 lo usa. Lo que un caso guarda con `guardar` llega como `${variable}` a los casos que corren después: el caso 1 hace `"guardar": {"cupon": "outSet.CuponId"}` y el caso 2 usa `"${cupon}"`. Solo pasa lo de `guardar` (no `${paso.salida...}`), y si una fila de `datos` tiene una columna con el mismo nombre, gana la columna. El resultado de cada caso muestra qué variables recibió. Si un caso usa una variable que guarda otro y no le llega, el error dice qué caso la guarda y por qué no llegó. Igual toda la corrida es una transacción y al final se deshace, con o sin script previo. El orden de los casos importa: si corrés solo algunos (seleccionados, fallidos, `--filtro`, `--etiqueta`), los que dependen de otros pueden fallar, y GxPruebas lo advierte. Al aprobar salidas, la cadena se corre dos veces completa (desde el script) para detectar lo que cambia solo. Un caso guardado desde Explorar en una suite encadenada no se vuelve a ejecutar solo: aprobá su salida corriendo la suite con «Aprobar salidas actuales».
+
+Mientras dura la corrida, el **commit y el rollback de los objetos se simulan**: el motor envuelve la conexión de GeneXus y un commit pone otro savepoint en lugar de confirmar, y un rollback vuelve al último commit o, si no hubo, al inicio del caso (encadenados) o a la base del script. Así nada confirma el script (la base quedaría vacía de verdad) y los objetos que hacen commit en la misma unidad de trabajo, como una llamada a `prcCommit`, se prueban igual. El caso lo avisa («se simularon con savepoints»). Lo que corre en **otra unidad de trabajo** (procedimientos con *Execute in new LUW*, como `Sistema.Global.PrcLog`) usa otra conexión: su commit confirma solo lo suyo (el log) y no toca esta transacción.
+
+Para que el script no se pueda confirmar:
+
+- No se aceptan sentencias que en MySQL confirman la transacción solas (`truncate`, `drop`, `alter`, `create`, `rename`, `lock`…) ni las que la manejan (`commit`, `rollback`, `savepoint`, `set autocommit`). Para vaciar una tabla, `delete from` (las hijas primero, o `set foreign_key_checks = 0` al principio y `= 1` al final). Esto vale para cualquier paso SQL, con o sin script.
+- Un caso con `"transaccion": "commit"` no se ejecuta (tampoco con casos encadenados).
+- Si igual se pierde el savepoint (se reinició el motor por un tiempo agotado o un build), el caso lo avisa y el script se vuelve a correr para los siguientes.
+
+Si el script termina con error, no se corre ningún caso: cada uno queda en error con el motivo, y el detalle por sentencia (filas cambiadas, error) está en la corrida. Mientras corre una suite con script, el motor de la KB queda tomado: Explorar espera a que termine.
+
+En **Explorar**, el **SQL previo** hace lo mismo antes de cada ejecución (es por KB, no por objeto). Al guardar como caso, se ofrece usarlo como script previo de la suite o como primeros pasos del caso.
 
 ### Configurar un caso (pantalla Suites)
 
@@ -163,6 +204,59 @@ La pestaña **Grafo** muestra los objetos de **todas las KBs** y cómo se relaci
 - **Regenerar** agrega los objetos nuevos y saca los que ya no son de solo lectura; los casos existentes quedan como están. Para dejar un caso afuera, marcalo con `"omitir": true` (si lo borrás, vuelve). `--solo texto` regenera solo esos objetos.
 - El informe de la generación (qué se descartó y por qué) queda en `.cache\generar-<kb>.json`.
 
+## Base compartida (equipo)
+
+Las suites y la configuración del equipo pueden vivir en una base **MySQL compartida** en lugar de en archivos, para que todos los desarrolladores lean y graben las mismas. Se activa con variables de entorno; sin ellas, GxPruebas sigue usando los archivos locales.
+
+**Qué se comparte:**
+
+| En la base | Antes estaba en |
+| --- | --- |
+| Las suites (con sus salidas aprobadas) | `suites\<KB>\<suite>.json` |
+| Configuración del revisor: reglas, **objetos ignorados** y excepciones | `revisor.json` |
+| `opcionesSuite` y `despuesDelBuild` | `config.json` |
+
+Queda **local** lo propio de cada máquina: el resto de `config.json` (carpetas de las KBs, Java, puerto), el historial de corridas (`resultados\`) y la línea base del revisor (`.cache\`). Si `config.json` local tiene `opcionesSuite` o `despuesDelBuild`, pisa a lo de la base solo en esa máquina.
+
+**Configuración.** Copiá `.env.ejemplo` como `.env` (no va al repositorio) y completá los datos. Las variables de entorno de Windows con el mismo nombre tienen prioridad.
+
+```ini
+GXP_DB_HOST=gascode.com.ar
+GXP_DB_PORT=3306
+GXP_DB_USER=...
+GXP_DB_PASSWORD=...
+GXP_DB_NAME=gxpruebas
+```
+
+Opcionales: `GXP_USUARIO` (el nombre que queda en cada cambio; por defecto, el usuario de Windows), `GXP_DB_SSL=no` (no cifrar; por defecto cifra si el servidor lo permite), `GXP_DB_SSL_CA` (verifica el certificado del servidor) y `GXP_EDITOR` (editor de `compartido editar`; por defecto, Notepad).
+
+**Comandos:**
+
+```bat
+python gxpruebas.py compartido estado                 :: si está configurada, si responde y qué tiene
+python gxpruebas.py compartido inicializar            :: crea la base y las tablas (lo hace solo 'subir')
+python gxpruebas.py compartido subir [archivos] [--pisar]   :: sube las suites locales, revisor.json y lo compartido de config.json
+python gxpruebas.py compartido editar revisor         :: abre la configuración del revisor en el editor y la sube al cerrarlo
+python gxpruebas.py compartido editar config          :: opcionesSuite y despuesDelBuild
+python gxpruebas.py compartido editar interfases-registro   :: el JSON de una suite
+python gxpruebas.py compartido historial <revisor|config|suite>
+python gxpruebas.py compartido restaurar <suite> [--version N]   :: recupera una suite borrada o vuelve a una versión
+python gxpruebas.py compartido papelera               :: suites borradas
+python gxpruebas.py compartido bajar [--carpeta X]    :: copia todo a archivos (respaldo)
+```
+
+**La primera vez** (una sola persona): `compartido subir` sube todo lo local. Lo que ya está en la base con otro contenido no se toca y se lista como `distinta`: `--pisar` lo reemplaza (la versión de la base queda en el historial). Al subir `config.json` se sacan de ese archivo `opcionesSuite` y `despuesDelBuild`, porque si no pisarían siempre a los de la base.
+
+**Cómo funciona:**
+
+- Dos tablas: `gxp_documentos` (un documento por suite y por configuración, con su versión, quién y cuándo lo cambió) y `gxp_historial` (las 20 versiones anteriores de cada uno). El JSON va comprimido en el formato de `COMPRESS()` de MySQL: `SELECT UNCOMPRESS(contenido) FROM gxp_documentos WHERE clave = 'revisor'` lo muestra.
+- **Cambios simultáneos:** al guardar una suite se controla que nadie la haya cambiado desde que se abrió. Si alguien lo hizo, no se pisa: la interfaz muestra «cambió desde que la abriste» y hay que volver a abrirla.
+- **Borrar** una suite solo la marca: `compartido papelera` y `compartido restaurar` la recuperan.
+- **Sin conexión:** lo que se leyó queda copiado en `.cache\compartido\`. Si la base no responde, se usa esa copia con un aviso (en la interfaz, el indicador «base compartida» se pone en rojo) y no se puede grabar hasta que vuelva.
+- `opcionesSuite` y `despuesDelBuild` se leen al arrancar: después de cambiarlos, reiniciá la interfaz.
+- Con la base activa, la carpeta `suites\` y `revisor.json` locales **no se usan**. Para cambiar una suite a mano: `compartido editar <suite>`, o editá el archivo y subilo con `compartido subir suites\<KB>\<suite>.json --pisar`.
+- Las pruebas unitarias (`python -m unittest`) usan siempre los archivos locales.
+
 ## Revisor de buenas prácticas
 
 `python gxpruebas.py revisar --kb Generales` revisa el **fuente GX** de los objetos (no el Java) contra las buenas prácticas del equipo. Devuelve el código 1 si encuentra algún error.
@@ -219,6 +313,7 @@ python gxpruebas.py correr --kb Generales --etiqueta alta --junit resultados.xml
 python gxpruebas.py correr interfases-registro --grabar      :: aprueba las salidas actuales (corre dos veces cada caso)
 python gxpruebas.py ejecutar --kb Generales --objeto Generales.Interfases.Registro.List --entrada "{\"inList\":{\"ItfId\":1}}"
 python gxpruebas.py ejecutar --kb Generales --objeto ... --entrada @entrada.json --sql "GENERALES: select ..."
+python gxpruebas.py ejecutar --kb Generales --objeto ... --sql-previo "GENERALES: delete from a; delete from b"   :: como el script previo
 python gxpruebas.py describir --kb Generales --objeto Generales.Interfases.Registro.Set
 python gxpruebas.py objetos --kb Generales --buscar interfases
 python gxpruebas.py sql --kb Generales --ds GENERALES "select * from gntInterfase"
@@ -265,7 +360,7 @@ Limitaciones: solo se reconocen las tablas de las transacciones de la misma KB, 
 - **Catálogo:** lee los XML de navegación (`GXSPC*\GEN*\NVG\**.xml`) que deja la especificación. De ahí salen los objetos, los parámetros con `in`/`out`/`inout`, la navegación y los warnings.
 - **Motor:** `motor\GxMotor.java` corre en una JVM por KB, con el classpath de la KB. Inicializa GeneXus con el `client.cfg` de la KB, ejecuta `execute(...)` por reflexión y convierte los JSON a SDT y al revés con la serialización de GeneXus. Las consultas SQL usan la misma conexión: por eso ven los cambios sin confirmar.
 - **Sin bloquear tus builds:** los `.jar` de `build\libs` se copian a `.cache\jars`, compartida entre KBs: un mismo `.jar` se guarda una sola vez aunque lo usen varias KBs (se identifica por un hash de su contenido, que se calcula la primera vez y queda en `indice.json`). Cada vez que arranca un motor se borran las copias que ya no usa ninguna KB (las que están abiertas por un motor en marcha quedan para la próxima). Si GeneXus recompila, el motor se reinicia solo en el siguiente pedido. Si pasan 15 minutos sin uso, se apaga y libera las conexiones.
-- **Resultados:** se guardan en `resultados\` como JSON (las últimas 300 corridas). Las suites borradas van a `.papelera\`.
+- **Resultados:** se guardan en `resultados\` como JSON (las últimas 300 corridas). Las suites borradas van a `.papelera\` (con la base compartida, quedan marcadas en la base).
 
 ### Dónde está cada cosa
 
@@ -276,11 +371,12 @@ Limitaciones: solo se reconocen las tablas de las transacciones de la misma KB, 
 | `kbs.py`, `catalogo.py`, `config.py`, `util.py` | KBs encontradas, objetos y parámetros, `config.json`, lectura y escritura de JSON |
 | `campos\` | combos del formulario: dominio de cada campo de la entrada, tablas con su clave y valores de la base |
 | `plan\` | plan de ejecución: sentencias SQL del `.java`, `EXPLAIN`, índices de la base y recomendaciones |
-| `motor\` | el proceso Java de cada KB: describir, ejecutar, SQL, fin de transacción |
-| `suites\` | formato y almacén de las suites, ejecución de pasos y casos, salidas aprobadas, corridas, reportes |
+| `motor\` | el proceso Java de cada KB: describir, ejecutar, SQL, fin de transacción, savepoint del script previo |
+| `suites\` | formato y almacén de las suites, script previo, ejecución de pasos y casos, salidas aprobadas, corridas, reportes |
 | `comparacion\` | comparación con `esperado` y la salida aprobada, operadores de `verificaciones`, volátiles |
 | `generacion\`, `efectos.py` | suites `auto-*` y la detección de objetos de solo lectura |
 | `revisor\` | fuente GX desde la especificación, reglas de buenas prácticas, línea base, pantalla Revisión |
+| `compartido\` | base compartida (MySQL): conexión y `.env`, documentos con versión, historial y copia local |
 | `grafo\` | quién usa a quién, en todas las KBs y en los `.jar` publicados |
 | `vigilancia.py`, `automatico\`, `notificaciones.py` | detección de builds y lo que corre después de cada uno |
 | `cli\` | comandos de consola: cada módulo registra los suyos con `registrar(sub)` |
@@ -296,7 +392,7 @@ python -m unittest discover -s . -p "test_*.py" -t .
 
 ## Cuidados
 
-- Un objeto con **Commit on exit = Yes**, o que hace `Commit` explícito, graba aunque el caso haga rollback. La interfaz lo marca con «⚠ hace commit», y la corrida lo avisa.
+- Un objeto con **Commit on exit = Yes**, o que hace `Commit` explícito, graba aunque el caso haga rollback. La interfaz lo marca con «⚠ hace commit», y la corrida lo avisa. Con script previo no: ese commit se simula.
 - La **base local** es la que dice el `client.cfg` de la KB. Si la volvés a descargar con tus scripts, las líneas base que dependen de los datos pueden cambiar.
 - Los procedimientos que dependen de la **sesión web** (GAM, WebSession, HttpRequest) pueden comportarse distinto fuera de Tomcat.
 - La interfaz escucha solo en `127.0.0.1`.

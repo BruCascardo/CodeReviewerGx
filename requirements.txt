@@ -1,0 +1,2 @@
+# Solo para la base compartida (gxp/compartido). Sin ella, GxPruebas no necesita librerias externas.
+PyMySQL>=1.1

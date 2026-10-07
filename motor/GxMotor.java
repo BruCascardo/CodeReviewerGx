@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.Savepoint;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,10 +30,18 @@ import java.util.concurrent.*;
  *   {"id":3, "cmd":"ejecutar", "clase":"...", "args":[{"modo":"in","valor":{...}}, {"modo":"out"}], "timeoutMs":60000}
  *   {"id":4, "cmd":"sql", "ds":"GENERALES", "query":"select ...", "max":500}
  *   {"id":5, "cmd":"rollback"}   {"id":6, "cmd":"commit"}   {"id":7, "cmd":"salir"}
+ *   {"id":8, "cmd":"marcar", "ds":["GENERALES"], "otros":["SISTEMA"]}   {"id":9, "cmd":"volver"}   {"id":10, "cmd":"avanzar"}
  *
  * La transaccion queda abierta entre pedidos: el que llama decide cuando hacer rollback o commit. Asi un
  * escenario puede ejecutar varios objetos, consultar la base con SQL (ve los cambios sin confirmar,
  * porque usa la misma conexion) y deshacer todo al final.
+ *
+ * "marcar" pone un savepoint en la conexion de cada datasource (despues del script previo de una suite) y
+ * "volver" deshace todo lo posterior: en esos datasources hasta el savepoint, en los demas por completo. Asi
+ * cada caso arranca de la base que dejo el script, sin volver a correrlo. Hasta el fin de la transaccion, el
+ * commit y el rollback de los objetos en esos datasources se simulan con savepoints (ver Protegida). Si el
+ * savepoint se perdio (cambio la conexion), "volver" lo informa en "perdidos". Con los casos encadenados, "avanzar"
+ * no deshace nada: el fin de un caso cuenta como un commit simulado (un rollback en el siguiente vuelve ahi).
  */
 public class GxMotor {
 
@@ -172,6 +181,9 @@ public class GxMotor {
          case "sql": return sql(req);
          case "rollback": return finTransaccion(false);
          case "commit": return finTransaccion(true);
+         case "marcar": return marcar(req.optJSONArray("ds"), req.optJSONArray("otros"));
+         case "volver": return terminarCaso(true);
+         case "avanzar": return terminarCaso(false);
          case "salir": {
             JSONObject r = new JSONObject();
             r.put("ok", true);
@@ -534,9 +546,15 @@ public class GxMotor {
 
    // ------------------------------------------------------------------ base de datos
 
+   /** El nombre del datasource tal como lo conoce la KB (sin nombre: el ultimo, como en las consultas). */
+   static String nombreDs(String ds) {
+      if (ds == null || ds.isBlank()) return dataSources.isEmpty() ? "DEFAULT" : dataSources.get(dataSources.size() - 1);
+      for (String d : dataSources) if (d.equalsIgnoreCase(ds.trim())) return d;
+      return ds.trim();
+   }
+
    static Connection conexion(String ds) throws Exception {
-      if (ds == null || ds.isBlank()) ds = dataSources.isEmpty() ? "DEFAULT" : dataSources.get(dataSources.size() - 1);
-      com.genexus.db.driver.GXConnection c = DBConnectionManager.getInstance().getConnection(ctx, rh, ds, false, true);
+      com.genexus.db.driver.GXConnection c = DBConnectionManager.getInstance().getConnection(ctx, rh, nombreDs(ds), false, true);
       return c.getJDBCConnection();
    }
 
@@ -585,21 +603,166 @@ public class GxMotor {
    }
 
    static JSONObject finTransaccion(boolean confirmar) {
+      desactivar();
       JSONObject r = new JSONObject();
       JSONArray errores = new JSONArray();
-      List<String> lista = dataSources.isEmpty() ? List.of("DEFAULT") : dataSources;
-      for (String ds : lista) {
+      for (String ds : todosLosDs()) finDs(ds, confirmar, errores);
+      r.put("ok", errores.isEmpty());
+      r.put("errores", errores);
+      return r;
+   }
+
+   static List<String> todosLosDs() {
+      return dataSources.isEmpty() ? List.of("DEFAULT") : dataSources;
+   }
+
+   static void finDs(String ds, boolean confirmar, JSONArray errores) {
+      try {
+         if (confirmar) DBConnectionManager.getInstance().commit(ctx, rh, ds);
+         else DBConnectionManager.getInstance().rollback(ctx, rh, ds);
+      } catch (Throwable e) {
+         String m = mensaje(e);
+         // Un datastore que nunca se uso no tiene conexion: no es un error.
+         if (!m.toLowerCase(Locale.ROOT).contains("not connected") && !m.toLowerCase(Locale.ROOT).contains("no connection"))
+            errores.put(ds + ": " + m);
+      }
+   }
+
+   // ------------------------------------------------------------------ script previo: savepoint y commits simulados
+
+   /**
+    * Envuelve la conexion JDBC de un datasource (el campo "con" de GXConnection, por donde GeneXus hace commit y
+    * rollback). Mientras esta activa, el commit de un objeto no llega a la base: pone el savepoint "gxp_commit"
+    * (lo confirmado) y el rollback vuelve al ultimo commit o, si no hubo, al savepoint del script previo. Asi
+    * nada confirma el script y los objetos que hacen commit se pueden probar igual.
+    */
+   static final class Protegida implements InvocationHandler {
+      final Connection real;
+      Savepoint previo, confirmado;
+      boolean activa;
+      int commits, rollbacks;
+
+      Protegida(Connection real) { this.real = real; }
+
+      public Object invoke(Object proxy, Method m, Object[] a) throws Throwable {
+         if (activa && (a == null || a.length == 0)) {
+            if (m.getName().equals("commit")) {
+               confirmado = real.setSavepoint("gxp_commit");
+               commits++;
+               return null;
+            }
+            if (m.getName().equals("rollback")) {
+               real.rollback(confirmado != null ? confirmado : previo);
+               rollbacks++;
+               return null;
+            }
+         }
          try {
-            if (confirmar) DBConnectionManager.getInstance().commit(ctx, rh, ds);
-            else DBConnectionManager.getInstance().rollback(ctx, rh, ds);
-         } catch (Throwable e) {
-            String m = mensaje(e);
-            // Un datastore que nunca se uso no tiene conexion: no es un error.
-            if (!m.toLowerCase(Locale.ROOT).contains("not connected") && !m.toLowerCase(Locale.ROOT).contains("no connection"))
-               errores.put(ds + ": " + m);
+            return m.invoke(real, a);
+         } catch (InvocationTargetException e) {
+            throw e.getCause();
          }
       }
-      r.put("ok", errores.isEmpty());
+   }
+
+   static final Map<String, Protegida> protegidas = new LinkedHashMap<>();
+
+   /** La Protegida instalada en la conexion actual del datasource (la instala si hace falta). */
+   static Protegida proteger(String ds) throws Exception {
+      com.genexus.db.driver.GXConnection gx = DBConnectionManager.getInstance().getConnection(ctx, rh, ds, false, true);
+      Field f = com.genexus.db.driver.GXConnection.class.getDeclaredField("con");
+      f.setAccessible(true);
+      Connection actual = (Connection) f.get(gx);
+      if (Proxy.isProxyClass(actual.getClass()) && Proxy.getInvocationHandler(actual) instanceof Protegida)
+         return (Protegida) Proxy.getInvocationHandler(actual);
+      Protegida p = new Protegida(actual);
+      f.set(gx, Proxy.newProxyInstance(Connection.class.getClassLoader(), new Class<?>[]{Connection.class}, p));
+      return p;
+   }
+
+   static void desactivar() {
+      for (Protegida p : protegidas.values()) {
+         p.activa = false;
+         p.previo = p.confirmado = null;
+      }
+      protegidas.clear();
+   }
+
+   /** Savepoint del script previo en los datasources "ds" (obligatorios) y "otros" (los que se puedan). */
+   static JSONObject marcar(JSONArray lista, JSONArray otros) throws Exception {
+      desactivar();
+      JSONArray marcados = new JSONArray();
+      JSONArray errores = new JSONArray();
+      for (int k = 0; k < 2; k++) {
+         JSONArray l = k == 0 ? lista : otros;
+         for (int i = 0; l != null && i < l.length(); i++) {
+            String ds = nombreDs(l.optString(i, ""));
+            if (protegidas.containsKey(ds)) continue;
+            try {
+               Protegida p = proteger(ds);
+               p.previo = p.real.setSavepoint("gxp_previo");
+               p.confirmado = null;
+               p.commits = p.rollbacks = 0;
+               p.activa = true;
+               protegidas.put(ds, p);
+               marcados.put(ds);
+            } catch (Exception e) {
+               if (k == 0) {
+                  desactivar();
+                  throw e;
+               }
+               errores.put(ds + ": " + mensaje(e));
+            }
+         }
+      }
+      JSONObject r = new JSONObject();
+      r.put("ok", true);
+      r.put("ds", marcados);
+      r.put("errores", errores);
+      return r;
+   }
+
+   /**
+    * Al terminar un caso. volver: al savepoint del script previo en los datasources marcados y rollback en los
+    * demas. Si no (casos encadenados): lo hecho queda y pasa a ser lo confirmado, como un commit simulado.
+    * Devuelve los commits y rollbacks que simularon los objetos durante el caso.
+    */
+   static JSONObject terminarCaso(boolean volver) {
+      JSONArray perdidos = new JSONArray();
+      JSONArray errores = new JSONArray();
+      int restaurados = 0, commits = 0, rollbacks = 0;
+      Set<String> lista = new LinkedHashSet<>(todosLosDs());
+      lista.addAll(protegidas.keySet());
+      for (String ds : lista) {
+         Protegida p = protegidas.get(ds);
+         if (p == null) {
+            if (volver) finDs(ds, false, errores);
+            continue;
+         }
+         try {
+            if (proteger(ds) != p) throw new IllegalStateException("cambio la conexion");
+            if (volver) {
+               p.real.rollback(p.previo);
+               p.confirmado = null;
+            } else {
+               p.confirmado = p.real.setSavepoint("gxp_commit");
+            }
+            commits = Math.max(commits, p.commits);  // un commit de GeneXus llega a todos los datasources
+            rollbacks = Math.max(rollbacks, p.rollbacks);
+            p.commits = p.rollbacks = 0;
+            restaurados++;
+         } catch (Throwable e) {
+            perdidos.put(ds + ": " + mensaje(e));
+            p.activa = false;
+            protegidas.remove(ds);
+         }
+      }
+      JSONObject r = new JSONObject();
+      r.put("ok", perdidos.isEmpty() && errores.isEmpty());
+      r.put("puntos", restaurados);
+      r.put("commits", commits);
+      r.put("rollbacks", rollbacks);
+      r.put("perdidos", perdidos);
       r.put("errores", errores);
       return r;
    }

@@ -64,11 +64,13 @@ def cmd_ejecutar(a):
         texto = Path(a.entrada[1:]).read_text(encoding="utf-8") if a.entrada.startswith("@") else a.entrada
         entrada = json.loads(texto)
     res = suites.ejecutar_suelto(kb, a.objeto, entrada, _sql_args(a.sql), "commit" if a.commit else "rollback",
-                                 timeout_ms=a.timeout)
+                                 timeout_ms=a.timeout, sql_previo=_sql_args(a.sql_previo))
     if a.completo:
         imprimir_json(res)
     else:
         salida = []
+        if res.get("scriptPrevio"):
+            salida.append({"paso": "SQL previo", **res["scriptPrevio"]})
         for p in res["pasos"]:
             d = {"paso": p["nombre"], "estado": p["estado"], "ms": p.get("ms")}
             for k in ("error", "datos", "advertencias"):
@@ -158,6 +160,8 @@ def registrar(sub):
     p.add_argument("--objeto", required=True)
     p.add_argument("--entrada", help="JSON {parametro: valor} o @archivo.json")
     p.add_argument("--sql", action="append", help="consulta a correr despues, en la misma transaccion ('DS: select ...')")
+    p.add_argument("--sql-previo", action="append",
+                   help="sentencias a correr antes del objeto, como el script previo de una suite ('DS: delete from ...; ...')")
     p.add_argument("--commit", action="store_true")
     p.add_argument("--timeout", type=int, default=120000)
     p.add_argument("--completo", action="store_true", help="muestra el resultado completo")

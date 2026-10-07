@@ -1,6 +1,7 @@
 """Un proceso Java (GxMotor) por KB, que inicializa GeneXus y atiende pedidos por stdin/stdout en JSON.
 
-- Si GeneXus recompila la KB (cambia su firma de build), el motor se reinicia solo en el siguiente pedido.
+- Si GeneXus recompila la KB (cambia su firma de build) o cambia GxMotor.java, el motor se reinicia solo en el
+  siguiente pedido.
 - Despues de un rato sin uso se apaga para liberar las conexiones a la base (Gestor).
 - 'lock' es reentrante: quien necesita varios pedidos seguidos sin que se mezclen otros (un caso de
   prueba completo, con su transaccion) lo toma durante todo el trabajo.
@@ -13,7 +14,7 @@ import time
 from collections import deque
 
 from . import classpath
-from ..config import CFG
+from ..config import CFG, MOTOR_FUENTE
 from ..util import SIN_VENTANA
 
 MARCA = "\x01GXR "  # prefijo de las lineas del protocolo en el stdout de GxMotor
@@ -21,6 +22,13 @@ MARCA = "\x01GXR "  # prefijo de las lineas del protocolo en el stdout de GxMoto
 
 class MotorError(Exception):
     pass
+
+
+def _fecha_fuente():
+    try:
+        return MOTOR_FUENTE.stat().st_mtime_ns
+    except OSError:
+        return None
 
 
 class Motor:
@@ -32,6 +40,7 @@ class Motor:
         self.cola = queue.Queue()
         self.log = deque(maxlen=600)
         self.firma = None
+        self.fuente_motor = None  # fecha de GxMotor.java con que se inicio
         self.inicio = None
         self.ultimo_uso = time.time()
         self.ultimo_error = None
@@ -54,6 +63,7 @@ class Motor:
             t0 = time.time()
             try:
                 self.firma = self.kb.firma_build()
+                self.fuente_motor = _fecha_fuente()
                 cp = classpath.preparar(self.kb, self.log.append)
                 cmd = [CFG["java"], *CFG["opcionesJvm"], "-cp", cp, "GxMotor", self.kb.ns,
                        ",".join(d["nombre"] for d in self.kb.datasources)]
@@ -151,6 +161,8 @@ class Motor:
         with self.lock:
             if self.recompilada():
                 self.detener("GeneXus recompilo la KB")
+            elif self.vivo() and self.fuente_motor != _fecha_fuente():
+                self.detener("cambio GxMotor.java")
             if not self.vivo():
                 self.iniciar()
             self.seq += 1

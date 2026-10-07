@@ -28,7 +28,7 @@ _REF = re.compile(r"\bcom\.[a-z][A-Za-z0-9_]*(?:\.[A-Za-z0-9_]+)+")
 _USA_DS = re.compile(r"\bpr_([a-z0-9_]+)\.execute\(")
 
 
-def _datastores_remotos(kb):
+def datastores_remotos(kb):
     """Nombres de los datastores de la KB cuyo DBMS no es MySQL, segun su client.cfg."""
     salida = set()
     for cfg in sorted(kb.clases.glob("com/*/client.cfg"))[:1]:
@@ -65,7 +65,7 @@ class Analisis:
         for k in kbs.descubrir().values():
             if k.ns and "/" not in k.nombre and "_fixes" not in k.nombre.lower():
                 self.por_ns.setdefault(k.ns, k)
-            self.remotas |= _datastores_remotos(k)
+            self.remotas |= datastores_remotos(k)
         self._info = {}      # ruta -> (marcas, refs, fechas de los archivos, cuando se reviso)
 
     def _archivo(self, fqn, kb):

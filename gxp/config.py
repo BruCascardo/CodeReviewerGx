@@ -1,4 +1,6 @@
-"""Configuracion: config.json en la carpeta de GxPruebas, con valores por defecto."""
+"""Configuracion: valores por defecto, pisados por la configuracion del equipo en la base compartida (si esta
+activa, ver gxp/compartido: las claves de COMPARTIDAS) y por config.json de la carpeta de GxPruebas, que
+queda para lo propio de cada maquina."""
 import json
 from pathlib import Path
 
@@ -39,20 +41,42 @@ DEFECTO = {
     },
 }
 
+# Lo que se comparte en la base (documento config/general). El resto (carpetas, Java, puerto) es de cada maquina.
+COMPARTIDAS = ("opcionesSuite", "despuesDelBuild")
+
+
+def _mezclar(cfg, otra):
+    for k, v in (otra or {}).items():
+        if isinstance(v, dict) and isinstance(cfg.get(k), dict):
+            cfg[k].update(v)
+        else:
+            cfg[k] = v
+
+
+def compartida():
+    """La configuracion del equipo en la base compartida ({} si no esta activa, no hay o no responde)."""
+    from . import compartido
+    if not compartido.activo():
+        return {}
+    try:
+        return compartido.leer(compartido.CONFIG, "general")["datos"] or {}
+    except KeyError:
+        return {}
+    except (compartido.SinConexion, compartido.SinPermiso) as e:
+        print(f"Aviso: no se pudo leer la configuracion compartida ({e}); se usan los valores locales.", flush=True)
+        return {}
+
 
 def cargar():
     cfg = json.loads(json.dumps(DEFECTO))
+    _mezclar(cfg, compartida())
     archivo = RAIZ / "config.json"
     if archivo.exists():
         try:
             propio = json.loads(archivo.read_text(encoding="utf-8"))
         except Exception as e:  # pragma: no cover
             raise SystemExit(f"config.json invalido: {e}")
-        for k, v in propio.items():
-            if isinstance(v, dict) and isinstance(cfg.get(k), dict):
-                cfg[k].update(v)
-            else:
-                cfg[k] = v
+        _mezclar(cfg, propio)
     return cfg
 
 

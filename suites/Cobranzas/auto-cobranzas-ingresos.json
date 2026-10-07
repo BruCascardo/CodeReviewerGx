@@ -4,7 +4,10 @@
   "descripcion": "Generada por 'gxpruebas.py generar': objetos de solo lectura (no escriben en la base, no hacen commit ni tienen efectos externos, contando lo que llaman). Controla que la salida no cambie respecto de la aprobada. Para dejar un caso afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
   "opciones": {
     "transaccion": "rollback",
-    "timeoutMs": 30000
+    "timeoutMs": 30000,
+    "recortarEspacios": true,
+    "listasParciales": false,
+    "toleranciaNumerica": 1e-06
   },
   "variables": {},
   "preparacion": [],
@@ -890,6 +893,12 @@
           }
         }
       ]
+    }
+  ],
+  "scriptPrevio": [
+    {
+      "ds": "COBRANZAS",
+      "sql": "delete from cbhLote;"
     }
   ]
 }
