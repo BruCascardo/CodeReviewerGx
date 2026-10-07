@@ -25,7 +25,8 @@ from .. import catalogo
 from ..revisor import fuente, prolog
 from .dominios import _literal
 
-_PREDICADOS = ["attri_i", "table_i", "index_i", "trn_level_i", "enum_value_i", "enum_value_info_i", "dom_info_i"]
+_PREDICADOS = ["attri_i", "table_i", "index_i", "trn_level_i", "enum_value_i", "enum_value_info_i", "dom_info_i",
+               "enumerated_i"]
 VIGENCIA_SEG = 30  # cada cuanto se mira si cambio alguna transaccion
 
 _cache = {}    # ruta del .sp0 -> (mtime, Indice parcial)
@@ -33,25 +34,45 @@ _indices = {}  # kb -> (hora, firma, Indice)
 _lock = threading.Lock()
 
 
+NUMERICOS = {"int", "numeric"}  # tipos de la clave a los que se les puede calcular el siguiente (max + 1)
+
+
 class Tabla:
-    def __init__(self, nombre, claves, descripcion, titulo):
+    def __init__(self, nombre, claves, descripcion, titulo, tipo="", atributos=None, enumerados=None):
         self.nombre = nombre            # gntInterfase
         self.claves = claves            # ['ItfId']
         self.descripcion = descripcion  # 'ItfNombre' o None
         self.titulo = titulo            # 'Interfases' (descripcion del nivel de la transaccion)
+        self.tipo = tipo                # tipo GX del ultimo atributo de la clave: 'int', 'char'...
+        self.atributos = atributos or list(claves)  # todos los atributos de la tabla (con las claves foraneas)
+        self.enumerados = enumerados or {}          # atributo -> id de su dominio enumerado
+
+    def tiene(self, atributo):
+        return atributo.lower() in {a.lower() for a in self.atributos}
+
+    @property
+    def numerica(self):
+        return self.tipo in NUMERICOS
 
     def json(self):
         return {"tabla": self.nombre, "atributo": self.claves[-1], "claves": self.claves,
-                "descripcion": self.descripcion, "titulo": self.titulo}
+                "descripcion": self.descripcion, "titulo": self.titulo, "numerica": self.numerica}
 
 
 class Indice:
     def __init__(self):
         self.tablas = {}    # atributo en minusculas -> Tabla
+        self.todas = {}     # nombre de la tabla en minusculas -> Tabla
         self.dominios = {}  # id -> 'Modulo\\Dominio'
         self.valores = {}   # id de dominio enumerado -> [{valor, nombre, descripcion}]
 
+    def hijas(self, t):
+        """Las tablas que tienen toda la clave de 't' entre sus atributos: los niveles subordinados y las que
+        la referencian con una clave foranea (en GeneXus, un atributo con el mismo nombre)."""
+        return [o for o in self.todas.values() if o.nombre.lower() != t.nombre.lower() and all(o.tiene(k) for k in t.claves)]
+
     def agregar_tabla(self, t):
+        self.todas.setdefault(t.nombre.lower(), t)
         k = t.claves[-1].lower()
         # Si dos tablas terminan su clave en el mismo atributo (subtipos), la de clave mas corta.
         if k not in self.tablas or len(t.claves) < len(self.tablas[k].claves):
@@ -68,14 +89,18 @@ class Indice:
 
 def armar(texto) -> Indice:
     """Indice de una transaccion (vacio si el .sp0 no es de una transaccion)."""
-    nombres, tablas, indices, niveles = {}, {}, {}, []
+    nombres, tipos, tablas, atts, indices, niveles, enums = {}, {}, {}, {}, {}, [], {}
     ix = Indice()
     for nombre, c in prolog.clausulas(texto, _PREDICADOS, saltear=("rule_i(0,datastore(",)):
         a = c.args
         if nombre == "attri_i" and isinstance(a[0], int):
             nombres[a[0]] = str(a[1][0])
+            tipos[a[0]] = str(a[1][1]) if len(a[1]) > 1 else ""
         elif nombre == "table_i":
             tablas[a[0]] = str(a[1][0])
+            atts[a[0]] = a[1][1] if len(a[1]) > 1 and isinstance(a[1][1], list) else []
+        elif nombre == "enumerated_i" and len(a) >= 3 and isinstance(a[1], int):
+            enums[a[1]] = a[2]
         elif nombre == "index_i" and len(a[1]) >= 3 and a[1][1] == "u":
             indices.setdefault(a[0], []).append((str(a[1][0]), a[1][2]))
         elif nombre == "trn_level_i":
@@ -96,7 +121,9 @@ def armar(texto) -> Indice:
         if not pk or not all(i in nombres for i in pk):
             continue
         descripcion = nombres.get(desc) if desc not in pk else None
-        ix.agregar_tabla(Tabla(tabla, [nombres[i] for i in pk], descripcion, titulo))
+        ids = [i for i in atts.get(tid, []) if i in nombres]
+        ix.agregar_tabla(Tabla(tabla, [nombres[i] for i in pk], descripcion, titulo, tipos.get(pk[-1], ""),
+                               [nombres[i] for i in ids] or None, {nombres[i]: enums[i] for i in ids if i in enums}))
     return ix
 
 

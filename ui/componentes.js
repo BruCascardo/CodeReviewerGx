@@ -292,25 +292,29 @@ function formularioJson(valorInicial, plantilla, alCambiar, opciones = {}) {
   let datos = clonar(valorInicial) ?? {};
   const cont = h("div", { class: "form-json" });
   const cerrados = new Set();
-  const modeloDe = (ruta) => {
-    // busca en la plantilla el primer elemento de la lista en esa ruta (indices -> 0)
+  const enPlantilla = (ruta) => {
+    // el valor de la plantilla en esa ruta (indices -> 0)
     const partes = ruta.replace(/\[\d+\]/g, "[0]");
     let v = plantilla;
     for (const m of partes.matchAll(/([^.[\]]+)|\[(\d+)\]/g)) {
       if (v === undefined || v === null) return undefined;
       v = m[1] !== undefined ? v[m[1]] : v[Number(m[2])];
     }
-    return Array.isArray(v) && v.length ? clonar(v[0]) : undefined;
+    return v;
   };
+  // el primer elemento de la lista en esa ruta, para "+ agregar elemento"
+  const modeloDe = (ruta) => { const v = enPlantilla(ruta); return Array.isArray(v) && v.length ? clonar(v[0]) : undefined; };
   const avisar = () => alCambiar && alCambiar(clonar(datos));
-  const entrada = (v, poner) => {
+  // 'numerico': el campo es un numero (aunque ahora tenga una ${variable}, que se reemplaza al ejecutar).
+  const entrada = (v, poner, numerico = typeof v === "number") => {
     if (typeof v === "boolean") return h("input", { type: "checkbox", checked: v, onchange: (ev) => { poner(ev.target.checked); avisar(); } });
-    const inp = h("input", { type: "text", value: v === null ? "" : String(v), class: typeof v === "number" ? "num" : "" });
-    if (typeof v === "number") {
-      inp.title = "Número";
+    const inp = h("input", { type: "text", value: v === null ? "" : String(v), class: numerico ? "num" : "" });
+    if (numerico) {
+      inp.title = "Número o ${variable}";
       inp.addEventListener("input", () => {
         const t = inp.value.trim();
         if (/^-?\d+(\.\d+)?$/.test(t)) { poner(Number(t)); inp.style.borderColor = ""; avisar(); }
+        else if (/^\$\{[^}]+\}$/.test(t)) { poner(t); inp.style.borderColor = ""; avisar(); }
         else if (t === "" ) { poner(0); avisar(); }
         else inp.style.borderColor = "var(--falla)";
       });
@@ -379,7 +383,7 @@ function formularioJson(valorInicial, plantilla, alCambiar, opciones = {}) {
   };
   // Control de un valor simple, con su combo si lo tiene. 'padre' es el objeto o lista que lo contiene.
   function celda(v, ruta, padre, poner, conTitulo = false) {
-    const inp = entrada(v, poner);
+    const inp = entrada(v, poner, typeof v === "number" || typeof enPlantilla(ruta) === "number");
     const r = typeof v === "boolean" ? { control: inp } : conCombo(inp, ruta, padre);
     return conTitulo ? r : r.control;
   }
@@ -395,6 +399,8 @@ function formularioJson(valorInicial, plantilla, alCambiar, opciones = {}) {
  * Lista desplegable debajo de 'ancla' para elegir un valor. 'fuente' es
  *   {titulo, valores: [{valor, texto}]}                                  valores fijos (dominio enumerado)
  *   {titulo, cargar: async (buscar) => ({valores, truncado, nota})}      valores de la base
+ * 'ancho' (opcional): ancho minimo del menu en px. Cada valor puede traer destacado (va arriba, en cursiva) y
+ * apagado (hoy no aplica) y titulo (tooltip).
  * Con 'cargar', si la lista vino truncada, lo que se escribe en el filtro se busca en la base.
  * alElegir(valor) recibe el valor elegido.
  */
@@ -421,7 +427,8 @@ function listaValores(ancla, fuente, actual, alElegir) {
     vaciar(lista, error ? h("div", { class: "error-caja chico" }, error)
       : valores === null ? aviso(cargando("Consultando la base…"))
       : visibles.length ? visibles.map((v, i) => h("button", {
-          type: "button", class: igual(v) ? "elegido" : "",
+          type: "button", class: [igual(v) ? "elegido" : "", v.destacado ? "destacado" : "", v.apagado ? "apagado" : ""].join(" ").trim(),
+          title: v.titulo || null,
           onmousedown: (ev) => ev.preventDefault(), onclick: () => elegir(v),
           onmousemove: () => { if (activo !== i) { activo = i; marcar(); } },
         }, h("span", { class: "mono" }, String(v.valor)), v.texto ? h("span", { class: "muted" }, v.texto) : null))
@@ -458,7 +465,7 @@ function listaValores(ancla, fuente, actual, alElegir) {
   });
   document.body.appendChild(m);
   const r = ancla.getBoundingClientRect();
-  m.style.minWidth = Math.max(r.width, 260) + "px";
+  m.style.minWidth = Math.min(Math.max(r.width, 260, fuente.ancho || 0), innerWidth - 16) + "px";
   m.style.left = Math.max(8, Math.min(r.left, innerWidth - m.offsetWidth - 8)) + "px";
   const abajo = innerHeight - r.bottom - 10;
   if (abajo >= 240 || abajo >= r.top) { m.style.top = (r.bottom + 2) + "px"; m.style.maxHeight = abajo + "px"; }

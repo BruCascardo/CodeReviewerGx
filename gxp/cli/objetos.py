@@ -1,4 +1,4 @@
-"""Comandos sobre los objetos de una KB: kbs, objetos, describir, ejecutar, sql, plan."""
+"""Comandos sobre los objetos de una KB: kbs, objetos, describir, ejecutar, validaciones, sql, plan."""
 import json
 import sys
 from pathlib import Path
@@ -85,6 +85,43 @@ def cmd_ejecutar(a):
     return 0 if res["estado"] == "ok" else 1
 
 
+def _leer_entrada(texto):
+    if not texto:
+        return {}
+    return json.loads(Path(texto[1:]).read_text(encoding="utf-8") if texto.startswith("@") else texto)
+
+
+def cmd_validaciones(a):
+    kb = kbs.obtener(a.kb)
+    try:
+        p = suites.validaciones.proponer(kb, a.objeto, _leer_entrada(a.entrada), _sql_args(a.sql_previo), a.timeout)
+    except (KeyError, motor.MotorError) as e:
+        error(str(e).strip("'\""))
+        return 2
+    if a.caso:
+        elegidas = [f for f in p["filas"] if f["marcada"]]
+        imprimir_json(suites.validaciones.armar_caso(p["objeto"], p["entrada"], p["columnas"], elegidas, a.nombre,
+                                                     p["rutaSalida"]))
+        return 0
+    if a.json:
+        imprimir_json(p)
+        return 0
+    for f in p["filas"]:
+        marca = c("[x]", "verde") if f["marcada"] else "[ ]"
+        motivo = f.get("codigo") or f.get("mensaje") or f.get("texto") or ""
+        if f["estado"] == "error":
+            res, motivo = c("error ", "rojo"), f["error"]
+        else:
+            res = "Ok    " if f.get("ok") else c("falla ", "amarillo") if f.get("ok") is False else f"{f['estado']:6}"
+        print(f"{marca} {f['prueba'][:40]:40} {res} {motivo[:70]}")
+        if f.get("aviso"):
+            print(c(f"      {f['aviso']}", "gris"))
+    if not p["rutaSalida"]:
+        print(c("La salida no tiene un sdtOutput (Ok y Messages): el caso queda sin verificaciones; aproba su salida.", "amarillo"))
+    print(c("Con --caso, el caso con las filas marcadas [x] (JSON para agregar a una suite).", "gris"), file=sys.stderr)
+    return 0
+
+
 def cmd_sql(a):
     r, datos = motor.consulta_suelta(kbs.obtener(a.kb), a.ds or "", a.query, maximo=a.max)
     if not r.get("ok"):
@@ -166,6 +203,17 @@ def registrar(sub):
     p.add_argument("--timeout", type=int, default=120000)
     p.add_argument("--completo", action="store_true", help="muestra el resultado completo")
     p.set_defaults(fn=cmd_ejecutar)
+
+    p = sub.add_parser("validaciones", help="propone casos de validacion a partir de una entrada valida (con rollback)")
+    p.add_argument("--kb", required=True)
+    p.add_argument("--objeto", required=True)
+    p.add_argument("--entrada", required=True, help="entrada que termina bien: JSON o @archivo.json")
+    p.add_argument("--sql-previo", action="append", help="sentencias a correr antes de cada fila ('DS: delete from ...')")
+    p.add_argument("--caso", action="store_true", help="imprime el caso con las filas propuestas (JSON)")
+    p.add_argument("--nombre", help="nombre del caso (con --caso)")
+    p.add_argument("--json", action="store_true", help="la propuesta completa, con lo que devolvio cada fila")
+    p.add_argument("--timeout", type=int, default=120000)
+    p.set_defaults(fn=cmd_validaciones)
 
     p = sub.add_parser("sql", help="consulta SQL (siempre con rollback)")
     p.add_argument("--kb", required=True)

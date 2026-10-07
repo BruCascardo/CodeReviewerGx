@@ -34,7 +34,7 @@ import copy
 import re
 import time
 
-from .variables import VariableIndefinida, sustituir, variables_base
+from .variables import VariableIndefinida, mensaje_error, sustituir, variables_base
 from .. import efectos
 from ..motor import MotorError, avanzar, ejecutar_sql, fin_transaccion, marcar, motor, volver
 
@@ -179,7 +179,7 @@ def correr_script(kb, lista, vars_, timeout_ms):
                 else:
                     sent["filas"] = datos.get("cantidad", 0)
         except VariableIndefinida as e:
-            rb.update(estado="error", error=f"Variable no definida: ${{{e}}}")
+            rb.update(estado="error", error=mensaje_error(e))
         except (ValueError, MotorError) as e:
             rb.update(estado="error", error=str(e).strip("'\""))
         if rb["estado"] != "ok":
@@ -245,7 +245,7 @@ class Entorno:
         self.guardadas = {}  # vuelve a empezar: nada de lo que guardaron los casos anteriores sigue en la base
         if self.bloques:
             self.veces += 1
-            vars_ = variables_base(self.suite, None, {"id": "script-previo"})
+            vars_ = variables_base(self.suite, None, {"id": "script-previo"}, self.kb)
             self.resultado = correr_script(self.kb, self.bloques, vars_, self.opciones.get("timeoutMs"))
             self.resultado["veces"] = self.veces
             if self.resultado["estado"] != "ok":

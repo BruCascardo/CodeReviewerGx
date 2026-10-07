@@ -1,7 +1,7 @@
 """${variables} de los casos (gxp.suites.variables): reemplazo, salida aprobada con variables y aprobacion."""
 import unittest
 
-from gxp.suites.variables import VariableIndefinida, con_variables, reponer_variables, sustituir
+from gxp.suites.variables import VariableIndefinida, con_variables, mensaje_error, reponer_variables, sustituir
 
 
 class Sustituir(unittest.TestCase):
@@ -19,6 +19,27 @@ class Sustituir(unittest.TestCase):
     def test_con_variables(self):
         self.assertTrue(con_variables({"Registros": [{"ItfId": "${idItf}"}]}))
         self.assertFalse(con_variables({"Registros": [{"ItfId": 1, "t": "$ {no}"}]}))
+
+
+class Siguiente(unittest.TestCase):
+    """${siguiente.Atributo}: una funcion en las variables, que se calcula una vez por fila."""
+    def test_se_calcula_una_vez_y_conserva_el_tipo(self):
+        llamadas = []
+        vars_ = {"siguiente": lambda a: llamadas.append(a) or 60}
+        e = {"inCerrar": {"CuponId": "${siguiente.CuponId}"}, "t": "cupon ${siguiente.CuponId}"}
+        self.assertEqual(sustituir(e, vars_), {"inCerrar": {"CuponId": 60}, "t": "cupon 60"})
+        self.assertEqual(sustituir("${siguiente.CuponId}", vars_), 60)
+        self.assertEqual(llamadas, ["CuponId"])
+
+    def test_si_no_se_puede_calcular_dice_por_que(self):
+        def falla(a):
+            raise KeyError(f"{a} no es la clave de ninguna tabla de la KB X")
+        with self.assertRaises(VariableIndefinida) as c:
+            sustituir("${siguiente.Nada}", {"siguiente": falla})
+        self.assertEqual(mensaje_error(c.exception), "No se pudo calcular ${siguiente.Nada}: Nada no es la clave de ninguna tabla de la KB X")
+        with self.assertRaises(VariableIndefinida) as c:
+            sustituir("${siguiente}", {"siguiente": falla})
+        self.assertEqual(mensaje_error(c.exception), "Variable no definida: ${siguiente}")
 
 
 class Reponer(unittest.TestCase):

@@ -21,6 +21,7 @@ from ..revisor import prolog
 from ..revisor.prolog import Comp
 
 MAX_PROFUNDIDAD = 6  # SDT dentro de SDT
+TIPOS_SDT = {6: "date", 12: "dtime"}  # codigo de tipo de un campo de SDT (type,[ 6,8,0 ]) -> tipo GX
 
 _PREDICADOS = ["attri_i", "struct_dt_i", "struct_dt_elem_i", "enum_value_i", "enum_value_info_i", "dom_info_i",
                "enumerated_i"]
@@ -33,9 +34,10 @@ class Especificacion:
         self.variables = {}   # nombre real en minusculas -> tipo ('int', 'Mod\\SDT', Comp objectcollection)
         self.enum_vars = {}   # clave de la variable en minusculas ('itftipo') -> id de dominio
         self.atributos = {}   # nombre en minusculas -> id
+        self.tipos_att = {}   # nombre de atributo en minusculas -> tipo GX ('int', 'date'...)
         self.enum_atts = {}   # id de atributo -> id de dominio
         self.sdts = {}        # 'mod\\sdt' -> id
-        self.campos = {}      # id de SDT o nivel -> [(nombre, id de dominio, id de SDT, es coleccion)]
+        self.campos = {}      # id de SDT o nivel -> [(nombre, id de dominio, id de SDT, es coleccion, tipo)]
         self.dominios = {}    # id -> 'Modulo\\Dominio'
         self.valores = {}     # id de dominio -> [{valor, nombre, descripcion}]
 
@@ -81,6 +83,7 @@ def armar(texto) -> Especificacion:
         if nombre == "attri_i":
             if isinstance(a[0], int):
                 es.atributos[str(a[1][0]).lower()] = a[0]
+                es.tipos_att[str(a[1][0]).lower()] = str(a[1][1])
             else:
                 es.variables[str(a[1][0]).lower()] = a[1][1]
         elif nombre == "struct_dt_i" and a[1] == "name":
@@ -103,7 +106,9 @@ def armar(texto) -> Especificacion:
         tipo = d.get("type")
         ref = _id(tipo[0]) if isinstance(tipo, list) and tipo and isinstance(tipo[0], list) else None
         dom = d.get("basedon") if isinstance(d.get("basedon"), int) else None
-        es.campos.setdefault(sid, []).append((str(d.get("name", "")), dom, ref, d.get("collection") == "True"))
+        codigo = tipo[0] if isinstance(tipo, list) and tipo and isinstance(tipo[0], int) else None
+        es.campos.setdefault(sid, []).append((str(d.get("name", "")), dom, ref, d.get("collection") == "True",
+                                              TIPOS_SDT.get(codigo)))
     return es
 
 
@@ -119,18 +124,20 @@ def _sdt_de(tipo):
 
 
 def hojas(es: Especificacion, parametros):
-    """(ruta, nombre del campo, id de dominio) de cada valor simple de la entrada: los parametros in/inout y,
-    adentro de los SDT, cada campo. La ruta va en minusculas y con [*] en las colecciones: inset.items[*].id"""
+    """(ruta, nombre del campo, id de dominio, tipo) de cada valor simple de la entrada: los parametros in/inout
+    y, adentro de los SDT, cada campo. La ruta va en minusculas y con [*] en las colecciones: inset.items[*].id.
+    El tipo es el de GeneXus ('date', 'dtime', 'int'...) cuando se conoce (de los campos de SDT, solo las fechas)."""
     for p in parametros:
         if p.get("io") not in ("in", "inout"):
             continue
         nombre, ruta = p["nombre"], p["nombre"].lower()
         if p.get("atributo"):
-            yield ruta, nombre, es.enum_atts.get(es.atributos.get(ruta))
+            yield ruta, nombre, es.enum_atts.get(es.atributos.get(ruta)), es.tipos_att.get(ruta)
             continue
         sdt, coleccion = _sdt_de(es.variables.get(ruta))
         if sdt is None:
-            yield ruta, nombre, es.enum_vars.get(ruta)
+            tipo = es.variables.get(ruta)
+            yield ruta, nombre, es.enum_vars.get(ruta), tipo if isinstance(tipo, str) else None
             continue
         sid = es.sdts.get(sdt.lower())
         if sid is not None:
@@ -140,9 +147,9 @@ def hojas(es: Especificacion, parametros):
 def _campos(es, sid, prefijo, prof):
     if prof > MAX_PROFUNDIDAD:
         return
-    for nombre, dom, ref, coleccion in es.campos.get(sid, []):
+    for nombre, dom, ref, coleccion, tipo in es.campos.get(sid, []):
         ruta = f"{prefijo}.{nombre.lower()}" + ("[*]" if coleccion else "")
         if ref is not None:
             yield from _campos(es, ref, ruta, prof + 1)
         else:
-            yield ruta, nombre, dom
+            yield ruta, nombre, dom, tipo

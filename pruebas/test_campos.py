@@ -61,7 +61,7 @@ enum_value_info_i(2,293,'Generales\InterfaseTipo').
 class Dominios(unittest.TestCase):
     def test_hojas_de_la_entrada(self):
         es = dominios.armar(PROC)
-        hojas = {r: (campo, dom) for r, campo, dom in dominios.hojas(es, PARAMS)}
+        hojas = {r: (campo, dom) for r, campo, dom, _tipo in dominios.hojas(es, PARAMS)}
         self.assertEqual(hojas, {
             "inset.itfid": ("Itfid", 179), "inset.fin": ("Fin", 296), "inset.items[*].orden": ("Orden", 604),
             "tipo": ("Tipo", 293),
@@ -86,12 +86,35 @@ class Indice(unittest.TestCase):
         self.assertEqual((t.nombre, t.claves, t.descripcion, t.titulo), ("gntInterfase", ["ItfId"], "ItfNombre", "Interfases"))
         self.assertEqual([v["valor"] for v in ix.valores[293]], ["S", "E"])
         self.assertEqual(ix.dominios[293], "Generales\\InterfaseTipo")
+        self.assertTrue(t.numerica)  # ItfId es int: se le puede calcular el siguiente
 
     def test_subtipo_se_queda_con_la_clave_mas_corta(self):
         ix = indice.Indice()
         ix.agregar_tabla(indice.Tabla("gntItfRegistro", ["ItfId", "RegId"], None, ""))
         ix.agregar_tabla(indice.Tabla("gntRegistro", ["RegId"], "RegNombre", ""))
         self.assertEqual(ix.tablas["regid"].nombre, "gntRegistro")
+
+
+class Siguiente(unittest.TestCase):
+    def setUp(self):
+        self.ix = indice.Indice()
+        self.ix.agregar_tabla(indice.Tabla("cbhCupon", ["CuponId"], None, "", "int"))
+        self.ix.agregar_tabla(indice.Tabla("gntTipo", ["TipoCod"], None, "", "char"))
+
+    def test_maximo_mas_uno_de_toda_la_tabla(self):
+        with mock.patch.object(campos.indice, "de_kb", return_value=self.ix),                 mock.patch.object(campos.motor, "consulta_suelta", return_value=({"ok": True}, {"filas": [{"siguiente": "60"}]})) as q:
+            self.assertEqual(campos.siguiente(None, "cuponid"), 60)
+        self.assertEqual(q.call_args[0][2], "select coalesce(max(CuponId), 0) + 1 as valor from cbhCupon")
+
+    def test_en_transaccion_usa_la_conexion_del_caso(self):
+        with mock.patch.object(campos.indice, "de_kb", return_value=self.ix),                 mock.patch.object(campos.motor, "consulta_suelta") as suelta,                 mock.patch.object(campos.motor, "ejecutar_sql", return_value=({"ok": True}, {"filas": [{"siguiente": 1}]})):
+            self.assertEqual(campos.siguiente(None, "CuponId", en_transaccion=True), 1)
+        suelta.assert_not_called()
+
+    def test_clave_no_numerica(self):
+        with mock.patch.object(campos.indice, "de_kb", return_value=self.ix):
+            with self.assertRaises(ValueError):
+                campos.siguiente(None, "TipoCod")
 
 
 class DeObjeto(unittest.TestCase):
@@ -118,6 +141,7 @@ class Valores(unittest.TestCase):
         ix.agregar_tabla(indice.Tabla("gntInterfase", ["ItfId"], "ItfNombre", ""))
         kb = mock.Mock(nombre="Generales")
         with mock.patch.object(campos.indice, "de_kb", return_value=ix), \
+                mock.patch.object(campos, "dinamicas", return_value=[]), \
                 mock.patch.object(campos.motor, "consulta_suelta", return_value=({"ok": True}, {"filas": []})) as cs:
             r = campos.valores(kb, atributo, filtros, buscar)
         return cs.call_args.args[2], r

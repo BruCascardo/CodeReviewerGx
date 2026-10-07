@@ -42,11 +42,13 @@ Una suite es un JSON en suites/<KB>/<nombre>.json:
 #   trabajos.py    corridas en segundo plano (interfaz)
 #   resultados.py  resultados guardados y estado de la ultima corrida de cada caso
 #   reportes.py    totales, texto de las fallas, JUnit XML
-from . import almacen, resultados
+#   validaciones.py  casos de validacion generados a partir de una entrada valida
+#   fechas.py      fechas relativas de las ${variables}: ${hoy+30}, ${fin_mes}...
+from . import almacen, resultados, validaciones
 from .corridas import correr_suite
 from .ejecucion import correr_caso, ejecutar_suelto
 from .grabacion import aceptar_linea_base, volatiles_de_caso
 from .reportes import junit, texto_fallas, totales
 
-__all__ = ["almacen", "resultados", "correr_suite", "correr_caso", "ejecutar_suelto", "aceptar_linea_base",
+__all__ = ["almacen", "resultados", "validaciones", "correr_suite", "correr_caso", "ejecutar_suelto", "aceptar_linea_base",
            "volatiles_de_caso", "junit", "texto_fallas", "totales"]

@@ -52,6 +52,31 @@ def valores_clave(_q, b):
         raise ErrorApi(str(e), 400)
 
 
+@ruta("POST", "/api/variables/previsualizar")
+def previsualizar(_q, b):
+    """Lo que daria hoy cada ${variable} (fechas relativas, ${existente.X|...}...): [{hoy} o {error}]."""
+    return campos.previsualizar(kb(b.get("kb")), b.get("expresiones") or [], b.get("variables"))
+
+
+@ruta("POST", "/api/validaciones")
+def validaciones(_q, b):
+    """Filas de validacion de un objeto a partir de una entrada valida, con lo que devuelve hoy cada una."""
+    try:
+        return suites.validaciones.proponer(kb(b.get("kb")), b.get("objeto", ""), b.get("entrada") or {},
+                                            b.get("sqlPrevio"), b.get("timeoutMs"))
+    except KeyError as e:
+        raise ErrorApi(mensaje(e), 404)
+    except motor.MotorError as e:
+        raise ErrorApi(str(e), 400)
+
+
+@ruta("POST", "/api/validaciones/caso")
+def validaciones_caso(_q, b):
+    """El caso con las filas elegidas (con lo que se espera de cada una, quizas corregido a mano)."""
+    return suites.validaciones.armar_caso(b.get("objeto", ""), b.get("entrada") or {}, b.get("columnas") or {},
+                                          b.get("filas") or [], b.get("nombre"), b.get("rutaSalida"))
+
+
 @ruta("POST", "/api/plan")
 def plan_ejecucion(_q, b):
     """Plan de ejecucion (EXPLAIN) de las sentencias SQL del objeto, con recomendaciones."""

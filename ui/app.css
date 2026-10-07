@@ -249,6 +249,9 @@ pre.bloque.err { color: var(--error); }
 .combo-menu .lista-valores button .muted { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .combo-menu .lista-valores button.activo { background: var(--acento-2); }
 .combo-menu .lista-valores button.elegido .mono { color: var(--acento); font-weight: 600; }
+.combo-menu .lista-valores button.destacado .mono { font-style: italic; }
+.combo-menu .lista-valores button.destacado + button:not(.destacado) { border-top: 1px solid var(--borde-fuerte); }
+.combo-menu .lista-valores button.apagado { opacity: .55; }
 .combo-menu .pie-valores { border-top: 1px solid var(--borde); margin-top: 4px; padding: 5px 8px 2px; font-size: 12px; color: var(--texto-3); }
 
 /* ------------------------------------------------------------------ resultados de casos */

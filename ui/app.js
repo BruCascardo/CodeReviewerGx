@@ -346,12 +346,38 @@ function pintarObjeto() {
 const rutaCampo = (ruta) => ruta.toLowerCase().replace(/\[\d+\]/g, "[*]");
 const textosClave = new Map(); // "kb|atributo" -> Map(valor -> texto), de las consultas ya hechas
 
-/** opciones.combo de formularioJson: valores del dominio enumerado o, si el campo es la clave de una tabla,
- *  los que hay en la base (filtrados por los otros campos de la clave que esten en el mismo nivel). */
+// Fechas relativas que se ofrecen en los campos de fecha (se calculan al ejecutar: ver gxp/suites/fechas.py).
+const FECHAS_RELATIVAS = {
+  date: [["hoy", "hoy"], ["hoy+1", "mañana"], ["hoy-1", "ayer"], ["hoy+30", "dentro de 30 días"], ["hoy-30", "hace 30 días"],
+    ["hoy+1m", "dentro de un mes"], ["hoy-1a", "hace un año"], ["inicio_mes", "primer día del mes"], ["fin_mes", "último día del mes"],
+    ["fin_mes+1", "último día del mes que viene"], ["inicio_anio", "primer día del año"], ["fin_anio", "último día del año"],
+    ["habil_siguiente", "próximo día hábil (lunes a viernes)"], ["habil_anterior", "último día hábil"], ["fecha_vacia", "fecha vacía"]],
+  dtime: [["ahora", "ahora"], ["ahora+1h", "dentro de una hora"], ["ahora-1h", "hace una hora"], ["ahora+1d", "mañana a esta hora"],
+    ["ahora-1d", "ayer a esta hora"], ["fecha_vacia", "fecha vacía"]],
+};
+
+/** opciones.combo de formularioJson: valores del dominio enumerado; si el campo es la clave de una tabla, los
+ *  que hay en la base (filtrados por los otros campos de la clave que esten en el mismo nivel) y las ${variables}
+ *  que se calculan al ejecutar (${siguiente.X}, ${existente.X|...}); si es una fecha, las fechas relativas. */
 function comboCampo(kb, ayudas) {
   return (ruta, padre) => {
     const a = ayudas?.[rutaCampo(ruta)];
     if (!a) return null;
+    if (a.tipo === "date" || a.tipo === "dtime") {
+      const textos = new Map(FECHAS_RELATIVAS[a.tipo].map(([e, t]) => [`\${${e}}`, t]));
+      return {
+        titulo: a.tipo === "date" ? "Fechas relativas (se calculan al ejecutar)" : "Fecha y hora relativas (se calculan al ejecutar)",
+        textoDe: (x) => textos.get(String(x).trim()),
+        cargar: async () => {
+          const exprs = [...textos.keys()];
+          const r = await POST("/api/variables/previsualizar", { kb, expresiones: exprs });
+          return {
+            valores: exprs.map((e, i) => ({ valor: e, texto: `${r[i].error ? "?" : r[i].hoy === "" ? "vacía" : r[i].hoy} · ${textos.get(e)}`, destacado: true })),
+            nota: "También podés escribir otras: ${hoy+45}, ${hoy-2m}, ${fin_mes-1}, ${ahora+30min}.",
+          };
+        },
+      };
+    }
     if (a.valores) {
       const valores = a.valores.map((v) => {
         const texto = [v.descripcion, v.nombre].find((t) => t && t !== String(v.valor)) || "";
@@ -369,6 +395,7 @@ function comboCampo(kb, ayudas) {
     const textos = textosClave.get(clave);
     return {
       titulo: `${c.tabla}${c.titulo && c.titulo !== c.tabla ? ` (${c.titulo})` : ""} · ${c.atributo}`,
+      ancho: 520,  // las ${existente.X|Atributo=VALOR} son largas
       textoDe: (x) => textos.get(String(x).trim()),
       cargar: async (buscar) => {
         const filtros = {};
@@ -383,6 +410,14 @@ function comboCampo(kb, ayudas) {
           textos.set(String(fila[n - 1]).trim(), texto);
           return { valor: fila[n - 1], texto };
         });
+        // Primero las ${variables} que se calculan al ejecutar (un id que no existe, uno en tal estado...): asi el
+        // caso sigue sirviendo aunque cambie la base.
+        const dinamicas = (r.dinamicas || []).map((d) => {
+          const texto = `${d.error ? "hoy no hay ninguno" : `hoy ${d.hoy}`} · ${d.texto}`;
+          textos.set(d.valor, d.texto);
+          return { valor: d.valor, texto, destacado: true, apagado: !!d.error, titulo: d.error || "" };
+        });
+        valores.unshift(...dinamicas);
         const usados = Object.entries(r.filtros).map(([k, v]) => `${k} = ${v}`).join(", ");
         return { valores, truncado: r.truncado, nota: usados ? `Filtrado por ${usados}.` : "" };
       },
@@ -479,6 +514,7 @@ function panelEjecutar() {
         h("span", { class: "espacio" }),
         h("span", { class: "muted chico" }, h("kbd", null, "Ctrl"), "+", h("kbd", null, "Enter")),
         btnEjecutar,
+        h("button", { class: "btn", onclick: generarValidaciones, title: "A partir de esta entrada (que tiene que terminar bien): cada campo vacío, cada valor de su dominio, un id que no existe… Se ejecutan con rollback y se guardan como un caso con datos." }, "Generar validaciones…"),
         h("button", { class: "btn", onclick: guardarComoCaso, disabled: !E.ultimoRes, id: "btn-guardar-caso" }, "Guardar como caso…"))));
 
   const derecha = h("div", { class: "tarjeta" }, h("div", { class: "cab" }, h("h3", null, "Resultado"), h("span", { class: "espacio" }),
@@ -668,17 +704,26 @@ function panelMensajes() {
 function kbActual() { return E.kbs.find((k) => k.nombre === E.kb); }
 
 // ---------------------------------------------------------------------- guardar como caso
+/** El selector de suite de la KB (con «Nueva suite…») de los diálogos que guardan un caso desde Explorar. */
+async function selectorSuite() {
+  let suites = [];
+  try { suites = await GET("/api/suites", { kb: E.kb }); } catch { /* sin suites */ }
+  // Las auto-* las genera 'generar' y no se editan a mano: no se proponen por defecto.
+  const propias = suites.filter((s) => !/\/auto-/.test(s.id));
+  const ultima = almacen.leer(`ultimaSuite.${E.kb}`, null);
+  const elegida = (propias.find((s) => s.id === ultima) || propias[0])?.id;
+  const sel = h("select", null, suites.map((s) => h("option", { value: s.id, selected: s.id === elegida ? "" : null }, `${s.nombre}  (${s.casos} casos)`)),
+    h("option", { value: "__nueva", selected: !elegida ? "" : null }, "➕ Nueva suite…"));
+  const nombre = h("input", { type: "text", placeholder: "Nombre de la nueva suite", value: modulo(E.obj.nombre).split(".").slice(1).join(" - ") || E.kb });
+  const filaNueva = h("div", { style: { display: sel.value === "__nueva" ? "contents" : "none" } }, h("label", null, "Nueva suite"), nombre);
+  sel.addEventListener("change", () => { filaNueva.style.display = sel.value === "__nueva" ? "contents" : "none"; });
+  return { suites, sel, nombre, filaNueva };
+}
+
 async function guardarComoCaso() {
   const res = E.ultimoRes;
   if (!res || res === "corriendo") return;
-  let suitesKb = [];
-  try { suitesKb = await GET("/api/suites", { kb: E.kb }); } catch { /* sin suites */ }
-  const ultima = almacen.leer(`ultimaSuite.${E.kb}`, null);
-  const selSuite = h("select", null, suitesKb.map((s) => h("option", { value: s.id, selected: s.id === ultima ? "" : null }, `${s.nombre}  (${s.casos} casos)`)),
-    h("option", { value: "__nueva", selected: !suitesKb.length ? "" : null }, "➕ Nueva suite…"));
-  const nombreSuite = h("input", { type: "text", placeholder: "Nombre de la nueva suite", value: modulo(E.obj.nombre).split(".").slice(1).join(" - ") || E.kb });
-  const filaNueva = h("div", { style: { display: selSuite.value === "__nueva" ? "contents" : "none" } }, h("label", null, "Nueva suite"), nombreSuite);
-  selSuite.addEventListener("change", () => { filaNueva.style.display = selSuite.value === "__nueva" ? "contents" : "none"; });
+  const { suites: suitesKb, sel: selSuite, nombre: nombreSuite, filaNueva } = await selectorSuite();
   const nombreCaso = h("input", { type: "text", value: `${corto(E.obj.nombre)}: ` });
   const etiquetas = h("input", { type: "text", placeholder: "separadas por coma", value: corto(E.obj.nombre).toLowerCase() });
   const pasoObj = res.pasos[0];
@@ -804,6 +849,75 @@ async function guardarComoCaso() {
           cargarSuites();
         } catch (e) { toast(e.message, "error"); return false; }
         finally { espera.remove(); }
+      },
+    }],
+  });
+}
+
+// ---------------------------------------------------------------------- generar validaciones
+/** Propone filas de validación a partir de la entrada actual (que tiene que terminar bien): cada campo vacío, cada
+ *  valor de su dominio, un id que no existe… Las ejecuta (con rollback) y muestra qué devuelve hoy cada una. Las
+ *  elegidas se guardan como un caso con «datos», con lo que se espera de cada fila (Ok y el código o el mensaje). */
+async function generarValidaciones() {
+  const recortar = (t, n) => (t.length > n ? t.slice(0, n) + "…" : t);
+  const previo = E.usarPrevio ? clonar(E.sqlPrevio.filter((s) => (s.sql || "").trim())) : [];
+  const aviso = toast(cargando("Generando las filas de validación y ejecutándolas (con rollback)…"), "", 0);
+  let p, sel;
+  try {
+    [p, sel] = await Promise.all([
+      POST("/api/validaciones", { kb: E.kb, objeto: E.obj.nombre, entrada: clonar(E.entrada), sqlPrevio: previo }),
+      selectorSuite()]);
+  } catch (e) { toast(e.message, "error"); return; } finally { aviso.remove(); }
+  if (p.filas.length <= 1) { toast("No hay nada para variar en esta entrada: completá los campos con valores que terminen bien.", "error"); return; }
+  const conSalida = !!p.rutaSalida;
+  const filas = p.filas.map((f) => {
+    const chk = h("input", { type: "checkbox", checked: f.marcada });
+    const campo = f.codigo ? "codigo" : "mensaje";
+    const espera = h("select", { disabled: !conSalida }, h("option", { value: "true", selected: f.ok === true ? "" : null }, "termina bien"),
+      h("option", { value: "false", selected: f.ok === false ? "" : null }, "falla"));
+    const motivo = h("input", { type: "text", value: f[campo] || "", disabled: !conSalida, placeholder: campo === "codigo" ? "código" : "mensaje de error",
+      title: campo === "codigo" ? "Código de mensaje que tiene que devolver" : "Texto del mensaje de error que tiene que devolver (el objeto no devuelve código)" });
+    const hoy = f.estado === "error" ? h("span", { class: "pill falla", title: f.error }, "error")
+      : f.ok === false ? h("span", { class: "pill falla" }, "falla") : f.ok === true ? h("span", { class: "pill ok" }, "Ok") : h("span", { class: "muted" }, f.estado);
+    const tr = h("tr", null,
+      h("td", null, chk),
+      h("td", null, f.prueba, f.aviso ? h("div", { class: "muted chico" }, "⚠ ", f.aviso) : null),
+      h("td", { class: "mono" }, f.tipo === "base" ? "" : resumirValor(f.valor, 30)),
+      h("td", null, hoy, " ", h("span", { class: "muted chico" }, recortar(f.codigo || f.texto || f.error || "", 90))),
+      h("td", null, espera),
+      h("td", null, motivo));
+    return { f, chk, espera, motivo, campo, tr };
+  });
+  const nombreCaso = h("input", { type: "text", value: `${corto(E.obj.nombre)}: validaciones` });
+  const cuerpo = h("div", null,
+    h("p", { class: "muted chico" }, "Cada fila es una ejecución con un campo cambiado respecto de tu entrada. «Hoy» es lo que devolvió ahora (con rollback); «Se espera» es lo que el caso va a exigir: corregilo donde lo de hoy sea un error del objeto.",
+      conSalida ? "" : " La salida no tiene un sdtOutput (Ok y mensajes): el caso queda sin verificaciones y conviene aprobar su salida desde Suites."),
+    h("div", { style: { maxHeight: "48vh", overflow: "auto", marginBottom: "10px" } },
+      h("table", { class: "tabla" }, h("thead", null, h("tr", null, h("th", null, ""), h("th", null, "Prueba"), h("th", null, "Valor"), h("th", null, "Hoy"), h("th", null, "Se espera"), h("th", null, "Código o mensaje"))),
+        h("tbody", null, filas.map((x) => x.tr)))),
+    h("div", { class: "form-grid" }, h("label", null, "Suite"), sel.sel, sel.filaNueva, h("label", null, "Nombre del caso"), nombreCaso,
+      ...(previo.length ? [h("label", null, "SQL previo"), h("span", { class: "muted chico" }, "Se agrega como primer paso del caso: corre antes de cada fila.")] : [])));
+  modal({
+    titulo: `Validaciones de ${corto(E.obj.nombre)}`, ancho: true, cuerpo, botones: [{ texto: "Cancelar" }, {
+      texto: "Guardar caso", prim: true, accion: async () => {
+        const elegidas = filas.filter((x) => x.chk.checked).map((x) => ({
+          ...x.f, ok: x.espera.value === "true", codigo: x.campo === "codigo" ? x.motivo.value.trim() : "",
+          mensaje: x.campo === "mensaje" ? x.motivo.value.trim() : "",
+        }));
+        if (!elegidas.length) { toast("Elegí al menos una fila", "error"); return false; }
+        const nueva = sel.sel.value === "__nueva";
+        if (nueva && !sel.nombre.value.trim()) { toast("Poné un nombre para la suite", "error"); return false; }
+        try {
+          const caso = await POST("/api/validaciones/caso", { objeto: p.objeto, entrada: p.entrada, columnas: p.columnas, filas: elegidas,
+            nombre: nombreCaso.value.trim(), rutaSalida: p.rutaSalida });
+          caso.pasos.unshift(...previo.map((b, i) => ({ nombre: `SQL previo ${i + 1}`, sql: b.sql, ds: b.ds })));
+          const id = nueva ? `${E.kb}/${slug(sel.nombre.value)}` : sel.sel.value;
+          const r = await POST("/api/suite/caso", { id, kb: E.kb, nombreSuite: sel.nombre.value.trim(), caso, detectarVolatiles: false });
+          almacen.guardar(`ultimaSuite.${E.kb}`, r.id);
+          const t = toast(h("span", null, `Caso con ${elegidas.length} filas guardado en `, h("b", null, r.id), ". ",
+            h("a", { href: "#", onclick: (ev) => { ev.preventDefault(); t.remove(); irA("suites"); abrirSuite(r.id); } }, "Abrir la suite")), "ok", 9000);
+          cargarSuites();
+        } catch (e) { toast(e.message, "error"); return false; }
       },
     }],
   });
@@ -1201,7 +1315,9 @@ function franjaScript(s) {
 
 // Explicación de las variables (desplegable en las opciones de la suite).
 // Las variables de la suite: de dónde sale cada una, su último valor y qué casos la usan (con avisos si no les llega).
-const PREDEFINIDAS = ["hoy", "ahora", "aleatorio", "uuid", "caso"];
+// Las que no hay que definir: predefinidas, fechas relativas (${hoy+30}) y las que se calculan en la base (${existente.X}).
+const PREDEFINIDAS = ["hoy", "ahora", "aleatorio", "uuid", "caso", "siguiente", "existente", "ultimo", "con_hijos", "sin_hijos",
+  "inicio_mes", "fin_mes", "inicio_anio", "fin_anio", "habil_siguiente", "habil_anterior", "fecha_vacia"];
 function variablesDeSuite(s) {
   const vars = new Map(); // nombre -> {origenes: [], valor, hay, fecha, usan: [], avisos: []}
   const de = (k) => vars.get(k) || vars.set(k, { origenes: [], hay: false, usan: [], avisos: [], guardanEn: [] }).get(k);
@@ -1307,7 +1423,14 @@ function ayudaVariables() {
             ["Los pasos siguientes del mismo caso. Con ", h("b", null, "casos encadenados"), ", también los casos que corren después."]),
           fila("La salida de un paso anterior", ["Automática, con el nombre del paso en minúsculas y _ en vez de espacios: ", c("${alta.outSet.CuponId}")], "Los pasos siguientes del mismo caso."),
           fila("La entrada de un paso anterior", ["Automática: ", c("${alta.entrada.inSet.Importe}"), ". Sirve para no escribir dos veces un valor esperado."], "Los pasos siguientes del mismo caso."),
-          fila("Predefinidas", [c("${hoy}"), " ", c("${ahora}"), " ", c("${uuid}"), " ", c("${aleatorio}"), " ", c("${caso}")], "Siempre."))),
+          fila("Predefinidas", [c("${hoy}"), " ", c("${ahora}"), " ", c("${uuid}"), " ", c("${aleatorio}"), " ", c("${caso}")], "Siempre."),
+          fila("Calculadas en la base", [c("${siguiente.CuponId}"), " (uno que no existe: el último + 1), ", c("${existente.CuponId}"), " (el primero), ", c("${ultimo.CuponId}"),
+            ", ", c("${existente.CuponId|CuponEstado=PENDIENTE}"), " (el primero que cumple; condiciones separadas por coma, con = != < > <= >=, y el nombre del valor del dominio), ",
+            c("${con_hijos.CuponId}"), " y ", c("${sin_hijos.CuponId}"), " (con o sin filas en las tablas que lo referencian; ", c("${con_hijos.CuponId:tabla}"), " para una). En Explorar aparecen primero en el combo del campo, con el valor que darían hoy."],
+            "Se calculan al usarlas por primera vez en el caso (con lo que dejaron el script previo y los pasos anteriores) y quedan fijas para el resto del caso. Pueden llevar otra variable adentro: ${existente.CuponCuotaSec|CuponId=${cupon}}."),
+          fila("Fechas relativas", [c("${hoy+30}"), " ", c("${hoy-1}"), " ", c("${hoy+2m}"), " ", c("${hoy-1a}"), " ", c("${ahora+2h}"), " ", c("${ahora-30min}"), " ", c("${inicio_mes}"), " ", c("${fin_mes+1}"), " ",
+            c("${inicio_anio}"), " ", c("${fin_anio}"), " ", c("${habil_siguiente}"), " ", c("${habil_anterior}"), " ", c("${fecha_vacia}"), ". En Explorar, el combo de un campo de fecha las ofrece."],
+            "Siempre. Se calculan al ejecutar (días por defecto; m meses, a años; con ahora, h horas y min minutos)."))),
       tit("Dentro de un caso: un paso le pasa un valor al siguiente"),
       ej(`"pasos": [
   { "nombre": "Alta", "objeto": "Cupones.Set",
@@ -1622,7 +1745,13 @@ async function pintarAyuda() {
     h("p", null, ["<<cualquiera>>", "<<no_vacio>>", "<<vacio>>", "<<numero>>", "<<texto>>", "<<booleano>>", "<<fecha>>", "<<fechahora>>", "<<regex:^A\\d+$>>", "<<contiene:texto>>", "<<empieza:texto>>", "<<mayor:0>>", "<<menor:100>>", "<<distinto:valor>>"].map((x) => [h("code", null, x), " "])),
     h("h3", null, "Variables"),
     h("p", null, h("code", null, "${nombre}"), " se reemplaza por: las ", h("b", null, "variables"), " de la suite, la fila de ", h("b", null, "datos"), ", lo que se ", h("b", null, "guardó"), " en pasos anteriores, la salida completa de un paso anterior (", h("code", null, "${alta.outSet.RegTipo}"), ", con el nombre del paso en minúsculas y _ en vez de espacios), lo que se le mandó a un paso anterior (", h("code", null, "${alta.entrada.inSet.Tipo}"), ": por ejemplo, que el Get devuelva lo que recibió el Set) y las predefinidas ",
-      h("code", null, "${hoy}"), " ", h("code", null, "${ahora}"), " ", h("code", null, "${aleatorio}"), " ", h("code", null, "${uuid}"), " ", h("code", null, "${caso}"), ". Si el texto es solo la variable, se conserva su tipo (número, objeto…)."),
+      h("code", null, "${hoy}"), " ", h("code", null, "${ahora}"), " ", h("code", null, "${aleatorio}"), " ", h("code", null, "${uuid}"), " ", h("code", null, "${caso}"), ". ",
+      "Se calculan al ejecutar, así que siguen valiendo aunque la base cambie: ", h("code", null, "${siguiente.CuponId}"), " (el último + 1: no existe), ", h("code", null, "${existente.CuponId}"), ", ",
+      h("code", null, "${ultimo.CuponId}"), ", ", h("code", null, "${existente.CuponId|CuponEstado=PENDIENTE}"), ", ", h("code", null, "${con_hijos.CuponId}"), ", ", h("code", null, "${sin_hijos.CuponId}"),
+      " y las fechas ", h("code", null, "${hoy+30}"), " ", h("code", null, "${fin_mes}"), " ", h("code", null, "${habil_siguiente}"), " ", h("code", null, "${fecha_vacia}"),
+      ". Si el texto es solo la variable, se conserva su tipo (número, objeto…)."),
+    h("p", null, "En Explorar, ", h("b", null, "Generar validaciones…"), " parte de una entrada que termina bien y propone una fila por campo vacío, por valor de su dominio, por lista vacía y por id que no existe. Las ejecuta (con rollback), muestra qué devuelve hoy cada una y guarda las elegidas como un caso con «datos» que verifica Ok y el código (o el mensaje) de cada fila. En una verificación, ",
+      h("code", null, '"omitirSiVacio": true'), " hace que no se controle si su valor queda vacío (la fila no tiene código)."),
     h("p", null, "Lo que se guarda con ", h("code", null, "guardar"), " llega a los pasos siguientes del mismo caso. Con ", h("b", null, "casos encadenados"),
       " (Opciones de la suite → Entre un caso y otro), también a los casos que corren después: el caso 1 guarda ", h("code", null, "${cupon}"), " y el caso 2 lo usa. Para guardar un valor, hacé clic en él en la salida del caso → «Guardar como variable»."),
     ayudaVariables(),

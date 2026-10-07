@@ -11,7 +11,7 @@ import re
 import time
 
 from .script import Entorno, bloques, correr_sql
-from .variables import VariableIndefinida, con_variables, sustituir, variables_base
+from .variables import VariableIndefinida, con_variables, mensaje_error, sustituir, variables_base
 from .. import catalogo
 from ..comparacion import Opciones, aprobada, clave, obtener, parcial, resumir, sugerir, verificar
 from ..config import CFG
@@ -78,11 +78,14 @@ def _error_esperado(paso, r, res):
 
 def _verificaciones(paso, datos, vars_, opts, res):
     """'esperado' (coincidencia parcial) y 'verificaciones'. Una verificacion mal escrita (regex invalida,
-    'largo' no numerico) falla sola, sin cortar la corrida."""
+    'largo' no numerico) falla sola, sin cortar la corrida. Con "omitirSiVacio": true, una verificacion cuyo
+    valor queda vacio no se controla (con 'datos': la columna del codigo esperado, vacia en las filas sin codigo)."""
     if paso.get("esperado") not in (None, {}, []):
         parcial(sustituir(paso["esperado"], vars_), datos, "", opts, res["diferencias"])
     for v in paso.get("verificaciones") or []:
         v = sustituir(v, vars_)
+        if v.get("omitirSiVacio") and v.get("valor") in (None, "", []):
+            continue
         try:
             res["verificaciones"].append(verificar(datos, v, opts))
         except (ValueError, TypeError, re.error) as e:
@@ -133,7 +136,7 @@ def correr_paso(kb, paso, vars_, opciones, fila_idx=None, grabar=False):
     try:
         r, datos = _ejecutar(kb, paso, vars_, opciones, res)
     except VariableIndefinida as e:
-        res.update({"estado": "error", "error": f"Variable no definida: ${{{e}}}", "ms": int((time.time() - t0) * 1000)})
+        res.update({"estado": "error", "error": mensaje_error(e), "ms": int((time.time() - t0) * 1000)})
         return res
     except (KeyError, ValueError, MotorError) as e:
         res.update({"estado": "error", "error": str(e).strip("'\""), "ms": int((time.time() - t0) * 1000)})
@@ -161,7 +164,7 @@ def correr_paso(kb, paso, vars_, opciones, fila_idx=None, grabar=False):
         _verificaciones(paso, datos, vars_, opts, res)
     except VariableIndefinida as e:
         res["estado"] = "error"
-        res["error"] = f"Variable no definida: ${{{e}}}"
+        res["error"] = mensaje_error(e)
         return res
     _linea_base(paso, fila_idx, datos, vars_, opts, res, grabar)
     _guardar_variables(paso, datos, vars_, res)
@@ -232,7 +235,7 @@ def _correr_fila(kb, suite, caso, opciones, fi, fila, grabar, cancelado, entorno
         res["pasos"].append({"nombre": "Ejecutar", "estado": "error", "error": motivo, "verificaciones": [],
                              "diferencias": [], "advertencias": []})
         return res
-    vars_ = variables_base(suite, fila, caso)
+    vars_ = variables_base(suite, fila, caso, kb)
     recibidas = entorno.recibir(vars_, fila)
     if recibidas:
         res["variablesRecibidas"] = recibidas

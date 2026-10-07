@@ -82,7 +82,7 @@ Cada paso se puede validar de cuatro formas, y se pueden combinar:
   - En las rutas de `volatiles` (se detectan solas, ejecutando dos veces) solo se controla que el campo exista y tenga el mismo tipo. Las rutas de `ignorar` no se comparan.
   - Lo que **no** es una falla: un campo nuevo en la salida (queda como aviso hasta que aceptes la salida) y una colección que GeneXus omite del JSON por estar vacía (cuenta como vacía).
   - `Ok` y los códigos de mensaje nunca se marcan como volátiles ni se ofrecen para ignorar.
-- **`verificaciones`:** reglas `{ruta, op, valor, cada}` con lo que el caso exige siempre (por ejemplo, «falla con el código REQUERIDO»). Siguen valiendo aunque se acepte una salida nueva: si la salida no las cumple, GxPruebas pregunta antes de aceptarla. Los operadores son `igual`, `distinto`, `contiene`, `no_contiene`, `empieza`, `termina`, `regex`, `mayor`, `mayor_igual`, `menor`, `menor_igual`, `entre`, `en`, `existe`, `no_existe`, `vacio`, `no_vacio`, `largo`, `largo_min`, `largo_max`, `tipo` y `coincide`.
+- **`verificaciones`:** reglas `{ruta, op, valor, cada}` con lo que el caso exige siempre (por ejemplo, «falla con el código REQUERIDO»). Siguen valiendo aunque se acepte una salida nueva: si la salida no las cumple, GxPruebas pregunta antes de aceptarla. Los operadores son `igual`, `distinto`, `contiene`, `no_contiene`, `empieza`, `termina`, `regex`, `mayor`, `mayor_igual`, `menor`, `menor_igual`, `entre`, `en`, `existe`, `no_existe`, `vacio`, `no_vacio`, `largo`, `largo_min`, `largo_max`, `tipo` y `coincide`. Con `"omitirSiVacio": true`, la verificación no se controla si su `valor` queda vacío: sirve con `datos`, cuando el valor sale de una columna que en algunas filas no aplica (`"valor": "${codigo}"` en una fila sin código).
 - **`esperado`:** coincidencia parcial. Solo se controla lo que está escrito. Esperar `[]` (o `<<vacio>>`) coincide con una colección que GeneXus omitió.
 - **`esperaError`:** el paso tiene que terminar con una excepción. Opcionalmente, con `errorContiene`.
 
@@ -97,7 +97,22 @@ Cada paso se puede validar de cuatro formas, y se pueden combinar:
 - lo que se guardó con `guardar`;
 - la salida de un paso anterior: `${alta.outSet.RegTipo}`, con el nombre del paso en minúsculas;
 - lo que se le mandó a un paso anterior: `${alta.entrada.inSet.Tipo}`. Sirve para no escribir valores esperados a mano: por ejemplo, que el Get devuelva lo que recibió el Set;
-- las predefinidas `${hoy}`, `${ahora}`, `${aleatorio}`, `${uuid}` y `${caso}`.
+- las predefinidas `${hoy}`, `${ahora}`, `${aleatorio}`, `${uuid}` y `${caso}`;
+- las fechas relativas (ver abajo);
+- los valores de una clave que se calculan en la base (ver abajo).
+
+**Valores calculados en la base.** Sirven para que un caso no dependa de un id escrito a mano que mañana puede no existir (o existir). Se calculan la primera vez que se usan en el caso, dentro de su transacción (ven lo que dejaron el script previo y los pasos anteriores), y quedan fijos para el resto del caso. El atributo es el último de la clave primaria de una tabla de las transacciones de la KB, igual que en los combos.
+
+| Variable | Qué da |
+|---|---|
+| `${siguiente.CuponId}` | El último + 1 (`max(CuponId) + 1` de `cbhCupon`): un id que **no existe**. Solo para claves numéricas. |
+| `${existente.CuponId}` / `${ultimo.CuponId}` | El primero / el último que existe. |
+| `${existente.CuponId\|CuponEstado=PENDIENTE}` | El primero que cumple las condiciones: `Atributo=valor` separadas por coma, con `=`, `!=`, `<`, `>`, `<=`, `>=`, sobre atributos de la tabla. En un atributo de un dominio enumerado se puede usar el nombre del valor (`PENDIENTE`) en lugar del guardado (`PEN`); entre comillas, el valor se toma tal cual. También con `ultimo`. |
+| `${con_hijos.CuponId}` / `${sin_hijos.CuponId}` | Uno con (o sin) filas en las tablas que lo referencian: los niveles subordinados y las que tienen el atributo como clave foránea. `${con_hijos.CuponId:cbhCuponDetalle}` mira solo esa tabla. Sirve para «no se puede borrar porque tiene detalle». También llevan condiciones. |
+
+Una variable puede ir dentro de otra: `${existente.CuponCuotaSec|CuponId=${cupon}}`. Y el valor de una columna de `datos` puede ser una de estas expresiones (`"CuponId": "${siguiente.CuponId}"`): se calcula igual. Si no hay ninguna fila que cumpla, el paso queda en error con el motivo («no hay ningún CuponId en cbhCupon que cumpla CuponEstado = EN_PROCESO»). Usan sintaxis de MySQL (`limit 1`).
+
+**Fechas relativas.** Se calculan al ejecutar, desde la misma hora que `${ahora}`: `${hoy+30}`, `${hoy-1}`, `${hoy+2m}` (meses), `${hoy-1a}` (años), `${ahora+2h}`, `${ahora-30min}`, `${ahora+1d}`, `${inicio_mes}`, `${fin_mes}`, `${fin_mes+1}` (el del mes que viene), `${inicio_anio}`, `${fin_anio-1}`, `${habil_siguiente}` y `${habil_anterior}` (de lunes a viernes, sin feriados) y `${fecha_vacia}` (`""`, la fecha vacía de GeneXus). Van como `AAAA-MM-DD` (fecha y hora: `AAAA-MM-DDTHH:MM:SS`).
 
 Las variables se reemplazan en `entrada`, `sql`, `esperado`, `verificaciones` y también en la salida aprobada (`lineaBase`): con `"ItfId": "${idItf}"` ahí, el campo tiene que dar el valor que tenga la variable en esa corrida. Al aprobar una salida nueva, los campos donde había una variable la conservan. En `lineaBase`, una variable que no existe se compara como texto (por si la salida real tiene un `${...}` propio).
 
@@ -315,6 +330,7 @@ python gxpruebas.py ejecutar --kb Generales --objeto Generales.Interfases.Regist
 python gxpruebas.py ejecutar --kb Generales --objeto ... --entrada @entrada.json --sql "GENERALES: select ..."
 python gxpruebas.py ejecutar --kb Generales --objeto ... --sql-previo "GENERALES: delete from a; delete from b"   :: como el script previo
 python gxpruebas.py describir --kb Generales --objeto Generales.Interfases.Registro.Set
+python gxpruebas.py validaciones --kb Generales --objeto ... --entrada @entrada.json [--caso]   :: casos de validación a partir de una entrada que termina bien
 python gxpruebas.py objetos --kb Generales --buscar interfases
 python gxpruebas.py sql --kb Generales --ds GENERALES "select * from gntInterfase"
 python gxpruebas.py plan --kb Generales --objeto Generales.Empresas.Get [--detalle]   :: plan de ejecución y recomendaciones
@@ -353,7 +369,28 @@ Al lado de algunos campos del formulario aparece **▾** (o `Alt+↓` / `F4` en 
 - **Dominio enumerado** (`Fin` de tipo `Generales\RegistroFin`): los valores del dominio con su descripción. Salen de la especificación del objeto o, si no los trae, de la de las transacciones.
 - **Clave de una tabla** (`ItfId`): los valores que hay en la base, con el atributo descriptor de la transacción (`select ItfId, ItfNombre from gntInterfase`). Un campo es clave de una tabla si se llama igual que el último atributo de su clave primaria: `ItfId` es la de `gntInterfase`, no la de `gntItfRegistro`. Si la clave es compuesta, se filtra por los otros campos de la clave que estén en el mismo nivel de la entrada (`CargoPlanSec` por el `CargoId` de la misma cuota). Se traen las primeras 300 filas; si hay más, lo que se escribe en el filtro se busca en la base (por el valor o la descripción). La consulta corre en el motor y termina con rollback.
 
+  Arriba de los valores, en cursiva, aparecen las **variables que se calculan al ejecutar** (ver «Valores calculados en la base»), con el valor que darían hoy: `${siguiente.X}` (no existe), `${existente.X}`, `${ultimo.X}`, `${con_hijos.X}` y `${sin_hijos.X}` si alguna tabla la referencia, y `${existente.X|Atributo=VALOR}` por cada valor de los atributos de dominio enumerado de la tabla. Las que hoy no encuentran ninguna fila quedan apagadas, al final. Si la clave es compuesta, las condiciones incluyen los otros campos de la clave del mismo nivel (también si son una `${variable}`). Elegir una de estas, y no el número, hace que el caso siga sirviendo aunque cambie la base.
+- **Fecha** (`date` o `datetime` en la especificación): las fechas relativas (`${hoy}`, `${hoy+30}`, `${fin_mes}`, `${habil_siguiente}`, `${fecha_vacia}`…) con el valor que darían hoy.
+
+Los campos numéricos aceptan una `${variable}` además de un número.
+
 Limitaciones: solo se reconocen las tablas de las transacciones de la misma KB, y un campo con otro nombre que el atributo (`Id`, `Tipo`) no tiene combo de claves. Las consultas usan la sintaxis de MySQL (`CAST(... AS CHAR)`).
+
+## Generar validaciones
+
+En Explorar, con una entrada que **termina bien**, **Generar validaciones…** propone un caso con una fila de `datos` por cada cosa que conviene probar:
+
+- **obligatorio**: cada campo vacío (`""` en un texto o una fecha, `0` en un número; `"0"` en una clave numérica que viene como texto). Los booleanos no.
+- **lista**: cada colección sin elementos (adentro de las listas no se generan filas por campo).
+- **dominio**: cada valor del dominio enumerado del campo, salvo el que ya tiene.
+- **no existe**: `${siguiente.X}` en un campo que es la clave numérica de una tabla.
+- y la entrada tal cual («entrada valida»).
+
+Las ejecuta todas (cada una con rollback; si el objeto hace commit por su cuenta, el commit se simula) y muestra qué devuelve hoy cada una. Vienen marcadas las que fallan y las de dominio; un campo vacío que **se acepta** queda sin marcar con el aviso «lo acepta: no es obligatorio, o falta validarlo», para que decidas si es un bug. En «Se espera» corregís lo que el caso va a exigir (por ejemplo, que falle donde hoy lo acepta: el caso va a fallar hasta que se arregle el objeto).
+
+El caso guardado usa `${columna}` en cada campo que cambia y cada fila trae su resultado esperado en las columnas `ok`, `codigo` y `mensaje`. Las verificaciones controlan `Ok` y el código del mensaje o, en las filas que fallan sin código, el texto del mensaje de error (`omitirSiVacio`). Si la salida no tiene un sdtOutput (Ok y mensajes), el caso queda sin verificaciones: aprobá su salida desde Suites.
+
+Desde la consola: `python gxpruebas.py validaciones --kb Cobranzas --objeto Cobranzas.Cupones.CambiarEstado --entrada @entrada.json` muestra las filas con lo que devuelve cada una, y con `--caso` imprime el caso (JSON) con las filas marcadas.
 
 ## Cómo funciona por dentro
 
@@ -369,10 +406,10 @@ Limitaciones: solo se reconocen las tablas de las transacciones de la misma KB, 
 | Paquete | Qué hace |
 | --- | --- |
 | `kbs.py`, `catalogo.py`, `config.py`, `util.py` | KBs encontradas, objetos y parámetros, `config.json`, lectura y escritura de JSON |
-| `campos\` | combos del formulario: dominio de cada campo de la entrada, tablas con su clave y valores de la base |
+| `campos\` | combos del formulario: dominio de cada campo de la entrada, tablas con su clave y valores de la base; `${existente.X}` y demás valores calculados en la base |
 | `plan\` | plan de ejecución: sentencias SQL del `.java`, `EXPLAIN`, índices de la base y recomendaciones |
 | `motor\` | el proceso Java de cada KB: describir, ejecutar, SQL, fin de transacción, savepoint del script previo |
-| `suites\` | formato y almacén de las suites, script previo, ejecución de pasos y casos, salidas aprobadas, corridas, reportes |
+| `suites\` | formato y almacén de las suites, script previo, ejecución de pasos y casos, variables y fechas relativas, salidas aprobadas, corridas, reportes, generador de validaciones |
 | `comparacion\` | comparación con `esperado` y la salida aprobada, operadores de `verificaciones`, volátiles |
 | `generacion\`, `efectos.py` | suites `auto-*` y la detección de objetos de solo lectura |
 | `revisor\` | fuente GX desde la especificación, reglas de buenas prácticas, línea base, pantalla Revisión |
