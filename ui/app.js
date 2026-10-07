@@ -809,7 +809,7 @@ async function guardarComoCaso() {
         const aprobar = (pr) => !conExcepcion && pr?.estado !== "error" && pr?.datos != null;
         const modo = modoCmp.value === "estructura" ? { comparar: "estructura" } : {};
         const pasos = [{
-          nombre: corto(env.objeto), objeto: env.objeto, entrada: clonar(env.entrada),
+          nombre: corto(env.objeto), objeto: env.objeto, entrada: clonar(env.entrada), calculadas: pasoObj?.calculadas,
           ...(conExcepcion && chkError.checked ? { esperaError: true, errorContiene: textoError } : {}),
           ...(verifs(0).length ? { verificaciones: verifs(0) } : {}),
           ...(ign(0).length ? { ignorar: ign(0) } : {}),
@@ -819,7 +819,7 @@ async function guardarComoCaso() {
           env.sql.forEach((s, j) => {
             const pr = res.pasos[j + 1];
             pasos.push({
-              nombre: `Consulta ${j + 1}`, sql: s.query, ds: s.ds,
+              nombre: `Consulta ${j + 1}`, sql: s.query, ds: s.ds, calculadas: pr?.calculadas,
               ...(verifs(j + 1).length ? { verificaciones: verifs(j + 1) } : {}),
               ...(ign(j + 1).length ? { ignorar: ign(j + 1) } : {}),
               ...(aprobar(pr) ? { lineaBase: pr.datos, ...modo } : {}),
@@ -845,6 +845,7 @@ async function guardarComoCaso() {
           const t = toast(h("span", null, "Caso guardado en ", h("b", null, r.id), ". ",
             h("a", { href: "#", onclick: (ev) => { ev.preventDefault(); t.remove(); irA("suites"); abrirSuite(r.id); } }, "Abrir la suite"),
             vol.length ? h("div", { class: "chico" }, "Cambian solos (se controla que existan y su tipo): ", vol.join(", ")) : null,
+            (r.conVariable || []).map((a) => h("div", { class: "chico" }, a)),
             (r.avisos || []).map((a) => h("div", { class: "chico" }, "⚠ ", a))), (r.avisos || []).length ? "error" : "ok", (r.avisos || []).length ? 0 : 9000);
           cargarSuites();
         } catch (e) { toast(e.message, "error"); return false; }
@@ -1105,9 +1106,10 @@ function detalleCaso(c, est) {
       const malas = (pr?.verificaciones || []).filter((v) => !v.ok);
       if (malas.length && !(await confirmar(`Esta salida NO cumple ${malas.length} verificación(es) del caso:\n\n${malas.map((v) => `• ${v.descripcion || `${v.ruta} ${v.op} ${resumirValor(v.valor, 40)}`}`).join("\n")}\n\nSi la aceptás, esas verificaciones van a seguir fallando. ¿Aceptarla igual?`, { si: "Aceptar igual", peligro: true }))) return;
       try {
-        await POST("/api/lineabase", { suite: E.suite._id, caso: c.id, paso, fila, datos });
+        const r = await POST("/api/lineabase", { suite: E.suite._id, caso: c.id, paso, fila, datos, calculadas: pr?.calculadas });
         E.sinCorrer.add(c.id);
-        toast("Salida aprobada: de ahora en más se compara contra esta. Corré el caso para confirmarlo.", "ok");
+        toast(h("span", null, "Salida aprobada: de ahora en más se compara contra esta. Corré el caso para confirmarlo.",
+          (r.conVariable || []).map((a) => h("div", { class: "chico" }, a))), "ok");
         await abrirSuite(E.suite._id, true);
       } catch (e) { toast(e.message, "error"); }
     },

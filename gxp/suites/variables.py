@@ -9,6 +9,10 @@
     ${con_hijos.CuponId}... (campos/expresiones.py). Se calculan la primera vez que se usan en la fila del caso,
     dentro de su transaccion, y quedan fijos para el resto de sus pasos.
 
+Las que se calculan al ejecutar (de la base y fechas relativas) quedan anotadas en vars_[CALCULADAS] con el valor
+que dieron. Al aprobar una salida, poner_calculadas() pone la variable donde la salida tiene ese valor, para que la
+salida aprobada no quede con un id o una fecha fijos.
+
 Si el texto es solo "${x}", se reemplaza por el valor con su tipo (un numero sigue siendo numero). Una variable
 puede ir dentro de otra (${existente.CuponCuotaSec|CuponId=${cupon}}) y el valor de una variable puede ser otra
 expresion (una columna de 'datos' con "${siguiente.CuponId}"): se resuelve tambien.
@@ -28,6 +32,7 @@ from . import fechas
 
 _VAR = re.compile(r"\$\{([^}]+)\}")
 MAX_ANIDADAS = 5  # una variable cuyo valor es otra variable...
+CALCULADAS = "__calculadas__"  # en vars_: {variable como se escribio (sin ${}): valor} de las calculadas al ejecutar
 
 
 class VariableIndefinida(Exception):
@@ -75,6 +80,14 @@ def _valor(nombre, vars_):
     raise VariableIndefinida(nombre)
 
 
+def _es_calculada(nombre, vars_):
+    """Si ${nombre} se calcula al ejecutar: una funcion de la base (${siguiente.X}) o una fecha relativa."""
+    cabeza = re.split(r"[.\[]", nombre, maxsplit=1)[0]
+    if callable(vars_.get(cabeza)):
+        return True
+    return nombre not in vars_ and fechas.calcular_seguro(nombre)
+
+
 def _como_texto(v):
     return v if isinstance(v, str) else json.dumps(v, ensure_ascii=False)
 
@@ -119,6 +132,8 @@ def sustituir(obj, vars_, estricto=True, _nivel=0):
                 return texto
             if isinstance(v, str) and "${" in v and _nivel < MAX_ANIDADAS:
                 v = sustituir(v, vars_, estricto, _nivel + 1)
+            elif _es_calculada(nombre, vars_):
+                vars_.setdefault(CALCULADAS, {})[interior.strip()] = v
             return v
         inicio = len(obj) - len(obj.lstrip())
         if len(partes) == 1 and partes[0][0] == inicio and partes[0][1] == len(obj.rstrip()):
@@ -133,6 +148,64 @@ def sustituir(obj, vars_, estricto=True, _nivel=0):
     if isinstance(obj, dict):
         return {k: sustituir(v, vars_, estricto, _nivel) for k, v in obj.items()}
     return obj
+
+
+def calculadas(vars_):
+    """{"${siguiente.CuponId}": 60, ...}: las variables calculadas al ejecutar que se usaron, con su valor."""
+    return {f"${{{k}}}": v for k, v in (vars_.get(CALCULADAS) or {}).items()}
+
+
+# Un valor adentro de un texto: no pegado a letras o numeros, ni a / : - (fechas, horas), ni a un . seguido de numero.
+_ANTES, _DESPUES = r"(?<![\w/:.\-])", r"(?![\w/:\-]|\.\d)"
+
+
+def poner_calculadas(datos, calc):
+    """Al aprobar una salida: donde tiene el valor que dio una variable calculada al ejecutar ('calc', de
+    calculadas()), pone la variable. Devuelve (datos, [rutas cambiadas]).
+
+      - de la base (${siguiente.CuponId}): un campo que se llama como el atributo (CuponId) y tiene ese valor;
+      - fecha relativa (${hoy+30}): cualquier campo con esa fecha;
+      - adentro de un texto ("No existe el cupon 60"): el valor como palabra suelta, si tiene 2 caracteres o mas y
+        ninguna otra variable dio el mismo valor.
+    """
+    reglas = []  # (variable, valor como texto, atributo o None)
+    for texto, v in (calc or {}).items():
+        if isinstance(v, bool) or v is None or str(v).strip() == "":
+            continue
+        _, _, resto = texto[2:-1].partition(".")  # las fechas relativas no llevan punto: ${hoy+30}
+        atributo = re.split(r"[|:]", resto)[0].strip() if resto else None
+        reglas.append((texto, str(v).strip(), atributo))
+    if not reglas:
+        return datos, []
+    por_valor = {}
+    for texto, val, _ in reglas:
+        por_valor.setdefault(val, []).append(texto)
+    en_texto = {val: ts[0] for val, ts in por_valor.items() if len(ts) == 1 and len(val) >= 2}
+    patron = re.compile(_ANTES + "(" + "|".join(re.escape(v) for v in sorted(en_texto, key=len, reverse=True)) + ")" + _DESPUES) \
+        if en_texto else None
+    cambiadas = []
+
+    def poner(x, ruta, clave):
+        if isinstance(x, dict):
+            return {k: poner(v, f"{ruta}.{k}" if ruta else k, k) for k, v in x.items()}
+        if isinstance(x, list):
+            return [poner(v, f"{ruta}[{i}]", clave) for i, v in enumerate(x)]
+        if isinstance(x, bool) or not isinstance(x, (str, int, float)):
+            return x
+        s = str(x).strip()
+        if s in por_valor:  # el campo entero: solo si es el atributo de la variable (o una fecha)
+            for texto, val, atributo in reglas:
+                if val == s and (atributo is None or atributo.lower() == str(clave or "").lower()):
+                    cambiadas.append(ruta)
+                    return texto
+            return x
+        if isinstance(x, str) and patron:
+            nuevo = patron.sub(lambda m: en_texto[m.group(1)], x)
+            if nuevo != x:
+                cambiadas.append(ruta)
+                return nuevo
+        return x
+    return poner(datos, "", None), cambiadas
 
 
 def con_variables(obj):

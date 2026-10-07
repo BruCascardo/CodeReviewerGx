@@ -7,7 +7,7 @@ import unittest
 
 from gxp.comparacion import Opciones
 from gxp.suites import ejecucion, validaciones
-from gxp.suites.variables import VariableIndefinida, mensaje_error, sustituir
+from gxp.suites.variables import VariableIndefinida, calculadas, mensaje_error, poner_calculadas, sustituir
 
 
 class Anidadas(unittest.TestCase):
@@ -37,6 +37,43 @@ class Anidadas(unittest.TestCase):
         with self.assertRaises(VariableIndefinida) as c:
             sustituir("${hoy+2h}", vars_)
         self.assertIn("No se pudo calcular ${hoy+2h}", mensaje_error(c.exception))
+
+
+class Calculadas(unittest.TestCase):
+    """Al aprobar una salida, donde esta el valor de una variable calculada al ejecutar queda la variable."""
+    CALC = {"${siguiente.CuponId}": 60, "${existente.CuotaSec|CuponId=${cupon}}": 1, "${hoy+30}": "2026-11-06",
+            "${existente.CargoId}": 1}
+
+    def test_se_anotan_las_calculadas_con_su_texto(self):
+        vars_ = {"cupon": 7, "hoy": "2026-10-07", "ahora": "2026-10-07T10:00:00",
+                 "siguiente": lambda r: 60, "existente": lambda r: 3}
+        sustituir({"a": "${siguiente.CuponId}", "b": "${existente.X|CuponId=${cupon}}", "c": "${hoy+1}", "d": "${hoy}",
+                   "e": "${cupon}"}, vars_)
+        self.assertEqual(calculadas(vars_), {"${siguiente.CuponId}": 60, "${existente.X|CuponId=${cupon}}": 3,
+                                             "${hoy+1}": "2026-10-08"})  # ni ${hoy} ni ${cupon}: no se calculan
+
+    def test_poner_en_la_salida(self):
+        salida = {"out": {"CuponId": "60", "Importe": 60, "CuotaSec": 1, "Orden": 1, "Vence": "2026-11-06",
+                          "Messages": [{"Texto": "No existe el cupon 60.", "Fecha": "2026-10-60"},
+                                       {"Texto": "Vence el 2026-11-06, cuota 1"}]}}
+        datos, rutas = poner_calculadas(salida, self.CALC)
+        self.assertEqual(datos["out"], {
+            "CuponId": "${siguiente.CuponId}",                 # el campo con el nombre del atributo
+            "Importe": 60,                                     # mismo valor, otro campo: no
+            "CuotaSec": "${existente.CuotaSec|CuponId=${cupon}}",
+            "Orden": 1,
+            "Vence": "${hoy+30}",                              # una fecha: en cualquier campo
+            "Messages": [{"Texto": "No existe el cupon ${siguiente.CuponId}.", "Fecha": "2026-10-60"},
+                         {"Texto": "Vence el ${hoy+30}, cuota 1"}]})  # 1: lo dieron dos variables y es corto
+        self.assertEqual(rutas, ["out.CuponId", "out.CuotaSec", "out.Vence", "out.Messages[0].Texto", "out.Messages[1].Texto"])
+
+    def test_sin_calculadas_no_toca_nada(self):
+        self.assertEqual(poner_calculadas({"a": 1}, None), ({"a": 1}, []))
+
+    def test_la_salida_aprobada_se_compara_con_lo_de_cada_corrida(self):
+        aprobada, _ = poner_calculadas({"CuponId": "60", "Texto": "No existe el cupon 60"}, {"${siguiente.CuponId}": 60})
+        otra_corrida = {"siguiente": lambda r: 75}
+        self.assertEqual(sustituir(aprobada, otra_corrida, estricto=False), {"CuponId": 75, "Texto": "No existe el cupon 75"})
 
 
 class OmitirSiVacio(unittest.TestCase):

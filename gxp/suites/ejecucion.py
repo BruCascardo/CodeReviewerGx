@@ -11,7 +11,7 @@ import re
 import time
 
 from .script import Entorno, bloques, correr_sql
-from .variables import VariableIndefinida, con_variables, mensaje_error, sustituir, variables_base
+from .variables import VariableIndefinida, calculadas, con_variables, mensaje_error, sustituir, variables_base
 from .. import catalogo
 from ..comparacion import Opciones, aprobada, clave, obtener, parcial, resumir, sugerir, verificar
 from ..config import CFG
@@ -168,6 +168,8 @@ def correr_paso(kb, paso, vars_, opciones, fila_idx=None, grabar=False):
         return res
     _linea_base(paso, fila_idx, datos, vars_, opts, res, grabar)
     _guardar_variables(paso, datos, vars_, res)
+    if calculadas(vars_):
+        res["calculadas"] = calculadas(vars_)
 
     if res["diferencias"]:
         res["resumen"] = resumir(res["diferencias"], datos)

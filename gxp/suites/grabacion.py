@@ -1,14 +1,15 @@
 """Salidas aprobadas ('lineaBase') y valores que cambian solos ('volatiles').
 
 Al aprobar, cada caso se corre dos veces con la misma entrada: lo que da distinto (fechas, ids nuevos) se
-marca como volatil y de esas rutas solo se controla el tipo. Si el caso graba de verdad (commit), no se vuelve
+marca como volatil y de esas rutas solo se controla el tipo. Donde la salida tiene el valor que dio una variable
+calculada al ejecutar (${siguiente.CuponId}, ${hoy+30}), se guarda la variable y no el valor (poner_calculadas). Si el caso graba de verdad (commit), no se vuelve
 a correr: se marcan solo los valores con la fecha de hoy.
 """
 import time
 
 from . import almacen
 from .ejecucion import correr_caso, linea_base_de, nombre_paso
-from .variables import reponer_variables
+from .variables import poner_calculadas, reponer_variables, sustituir
 from .. import catalogo, kbs
 from ..comparacion import detectar_volatiles, volatiles_por_valor
 from ..config import CFG
@@ -22,12 +23,14 @@ def _sumar_volatiles(paso, nuevas):
         paso["volatiles"] = todas
 
 
-def _poner_linea_base(caso, paso, fila, datos):
+def _poner_linea_base(caso, paso, fila, datos, calc=None):
     """Guarda 'datos' como salida aprobada del paso (con 'datos' en el caso, la de esa fila). Los campos donde la
-    salida aprobada anterior tenia una ${variable} la conservan."""
+    salida aprobada anterior tenia una ${variable} la conservan, y donde esta el valor de una variable calculada al
+    ejecutar ('calc', del resultado del paso) queda la variable. Devuelve un aviso con esos campos, o None."""
     anterior = linea_base_de(paso, fila if caso.get("datos") else None)
     if anterior is not None:
         datos = reponer_variables(anterior, datos)
+    datos, cambiadas = poner_calculadas(datos, calc)
     if caso.get("datos") and fila is not None:
         lb = paso.get("lineaBase") if isinstance(paso.get("lineaBase"), list) else []
         while len(lb) <= fila:
@@ -36,6 +39,14 @@ def _poner_linea_base(caso, paso, fila, datos):
         paso["lineaBase"] = lb
     else:
         paso["lineaBase"] = datos
+    return aviso_calculadas(nombre_paso(paso), cambiadas)
+
+
+def aviso_calculadas(paso, cambiadas):
+    if not cambiadas:
+        return None
+    return (f"Paso '{paso}': {', '.join(cambiadas)} quedo con la variable calculada al ejecutar en lugar del valor "
+            "(es el que dio en esta corrida): se compara contra lo que de la variable en cada corrida.")
 
 
 def hace_commit(kb, caso, opciones, simulado=False):
@@ -77,7 +88,9 @@ def aplicar_grabacion(caso, resultados, segunda=None, motivo_sin_segunda=None, c
             if pr.get("preparacion") or i >= len(caso["pasos"]) or pr.get("datos") is None:
                 continue
             paso = caso["pasos"][i]
-            _poner_linea_base(caso, paso, res["fila"], pr["datos"])
+            aviso = _poner_linea_base(caso, paso, res["fila"], pr["datos"], pr.get("calculadas"))
+            if aviso:
+                avisos.append(aviso)
             if i < len(pasos2) and pasos2[i].get("datos") is not None:
                 vol, av = detectar_volatiles(pr["datos"], pasos2[i]["datos"], campos)
             else:
@@ -114,6 +127,8 @@ def volatiles_de_caso(suite_id, caso_id):
                 continue
             pr = res["pasos"][i] if i < len(res["pasos"]) else {}
             if pr.get("datos") is not None:
+                # Las variables calculadas, con lo que dieron en esta corrida: no son valores que cambian solos.
+                lb = sustituir(lb, {k[2:-1]: v for k, v in (pr.get("calculadas") or {}).items()}, estricto=False)
                 vol, av = detectar_volatiles(lb, pr["datos"], opciones.get("camposClave"))
             else:
                 vol, av = sorted(volatiles_por_valor(lb)), []
@@ -131,13 +146,15 @@ def volatiles_de_caso(suite_id, caso_id):
     return salida
 
 
-def aceptar_linea_base(suite_id, caso_id, paso_idx, fila, datos):
-    """'Es correcto: aceptar esta salida' de la interfaz."""
+def aceptar_linea_base(suite_id, caso_id, paso_idx, fila, datos, calc=None):
+    """'Es correcto: aceptar esta salida' de la interfaz. 'calc': las variables calculadas del resultado del paso.
+    Devuelve el aviso de los campos que quedaron con una variable, o None."""
     suite = almacen.cargar(suite_id)
     caso = next((c for c in suite["casos"] if c["id"] == caso_id), None)
     if caso is None:
         raise KeyError(f"No existe el caso {caso_id}")
     paso = caso["pasos"][paso_idx]
-    _poner_linea_base(caso, paso, fila, datos)
+    aviso = _poner_linea_base(caso, paso, fila, datos, calc)
     _sumar_volatiles(paso, volatiles_por_valor(datos))
     almacen.guardar(suite_id, suite)
+    return aviso

@@ -20,6 +20,7 @@ import re
 
 from .ejecucion import correr_caso
 from .script import Entorno, bloques
+from .variables import poner_calculadas
 from .. import campos, catalogo
 from ..config import CFG
 from ..revisor import salida as control_salida
@@ -89,7 +90,7 @@ def _texto(m):
 def _resultado(res):
     """Lo que devolvio una fila: {estado, error, ok, codigos, texto, rutaSalida}."""
     p = (res.get("pasos") or [{}])[-1]
-    r = {"estado": p.get("estado") or res.get("estado"), "excepcion": p.get("error") or ""}
+    r = {"estado": p.get("estado") or res.get("estado"), "excepcion": p.get("error") or "", "calculadas": p.get("calculadas")}
     hallados = control_salida.salidas(p.get("datos")) if p.get("datos") is not None else []
     if hallados:
         ruta, d = hallados[0]
@@ -128,7 +129,7 @@ def proponer(kb, objeto, entrada, sql_previo=(), timeout_ms=None):
     for f, res in zip(filas, resultados):
         r = _resultado(res)
         ruta_salida = ruta_salida or r.get("rutaSalida")
-        f.update({k: r.get(k) for k in ("estado", "ok", "codigos", "texto")})
+        f.update({k: r.get(k) for k in ("estado", "ok", "codigos", "texto", "calculadas")})
         f["error"] = r.get("excepcion") or ""
         f["codigo"] = next((c for c in r.get("codigos") or [] if c), "")
         # Sin codigo, el texto del primer mensaje de error (en las filas que fallan) identifica el motivo.
@@ -166,7 +167,8 @@ def armar_caso(objeto, entrada, columnas, filas, nombre=None, ruta_salida=None, 
         if verificar and ruta_salida:
             fila["ok"] = f.get("ok")
             fila["codigo"] = f.get("codigo") or ""
-            fila["mensaje"] = f.get("mensaje") or ""
+            # "No existe el cupon 60" con ${siguiente.CuponId}: queda la variable, no el 60 de hoy.
+            fila["mensaje"] = poner_calculadas(f.get("mensaje") or "", f.get("calculadas"))[0]
         datos.append(fila)
     corto = objeto.split(".")[-1]
     paso = {"nombre": corto, "objeto": objeto, "entrada": plantilla}

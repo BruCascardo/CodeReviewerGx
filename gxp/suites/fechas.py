@@ -34,6 +34,14 @@ def _habil(f, paso):
     return f
 
 
+def calcular_seguro(expresion):
+    """True si 'expresion' es una fecha relativa (bien escrita)."""
+    try:
+        return calcular(expresion) is not None
+    except ValueError:
+        return False
+
+
 def calcular(expresion, ahora=None):
     """El valor de una fecha relativa (texto), o None si 'expresion' no es una. ValueError si la unidad no va con
     esa fecha (${hoy+2h})."""

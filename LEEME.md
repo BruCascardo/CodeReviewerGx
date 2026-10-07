@@ -116,6 +116,14 @@ Una variable puede ir dentro de otra: `${existente.CuponCuotaSec|CuponId=${cupon
 
 Las variables se reemplazan en `entrada`, `sql`, `esperado`, `verificaciones` y también en la salida aprobada (`lineaBase`): con `"ItfId": "${idItf}"` ahí, el campo tiene que dar el valor que tenga la variable en esa corrida. Al aprobar una salida nueva, los campos donde había una variable la conservan. En `lineaBase`, una variable que no existe se compara como texto (por si la salida real tiene un `${...}` propio).
 
+**Al aprobar, las variables calculadas quedan como variables.** Si el paso usó una variable que se calcula al ejecutar (de la base o una fecha relativa) y la salida devuelve ese mismo valor, en la salida aprobada se guarda la variable y no el valor de ese día. Así, si el objeto devuelve el id que recibió, el caso sigue pasando cuando la base crece. Las reglas son:
+
+- variable de la base (`${siguiente.CuponId}`): solo en un campo que se llama como el atributo (`CuponId`) y tiene ese valor (un `Importe` que justo vale 60 no se toca);
+- fecha relativa (`${hoy+30}`): en cualquier campo con esa fecha;
+- adentro de un texto («No existe el cupón 60»): el valor como palabra suelta (no dentro de una fecha, una hora u otro número), si tiene 2 caracteres o más y ninguna otra variable del paso dio el mismo valor.
+
+Vale para «Guardar como caso», para «aceptar esta salida» y para «Aprobar salidas actuales» (`correr --grabar`). Los campos que quedaron con una variable se avisan al aprobar. En «Generar validaciones», lo mismo pasa con el texto del mensaje de error de cada fila.
+
 En la pantalla Suites, el panel **Variables** muestra cada `${variable}` de la suite: de dónde sale (variables de la suite, columna de `datos`, o qué caso y paso la guarda), el último valor que tomó, qué casos la usan, y un aviso si no le va a llegar a alguno (casos aislados, un caso que corre antes del que la guarda, o una variable que nadie define).
 
 Lo que se guarda con `guardar` llega a los pasos siguientes **del mismo caso**. Con **casos encadenados** también llega a los casos que corren después (ver «Casos aislados o encadenados»). Para guardar un valor sin escribir JSON: clic en él en la salida del caso → «Guardar como variable». La explicación completa, con ejemplos, está en Opciones de la suite → Variables → «¿Cómo funcionan las variables?».

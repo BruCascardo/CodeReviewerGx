@@ -4,6 +4,8 @@ import re
 from ..rutas import Archivo, ErrorApi, mensaje, ruta
 from ... import comparacion, suites
 from ...suites import almacen, resultados, trabajos
+from ...suites.grabacion import aviso_calculadas
+from ...suites.variables import poner_calculadas
 
 
 @ruta("GET", "/api/suites")
@@ -44,9 +46,16 @@ def agregar_caso(_q, b):
     if not b.get("id"):
         raise ErrorApi("Falta la suite")
     caso = b.get("caso") or {}
+    # Cada paso puede traer las variables calculadas al ejecutarlo (Explorar): en su salida aprobada quedan las variables.
+    con_variable = []
+    for p in caso.get("pasos") or []:
+        calc = p.pop("calculadas", None)
+        if calc and p.get("lineaBase") is not None:
+            p["lineaBase"], cambiadas = poner_calculadas(p["lineaBase"], calc)
+            con_variable.append(aviso_calculadas(p.get("nombre") or p.get("objeto") or "SQL", cambiadas))
     sid, caso_id = almacen.agregar_caso(b["id"], caso, bool(b.get("reemplazar")), b.get("nombreSuite"), b.get("kb", ""),
                                         b.get("scriptPrevio"))
-    r = {"id": sid, "casoId": caso_id}
+    r = {"id": sid, "casoId": caso_id, "conVariable": [a for a in con_variable if a]}
     # Con salida aprobada: se ejecuta una vez mas para marcar los valores que cambian solos (fechas, ids).
     if b.get("detectarVolatiles", True) and any(p.get("lineaBase") is not None for p in caso.get("pasos") or []):
         r.update(suites.volatiles_de_caso(sid, caso_id))
@@ -55,8 +64,8 @@ def agregar_caso(_q, b):
 
 @ruta("POST", "/api/lineabase")
 def aceptar_linea_base(_q, b):
-    suites.aceptar_linea_base(b["suite"], b["caso"], int(b["paso"]), b.get("fila"), b.get("datos"))
-    return {"ok": True}
+    aviso = suites.aceptar_linea_base(b["suite"], b["caso"], int(b["paso"]), b.get("fila"), b.get("datos"), b.get("calculadas"))
+    return {"ok": True, "conVariable": [aviso] if aviso else []}
 
 
 @ruta("POST", "/api/verificar")
