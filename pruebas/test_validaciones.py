@@ -76,6 +76,37 @@ class Calculadas(unittest.TestCase):
         self.assertEqual(sustituir(aprobada, otra_corrida, estricto=False), {"CuponId": 75, "Texto": "No existe el cupon 75"})
 
 
+class AprobarConOtraFila(unittest.TestCase):
+    """Al aprobar, la segunda ejecucion toma la otra punta (${existente.X} da el ultimo que cumple): lo que depende
+    de la fila elegida queda volatil, y la variable no, porque en la salida aprobada queda la variable."""
+    V = "${existente.CuponId|cbhCuponDetalle.Importe>0}"
+
+    def aprobar(self, ok2=True):
+        from gxp.suites.grabacion import aplicar_grabacion
+        caso = {"id": "c", "pasos": [{"nombre": "get", "objeto": "X.Get", "entrada": {"CuponId": self.V}}]}
+        corrida = lambda cupon, importe, ok: [{"id": "c", "fila": None, "estado": "ok", "pasos": [{
+            "nombre": "get", "datos": {"out": {"CuponId": cupon, "Importe": importe, "Output": {"Ok": ok}}},
+            "calculadas": {self.V: cupon, "${hoy}": "2026-10-08"}}]}]
+        n, avisos = aplicar_grabacion(caso, corrida(46, 10, True), corrida(1389, 20, ok2))
+        return caso["pasos"][0], avisos
+
+    def test_lo_de_la_fila_queda_volatil_y_la_variable_no(self):
+        paso, avisos = self.aprobar()
+        self.assertEqual(paso["lineaBase"]["out"]["CuponId"], self.V)
+        self.assertEqual(paso["volatiles"], ["out.Importe"])
+        self.assertFalse(any("da distinto" in a or "cambia" in a for a in avisos))
+
+    def test_si_cambia_el_resultado_avisa_que_faltan_condiciones(self):
+        paso, avisos = self.aprobar(ok2=False)
+        self.assertNotIn("out.Output.Ok", paso.get("volatiles") or [])
+        self.assertTrue(any("otra fila que cumple las mismas condiciones" in a for a in avisos))
+
+    def test_eligen_fila(self):
+        from gxp.suites.variables import eligen_fila
+        self.assertTrue(eligen_fila([{"calculadas": {self.V: 1}}]))
+        self.assertFalse(eligen_fila([{"calculadas": {"${hoy+30}": "x", "${siguiente.CuponId}": 60}}]))
+
+
 class OmitirSiVacio(unittest.TestCase):
     def test_no_controla_la_verificacion_si_el_valor_queda_vacio(self):
         paso = {"verificaciones": [

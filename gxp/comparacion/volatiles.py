@@ -31,16 +31,20 @@ def volatiles_por_valor(datos, ruta=""):
     return salida
 
 
-def detectar_volatiles(d1, d2, campos=None):
+def detectar_volatiles(d1, d2, campos=None, otra_fila=False):
     """Compara dos ejecuciones con la misma entrada. Devuelve (rutas volatiles, avisos). Ok y los codigos
-    de mensaje nunca se marcan como volatiles: si cambian entre dos ejecuciones iguales, es un aviso."""
+    de mensaje nunca se marcan como volatiles: si cambian entre dos ejecuciones iguales, es un aviso. Con
+    'otra_fila', la segunda tomo otra fila que cumple las mismas condiciones (${existente.X} dio el ultimo)."""
     diffs = []
     total(d1, d2, "", Opciones(), diffs)
     patrones, avisos = set(), []
     for d in diffs:
         p = patron_de(d["ruta"])
         if es_campo_clave(p, campos):
-            avisos.append(f"{p} cambia entre dos ejecuciones con la misma entrada: revisa el caso (no se puede aprobar un resultado que cambia solo).")
+            avisos.append(f"{p} da distinto con otra fila que cumple las mismas condiciones (el ultimo en vez del primero): "
+                          "las condiciones de las ${variables} no alcanzan para que el resultado sea siempre el mismo; agregale filtros."
+                          if otra_fila else
+                          f"{p} cambia entre dos ejecuciones con la misma entrada: revisa el caso (no se puede aprobar un resultado que cambia solo).")
         else:
             patrones.add(p)
     patrones |= {p for p in volatiles_por_valor(d1) if not es_campo_clave(p, campos)}

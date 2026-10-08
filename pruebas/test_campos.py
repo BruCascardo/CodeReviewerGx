@@ -88,6 +88,47 @@ class Indice(unittest.TestCase):
         self.assertEqual(ix.dominios[293], "Generales\\InterfaseTipo")
         self.assertTrue(t.numerica)  # ItfId es int: se le puede calcular el siguiente
 
+    def _externa(self, ds, nombre, dbms, *props):
+        """TRN con su tabla en otro datastore (las propiedades fv de la tabla, como las escribe GeneXus)."""
+        return TRN + "\n".join([
+            "rule_i(0,datastore(2,'USER_ID',root)).", f"rule_i(0,datastore(2,'NAME','{nombre}')).",
+            f"rule_i(0,datastore(2,'DBMS',{dbms})).", "rule_i(0,datastore(1,'NAME','Generales')).",
+            "rule_i(0,datastore(1,'DBMS',18)).", "rule_i(0,p(0,0,fv,7,[ table,98 ])).", f"rule_i(0,p(0,0,fv,7,[ datastore,{ds} ])).",
+            *props, "map_i(98,a,600,[ 'InterfaseId' ]).", "map_i(98,a,601,[ 'ItfNombre' ]).", ""])
+
+    def test_datastore_y_columnas_fisicas(self):
+        # Una tabla de otro datastore (GAM) cuyos atributos tienen otro nombre en la base (como la User de GAM).
+        # La conexion del datastore no se lee: solo su nombre y su motor.
+        from gxp.campos import expresiones
+        ix = indice.armar(self._externa(2, "GAM", 18))
+        t = ix.tablas["itfid"]
+        self.assertEqual((t.datastore, t.dbms, t.columnas), ("GAM", "18", {"ItfId": "InterfaseId"}))
+        self.assertEqual((t.col("itfid"), t.col("ItfNombre")), ("InterfaseId", "ItfNombre"))
+        self.assertEqual(indice.armar(TRN).tablas["itfid"].datastore, "")  # sin la propiedad: el principal
+        self.assertEqual(indice.armar(self._externa(1, "Generales", 18)).tablas["itfid"].datastore, "")  # el principal
+        _, q = expresiones.consulta(ix, expresiones.parsear("ultimo", "ItfId|ItfNombre=X"))
+        # En otro datastore puede haber claves nulas: no sirven de entrada
+        self.assertEqual(q, "select t.InterfaseId as valor from gntInterfase t where t.InterfaseId is not null and t.ItfNombre = 'X' "
+                            "order by t.InterfaseId desc limit 1")
+        otra = indice.Tabla("gntItfLog", ["LogId"], None, "", "int", ["LogId", "ItfId"])
+        ix.agregar_tabla(otra)
+        self.assertEqual(ix.relaciones(otra), [])  # en otro datastore: no se puede unir
+
+    def test_dialecto_del_motor(self):
+        from gxp.campos import expresiones
+        sql = lambda trn, resto="ItfId|ItfNombre=O'Brien\\": expresiones.consulta(indice.armar(trn), expresiones.parsear("existente", resto))[1]
+        sqlserver = self._externa(2, "NorteWeb", 12, "rule_i(0,p(0,12,fv,7,[ 'NAME','Interfase' ])).", "rule_i(0,p(0,12,fv,7,[ 'SCHEMA',dbo ])).")
+        self.assertEqual(sql(sqlserver), "select top 1 t.[InterfaseId] as valor from dbo.[Interfase] t where t.[InterfaseId] is not null "
+                                         "and t.[ItfNombre] = 'O''Brien\\' order by t.[InterfaseId]")
+        # En SQL Server el numero va entre comillas: sirve tambien si la columna externa es texto
+        self.assertIn("t.[InterfaseId] = '7'", sql(sqlserver, "ItfId|ItfId=7"))
+        db2 = self._externa(2, "NORTE", 9).replace("'InterfaseId'", "'T@ID'")
+        self.assertEqual(sql(db2), "select t.T@ID as valor from gntInterfase t where t.T@ID is not null and t.ItfNombre = 'O''Brien\\' "
+                                   "order by t.T@ID fetch first 1 rows only")
+        mysql = TRN + "map_i(98,a,600,[ 'T@ID' ]).\n"
+        self.assertEqual(sql(mysql), "select t.`T@ID` as valor from gntInterfase t where t.ItfNombre = 'O''Brien\\\\' "
+                                     "order by t.`T@ID` limit 1")  # solo MySQL escapa la barra
+
     def test_subtipo_se_queda_con_la_clave_mas_corta(self):
         ix = indice.Indice()
         ix.agregar_tabla(indice.Tabla("gntItfRegistro", ["ItfId", "RegId"], None, ""))
@@ -141,7 +182,7 @@ class Valores(unittest.TestCase):
         ix.agregar_tabla(indice.Tabla("gntInterfase", ["ItfId"], "ItfNombre", ""))
         kb = mock.Mock(nombre="Generales")
         with mock.patch.object(campos.indice, "de_kb", return_value=ix), \
-                mock.patch.object(campos, "dinamicas", return_value=[]), \
+\
                 mock.patch.object(campos.motor, "consulta_suelta", return_value=({"ok": True}, {"filas": []})) as cs:
             r = campos.valores(kb, atributo, filtros, buscar)
         return cs.call_args.args[2], r

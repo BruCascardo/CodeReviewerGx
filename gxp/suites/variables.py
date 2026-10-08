@@ -155,6 +155,13 @@ def calculadas(vars_):
     return {f"${{{k}}}": v for k, v in (vars_.get(CALCULADAS) or {}).items()}
 
 
+def eligen_fila(pasos):
+    """Si en los pasos (resultados) se uso alguna ${variable} que elige una fila de la base (${existente.X|...},
+    ${ultimo.X}, con_hijos, sin_hijos): con otra_fila, esa variable pudo dar otro valor."""
+    return any(k[2:].split(".")[0] in ("existente", "ultimo", "con_hijos", "sin_hijos")
+               for p in pasos or [] for k in (p.get("calculadas") or {}))
+
+
 # Un valor adentro de un texto: no pegado a letras o numeros, ni a / : - (fechas, horas), ni a un . seguido de numero.
 _ANTES, _DESPUES = r"(?<![\w/:.\-])", r"(?![\w/:\-]|\.\d)"
 
@@ -173,7 +180,8 @@ def poner_calculadas(datos, calc):
         if isinstance(v, bool) or v is None or str(v).strip() == "":
             continue
         _, _, resto = texto[2:-1].partition(".")  # las fechas relativas no llevan punto: ${hoy+30}
-        atributo = re.split(r"[|:]", resto)[0].strip() if resto else None
+        # ${existente.cbhCargoCuota.CargoId|...}: el atributo es el ultimo nombre antes de las condiciones
+        atributo = re.split(r"[|:]", resto)[0].strip().split(".")[-1] if resto else None
         reglas.append((texto, str(v).strip(), atributo))
     if not reglas:
         return datos, []
@@ -231,9 +239,11 @@ def reponer_variables(plantilla, nuevo):
     return nuevo
 
 
-def variables_base(suite, fila, caso, kb=None):
+def variables_base(suite, fila, caso, kb=None, otra_fila=False):
     """Las variables con las que arranca una fila de un caso. Con 'kb', tambien ${siguiente.Atributo}, que se
-    calcula en la transaccion del caso (ve lo que dejo el script previo y lo que hicieron los pasos anteriores)."""
+    calcula en la transaccion del caso (ve lo que dejo el script previo y lo que hicieron los pasos anteriores).
+    'otra_fila': las de la base toman la fila del otro extremo (${existente.X} da el ultimo que cumple): lo usa la
+    segunda ejecucion al aprobar, para marcar como volatil lo que depende de la fila elegida."""
     ahora = dt.datetime.now()
     v = {
         "hoy": ahora.strftime("%Y-%m-%d"),
@@ -245,7 +255,7 @@ def variables_base(suite, fila, caso, kb=None):
     if kb is not None:
         from ..campos import expresiones  # aca: campos importa el motor
         for f in expresiones.FUNCIONES:
-            v[f] = lambda resto, f=f: expresiones.resolver(kb, f, resto, en_transaccion=True)
+            v[f] = lambda resto, f=f: expresiones.resolver(kb, f, resto, en_transaccion=True, invertir=otra_fila)
     v.update(copy.deepcopy(suite.get("variables") or {}))
     v.update(copy.deepcopy(fila or {}))
     return v

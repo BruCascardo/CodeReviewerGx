@@ -19,9 +19,15 @@ def cmd_grafo(a):
         kb, nombre, tipo = nodo[:3]
         print(c(f"\n{nombre}  ({tipo}, {kb or 'tabla'})" + _MARCA.get(nodo[5], ""), "negrita"))
         for titulo, lista in (("Lo usan", lo_usan), ("Usa", usa)):
-            print(f"  {titulo} ({len(lista)}):")
-            for vecino, t, o in lista:
-                print(f"    {vecino[0] or 'tabla':16} {vecino[1]}  {c(t, 'gris')}{_MARCA.get(o, '')}")
+            # Las de otras KBs van primero (vecinos las ordena asi) y resaltadas: es lo que se rompe sin que se note.
+            otras = sum(1 for v, *_ in lista if v[0] and kb and v[0] != kb)
+            print(f"  {titulo} ({len(lista)}" + (c(f", {otras} de otras KBs", "amarillo") if otras else "") + "):")
+            for vecino, t, o, *extra in lista:
+                externa = vecino[0] and kb and vecino[0] != kb
+                texto = f"{vecino[0] or 'tabla':16} {vecino[1]}"
+                detalle = f"{t} {extra[0]}" if t == "servicio" and extra else t
+                print(f"  {c('>', 'amarillo') if externa else ' '} {c(texto, 'negrita') if externa else texto}  "
+                      f"{c(detalle, 'gris')}{_MARCA.get(o, '')}")
     return 0
 
 

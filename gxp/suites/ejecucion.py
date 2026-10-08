@@ -237,7 +237,7 @@ def _correr_fila(kb, suite, caso, opciones, fi, fila, grabar, cancelado, entorno
         res["pasos"].append({"nombre": "Ejecutar", "estado": "error", "error": motivo, "verificaciones": [],
                              "diferencias": [], "advertencias": []})
         return res
-    vars_ = variables_base(suite, fila, caso, kb)
+    vars_ = variables_base(suite, fila, caso, kb, bool(opciones.get("otraFila")))
     recibidas = entorno.recibir(vars_, fila)
     if recibidas:
         res["variablesRecibidas"] = recibidas

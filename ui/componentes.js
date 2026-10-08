@@ -176,7 +176,7 @@ function subpestanas(pestanas, inicial) {
  * Los textos muestran los espacios finales (tipicos de los Character de GeneXus) como "·".
  */
 function arbolJson(valor, opciones = {}) {
-  const { alClic, resaltar = new Set(), abrirHasta = 3, raiz = "", marcas } = opciones;
+  const { alClic, resaltar = new Set(), abrirHasta = 3, raiz = "", marcas, botonTodo } = opciones;
   const marcado = (ruta) => resaltar.has(ruta);
   const valorHoja = (v) => {
     if (v === null || v === undefined) return h("span", { class: "z" }, "null");
@@ -232,7 +232,18 @@ function arbolJson(valor, opciones = {}) {
     for (const c of claves) ul.appendChild(nodo(c, valor[c], rutaHija(raiz, c), 1));
   } else ul.appendChild(nodo(null, valor, raiz, 1));
   cont.appendChild(ul);
-  return cont;
+  if (!botonTodo) return cont;
+  const ramas = () => [...cont.querySelectorAll("li")].filter((li) => li.querySelector(":scope > ul > li"));
+  const boton = h("button", { class: "btn chico fantasma", type: "button" }, "Plegar todo");
+  boton.addEventListener("click", () => {
+    const cerrar = ramas().some((li) => !li.classList.contains("cerrado"));
+    for (const li of ramas()) {
+      li.classList.toggle("cerrado", cerrar);
+      li.querySelector(":scope > .tg").textContent = cerrar ? "▸" : "▾";
+    }
+    boton.textContent = cerrar ? "Desplegar todo" : "Plegar todo";
+  });
+  return h("div", null, h("div", { style: { marginBottom: "4px" } }, boton), cont);
 }
 
 // ---------------------------------------------------------------------- editor JSON (texto)
@@ -286,7 +297,10 @@ function editorJson(valor, { alCambiar, filas = 14, placeholder = "" } = {}) {
 /**
  * Formulario editable para un valor JSON. 'plantilla' (opcional) da el elemento modelo de cada lista
  * para el boton "+ agregar". alCambiar(valor) se llama en cada cambio.
- * opciones.combo(ruta, padre) (opcional) da los valores sugeridos de un campo (ver listaValores), o null.
+ * opciones.combo(ruta, padre, arriba) (opcional) da los valores sugeridos de un campo (ver listaValores), o null;
+ * arriba() da los objetos de los niveles de arriba del padre, del mas cercano a la raiz. Si trae
+ * armar(actual, alElegir), el campo tiene un boton para armar el valor en un dialogo; alElegir(valor, hermanos)
+ * puede cambiar tambien otros campos del mismo objeto o de los de arriba ({CargoId: ..., CuponId: ...}).
  */
 function formularioJson(valorInicial, plantilla, alCambiar, opciones = {}) {
   let datos = clonar(valorInicial) ?? {};
@@ -314,7 +328,7 @@ function formularioJson(valorInicial, plantilla, alCambiar, opciones = {}) {
       inp.addEventListener("input", () => {
         const t = inp.value.trim();
         if (/^-?\d+(\.\d+)?$/.test(t)) { poner(Number(t)); inp.style.borderColor = ""; avisar(); }
-        else if (/^\$\{[^}]+\}$/.test(t)) { poner(t); inp.style.borderColor = ""; avisar(); }
+        else if (/^\$\{[\s\S]+\}$/.test(t)) { poner(t); inp.style.borderColor = ""; avisar(); }  // puede llevar otra adentro
         else if (t === "" ) { poner(0); avisar(); }
         else inp.style.borderColor = "var(--falla)";
       });
@@ -323,21 +337,48 @@ function formularioJson(valorInicial, plantilla, alCambiar, opciones = {}) {
     }
     return inp;
   };
+  // Los objetos que contienen al campo de 'ruta' por encima de su padre, del mas cercano a la raiz
+  // (inAgregar para inAgregar.Cuotas[0].CargoId; las listas no: sus elementos son otros objetos).
+  const ancestros = (ruta) => {
+    const objs = [];
+    let v = datos;
+    for (const m of ruta.matchAll(/([^.[\]]+)|\[(\d+)\]/g)) {
+      if (v && typeof v === "object" && !Array.isArray(v)) objs.unshift(v);
+      v = v == null ? undefined : m[1] !== undefined ? v[m[1]] : v[Number(m[2])];
+    }
+    return objs.slice(1);  // sin el padre
+  };
   // Campo con valores sugeridos: el texto se sigue pudiendo escribir (${variables}, valores invalidos).
   const conCombo = (inp, ruta, padre) => {
-    const c = opciones.combo && opciones.combo(ruta, padre);
+    const c = opciones.combo && opciones.combo(ruta, padre, () => ancestros(ruta));
     if (!c) return { control: inp };
     const desc = h("span", { class: "combo-desc" });
     const ponerDesc = () => { const t = c.textoDe ? c.textoDe(inp.value) : ""; desc.textContent = t || ""; desc.title = t || ""; };
-    const abrir = () => listaValores(caja, c, inp.value, (valor) => {
+    // 'hermanos' ({CargoId: ...}): otros campos que cambian junto con este (las otras partes de la clave, el CuponId de
+    // esa fila): del mismo objeto o, si no estan ahi, del nivel de arriba mas cercano que los tenga.
+    const poner = (valor, hermanos) => {
+      if (hermanos && padre && !Array.isArray(padre)) {
+        const objs = [padre, ...ancestros(ruta)];
+        for (const [k, v] of Object.entries(hermanos)) {
+          for (const o of objs) {
+            const campo = Object.keys(o).find((x) => x.toLowerCase() === k.toLowerCase());
+            if (campo !== undefined) { o[campo] = v; break; }
+          }
+        }
+      }
       inp.value = String(valor);
       inp.dispatchEvent(new Event("input"));
-      inp.focus();
-    });
+      if (hermanos) pintar();  // los otros campos se ven al volver a armar el formulario
+      else inp.focus();
+    };
+    const abrir = () => listaValores(caja, c, inp.value, poner);
     inp.addEventListener("input", ponerDesc);
     inp.addEventListener("keydown", (ev) => { if ((ev.key === "ArrowDown" && ev.altKey) || ev.key === "F4") { ev.preventDefault(); abrir(); } });
     const caja = h("div", { class: "combo" }, inp,
-      h("button", { class: "btn chico fantasma icono", type: "button", title: `${c.titulo}\nVer los valores (Alt+↓)`, tabindex: -1, onclick: abrir }, "▾"), desc);
+      h("button", { class: "btn chico fantasma icono", type: "button", title: `${c.titulo}\nVer los valores (Alt+↓)`, tabindex: -1, onclick: abrir }, "▾"),
+      c.armar ? h("button", { class: "btn chico fantasma icono", type: "button", tabindex: -1, onclick: () => c.armar(inp.value, poner),
+        title: "Armar un valor que se busca en la base al ejecutar: el primero, el último, con filtros…" }, "ƒ") : null,
+      desc);
     ponerDesc();
     return { control: caja, titulo: c.titulo };
   };
@@ -400,7 +441,7 @@ function formularioJson(valorInicial, plantilla, alCambiar, opciones = {}) {
  *   {titulo, valores: [{valor, texto}]}                                  valores fijos (dominio enumerado)
  *   {titulo, cargar: async (buscar) => ({valores, truncado, nota})}      valores de la base
  * 'ancho' (opcional): ancho minimo del menu en px. Cada valor puede traer destacado (va arriba, en cursiva) y
- * apagado (hoy no aplica) y titulo (tooltip).
+ * apagado (hoy no aplica) y titulo (tooltip). Un valor con accion(actual, alElegir) no se elige: la llama.
  * Con 'cargar', si la lista vino truncada, lo que se escribe en el filtro se busca en la base.
  * alElegir(valor) recibe el valor elegido.
  */
@@ -412,7 +453,7 @@ function listaValores(ancla, fuente, actual, alElegir) {
   const m = h("div", { class: "menu combo-menu" }, h("div", { class: "titulo-menu" }, fuente.titulo), filtro, lista, pie);
   const igual = (v) => String(v.valor).trim() === String(actual ?? "").trim();
   let valores = fuente.valores || null, truncado = false, nota = "", error = "", activo = 0, visibles = [], buscado = "", espera = null;
-  const elegir = (v) => { cerrarMenu(); alElegir(v.valor); };
+  const elegir = (v) => { cerrarMenu(); if (v.accion) v.accion(actual, alElegir); else alElegir(v.valor); };
   const marcar = () => $$("button", lista).forEach((b, i) => b.classList.toggle("activo", i === activo));
   const mover = (d) => {
     activo = Math.max(0, Math.min(activo + d, visibles.length - 1));
@@ -433,7 +474,7 @@ function listaValores(ancla, fuente, actual, alElegir) {
           onmousemove: () => { if (activo !== i) { activo = i; marcar(); } },
         }, h("span", { class: "mono" }, String(v.valor)), v.texto ? h("span", { class: "muted" }, v.texto) : null))
       : aviso("Sin coincidencias."));
-    pie.textContent = [nota, truncado ? `Se muestran los primeros ${valores.length}: lo que escribas se busca en la base.` : ""].filter(Boolean).join(" ");
+    pie.textContent = [nota, truncado ? `Se muestran los primeros ${valores.filter((v) => !v.accion).length}: lo que escribas se busca en la base.` : ""].filter(Boolean).join(" ");
     pie.style.display = pie.textContent ? "" : "none";
     marcar();
   };
@@ -636,7 +677,7 @@ function vistaPaso(p, idx, res, ctx, abierto) {
       }
       pests.push({
         id: "salida", texto: p.tipo === "sql" ? "Árbol" : "Salida", render: () => arbolJson(p.datos, {
-          resaltar, abrirHasta: 3,
+          resaltar, abrirHasta: Infinity, botonTodo: true,
           alClic: ctx.alVerificar ? (ruta, valor, ev) => ctx.alVerificar(idx, ruta, valor, ev, p) : undefined,
         }),
       });

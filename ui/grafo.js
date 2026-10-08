@@ -11,6 +11,7 @@ const G = {
   relaciones: new Set(almacen.leer("grafo.rel", ["llama", "transaccion", "sdt", "lee", "escribe"])),
   ocultarGenerados: almacen.leer("grafo.ocultarGen", true),
   verFixes: almacen.leer("grafo.fixes", false),
+  soloOtrasKbs: almacen.leer("grafo.soloOtras", false),   // el dibujo muestra solo lo de otras KBs
   foco: null,         // {tipo: "n"|"m", id}
   historial: [],
   cy: null,
@@ -20,7 +21,10 @@ const G = {
 
 const TIPOS_GRAFO = [["Procedure", "Proc"], ["DataProvider", "DP"], ["Transaction", "Trn"], ["Web Panel", "WP"], ["API", "API"],
   ["SDT", "SDT"], ["Dominio", "Dom"], ["Tabla", "Tabla"]];
-const RELACIONES = [["llama", "llama"], ["transaccion", "transacción / BC"], ["sdt", "usa SDT"], ["lee", "lee tabla"], ["escribe", "escribe tabla"]];
+const RELACIONES = [["llama", "llama"], ["servicio", "vía sitServicio", "Lo llama pasando el id del servicio (tabla sitServicio), no directamente"],
+  ["transaccion", "transacción / BC"], ["sdt", "usa SDT"], ["lee", "lee tabla"], ["escribe", "escribe tabla"]];
+// Las relaciones que no existian cuando se guardo el filtro arrancan activas.
+for (const [r] of RELACIONES) if (!almacen.leer("grafo.relVistas", ["llama", "transaccion", "sdt", "lee", "escribe"]).includes(r)) G.relaciones.add(r);
 const COLORES_KB = ["#2f6fed", "#1f9d55", "#d97706", "#b4277c", "#7c3aed", "#0891b2", "#dc2626", "#65a30d", "#c2410c", "#475569", "#db2777", "#0d9488"];
 const MAX_COLUMNA = 40;   // mas que esto en una columna se agrupa por modulo
 
@@ -29,6 +33,9 @@ const MAX_COLUMNA = 40;   // mas que esto en una columna se agrupa por modulo
 const N = (i) => G.datos.nodos[i];  // [kb, nombre, tipo, modulo, descripcion, origen, generado]
 const kbBase = (kb) => (kb || "").replace(/_Fixes\w*$/i, "");
 const esFixes = (kb) => /_Fixes/i.test(kb || "");
+// Un objeto de otra KB que el foco (las tablas no cuentan): es lo que el grafo tiene que hacer ver.
+const esExterna = (j, kbFoco) => !!N(j)[0] && N(j)[0] !== kbFoco && N(j)[2] !== "Tabla";
+const textoRel = (it) => it.t === "servicio" ? `vía sitServicio${it.s ? ` (${it.s})` : ""}` : it.t;
 
 function colorKb(kb) {
   if (!kb) return "#8b93a2";
@@ -47,7 +54,7 @@ async function cargarGrafo(silencioso = false) {
     const n = d.nodos.length;
     G.sal = Array.from({ length: n }, () => []);
     G.ent = Array.from({ length: n }, () => []);
-    for (const [a, b, t, o] of d.aristas) { G.sal[a].push([b, t, o]); G.ent[b].push([a, t, o]); }
+    for (const [a, b, t, o, s] of d.aristas) { G.sal[a].push([b, t, o, s]); G.ent[b].push([a, t, o, s]); }
     if (!G.filtroKbs.size) Object.keys(d.kbs).filter((k) => !esFixes(k)).forEach((k) => G.filtroKbs.add(k));
     G.mod = null;
     pintarFiltrosGrafo();
@@ -86,11 +93,11 @@ function visible(i) {
 function vecinos(i, dir) {
   const lista = dir === "sal" ? G.sal[i] : G.ent[i];
   const vistos = new Map();
-  for (const [j, t, o] of lista) {
+  for (const [j, t, o, s] of lista) {
     if (!G.relaciones.has(t) || !visible(j)) continue;
     const prev = vistos.get(j);
-    if (!prev) vistos.set(j, { j, t, o });
-    else if (!prev.o.includes("L") && o.includes("L")) vistos.set(j, { j, t, o });
+    if (!prev) vistos.set(j, { j, t, o, s });
+    else if (!prev.o.includes("L") && o.includes("L")) vistos.set(j, { j, t, o, s });
   }
   return [...vistos.values()];
 }
@@ -117,6 +124,8 @@ function pintarFiltrosGrafo() {
     h("div", { class: "fila" },
       h("label", { class: "chk chico" }, h("input", { type: "checkbox", checked: G.ocultarGenerados,
         onchange: (ev) => { G.ocultarGenerados = ev.target.checked; alCambiar(); } }), "Ocultar WorkWithPlus y GAM"),
+      h("label", { class: "chk chico", title: "El dibujo muestra solo los objetos de otras KBs (el panel de la derecha sigue mostrando todo)" },
+        h("input", { type: "checkbox", checked: G.soloOtrasKbs, onchange: (ev) => { G.soloOtrasKbs = ev.target.checked; alCambiar(); } }), "Dibujar solo otras KBs"),
       h("label", { class: "chk chico" }, h("input", { type: "checkbox", checked: G.verFixes,
         onchange: (ev) => { G.verFixes = ev.target.checked; if (!G.verFixes) [...G.filtroKbs].filter(esFixes).forEach((k) => G.filtroKbs.delete(k)); pintarFiltrosGrafo(); alCambiar(); } }), "KBs de FIXES")));
 }
@@ -131,6 +140,8 @@ function guardarFiltrosGrafo() {
   almacen.guardar("grafo.kbs", [...G.filtroKbs]);
   almacen.guardar("grafo.tipos", [...G.tipos]);
   almacen.guardar("grafo.rel", [...G.relaciones]);
+  almacen.guardar("grafo.relVistas", RELACIONES.map(([r]) => r));
+  almacen.guardar("grafo.soloOtras", G.soloOtrasKbs);
   almacen.guardar("grafo.ocultarGen", G.ocultarGenerados);
   almacen.guardar("grafo.fixes", G.verFixes);
 }
@@ -269,6 +280,10 @@ function asegurarCy() {
       { selector: "node[forma = 'grupo']", style: { "border-style": "dashed", "background-opacity": 0.06, "font-style": "italic" } },
       { selector: "node[forma = 'modulo']", style: { "shape": "round-rectangle", "height": 28, "font-size": 12 } },
       { selector: "node.foco", style: { "background-opacity": 0.35, "border-width": 3, "font-weight": "bold", "font-size": 13 } },
+      // Otra KB: relleno fuerte, borde grueso y el nombre de la KB debajo. Lo de la misma KB queda atenuado.
+      { selector: "node.externa", style: { "background-opacity": 0.42, "border-width": 3, "font-weight": "bold", "font-size": 12,
+        "text-wrap": "wrap", "height": 36, "padding": "8px" } },
+      { selector: "node.atenuado", style: { "opacity": 0.5 } },
       { selector: "node.publicado", style: { "border-style": "dotted", "border-color": v("--aviso") } },
       { selector: "node:selected", style: { "overlay-color": v("--acento"), "overlay-opacity": 0.12 } },
       { selector: "edge", style: {
@@ -278,11 +293,14 @@ function asegurarCy() {
       { selector: "edge[tipo = 'transaccion']", style: { "line-style": "dashed" } },
       { selector: "edge[tipo = 'lee']", style: { "line-color": "#0891b2", "target-arrow-color": "#0891b2" } },
       { selector: "edge[tipo = 'escribe']", style: { "line-color": "#dc2626", "target-arrow-color": "#dc2626", "width": 2 } },
-      { selector: "edge.externa", style: { "width": 2.4 } },
+      { selector: "edge[tipo = 'servicio']", style: { "line-style": "dashed", "line-dash-pattern": [9, 3, 2, 3] } },
+      { selector: "edge.externa", style: { "width": 2.6, "line-color": "data(color)", "target-arrow-color": "data(color)" } },
+      { selector: "edge.atenuado", style: { "opacity": 0.45 } },
       { selector: "edge.publicado", style: { "line-color": v("--aviso"), "target-arrow-color": v("--aviso"), "line-style": "dashed",
         "label": "solo publicado", "font-size": 9, "color": v("--aviso"), "text-rotation": "autorotate" } },
       { selector: "edge[n > 1]", style: { "width": "mapData(n, 1, 200, 1.5, 9)", "label": "data(n)", "font-size": 10, "color": v("--texto-2"),
         "text-background-color": v("--panel"), "text-background-opacity": 1, "text-background-padding": 2 } },
+      { selector: "edge.externa[n > 1]", style: { "width": "mapData(n, 1, 200, 2.6, 10)" } },
     ],
   });
   G.cy.on("tap", "node", (ev) => {
@@ -316,73 +334,110 @@ function dibujarColumnas(centro, izq, der, tablas) {
   cy.center(cy.$(".foco"));
 }
 
-function datoNodo(i, id, extra = {}) {
+function datoNodo(i, id, extra = {}, externa = false) {
   const [kb, nombre, tipo, , , origen] = N(i);
-  return { group: "nodes", data: { id, ref: i, tipoRef: "n", etq: corto(nombre) + (tipo === "Tabla" ? "" : ""),
-    color: colorKb(kb), forma: tipo === "Tabla" ? "tabla" : tipo === "SDT" ? "sdt" : "", ...extra }, classes: origen === "P" ? "publicado" : "" };
+  return { group: "nodes", data: { id, ref: i, tipoRef: "n", etq: corto(nombre) + (externa ? `\n${kb}` : ""),
+    color: colorKb(kb), forma: tipo === "Tabla" ? "tabla" : tipo === "SDT" ? "sdt" : "", ...extra },
+    classes: `${origen === "P" ? "publicado" : ""} ${externa ? "externa" : ""}` };
 }
 
-// Agrupa una columna por modulo si tiene demasiados elementos.
+// Agrupa una columna por modulo si tiene demasiados elementos. Los objetos de otras KBs van arriba, resaltados,
+// y quedan sueltos (sin agrupar) mientras entren en la columna: se agrupan los de la KB del foco.
 function columnaObjetos(foco, items, lado) {
   const nodos = [], aristas = [];
-  const arista = (de, a, it, clases = "") => aristas.push({ group: "edges", data: { id: `e${lado}${de}>${a}`, source: de, target: a, tipo: it.t },
-    classes: `${clases} ${it.o === "P" ? "publicado" : ""}` });
   const kbFoco = N(foco)[0];
-  if (items.length <= MAX_COLUMNA) {
-    items.sort((p, q) => (N(p.j)[0] + N(p.j)[1]).localeCompare(N(q.j)[0] + N(q.j)[1]));
-    for (const it of items) {
-      const id = `${lado}${it.j}`;
-      nodos.push(datoNodo(it.j, id));
-      const ext = N(it.j)[0] && N(it.j)[0] !== kbFoco && N(it.j)[2] !== "Tabla" ? "externa" : "";
-      lado === "i" ? arista(id, "f", it, ext) : arista("f", id, it, ext);
+  const arista = (de, a, it, clases = "") => aristas.push({ group: "edges", data: { id: `e${lado}${de}>${a}`, source: de, target: a, tipo: it.t,
+    color: colorKb(N(it.j)[0]) }, classes: `${clases} ${it.o === "P" ? "publicado" : ""}` });
+  const externos = items.filter((it) => esExterna(it.j, kbFoco));
+  let sueltos = items, agrupar = [];
+  if (items.length > MAX_COLUMNA) {
+    if (externos.length && externos.length <= MAX_COLUMNA) {
+      sueltos = externos;
+      agrupar = items.filter((it) => !esExterna(it.j, kbFoco));
+    } else {
+      sueltos = [];
+      agrupar = items;
     }
-  } else {
-    const grupos = new Map();
-    for (const it of items) {
-      const m = claveModulo(it.j);
-      if (!grupos.has(m)) grupos.set(m, []);
-      grupos.get(m).push(it);
-    }
-    [...grupos.entries()].sort((a, b) => b[1].length - a[1].length).forEach(([m, lista]) => {
-      const id = `${lado}g${m}`;
-      const kb = m.split("|")[0];
-      if (lista.length === 1) {
-        nodos.push(datoNodo(lista[0].j, id));
-      } else {
-        nodos.push({ group: "nodes", data: { id, etq: `${nombreModulo(m)}  (${lista.length})`, color: colorKb(kb === "T" ? "" : kb), forma: "grupo",
-          grupo: true, modulo: m, lista: lista.map((x) => x.j), lado } });
-      }
-      const ext = kb !== kbFoco && kb !== "T" ? "externa" : "";
-      const d = { t: lista[0].t, o: lista.every((x) => x.o === "P") ? "P" : "L" };
-      const e = lado === "i" ? { source: id, target: "f" } : { source: "f", target: id };
-      aristas.push({ group: "edges", data: { id: `e${id}`, ...e, tipo: d.t, n: lista.length }, classes: `${ext} ${d.o === "P" ? "publicado" : ""}` });
-    });
   }
+  sueltos.slice().sort((p, q) => esExterna(q.j, kbFoco) - esExterna(p.j, kbFoco) || (N(p.j)[0] + N(p.j)[1]).localeCompare(N(q.j)[0] + N(q.j)[1]))
+    .forEach((it) => {
+      const id = `${lado}${it.j}`;
+      const ext = esExterna(it.j, kbFoco);
+      nodos.push(datoNodo(it.j, id, {}, ext));
+      lado === "i" ? arista(id, "f", it, ext ? "externa" : "") : arista("f", id, it, ext ? "externa" : "");
+    });
+  // Por modulo; si ni asi entran en la columna, por KB (un objeto muy usado: cuantos de cada KB).
+  const agrupados = (clave) => {
+    const g = new Map();
+    for (const it of agrupar) {
+      const m = clave(it.j);
+      if (!g.has(m)) g.set(m, []);
+      g.get(m).push(it);
+    }
+    return g;
+  };
+  let grupos = agrupados(claveModulo);
+  const porKb = grupos.size > MAX_COLUMNA;
+  if (porKb) grupos = agrupados((j) => N(j)[2] === "Tabla" ? `T|${N(j)[0]}` : `${N(j)[0]}|*`);
+  const extG = (m) => m.split("|")[0] !== kbFoco && !m.startsWith("T|");
+  [...grupos.entries()].sort((a, b) => extG(b[0]) - extG(a[0]) || b[1].length - a[1].length).forEach(([m, lista]) => {
+    const id = `${lado}g${m}`;
+    const kb = m.split("|")[0];
+    const ext = extG(m) ? "externa" : "";
+    if (lista.length === 1) {
+      nodos.push(datoNodo(lista[0].j, id, {}, !!ext));
+    } else {
+      const titulo = porKb && !m.startsWith("T|") ? `KB ${kb}` : nombreModulo(m);
+      nodos.push({ group: "nodes", data: { id, etq: `${titulo}  (${lista.length})` + (ext && !porKb ? `\n${kb}` : ""), color: colorKb(kb === "T" ? "" : kb),
+        forma: "grupo", grupo: true, modulo: m, titulo, porKb, lista: lista.map((x) => x.j), lado }, classes: ext });
+    }
+    const d = { t: lista[0].t, o: lista.every((x) => x.o === "P") ? "P" : "L" };
+    const e = lado === "i" ? { source: id, target: "f" } : { source: "f", target: id };
+    aristas.push({ group: "edges", data: { id: `e${id}`, ...e, tipo: d.t, n: lista.length, color: colorKb(kb === "T" ? "" : kb) },
+      classes: `${ext} ${d.o === "P" ? "publicado" : ""}` });
+  });
   return { nodos, aristas };
 }
 
 function dibujarObjeto(i) {
-  const izq = vecinos(i, "ent").filter((x) => !["lee", "escribe"].includes(x.t));
+  const kb = N(i)[0];
+  const solo = (lista) => G.soloOtrasKbs && N(i)[2] !== "Tabla" ? lista.filter((x) => esExterna(x.j, kb)) : lista;
+  const izq = solo(vecinos(i, "ent").filter((x) => !["lee", "escribe"].includes(x.t)));
   const derTodos = vecinos(i, "sal");
-  const der = derTodos.filter((x) => !["lee", "escribe"].includes(x.t));
-  const tab = derTodos.filter((x) => ["lee", "escribe"].includes(x.t));
+  const der = solo(derTodos.filter((x) => !["lee", "escribe"].includes(x.t)));
+  const tab = G.soloOtrasKbs ? [] : derTodos.filter((x) => ["lee", "escribe"].includes(x.t));
   // Una tabla enfocada: a la izquierda quien la lee o escribe.
   dibujarColumnas(datoNodo(i, "f", {}), columnaObjetos(i, izq, "i"), columnaObjetos(i, der, "d"), columnaObjetos(i, tab, "t"));
+  if (!G.cy) return;
   G.cy.$("#f").addClass("foco");
+  atenuarLocales();
   pintarLeyenda();
+}
+
+// Si hay objetos de otras KBs, lo de la misma KB queda en segundo plano.
+function atenuarLocales() {
+  if (!G.cy.nodes(".externa").length) return;
+  const locales = G.cy.nodes().not(".externa").not("#f").not("[forma = 'tabla']").filter((n) => !String(n.data("ref") ?? "").startsWith("T|"));
+  locales.addClass("atenuado");
+  locales.connectedEdges().addClass("atenuado");
 }
 
 function dibujarModulo(m) {
   const M = agregadoModulos();
+  const kbFoco = m.split("|")[0];
+  const extM = (mm) => mm.split("|")[0] !== kbFoco && !mm.startsWith("T|");
   const nodoMod = (mm, id) => {
     const kb = mm.split("|")[0];
-    return { group: "nodes", data: { id, ref: mm, tipoRef: "m", etq: `${nombreModulo(mm)} (${M.objetos.get(mm)?.length || 0})`,
-      color: colorKb(kb === "T" ? "" : kb), forma: "modulo" } };
+    const ext = id !== "f" && extM(mm);
+    return { group: "nodes", data: { id, ref: mm, tipoRef: "m", etq: `${nombreModulo(mm)} (${M.objetos.get(mm)?.length || 0})` + (ext ? `\n${kb}` : ""),
+      color: colorKb(kb === "T" ? "" : kb), forma: "modulo" }, classes: ext ? "externa" : "" };
   };
   const col = (lista, lado) => {
     const nodos = [], aristas = [];
     const LIM = 60;
-    lista.sort((a, b) => b.pares.length - a.pares.length);
+    const delOtro = (e) => lado === "i" ? e.a : e.b;
+    if (G.soloOtrasKbs) lista = lista.filter((e) => extM(delOtro(e)));
+    lista.sort((a, b) => extM(delOtro(b)) - extM(delOtro(a)) || b.pares.length - a.pares.length);
     if (lista.length > LIM) {
       // El resto se ve en el panel de detalle; aca queda un nodo que lo indica.
       const id = lado + "resto";
@@ -396,24 +451,27 @@ function dibujarModulo(m) {
       const ext = otro.split("|")[0] !== m.split("|")[0] && !otro.startsWith("T|") ? "externa" : "";
       const pub = e.pares.every((p) => p[3] === "P") ? "publicado" : "";
       aristas.push({ group: "edges", data: { id: "e" + id, source: lado === "i" ? id : "f", target: lado === "i" ? "f" : id,
-        n: e.pares.length, pares: e.pares, a: e.a, b: e.b }, classes: `${ext} ${pub}` });
+        n: e.pares.length, pares: e.pares, a: e.a, b: e.b, color: colorKb(otro.startsWith("T|") ? "" : otro.split("|")[0]) }, classes: `${ext} ${pub}` });
     });
     return { nodos, aristas };
   };
   dibujarColumnas(nodoMod(m, "f"), col([...(M.ent.get(m) || [])], "i"), col([...(M.sal.get(m) || [])], "d"));
+  if (!G.cy) return;
   G.cy.$("#f").addClass("foco");
+  atenuarLocales();
   pintarLeyenda();
 }
 
 function pintarLeyenda() {
   vaciar($("#grafo-leyenda"),
     h("span", null, "← lo usan"), h("span", null, "usa →"),
+    h("span", null, h("i", { class: "ley l-ext-nodo" }), "otra KB"),
     h("span", null, h("i", { class: "ley l-llama" }), "llama"),
+    h("span", null, h("i", { class: "ley l-srv" }), "vía sitServicio"),
     h("span", null, h("i", { class: "ley l-trn" }), "BC / transacción"),
     h("span", null, h("i", { class: "ley l-sdt" }), "SDT"),
     h("span", null, h("i", { class: "ley l-lee" }), "lee"),
     h("span", null, h("i", { class: "ley l-escribe" }), "escribe"),
-    h("span", null, h("i", { class: "ley l-ext" }), "otra KB"),
     h("span", null, h("i", { class: "ley l-pub" }), "solo en la versión publicada"));
 }
 
@@ -430,25 +488,32 @@ function pintarInicioGrafo() {
 
 // ---------------------------------------------------------------------- panel de detalle
 
-function agrupado(items, alClic) {
-  // items: [{j, t, o}] -> por KB y modulo
+function agrupado(items, alClic, abiertos = false) {
+  // items: [{j, t, o, s}] -> por KB y modulo
   const grupos = new Map();
   for (const it of items) {
     const k = N(it.j)[2] === "Tabla" ? "Tablas" : `${N(it.j)[0]} · ${modulo(N(it.j)[1]) || "(raíz)"}`;
     if (!grupos.has(k)) grupos.set(k, []);
     grupos.get(k).push(it);
   }
-  return [...grupos.entries()].sort((a, b) => b[1].length - a[1].length).map(([k, lista]) => h("details", { class: "grupo-det", open: grupos.size <= 4 || undefined },
+  return [...grupos.entries()].sort((a, b) => b[1].length - a[1].length).map(([k, lista]) => h("details", { class: "grupo-det", open: grupos.size <= (abiertos ? 10 : 4) || undefined },
     h("summary", null, h("span", { class: "punto-kb", style: { background: colorKb(N(lista[0].j)[0]) } }), k, h("span", { class: "muted" }, ` (${lista.length})`)),
     lista.sort((a, b) => N(a.j)[1].localeCompare(N(b.j)[1])).map((it) => h("div", { class: "fila-rel", onclick: () => alClic(it.j) },
       h("span", { class: `tipo-n t-${slug(N(it.j)[2])}` }, N(it.j)[2]), " ", corto(N(it.j)[1]),
-      it.t !== "llama" ? h("span", { class: "muted" }, ` · ${it.t}`) : null,
-      it.o === "P" ? h("span", { class: "pill aviso" }, "solo publicado") : it.o === "L" && N(it.j)[5].includes("P") ? null : null))));
+      it.t !== "llama" ? h("span", { class: "muted" }, ` · ${textoRel(it)}`) : null,
+      it.o === "P" ? h("span", { class: "pill aviso" }, "solo publicado") : null))));
 }
 
-function seccion(titulo, items, vacio) {
+// Lo de otras KBs va primero y en su propio recuadro: es lo que se rompe sin que se note desde la KB del objeto.
+function seccion(titulo, items, vacio, kbFoco) {
+  const alClic = (j) => enfocar({ tipo: "n", id: j });
+  const externos = kbFoco ? items.filter((x) => esExterna(x.j, kbFoco)) : [];
+  const locales = items.filter((x) => !externos.includes(x));
   return h("div", { class: "seccion-det" }, h("h4", null, titulo, h("span", { class: "muted" }, ` ${items.length}`)),
-    items.length ? agrupado(items, (j) => enfocar({ tipo: "n", id: j })) : h("div", { class: "muted chico" }, vacio));
+    !items.length ? h("div", { class: "muted chico" }, vacio)
+      : !externos.length ? agrupado(items, alClic)
+        : [h("div", { class: "bloque-externo" }, h("div", { class: "etq-externo" }, `Otras KBs · ${externos.length}`), agrupado(externos, alClic, true)),
+          locales.length ? [h("div", { class: "etq-local" }, `${kbFoco} · ${locales.length}`), agrupado(locales, alClic)] : null]);
 }
 
 function detalleObjeto(i) {
@@ -471,11 +536,12 @@ function detalleObjeto(i) {
       desc ? h("div", { class: "muted" }, desc) : null),
     avisos,
     tipo !== "Tabla" ? h("div", { class: "resumen-det" },
+      h("div", { class: kbsExt.size ? "destacado" : "" }, h("b", null, kbsExt.size), kbsExt.size === 1 ? " KB externa lo usa" : " KBs externas lo usan",
+        kbsExt.size ? h("div", { class: "kbs-ext" }, [...kbsExt].sort().map((k) => h("span", null, h("span", { class: "punto-kb", style: { background: colorKb(k) } }), k))) : null),
       h("div", null, h("b", null, usan.length), " lo usan"),
-      h("div", null, h("b", null, externos.length), " desde fuera de su módulo"),
-      h("div", null, h("b", null, kbsExt.size), kbsExt.size === 1 ? " KB externa" : " KBs externas")) : null,
-    seccion(tipo === "Tabla" ? "La leen o escriben" : "Lo usan", usan, "Nadie lo usa (con los filtros actuales)."),
-    tipo !== "Tabla" ? seccion("Usa", usa.filter((x) => !["lee", "escribe"].includes(x.t)), "No usa otros objetos.") : null,
+      h("div", null, h("b", null, externos.length), " desde fuera de su módulo")) : null,
+    seccion(tipo === "Tabla" ? "La leen o escriben" : "Lo usan", usan, "Nadie lo usa (con los filtros actuales).", tipo === "Tabla" ? "" : kb),
+    tipo !== "Tabla" ? seccion("Usa", usa.filter((x) => !["lee", "escribe"].includes(x.t)), "No usa otros objetos.", kb) : null,
     tipo !== "Tabla" ? seccion("Tablas", usa.filter((x) => ["lee", "escribe"].includes(x.t)), "No lee ni escribe tablas.") : null);
 }
 
@@ -530,10 +596,10 @@ function conteoTipos(objs) {
 
 function detalleGrupo(d) {
   vaciar($("#grafo-detalle"),
-    h("div", { class: "cab-det" }, h("div", { class: "muted chico" }, d.lado === "i" ? "Lo usan, desde el módulo" : "Usa, del módulo"),
-      h("h3", null, nombreModulo(d.modulo)), h("div", { class: "muted chico" }, `${d.lista.length} objetos`),
+    h("div", { class: "cab-det" }, h("div", { class: "muted chico" }, d.porKb ? (d.lado === "i" ? "Lo usan, desde" : "Usa, de") : d.lado === "i" ? "Lo usan, desde el módulo" : "Usa, del módulo"),
+      h("h3", null, d.titulo || nombreModulo(d.modulo)), h("div", { class: "muted chico" }, `${d.lista.length} objetos`),
       h("div", { class: "fila" }, h("button", { class: "btn chico", onclick: () => enfocar(G.foco, false) }, "← volver al detalle"),
-        !d.modulo.startsWith("T|") ? h("button", { class: "btn chico fantasma", onclick: () => { cambiarModoGrafo("modulos"); enfocar({ tipo: "m", id: d.modulo }); } }, "ver el módulo") : null)),
+        !d.modulo.startsWith("T|") && !d.porKb ? h("button", { class: "btn chico fantasma", onclick: () => { cambiarModoGrafo("modulos"); enfocar({ tipo: "m", id: d.modulo }); } }, "ver el módulo") : null)),
     d.lista.slice().sort((a, b) => N(a)[1].localeCompare(N(b)[1])).map((j) => itemNodo(j)));
 }
 

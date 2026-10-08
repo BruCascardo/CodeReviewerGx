@@ -4,6 +4,8 @@
   2. Relaciones del Java local (referencias entre clases, agrupadas por objeto).
   3. Relaciones de la version publicada del modulo de la KB (si alguna KB tiene su .jar en build/libs).
   4. Tablas que lee y escribe cada objeto (navegacion de la especificacion).
+  5. Ids de servicio que usa cada objeto (ver servicios.py): la relacion con el procedimiento se resuelve
+     al juntar las KBs (grafo.compacto), con la tabla de servicios.
 
 Origen de cada nodo y relacion: L (local), P (version publicada) o los dos.
 """
@@ -13,7 +15,7 @@ import time
 from .indices import resolver
 from .. import catalogo
 
-VERSION_FORMATO = 3
+VERSION_FORMATO = 4
 
 
 def modulo(nombre):
@@ -24,9 +26,9 @@ def nodo_id(kb_nombre, clave):
     return f"{kb_nombre}|{clave}"
 
 
-def firma_kb(kb):
-    """Cambia cuando GeneXus compila la KB (o cambia el formato de los datos del grafo)."""
-    return hashlib.sha1(f"{VERSION_FORMATO}:{kb.firma_build()}".encode()).hexdigest()
+def firma_kb(kb, firma_servicios=""):
+    """Cambia cuando GeneXus compila la KB, cambian los servicios conocidos o el formato de los datos del grafo."""
+    return hashlib.sha1(f"{VERSION_FORMATO}:{kb.firma_build()}:{firma_servicios}".encode()).hexdigest()
 
 
 def _tablas_nvg(ruta_nvg):
@@ -59,6 +61,7 @@ class ArmadoKB:
         self.nombres_modulo = {}               # paquete en minusculas -> modulo con mayusculas
         self.apis = {}                         # paquete -> [nombres de objetos API]
         self.nodos, self.aristas = {}, {}
+        self.servicios = {}                    # id del nodo -> ids de servicio que usa
         self._leer_especificacion()
 
     def _leer_especificacion(self):
@@ -175,10 +178,15 @@ class ArmadoKB:
                 por_objeto.setdefault(r, []).append((ruta, st))
         for (clave_obj, base, es_sdt), lista in por_objeto.items():
             de_id = self.nodo(self.kb.nombre, clave_obj, base, es_sdt, "L")
-            refs = set()
+            refs, srv = set(), set()
             for ruta, st in lista:
-                refs.update(memoria.refs(ruta, st))
+                r, s = memoria.leer(ruta, st)
+                refs.update(r)
+                srv.update(s)
             self.agregar_refs(de_id, refs, "L", [self.ix_local])
+            # Los dominios (gxdomain...) y los SDT tienen los valores, pero no llaman a nadie.
+            if srv and not es_sdt and not base.startswith("dom:"):
+                self.servicios.setdefault(de_id, set()).update(srv)
         memoria.guardar()
 
     def _relaciones_publicadas(self, publicados):
@@ -239,9 +247,10 @@ class ArmadoKB:
         for n in self.nodos.values():
             if n["kb"] == self.kb.nombre and not n.get("tipo"):
                 n["tipo"] = "Solo Java"  # hay Java pero no esta en la especificacion (objeto borrado o no generado)
-        datos = {"formato": VERSION_FORMATO, "kb": self.kb.nombre, "ns": self.kb.ns, "firma": firma_kb(self.kb),
+        datos = {"formato": VERSION_FORMATO, "kb": self.kb.nombre, "ns": self.kb.ns, "firma": firma_kb(self.kb, memoria.firma_srv),
                  "fecha": time.strftime("%Y-%m-%d %H:%M:%S"), "segundos": round(time.time() - t0, 1),
                  "publicados": [{"jar": p["jar"], "version": p["version"]} for p in publicados],
-                 "duenasTablas": duenas, "nodos": self.nodos, "aristas": aristas}
+                 "duenasTablas": duenas, "nodos": self.nodos, "aristas": aristas,
+                 "servicios": {k: sorted(v) for k, v in self.servicios.items()}, "firmaServicios": memoria.firma_srv}
         log(f"{self.kb.nombre}: {len(self.nodos)} nodos, {len(aristas)} relaciones ({datos['segundos']} s)")
         return datos

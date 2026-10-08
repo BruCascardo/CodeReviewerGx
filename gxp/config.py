@@ -31,6 +31,11 @@ DEFECTO = {
         "notificar": True,      # notificacion de Windows con el resultado
         "revisar": True,        # revisa las buenas practicas de los objetos del build (gxp/revisor)
     },
+    # Grafo: procedimientos que se llaman por medio de la tabla de servicios (ver gxp/grafo/servicios.py).
+    # 'dominio' es el dominio enumerado de 'id'; 'objeto' es la columna con la ruta del procedimiento.
+    # "kb": "" lo desactiva.
+    "grafoServicios": {"kb": "Sistema", "ds": "", "dominio": "Sistema.ServicioTipo", "tabla": "sitServicio",
+                       "id": "SerId", "objeto": "SerEndPoint"},
     # Opciones por defecto de las suites (cada suite las puede pisar).
     "opcionesSuite": {
         "transaccion": "rollback",

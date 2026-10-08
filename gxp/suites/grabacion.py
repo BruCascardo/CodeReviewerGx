@@ -1,7 +1,9 @@
 """Salidas aprobadas ('lineaBase') y valores que cambian solos ('volatiles').
 
 Al aprobar, cada caso se corre dos veces con la misma entrada: lo que da distinto (fechas, ids nuevos) se
-marca como volatil y de esas rutas solo se controla el tipo. Donde la salida tiene el valor que dio una variable
+marca como volatil y de esas rutas solo se controla el tipo. En la segunda, las ${variables} de la base toman la
+fila del otro extremo (${existente.X} da el ultimo que cumple): asi tambien queda volatil lo que depende de la fila
+elegida (su importe, el cupon donde esta) y el caso sigue pasando cuando la base cambia y la variable elige otra. Donde la salida tiene el valor que dio una variable
 calculada al ejecutar (${siguiente.CuponId}, ${hoy+30}), se guarda la variable y no el valor (poner_calculadas). Si el caso graba de verdad (commit), no se vuelve
 a correr: se marcan solo los valores con la fecha de hoy.
 """
@@ -9,7 +11,7 @@ import time
 
 from . import almacen
 from .ejecucion import correr_caso, linea_base_de, nombre_paso
-from .variables import poner_calculadas, reponer_variables, sustituir
+from .variables import eligen_fila, poner_calculadas, reponer_variables, sustituir
 from .. import catalogo, kbs
 from ..comparacion import detectar_volatiles, volatiles_por_valor
 from ..config import CFG
@@ -72,7 +74,7 @@ def segunda_ejecucion(kb, suite, caso, opciones, inicio, entorno=None):
         return None, motivo
     # Al menos un segundo despues: una fecha con hora que cambia sola tiene que poder dar distinto.
     time.sleep(max(0.0, 1.1 - (time.time() - inicio)))
-    return correr_caso(kb, suite, caso, opciones, grabar=True, entorno=entorno), None
+    return correr_caso(kb, suite, caso, {**opciones, "otraFila": True}, grabar=True, entorno=entorno), None
 
 
 def aplicar_grabacion(caso, resultados, segunda=None, motivo_sin_segunda=None, campos=None):
@@ -84,6 +86,7 @@ def aplicar_grabacion(caso, resultados, segunda=None, motivo_sin_segunda=None, c
         if res["estado"] == "error":
             continue
         pasos2 = (otra.get(res["id"]) or {}).get("pasos") or []
+        otra_fila = eligen_fila(pasos2)
         for i, pr in enumerate(res["pasos"]):
             if pr.get("preparacion") or i >= len(caso["pasos"]) or pr.get("datos") is None:
                 continue
@@ -92,7 +95,10 @@ def aplicar_grabacion(caso, resultados, segunda=None, motivo_sin_segunda=None, c
             if aviso:
                 avisos.append(aviso)
             if i < len(pasos2) and pasos2[i].get("datos") is not None:
-                vol, av = detectar_volatiles(pr["datos"], pasos2[i]["datos"], campos)
+                # Con las variables calculadas en su lugar: que la segunda eligio otra fila no es un valor que cambia solo.
+                d1 = poner_calculadas(pr["datos"], pr.get("calculadas"))[0]
+                d2 = poner_calculadas(pasos2[i]["datos"], pasos2[i].get("calculadas"))[0]
+                vol, av = detectar_volatiles(d1, d2, campos, otra_fila)
             else:
                 vol, av = sorted(volatiles_por_valor(pr["datos"])), []
             _sumar_volatiles(paso, vol)
@@ -118,9 +124,10 @@ def volatiles_de_caso(suite_id, caso_id):
     if opciones.get("casosEncadenados"):
         motivo = ("los casos de la suite estan encadenados y este depende de los anteriores. Para aprobar la salida "
                   "que da dentro de la cadena, corre la suite con «Aprobar salidas actuales»")
-    rs = None if motivo else correr_caso(kb, suite, caso, opciones, grabar=True)
+    rs = None if motivo else correr_caso(kb, suite, caso, {**opciones, "otraFila": True}, grabar=True)
     sin_correr = [{"fila": fi if caso.get("datos") else None, "pasos": []} for fi in range(len(caso.get("datos") or [None]))]
     for res in rs or sin_correr:
+        otra_fila = eligen_fila(res["pasos"])
         for i, paso in enumerate(caso["pasos"]):
             lb = linea_base_de(paso, res.get("fila") if caso.get("datos") else None)
             if lb is None:
@@ -129,7 +136,7 @@ def volatiles_de_caso(suite_id, caso_id):
             if pr.get("datos") is not None:
                 # Las variables calculadas, con lo que dieron en esta corrida: no son valores que cambian solos.
                 lb = sustituir(lb, {k[2:-1]: v for k, v in (pr.get("calculadas") or {}).items()}, estricto=False)
-                vol, av = detectar_volatiles(lb, pr["datos"], opciones.get("camposClave"))
+                vol, av = detectar_volatiles(lb, pr["datos"], opciones.get("camposClave"), otra_fila)
             else:
                 vol, av = sorted(volatiles_por_valor(lb)), []
                 if rs is not None:

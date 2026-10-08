@@ -8,6 +8,7 @@ from pathlib import Path
 from .. import catalogo
 from ..config import CACHE
 from ..util import escribir_json, leer_json, recorrer
+from .servicios import firma as firma_servicios, literales as literales_servicio
 
 DIR = CACHE / "grafo"
 _REF = re.compile(r"\bcom\.[a-z][A-Za-z0-9_]*(?:\.[A-Za-z0-9_$]+)+")
@@ -88,36 +89,42 @@ def resolver(ref, indices):
 # ---------------------------------------------------------------------- lectura de fuentes con memoria
 
 class MemoriaArchivos:
-    """Referencias de cada archivo, recordadas por fecha y tamano (en disco, entre corridas)."""
+    """Referencias de cada archivo y los ids de servicio que usa (ver servicios.py), recordados por fecha y
+    tamano (en disco, entre corridas). Si cambian los servicios conocidos, se vuelven a leer todos."""
 
-    def __init__(self, nombre):
+    def __init__(self, nombre, servicios=frozenset()):
         self.ruta = DIR / f"refs-{nombre}.json"
-        self.datos = leer_json(self.ruta, {})
+        self.servicios = servicios
+        self.firma_srv = firma_servicios(servicios)
+        d = leer_json(self.ruta, {})
+        self.datos = d.get("archivos", {}) if d.get("servicios") == self.firma_srv else {}
         self.usadas = set()
-        self.cambios = 0
+        self.cambios = 0 if self.datos or not d else 1
 
-    def refs(self, ruta, st):
+    def leer(self, ruta, st):
+        """(referencias a clases, ids de servicio) de un archivo Java."""
         clave = str(ruta)
         self.usadas.add(clave)
         firma = f"{st.st_mtime_ns}:{st.st_size}"
         previo = self.datos.get(clave)
         if previo and previo[0] == firma:
-            return previo[1]
+            return previo[1], previo[2]
         try:
             texto = Path(ruta).read_text(encoding="utf-8", errors="ignore")
         except OSError:
-            return []
+            return [], []
         refs = sorted(set(_REF.findall(texto)))
-        self.datos[clave] = [firma, refs]
+        srv = literales_servicio(texto, self.servicios)
+        self.datos[clave] = [firma, refs, srv]
         self.cambios += 1
-        return refs
+        return refs, srv
 
     def guardar(self):
         viejas = set(self.datos) - self.usadas
         for k in viejas:
             del self.datos[k]
         if self.cambios or viejas:
-            escribir_json(self.ruta, self.datos)
+            escribir_json(self.ruta, {"servicios": self.firma_srv, "archivos": self.datos})
 
 
 def listar_java(raiz):

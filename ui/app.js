@@ -363,7 +363,7 @@ const FECHAS_RELATIVAS = {
  *  que hay en la base (filtrados por los otros campos de la clave que esten en el mismo nivel) y las ${variables}
  *  que se calculan al ejecutar (${siguiente.X}, ${existente.X|...}); si es una fecha, las fechas relativas. */
 function comboCampo(kb, ayudas) {
-  return (ruta, padre) => {
+  return (ruta, padre, arriba) => {
     const a = ayudas?.[rutaCampo(ruta)];
     if (!a) return null;
     if (a.tipo === "date" || a.tipo === "dtime") {
@@ -396,10 +396,12 @@ function comboCampo(kb, ayudas) {
     const clave = `${kb}|${c.atributo}`;
     if (!textosClave.has(clave)) textosClave.set(clave, new Map());
     const textos = textosClave.get(clave);
+    const armar = (actual, alElegir) => armarVariableClave(kb, c.atributo, padre, actual, alElegir, arriba ? arriba() : []);
     return {
       titulo: `${c.tabla}${c.titulo && c.titulo !== c.tabla ? ` (${c.titulo})` : ""} · ${c.atributo}`,
       ancho: 520,  // las ${existente.X|Atributo=VALOR} son largas
-      textoDe: (x) => textos.get(String(x).trim()),
+      textoDe: (x) => textos.get(String(x).trim()) || describirVariableClave(x),
+      armar,
       cargar: async (buscar) => {
         const filtros = {};
         if (padre && !Array.isArray(padre)) for (const [k, v] of Object.entries(padre)) if (v === null || typeof v !== "object") filtros[k] = v;
@@ -413,19 +415,425 @@ function comboCampo(kb, ayudas) {
           textos.set(String(fila[n - 1]).trim(), texto);
           return { valor: fila[n - 1], texto };
         });
-        // Primero las ${variables} que se calculan al ejecutar (un id que no existe, uno en tal estado...): asi el
-        // caso sigue sirviendo aunque cambie la base.
-        const dinamicas = (r.dinamicas || []).map((d) => {
-          const texto = `${d.error ? "hoy no hay ninguno" : `hoy ${d.hoy}`} · ${d.texto}`;
-          textos.set(d.valor, d.texto);
-          return { valor: d.valor, texto, destacado: true, apagado: !!d.error, titulo: d.error || "" };
-        });
-        valores.unshift(...dinamicas);
+        // Arriba, el armador de las ${variables} que se calculan al ejecutar (el primero, el ultimo, uno que no
+        // existe, uno que cumpla condiciones): asi el caso sigue sirviendo aunque cambie la base.
+        valores.unshift({ valor: "Con filtros…", texto: "el primero, el último, uno que no existe o uno que cumpla condiciones",
+          destacado: true, accion: armar });
         const usados = Object.entries(r.filtros).map(([k, v]) => `${k} = ${v}`).join(", ");
         return { valores, truncado: r.truncado, nota: usados ? `Filtrado por ${usados}.` : "" };
       },
     };
   };
+}
+
+// ---------------------------------------------------------------------- armador de ${existente.X|...}
+// Las ${variables} que se calculan en la base (gxp/campos/expresiones.py), armadas eligiendo en vez de escribiendo.
+const FUNCIONES_CLAVE = [
+  ["existente", "El primero que existe", "el de clave más chica"],
+  ["ultimo", "El último que existe", "el de clave más grande: el último creado"],
+  ["con_hijos", "El primero con filas en otra tabla", "su detalle, o una tabla que lo referencia"],
+  ["sin_hijos", "El primero sin filas en otra tabla", "sin detalle, o sin nada que lo referencie"],
+  ["siguiente", "Uno que no existe", "el último + 1, de toda la tabla"],
+];
+const OPERADORES_CONDICION = [["=", "="], ["!=", "≠"], [">", ">"], [">=", "≥"], ["<", "<"], ["<=", "≤"]];
+const RE_CONDICION = /^\s*((?:!?\s*\w+\s*\.\s*)*)(\w+)\s*(<=|>=|!=|<>|=|<|>)\s*([\s\S]*?)\s*$/;
+const RE_EXISTE = /^\s*((?:!?\s*\w+\s*\.\s*)*!?\s*\w+)\s*$/;  // solo el camino: que tenga alguna fila
+
+/** 'A=1,B=${x|C=2,D=3}' -> ['A=1', 'B=${x|C=2,D=3}']: corta en las comas de afuera de las ${...}. */
+function partirCondiciones(texto) {
+  const partes = [];
+  let prof = 0, actual = "";
+  for (let i = 0; i < texto.length; i++) {
+    const ch = texto[i];
+    if (ch === "$" && texto[i + 1] === "{") prof++;
+    else if (ch === "}" && prof) prof--;
+    if (ch === "," && !prof) { partes.push(actual); actual = ""; } else actual += ch;
+  }
+  if (actual.trim()) partes.push(actual);
+  return partes;
+}
+
+/** 'cbhCuponDetalle.!cbhCupon' -> {tablas: [...], negadas: [false, true]} */
+function partirCamino(texto) {
+  const seg = texto.split(".").map((x) => x.replace(/\s/g, "")).filter(Boolean);
+  return { tablas: seg.map((x) => x.replace(/^!/, "")), negadas: seg.map((x) => x.startsWith("!")) };
+}
+
+/**
+ * '${existente.CuponId:tabla|A=1,cbhX.!cbhY.B!=X,!cbhZ}' -> {funcion, tabla, atributo, hija, condiciones}, o null
+ * ('tabla' en ${existente.cbhCargoCuota.CargoId}, el atributo de esa tabla; si no, ""). Cada
+ * condicion es {atributo, op, valor, tablas, negadas}: 'tablas' es el camino a otra tabla (vacio: la misma) y un
+ * atributo vacio, solo el camino (que tenga, o con !, que no tenga, alguna fila).
+ */
+function parsearVariableClave(texto) {
+  const m = /^\s*\$\{\s*(siguiente|existente|ultimo|con_hijos|sin_hijos)\.(?:(\w+)\.)?(\w+)(?::(\w+))?\s*(?:\|([\s\S]*))?\}\s*$/.exec(String(texto ?? ""));
+  if (!m) return null;
+  const condiciones = [];
+  for (const c of partirCondiciones(m[5] || "")) {
+    const x = RE_CONDICION.exec(c);
+    if (x) { condiciones.push({ atributo: x[2], op: x[3] === "<>" ? "!=" : x[3], valor: x[4], ...partirCamino(x[1]) }); continue; }
+    const e = RE_EXISTE.exec(c);
+    if (!e) return null;
+    condiciones.push({ atributo: "", op: "=", valor: "", ...partirCamino(e[1]) });
+  }
+  return { funcion: m[1], tabla: m[2] || "", atributo: m[3], hija: m[4] || "", condiciones };
+}
+
+const textoCamino = (c) => c.tablas.map((t, i) => `${c.negadas[i] ? "!" : ""}${t}`).join(".");
+
+/** Una condicion como se escribe, o "" si no filtra (sin valor en la misma tabla). En otra tabla, sin valor queda
+ *  solo el camino: que tenga (o no) alguna fila. */
+function textoCondicion(c) {
+  const v = String(c.valor ?? "").trim();
+  if (!c.tablas?.length) return v === "" ? "" : `${c.atributo}${c.op}${v}`;
+  return c.atributo && v !== "" ? `${textoCamino(c)}.${c.atributo}${c.op}${v}` : textoCamino(c);
+}
+
+function escribirVariableClave({ funcion, atributo, hija, condiciones }) {
+  const conds = funcion === "siguiente" ? [] : condiciones.map(textoCondicion).filter(Boolean);
+  const tabla = hija && (funcion === "con_hijos" || funcion === "sin_hijos") ? `:${hija}` : "";
+  return `\${${funcion}.${atributo}${tabla}${conds.length ? "|" + conds.join(",") : ""}}`;
+}
+
+/** Lo que pide la variable, en castellano: "el primero con CuponEstado = PENDIENTE y con cbhCupon: CuponEstado = EN_PROCESO". */
+function describirVariableClave(texto) {
+  const p = parsearVariableClave(texto);
+  if (!p) return "";
+  const que = { existente: "el primero", ultimo: "el último", siguiente: "no existe: el último + 1",
+    con_hijos: `el primero con filas en ${p.hija || "otra tabla"}`, sin_hijos: `el primero sin filas en ${p.hija || "otra tabla"}` }[p.funcion]
+    + (p.tabla ? ` de ${p.tabla}` : "");
+  const op = (o) => OPERADORES_CONDICION.find(([x]) => x === o)?.[1] || o;
+  // Las partes de la clave que puso el armador (CargoId=${...}, tambien por otra tabla: cbhCargoCuota.CargoId=${...},
+  // en el CuponId que sale de la misma fila) van al final: «dentro de su CargoId».
+  const esDentro = (c) => c.atributo && c.op === "=" && /^\s*\$\{/.test(c.valor);
+  const dentro = [...new Set(p.condiciones.filter(esDentro).map((c) => c.atributo))];
+  const conds = p.condiciones.filter((c) => !esDentro(c) && (!dentro.includes(c.atributo) || c.tablas.length)).map((c) => {
+    const filtro = c.atributo ? `${c.atributo} ${op(c.op)} ${c.valor}` : "";
+    if (!c.tablas.length) return filtro;
+    const camino = c.tablas.map((t, i) => (i && c.negadas[i] ? `sin ${t}` : t)).join(" › ");
+    return `${c.negadas[0] ? "sin" : "con"} ${camino}${filtro ? `: ${filtro}` : ""}`;
+  });
+  const frase = conds.length ? `${que} ${conds.map((c, i) => (i || /^(con|sin) /.test(c) ? c : `con ${c}`)).join(" y ")}` : que;
+  const lista = dentro.length > 1 ? `${dentro.slice(0, -1).join(", ")} y ${dentro[dentro.length - 1]}` : dentro[0];
+  return dentro.length ? `${frase} (dentro de su ${lista})` : frase;
+}
+
+/** Valor de 'atributo' en el objeto que contiene al campo (sin distinguir mayusculas), si sirve de condicion. */
+function valorHermano(padre, atributo) {
+  if (!padre || Array.isArray(padre)) return undefined;
+  const k = Object.keys(padre).find((x) => x.toLowerCase() === atributo.toLowerCase());
+  const v = k === undefined ? undefined : padre[k];
+  if (v === null || v === undefined || typeof v === "object") return undefined;
+  const t = String(v).trim();
+  return t === "" || t === "0" ? undefined : t;
+}
+const tieneHermano = (padre, atributo) => !!padre && !Array.isArray(padre) && Object.keys(padre).some((x) => x.toLowerCase() === atributo.toLowerCase());
+
+const atributosTablas = new Map(); // "kb|tabla" -> Promise de /api/campos/tabla
+function atributosDeTabla(kb, tabla, datastore = "") {
+  const k = `${kb}|${datastore}|${tabla.toLowerCase()}`;
+  if (!atributosTablas.has(k)) {
+    const p = GET("/api/campos/tabla", { kb, tabla, datastore });
+    p.catch(() => atributosTablas.delete(k));
+    atributosTablas.set(k, p);
+  }
+  return atributosTablas.get(k);
+}
+
+/**
+ * Arma una ${funcion.Atributo|condiciones} eligiendo: cual (el primero, el ultimo, uno que no existe, con o sin
+ * filas en otra tabla), condiciones sobre los atributos de la tabla (los de un dominio enumerado, en un combo) y
+ * sobre las tablas relacionadas (una cuota que este en un cupon en proceso). Muestra lo que daria hoy.
+ * 'actual' (la variable que ya tiene el campo) se abre para editarla. Si la clave es compuesta, las otras partes
+ * se toman de los campos hermanos (CargoId para CargoCuotaNumero) o, con «misma fila», se completan tambien:
+ * alElegir(texto, {CargoId: ${...}, CargoPlanSec: ${...}}). Los demas campos de la entrada (los de 'padre' y los
+ * de los objetos de 'arriba') que salen de esa fila o de una tabla de las condiciones se completan tambien: el
+ * CuponId de una cuota que esta en un cupon en proceso.
+ */
+async function armarVariableClave(kb, atributo, padre, actual, alElegir, arriba = []) {
+  let f;
+  try { f = await GET("/api/campos/filtros", { kb, atributo }); } catch (e) { toast(e.message, "error"); return; }
+  const k = f.atributo;
+  const propios = new Map(f.atributos.map((a) => [a.nombre.toLowerCase(), a]));
+  const otras = new Map();  // tabla en minusculas -> Map(atributo -> info), de las relacionadas ya consultadas
+  const cargarTabla = async (tabla) => {
+    if (otras.has(tabla.toLowerCase())) return;
+    const r = await atributosDeTabla(kb, tabla, f.datastore || "");
+    otras.set(tabla.toLowerCase(), new Map(r.atributos.map((a) => [a.nombre.toLowerCase(), a])));
+  };
+  const atts = (c) => (c.tablas?.length ? otras.get(c.tablas[c.tablas.length - 1].toLowerCase()) : propios) || new Map();
+  const att = (c) => atts(c).get(String(c.atributo).toLowerCase()) || { nombre: c.atributo, tipo: "" };
+
+  // Las otras partes de la clave que estan en la entrada (CargoId y CargoPlanSec al lado de CargoCuotaNumero).
+  const hermanos = f.claves.slice(0, -1).filter((c) => tieneHermano(padre, c));
+  const fijos = hermanos.filter((c) => { const v = valorHermano(padre, c); return v !== undefined && !v.startsWith("${"); });
+  const previo = parsearVariableClave(actual);
+  const esPropia = (x) => x && !x.tabla && x.atributo.toLowerCase() === k.toLowerCase();  // no ${existente.cbhCargoCuota.CargoId}
+  const est = esPropia(previo)
+    ? { ...previo, atributo: k } : { funcion: "existente", atributo: k, hija: "", condiciones: [] };
+  if (!f.numerica && est.funcion === "siguiente") est.funcion = "existente";
+  if (!f.hijas.length && est.funcion.endsWith("_hijos")) est.funcion = "existente";
+  // «Misma fila» de entrada si las otras partes no tienen un valor elegido a mano (vacias, 0 o calculadas).
+  est.misma = hermanos.length > 0 && fijos.length === 0;
+  const esClaveHermana = (c) => !c.tablas.length && hermanos.some((x) => x.toLowerCase() === String(c.atributo).toLowerCase());
+  // Las que puso «misma fila» (CargoId=${...}) se vuelven a armar al usar: no se muestran.
+  if (est.misma) est.condiciones = est.condiciones.filter((c) => !(esClaveHermana(c) && /^\s*\$\{/.test(c.valor)));
+  const agregarHermanos = () => {
+    for (const a of f.claves.slice(0, -1)) {
+      const v = valorHermano(padre, a);
+      if (v !== undefined && !est.condiciones.some((c) => !c.tablas.length && c.atributo.toLowerCase() === a.toLowerCase())) {
+        est.condiciones.unshift({ atributo: a, op: "=", valor: v, tablas: [], negadas: [], auto: true });
+      }
+    }
+  };
+  if (!esPropia(previo)) {
+    if (!est.misma) agregarHermanos();
+  }
+  // Los demas campos de la entrada que pueden salir de esa fila o de una tabla de sus condiciones (el CuponId de una
+  // cuota que esta en un cupon en proceso), al lado del campo o en un nivel de arriba (inAgregar.CuponId para
+  // inAgregar.Cuotas[*]): los que ofrece el servidor se completan, salvo los que tienen un valor puesto a mano.
+  const dondeEsta = new Map();  // campo en minusculas -> [nombre, objeto que lo tiene], el mas cercano
+  for (const o of padre && !Array.isArray(padre) ? [padre, ...arriba] : []) {
+    for (const [x, v] of Object.entries(o)) {
+      if ((v === null || typeof v !== "object") && !dondeEsta.has(x.toLowerCase())
+        && !f.claves.some((c) => c.toLowerCase() === x.toLowerCase())) dondeEsta.set(x.toLowerCase(), [x, o]);
+    }
+  }
+  const candidatos = [...dondeEsta.values()].map(([x]) => x);
+  const valorCampo = (x) => valorHermano(dondeEsta.get(x.toLowerCase())?.[1], x);
+  const sinCompletar = new Set(candidatos.filter((x) => { const v = valorCampo(x); return v !== undefined && !v.startsWith("${"); }));
+  let relacionados = {};  // {CuponId: {tabla, expresion}}, de la ultima consulta
+  // Los de un dominio enumerado siempre estan, en «cualquiera»: son los filtros mas comunes (el estado, el tipo).
+  for (const a of f.atributos.filter((x) => x.valores)) {
+    if (!est.condiciones.some((c) => !c.tablas.length && c.atributo.toLowerCase() === a.nombre.toLowerCase())) {
+      est.condiciones.push({ atributo: a.nombre, op: "=", valor: "", tablas: [], negadas: [] });
+    }
+  }
+  for (const c of est.condiciones) c.atributo = att(c).nombre || c.atributo;
+  try { await Promise.all([...new Set(est.condiciones.filter((c) => c.tablas.length).map((c) => c.tablas[c.tablas.length - 1]))].map(cargarTabla)); }
+  catch (e) { toast(e.message, "error"); }
+  for (const c of est.condiciones) if (c.tablas.length && c.atributo) c.atributo = att(c).nombre || c.atributo;
+
+  const funciones = FUNCIONES_CLAVE.filter(([fn]) => (fn !== "siguiente" || f.numerica) && (!fn.endsWith("_hijos") || f.hijas.length));
+  const selFuncion = h("select", { onchange: () => { est.funcion = selFuncion.value; pintar(); } },
+    funciones.map(([fn, t, d]) => h("option", { value: fn, selected: fn === est.funcion ? "" : null, title: d }, t)));
+  const ayudaFuncion = h("span", { class: "muted chico" });
+  const cajaHija = h("label", { class: "fila", style: { gap: "6px" } }, h("span", { class: "muted" }, "en"),
+    h("select", { onchange: (ev) => { est.hija = ev.target.value; actualizar(); } },
+      h("option", { value: "" }, "cualquiera de ellas"),
+      f.hijas.map((t) => h("option", { value: t, selected: t.toLowerCase() === est.hija.toLowerCase() ? "" : null }, t))));
+  const filas = h("div", { class: "armador-conds" });
+  const filasOtras = h("div", { class: "armador-conds" });
+  const selAgregar = h("select", { onchange: () => {
+    if (!selAgregar.value) return;
+    est.condiciones.push({ atributo: selAgregar.value, op: "=", valor: "", tablas: [], negadas: [] });
+    pintar();
+    const ultima = filas.lastElementChild;
+    (ultima?.querySelector("input") || ultima?.querySelectorAll("select")[1])?.focus();
+  } });
+  // Otra tabla: una lista con filtro, porque pueden ser muchas (las relacionadas hasta 3 tablas de distancia).
+  const btnOtra = h("button", { class: "btn chico", type: "button", onclick: () => listaValores(btnOtra, {
+    titulo: `Tablas relacionadas con ${f.tabla}`, ancho: 460,
+    valores: f.relacionadas.map((r) => ({
+      valor: r.camino.join("."),
+      texto: [r.titulo && r.titulo !== r.tabla ? r.titulo : "", r.camino.length > 1 ? `por ${r.camino.slice(0, -1).join(" › ")}` : (r.pasos[0] === "hija" ? `la referencia a ${f.tabla}` : `${f.tabla} la referencia`)].filter(Boolean).join(" · "),
+      titulo: r.camino.join(" › "),
+    })),
+  }, "", async (camino) => {
+    const r = f.relacionadas.find((x) => x.camino.join(".") === camino);
+    try { await cargarTabla(r.tabla); } catch (e) { toast(e.message, "error"); return; }
+    est.condiciones.push({ atributo: "", op: "=", valor: "", tablas: [...r.camino], negadas: r.camino.map(() => false) });
+    pintar();
+    filasOtras.lastElementChild?.querySelectorAll("select")[1]?.focus();
+  }) }, "+ condición en otra tabla…");
+  const cajaConds = h("div", null,
+    h("div", { class: "muted chico", style: { margin: "12px 0 6px" } }, `En ${f.tabla} (las que quedan en «cualquiera» no filtran):`), filas,
+    h("div", { style: { marginTop: "6px" } }, selAgregar),
+    h("div", { class: "muted chico", style: { margin: "14px 0 6px" } }, "En otras tablas (una cuota que esté en un cupón en proceso, un cupón sin detalle…):"), filasOtras,
+    f.relacionadas.length ? h("div", { style: { marginTop: "6px" } }, btnOtra) : h("div", { class: "muted chico" }, "No hay tablas relacionadas."));
+  const notaSiguiente = h("div", { class: "muted chico", style: { marginTop: "10px" } },
+    `Es el ${k} más grande de toda la tabla ${f.tabla}, más uno: no lleva condiciones.`);
+  const chkMisma = h("input", { type: "checkbox", checked: est.misma, onchange: () => {
+    est.misma = chkMisma.checked;
+    if (est.misma) est.condiciones = est.condiciones.filter((c) => !c.auto);
+    else agregarHermanos();
+    pintar();
+  } });
+  const cajaMisma = h("label", { class: "chk armador-misma" }, chkMisma,
+    h("span", null, `Completar también ${hermanos.join(" y ")}, para que sean de la misma fila de ${f.tabla}`),
+    h("span", { class: "muted chico" }, fijos.length ? ` (reemplaza lo que tienen: ${fijos.map((x) => `${x} = ${valorHermano(padre, x)}`).join(", ")})` : ""));
+  const cajaRel = h("div");
+  const pintarRel = () => vaciar(cajaRel, Object.entries(relacionados).map(([x, r]) => {
+    const chk = h("input", { type: "checkbox", checked: !sinCompletar.has(x), onchange: () => {
+      if (chk.checked) sinCompletar.delete(x); else sinCompletar.add(x);
+      actualizar();
+    } });
+    const v = valorCampo(x);
+    const deArriba = dondeEsta.get(x.toLowerCase())?.[1] !== padre ? " (en el nivel de arriba)" : "";
+    return h("label", { class: "chk armador-misma", title: r.expresion }, chk,
+      h("span", null, `Completar también ${x}${deArriba}, con el de ${r.tabla === f.tabla ? "esa fila" : `${r.tabla} de esa fila`}`),
+      h("span", { class: "muted chico" }, v !== undefined && !v.startsWith("${") ? ` (reemplaza ${x} = ${v})` : ""));
+  }));
+  const codigo = h("code", { class: "armador-expr" });
+  const hoy = h("div", { class: "armador-hoy" });
+
+  // Valor de una condicion: combo del dominio, o texto con los valores de la base (si es clave de otra tabla) o las fechas relativas.
+  const controlValor = (c, a) => {
+    if (a.valores) {
+      const conocido = c.valor === "" || a.valores.some((v) => v.nombre.toLowerCase() === c.valor.toLowerCase());
+      return h("select", { onchange: (ev) => { c.valor = ev.target.value; actualizar(); } },
+        h("option", { value: "" }, "(cualquiera)"),
+        conocido ? null : h("option", { value: c.valor, selected: "" }, c.valor),
+        a.valores.map((v) => h("option", { value: v.nombre, selected: v.nombre.toLowerCase() === c.valor.toLowerCase() ? "" : null },
+          [v.nombre, v.descripcion && v.descripcion !== v.nombre ? v.descripcion : "", `(${v.valor})`].filter(Boolean).join(" · "))));
+    }
+    const inp = h("input", { type: "text", value: c.valor, spellcheck: "false", placeholder: "(cualquiera)",
+      oninput: () => { c.valor = inp.value; actualizar(); } });
+    const fechas = FECHAS_RELATIVAS[a.tipo];
+    let fuente = null;
+    if (fechas) {
+      fuente = { titulo: "Fechas relativas (se calculan al ejecutar)", valores: fechas.map(([e, t]) => ({ valor: `\${${e}}`, texto: t })) };
+    } else if (a.tablaDe && (c.tablas.length || a.nombre.toLowerCase() !== k.toLowerCase())) {
+      fuente = {
+        titulo: `${a.tablaDe} · ${a.nombre}`, ancho: 420,
+        cargar: async (buscar) => {
+          // Filtran las otras condiciones con = sobre la misma tabla (CargoId para CargoPlanSec).
+          const filtros = {};
+          for (const o of est.condiciones) {
+            if (o !== c && o.op === "=" && textoCamino(o) === textoCamino(c) && o.atributo && String(o.valor).trim() !== "") filtros[o.atributo] = o.valor;
+          }
+          const r = await POST("/api/valoresClave", { kb, atributo: a.nombre, filtros, buscar });
+          const n = r.claves.length;
+          return {
+            valores: r.filas.map((fila) => {
+              const vs = r.columnas.map((col) => fila[col]);
+              return { valor: vs[n - 1], texto: r.descripcion ? String(vs[n] ?? "").trim() : "" };
+            }),
+            truncado: r.truncado,
+          };
+        },
+      };
+    }
+    if (!fuente) return inp;
+    const caja = h("div", { class: "combo" }, inp, h("button", {
+      class: "btn chico fantasma icono", type: "button", title: `${fuente.titulo}\nVer los valores (Alt+↓)`, tabindex: -1,
+      onclick: () => listaValores(caja, fuente, inp.value, (v) => { inp.value = String(v); inp.dispatchEvent(new Event("input")); inp.focus(); }),
+    }, "▾"));
+    inp.addEventListener("keydown", (ev) => { if ((ev.key === "ArrowDown" && ev.altKey) || ev.key === "F4") { ev.preventDefault(); caja.querySelector("button").click(); } });
+    return caja;
+  };
+  const selOp = (c, a) => h("select", { class: "armador-op", onchange: (ev) => { c.op = ev.target.value; actualizar(); } },
+    (a.valores ? OPERADORES_CONDICION.slice(0, 2) : OPERADORES_CONDICION).map(([o, t]) => h("option", { value: o, selected: o === c.op ? "" : null }, t)));
+  const quitar = (c) => h("button", { class: "btn fantasma icono chico", title: "Quitar la condición",
+    onclick: () => { est.condiciones.splice(est.condiciones.indexOf(c), 1); pintar(); } }, "✕");
+
+  const filaPropia = (c) => {
+    const a = att(c);
+    const titulo = [a.tipo, a.dominio ? `dominio ${a.dominio}` : "", a.clave ? `parte de la clave de ${f.tabla}` : ""].filter(Boolean).join(" · ");
+    return h("div", { class: "armador-cond" }, h("span", { class: "mono", title: titulo || null }, c.atributo), selOp(c, a), controlValor(c, a), quitar(c));
+  };
+  // Condicion en otra tabla: con / sin (alguna fila de esa tabla, por el camino) y, si se elige, un atributo de ella.
+  const filaOtra = (c) => {
+    const a = att(c);
+    const final = c.tablas[c.tablas.length - 1];
+    const lista = [...atts(c).values()];
+    const camino = c.tablas.map((t, i) => [i ? " › " : "", i && c.negadas[i] ? h("b", null, "sin ") : null,
+      i === c.tablas.length - 1 ? h("b", null, t) : t]);
+    const selAtt = h("select", { onchange: (ev) => { c.atributo = ev.target.value; c.op = "="; c.valor = ""; pintar(); } },
+      h("option", { value: "" }, "(alguna fila, sin condición)"),
+      c.atributo && !atts(c).has(c.atributo.toLowerCase()) ? h("option", { value: c.atributo, selected: "" }, c.atributo) : null,
+      lista.map((x) => h("option", { value: x.nombre, selected: x.nombre.toLowerCase() === String(c.atributo).toLowerCase() ? "" : null },
+        `${x.nombre}${x.valores ? "  (dominio)" : x.tipo ? `  (${x.tipo})` : ""}`)));
+    return h("div", { class: "armador-otra" },
+      h("div", { class: "armador-otra-cab" },
+        h("select", { class: "armador-con", title: "Con: que tenga alguna fila que cumpla. Sin: que no tenga ninguna.",
+          onchange: (ev) => { c.negadas[0] = ev.target.value === "sin"; actualizar(); } },
+          h("option", { value: "con", selected: c.negadas[0] ? null : "" }, "con"), h("option", { value: "sin", selected: c.negadas[0] ? "" : null }, "sin")),
+        h("span", { class: "mono armador-camino", title: `Se une ${[f.tabla, ...c.tablas].join(" › ")} por sus claves` }, camino),
+        quitar(c)),
+      h("div", { class: "armador-cond" }, selAtt,
+        c.atributo ? selOp(c, a) : h("span"),
+        c.atributo ? controlValor(c, a) : h("span", { class: "muted chico" }, c.negadas[0] ? `que no tenga ninguna fila en ${final}` : `que tenga alguna fila en ${final}`),
+        h("span")));
+  };
+
+  const pintar = () => {
+    const fn = FUNCIONES_CLAVE.find(([x]) => x === est.funcion);
+    ayudaFuncion.textContent = fn ? fn[2] : "";
+    cajaHija.style.display = est.funcion.endsWith("_hijos") && f.hijas.length > 1 ? "" : "none";
+    cajaConds.style.display = est.funcion === "siguiente" ? "none" : "";
+    notaSiguiente.style.display = est.funcion === "siguiente" ? "" : "none";
+    cajaMisma.style.display = hermanos.length && est.funcion !== "siguiente" ? "" : "none";
+    vaciar(filas, est.condiciones.filter((c) => !c.tablas.length).map(filaPropia));
+    vaciar(filasOtras, est.condiciones.filter((c) => c.tablas.length).map(filaOtra));
+    // Un atributo comun puede ir mas de una vez (CuponFecha >= ... y CuponFecha <= ...); uno del dominio, una.
+    const usados = new Set(est.condiciones.filter((c) => !c.tablas.length).map((c) => c.atributo.toLowerCase()));
+    vaciar(selAgregar, h("option", { value: "" }, "+ condición sobre…"),
+      f.atributos.filter((a) => !a.valores || !usados.has(a.nombre.toLowerCase()))
+        .map((a) => h("option", { value: a.nombre }, `${a.nombre}${a.tipo ? `  (${a.tipo})` : ""}`)));
+    actualizar();
+  };
+
+  const conMisma = () => est.misma && hermanos.length && est.funcion !== "siguiente";
+  // {k: texto} y, con «misma fila», tambien las otras partes de la clave; despues, los demas campos que salen de esa
+  // fila (los arma el servidor: misma_fila y relacionados).
+  const armar = async () => {
+    const texto = escribirVariableClave(est);
+    const misma = !!conMisma();
+    if (!misma && !candidatos.length) return { [k]: texto };
+    const r = await POST("/api/campos/completar", { kb, expresion: texto, mismaFila: misma, hermanos: candidatos });
+    const firma = (x) => JSON.stringify(Object.entries(x).map(([n, v]) => [n, v.tabla]));
+    if (firma(r.relacionados) !== firma(relacionados)) { relacionados = r.relacionados; pintarRel(); }
+    else relacionados = r.relacionados;
+    const vars = misma ? r.variables : { [k]: texto };
+    for (const [x, v] of Object.entries(r.relacionados)) if (!sinCompletar.has(x)) vars[x] = v.expresion;
+    return vars;
+  };
+  let espera = null, pedido = 0;
+  const actualizar = () => {
+    codigo.textContent = escribirVariableClave(est);
+    vaciar(hoy, cargando("Calculando lo que daría hoy…"));
+    clearTimeout(espera);
+    const n = ++pedido;
+    espera = setTimeout(async () => {
+      try {
+        const vars = await armar();
+        const nombres = Object.keys(vars);
+        // Con el SQL previo de Explorar, como al ejecutar (si se cambia el estado de un cupon, se ve aca).
+        const sqlPrevio = E.usarPrevio ? E.sqlPrevio : null;
+        const r = await POST("/api/variables/previsualizar", { kb, expresiones: Object.values(vars), sqlPrevio });
+        if (n !== pedido) return;
+        const error = r.find((x) => x.error);
+        const conPrevio = sqlPrevio?.some((b) => (b.sql || b.query || "").trim()) ? " (con el SQL previo)" : "";
+        vaciar(hoy, error ? h("span", { class: "armador-ninguno" }, `Hoy no da ninguno${conPrevio}: ${error.error}`)
+          : [`Hoy${conPrevio} daría `, nombres.length > 1
+            ? nombres.map((x, i) => [i ? " · " : "", h("span", { class: "muted" }, `${x} `), h("b", { class: "mono" }, String(r[i].hoy))])
+            : h("b", { class: "mono" }, String(r[0].hoy)),
+          h("span", { class: "muted" }, " · se vuelve a buscar en cada ejecución")]);
+      } catch (e) { if (n === pedido) vaciar(hoy, h("span", { class: "armador-ninguno" }, e.message)); }
+    }, 300);
+  };
+
+  const cuerpo = h("div", { class: "armador" },
+    h("div", { class: "muted chico", style: { marginBottom: "10px" } },
+      `Un ${k} de ${f.tabla} que se busca en la base al ejecutar: el caso sigue sirviendo aunque los datos cambien.`),
+    h("div", { class: "fila", style: { flexWrap: "wrap", gap: "8px" } }, h("b", null, "Cuál"), selFuncion, cajaHija, ayudaFuncion),
+    cajaConds, notaSiguiente,
+    h("div", { class: "sep" }),
+    cajaMisma, cajaRel,
+    h("div", { class: "fila", style: { gap: "6px", alignItems: "flex-start" } }, codigo,
+      h("button", { class: "btn chico", title: "Copiar la variable", onclick: () => copiar(codigo.textContent) }, "Copiar")),
+    hoy);
+  pintar();
+  modal({
+    titulo: `Valor calculado · ${k} (${f.tabla})`, cuerpo,
+    botones: [{ texto: "Cancelar" }, { texto: "Usar", prim: true, accion: async () => {
+      let vars;
+      try { vars = await armar(); } catch (e) { toast(e.message, "error"); return false; }
+      const { [k]: propio, ...otros } = vars;
+      alElegir(propio, Object.keys(otros).length ? otros : undefined);
+    } }],
+  });
 }
 
 function contarNiveles(niveles) { let n = 0; const r = (l) => l.forEach((x) => { n++; r(x.subniveles || []); }); r(niveles || []); return n; }
@@ -1432,7 +1840,7 @@ function ayudaVariables() {
           fila("Predefinidas", [c("${hoy}"), " ", c("${ahora}"), " ", c("${uuid}"), " ", c("${aleatorio}"), " ", c("${caso}")], "Siempre."),
           fila("Calculadas en la base", [c("${siguiente.CuponId}"), " (uno que no existe: el último + 1), ", c("${existente.CuponId}"), " (el primero), ", c("${ultimo.CuponId}"),
             ", ", c("${existente.CuponId|CuponEstado=PENDIENTE}"), " (el primero que cumple; condiciones separadas por coma, con = != < > <= >=, y el nombre del valor del dominio), ",
-            c("${con_hijos.CuponId}"), " y ", c("${sin_hijos.CuponId}"), " (con o sin filas en las tablas que lo referencian; ", c("${con_hijos.CuponId:tabla}"), " para una). En Explorar aparecen primero en el combo del campo, con el valor que darían hoy."],
+            c("${con_hijos.CuponId}"), " y ", c("${sin_hijos.CuponId}"), " (con o sin filas en las tablas que lo referencian; ", c("${con_hijos.CuponId:tabla}"), " para una), ", c("${existente.CargoCuotaNumero|cbhCuponDetalle.cbhCupon.CuponEstado=EN_PROCESO}"), " (una condición en otra tabla, con el camino delante; ", c("!tabla"), " para que no tenga ninguna fila). En Explorar se arman eligiendo, con «Con filtros…» (arriba en el combo del campo) o el botón ƒ: cuál, los filtros (un estado, una fecha, otras tablas) y lo que darían hoy; también completa las otras partes de una clave compuesta con la misma fila."],
             "Se calculan al usarlas por primera vez en el caso (con lo que dejaron el script previo y los pasos anteriores) y quedan fijas para el resto del caso. Pueden llevar otra variable adentro: ${existente.CuponCuotaSec|CuponId=${cupon}}."),
           fila("Fechas relativas", [c("${hoy+30}"), " ", c("${hoy-1}"), " ", c("${hoy+2m}"), " ", c("${hoy-1a}"), " ", c("${ahora+2h}"), " ", c("${ahora-30min}"), " ", c("${inicio_mes}"), " ", c("${fin_mes+1}"), " ",
             c("${inicio_anio}"), " ", c("${fin_anio}"), " ", c("${habil_siguiente}"), " ", c("${habil_anterior}"), " ", c("${fecha_vacia}"), ". En Explorar, el combo de un campo de fecha las ofrece."],

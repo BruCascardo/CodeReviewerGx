@@ -52,10 +52,47 @@ def valores_clave(_q, b):
         raise ErrorApi(str(e), 400)
 
 
+@ruta("GET", "/api/campos/filtros")
+def filtros_clave(q, _b):
+    """Funciones, tablas hijas y atributos con los que se arma una ${existente.X|...} sin escribirla."""
+    try:
+        return campos.filtros(kb(q.get("kb")), q.get("atributo", ""))
+    except KeyError as e:
+        raise ErrorApi(mensaje(e), 404)
+
+
+@ruta("GET", "/api/campos/tabla")
+def atributos_tabla(q, _b):
+    """Atributos de una tabla relacionada, para poner condiciones sobre ella en el armador."""
+    try:
+        return campos.atributos_de(kb(q.get("kb")), q.get("tabla", ""), q.get("datastore"))
+    except KeyError as e:
+        raise ErrorApi(mensaje(e), 404)
+
+
+@ruta("POST", "/api/campos/mismaFila")
+def misma_fila(_q, b):
+    """Las ${variables} de todas las partes de una clave compuesta, para que sean de la misma fila."""
+    try:
+        return campos.misma_fila(kb(b.get("kb")), b.get("expresion", ""))
+    except ValueError as e:
+        raise ErrorApi(str(e), 400)
+
+
+@ruta("POST", "/api/campos/completar")
+def completar(_q, b):
+    """Las ${variables} de las otras partes de la clave (con «misma fila») y de los demas campos de la entrada que
+    salen de esa fila o de una tabla de sus condiciones (el CuponId de una cuota que esta en un cupon en proceso)."""
+    try:
+        return campos.completar(kb(b.get("kb")), b.get("expresion", ""), bool(b.get("mismaFila")), b.get("hermanos") or [])
+    except ValueError as e:
+        raise ErrorApi(str(e), 400)
+
+
 @ruta("POST", "/api/variables/previsualizar")
 def previsualizar(_q, b):
     """Lo que daria hoy cada ${variable} (fechas relativas, ${existente.X|...}...): [{hoy} o {error}]."""
-    return campos.previsualizar(kb(b.get("kb")), b.get("expresiones") or [], b.get("variables"))
+    return campos.previsualizar(kb(b.get("kb")), b.get("expresiones") or [], b.get("variables"), b.get("sqlPrevio"))
 
 
 @ruta("POST", "/api/validaciones")

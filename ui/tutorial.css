@@ -18,7 +18,7 @@
 .tut-texto { line-height: 1.5; color: var(--texto); }
 .tut-texto code, .tut-codigo { font-family: var(--mono); font-size: 12px; }
 .tut-texto code { background: var(--gris-2); padding: 1px 4px; border-radius: 4px; }
-.tut-codigo { margin: 0; padding: 8px 10px; background: var(--panel-2); border: 1px solid var(--borde); border-radius: 6px; white-space: pre-wrap; word-break: break-word; color: var(--texto-2); }
+.tut-codigo { font-variant-ligatures: none; margin: 0; padding: 8px 10px; background: var(--panel-2); border: 1px solid var(--borde); border-radius: 6px; white-space: pre-wrap; word-break: break-word; color: var(--texto-2); }
 .tut-pie { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
 @media (max-width: 760px) {
   .tut { grid-template-columns: 1fr; }
