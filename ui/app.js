@@ -121,6 +121,7 @@ function irA(vista) {
   if (vista === "suites") cargarSuites();
   if (vista === "grafo") abrirGrafo();
   if (vista === "revision") pintarRevision();
+  if (vista === "genexus") pintarGx(); else detenerRefrescoGx();
 }
 
 function teclas(ev) {

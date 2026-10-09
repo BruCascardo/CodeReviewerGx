@@ -31,6 +31,12 @@ DEFECTO = {
         "notificar": True,      # notificacion de Windows con el resultado
         "revisar": True,        # revisa las buenas practicas de los objetos del build (gxp/revisor)
     },
+    # Update y Build de las KBs con MSBuild (ver gxp/genexus.py). Vacio = se detecta solo.
+    "genexus": {
+        "instalacion": "",      # carpeta de GeneXus con TeamDev.msbuild ("" = la mas nueva de C:\GeneXus)
+        "msbuild": "",          # MSBuild.exe de 32 bits ("" = Framework\v4.0.30319)
+        "paralelo": 3,          # KBs que se procesan a la vez
+    },
     # Grafo: procedimientos que se llaman por medio de la tabla de servicios (ver gxp/grafo/servicios.py).
     # 'dominio' es el dominio enumerado de 'id'; 'objeto' es la columna con la ruta del procedimiento.
     # "kb": "" lo desactiva.

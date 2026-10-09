@@ -384,6 +384,21 @@ python gxpruebas.py compartido bajar [--carpeta X]          :: copia todo a arch
 
 ---
 
+## GeneXus: Update y Build de las KBs
+
+La pestaña **GeneXus** lista todas las KBs de `raicesKB` (compiladas o no). Tildás una, varias o todas y usás
+**Update** o **Build**, que son independientes: Update de 5 KBs y Build de 3. Cada trabajo corre su propio
+`MSBuild.exe` (el de 32 bits, `Framework4.0.30319`) con `TeamDev.msbuild` de la instalación de GeneXus:
+
+- Update = `/t:Update` (`UpdateFromServer`). Build = `/t:Build` (`BuildAll`; con «Build completo» agrega `ForceRebuild=true`).
+- Una KB hace una sola cosa a la vez (los pedidos esperan en cola); KBs distintas corren en paralelo, hasta `genexus.paralelo` (3).
+- Una KB abierta en el IDE de GeneXus aparece marcada y no se puede procesar.
+- Antes de un Build se detiene el motor Java de esa KB (el build reescribe los `.jar`). Al terminar, las pruebas
+  automáticas después del build funcionan igual que con un build hecho desde el IDE.
+- La salida se ve en vivo al hacer clic en el estado; queda guardada en `resultados\genexus\`. ✕ cancela (cierra MSBuild y sus hijos).
+- Si el servidor de la KB pide usuario y clave: `GXP_GX_USUARIO` y `GXP_GX_CLAVE` en `.env` (o en el entorno).
+- Ajustes, en `.env` (`GXP_GX_INSTALACION`, `GXP_GX_MSBUILD`, `GXP_GX_PARALELO`) o en `config.json`, clave `genexus` (`instalacion`, `msbuild`, `paralelo`): manda `.env`. Por defecto se usa la GeneXus más nueva de `C:\GeneXus`.
+
 ## Revisor de buenas prácticas
 
 Revisa el **fuente GX** de los objetos (sacado de la especificación, no el Java). En la interfaz, pestaña **Revisión**; desde la consola:
