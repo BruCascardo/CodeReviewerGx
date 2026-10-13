@@ -55,6 +55,13 @@ class KB:
     def fuente_java(self, objeto: str) -> Path:
         return self.fuentes.joinpath(*self.clase_java(objeto).split(".")).with_suffix(".java")
 
+    def fuente_logica(self, objeto: str) -> Path:
+        """El .java con la logica del objeto. En los Web Panels, Web Components, transacciones y procedimientos
+        expuestos como servicio, x.java es el servlet y la logica (eventos, cursores) esta en x_impl.java."""
+        base = self.fuente_java(objeto)
+        impl = base.with_name(base.stem + "_impl.java")
+        return impl if impl.exists() else base
+
     def firma_build(self) -> str:
         """Cambia cada vez que GeneXus compila la KB: el compileJava de Gradle reescribe su marcador cuando
         compila algo, o cambia algun .jar de build/libs. Es estable entre procesos: se puede guardar en disco.

@@ -1,11 +1,14 @@
 """Pantalla Explorar y SQL: catalogo de objetos, detalle, describir, ejecutar y consultas."""
+from types import SimpleNamespace
+
 from ..rutas import ErrorApi, kb, mensaje, ruta
 from ... import campos, catalogo, motor, plan, suites
+from ...revisor import configuracion, pantalla_bc
 
 
 @ruta("GET", "/api/objetos")
 def objetos(q, _b):
-    lista = catalogo.objetos(kb(q.get("kb")), solo_ejecutables=q.get("todos") != "1")
+    lista = catalogo.objetos(kb(q.get("kb")), solo_ejecutables=q.get("todos") != "1", con_web=True)
     return [{k: o[k] for k in ("nombre", "descripcion", "tipo", "ejecutable", "parametros", "warnings", "errores")} for o in lista]
 
 
@@ -16,9 +19,23 @@ def objeto(q, _b):
         info = catalogo.buscar(k, q.get("nombre", ""))
     except KeyError as e:
         raise ErrorApi(mensaje(e), 404)
-    fuente = k.fuente_java(info["nombre"])
+    fuente = k.fuente_logica(info["nombre"])
     return {**info, **catalogo.detalle(info["nvg"]), "claseJava": k.clase_java(info["nombre"]), "fuenteJava": str(fuente),
-            "existeFuente": fuente.exists(), "haceCommit": catalogo.hace_commit(k, info["nombre"])}
+            "existeFuente": fuente.exists(), "haceCommit": catalogo.hace_commit(k, info["nombre"]),
+            "bcsSoloEnPantalla": _bcs_solo_en_pantalla(k, info) if info["ejecutable"] else []}
+
+
+def _bcs_solo_en_pantalla(k, info):
+    """Las transacciones con cuyo Business Component graba el objeto y cuya pantalla valida o graba algo que el
+    BC no (la regla logica-solo-en-pantalla), salvo las que tienen una excepcion de esa regla en revisor.json."""
+    conf = configuracion.cargar()
+    salida = []
+    for trn in pantalla_bc.bcs_que_graba(k, info["nombre"]):
+        difs = pantalla_bc.diferencias(k, trn)
+        h = SimpleNamespace(regla="logica-solo-en-pantalla", kb=k.nombre, objeto=trn, linea=None)
+        if difs and not conf.excepcion(h):
+            salida.append({"transaccion": trn, "diferencias": difs})
+    return salida
 
 
 @ruta("GET", "/api/describir")

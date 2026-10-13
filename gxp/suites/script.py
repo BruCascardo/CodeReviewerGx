@@ -116,7 +116,7 @@ def prohibida(codigo):
     return None
 
 
-def correr_sql(kb, ds, texto, timeout_ms, maximo=1000):
+def correr_sql(kb, ds, texto, timeout_ms, maximo=1000, rol=""):
     """Una o varias sentencias en la conexion del motor, en orden. Devuelve (respuesta, datos) como
     ejecutar_sql: los datos son los de la ultima sentencia. ValueError si alguna no se puede usar."""
     lista = sentencias(texto)
@@ -128,7 +128,7 @@ def correr_sql(kb, ds, texto, timeout_ms, maximo=1000):
             raise ValueError(motivo)
     r, datos = {}, {}
     for k, (s, _) in enumerate(lista):
-        r, datos = ejecutar_sql(kb, ds, s, timeout_ms, maximo)
+        r, datos = ejecutar_sql(kb, ds, s, timeout_ms, maximo, rol)
         if not r.get("ok"):
             if len(lista) > 1:
                 r = {**r, "error": f"Sentencia {k + 1} de {len(lista)}: {r.get('error') or 'Error'}"}

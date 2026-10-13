@@ -193,7 +193,7 @@ function lineaHallazgo(x, conDetalle = true) {
     h("div", { class: "fila" },
       pill(SEVERIDAD[x.severidad] || x.severidad, x.severidad === "error" ? "error" : "aviso"),
       x.nuevo ? pill("Nuevo", "acento") : null,
-      h("span", { class: "muted chico mono" }, x.linea ? `línea ${x.linea}` : "propiedad"),
+      h("span", { class: "muted chico mono" }, x.linea ? `línea ${x.linea}` : x.regla === "logica-solo-en-pantalla" ? "reglas" : "propiedad"),
       h("span", null, x.mensaje),
       h("span", { class: "muted chico" }, `[${x.regla}]`)),
     x.codigo ? h("div", { class: "mono rv-codigo" }, x.codigo) : null,

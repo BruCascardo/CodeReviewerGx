@@ -1,0 +1,1482 @@
+{
+  "nombre": "Auto - Pantallas de Cotizacion",
+  "kb": "Cotizacion",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cache",
+      "nombre": "Cache abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cache",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cargapromointnombrewp",
+      "nombre": "Cotizacion.CargaPromoIntNombreWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.CargaPromoIntNombreWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-convenio-cttconvenioww",
+      "nombre": "Cotizacion.Configuraciones.Convenio.cttConvenioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.Convenio.cttConvenioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcanalww",
+      "nombre": "Cotizacion.Configuraciones.cttCanalWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCanalWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlperfilww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPerfilWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPerfilWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfbancoww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfBancoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfBancoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfmediopagoww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfMedioPagoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfMedioPagoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfperfilfiscalww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfPerfilFiscalWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfPerfilFiscalWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfplancoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfPlanCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfPlanCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfplanfranquiciaww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfPlanFranquiciaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfPlanFranquiciaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprframaprovinciaww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfRamaProvinciaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfRamaProvinciaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprframaww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfRamaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfRamaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprftarjetaww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfTarjetaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfTarjetaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfvehtipodescuentoww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfVehTipoDescuentoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfVehTipoDescuentoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfvehtipoplancoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfVehTipoPlanCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfVehTipoPlanCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfvehtipousoww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfVehTipoUsoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfVehTipoUsoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfvehtipoww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfVehTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfVehTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfvehtipozonariesgoww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfVehTipoZonaRiesgoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfVehTipoZonaRiesgoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcnlprfvigenciaww",
+      "nombre": "Cotizacion.Configuraciones.cttCnlPrfVigenciaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCnlPrfVigenciaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttctvovalorww",
+      "nombre": "Cotizacion.Configuraciones.cttCtvoValorWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCtvoValorWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttcultivoww",
+      "nombre": "Cotizacion.Configuraciones.cttCultivoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttCultivoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttexcepblobww",
+      "nombre": "Cotizacion.Configuraciones.cttExcepBlobWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttExcepBlobWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttexcepciontipoww",
+      "nombre": "Cotizacion.Configuraciones.cttExcepcionTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttExcepcionTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttexcepcionww",
+      "nombre": "Cotizacion.Configuraciones.cttExcepcionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttExcepcionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttexcepcondicionww",
+      "nombre": "Cotizacion.Configuraciones.cttExcepCondicionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttExcepCondicionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttexceptipooperacionww",
+      "nombre": "Cotizacion.Configuraciones.cttExcepTipoOperacionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttExcepTipoOperacionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttexceptipoopercobadicionalww",
+      "nombre": "Cotizacion.Configuraciones.cttExcepTipoOperCobAdicionalWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttExcepTipoOperCobAdicionalWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttexceptipoopercoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttExcepTipoOperCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttExcepTipoOperCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttintcanalperfilww",
+      "nombre": "Cotizacion.Configuraciones.cttIntCanalPerfilWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttIntCanalPerfilWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaajusteperfilww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaAjustePerfilWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaAjustePerfilWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaajusteplancoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaAjustePlanCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaAjustePlanCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaajusteww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaAjusteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaAjusteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaarchtipoww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaArchTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaArchTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaartapfamcoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaArtAPFamCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaArtAPFamCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaartapfamiliaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaArtAPFamiliaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaArtAPFamiliaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaarticuloww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaArticuloWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaArticuloWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaartplancoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaArtPlanCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaArtPlanCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaartrcww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaArtRCWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaArtRCWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramacobjerarquiaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaCobJerarquiaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaCobJerarquiaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaconfigww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaConfigWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaConfigWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvactividadww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVActividadWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVActividadWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvcobequivalenteww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVCobEquivalenteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVCobEquivalenteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvcobproexclusionww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVCobProExclusionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVCobProExclusionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvfamcobactividadww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVFamCobActividadWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVFamCobActividadWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvfamcobarchivoww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVFamCobArchivoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVFamCobArchivoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvfamcoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVFamCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVFamCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvfamcobtipoconstruccionww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVFamCobTipoConstruccionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVFamCobTipoConstruccionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvfamiliaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVFamiliaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVFamiliaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvlocplancoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVLocPlanCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVLocPlanCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvprodcoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVProdCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVProdCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvproductoww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVProductoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVProductoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvproplancoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVProPlanCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVProPlanCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvprozonaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVProZonaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVProZonaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramarvvalorm2ww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaRVValorM2WW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaRVValorM2WW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramavigenciaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaVigenciaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaVigenciaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttramaww",
+      "nombre": "Cotizacion.Configuraciones.cttRamaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttRamaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehcobadicionalww",
+      "nombre": "Cotizacion.Configuraciones.cttVehCobAdicionalWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehCobAdicionalWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipoaccarchivoww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoAccArchivoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoAccArchivoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipoaccesorioww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoAccesorioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoAccesorioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipoarchivoww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoArchivoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoArchivoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipocapituloww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoCapituloWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoCapituloWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipoconfigww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoConfigWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoConfigWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipoplancobarchivoww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoPlanCobArchivoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoPlanCobArchivoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipoplancoberturaww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoPlanCoberturaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoPlanCoberturaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipoplancobfranquiciaww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoPlanCobFranquiciaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoPlanCobFranquiciaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtiposumaaseguradaww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoSumaAseguradaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoSumaAseguradaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipousocobadicionalww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoUsoCobAdicionalWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoUsoCobAdicionalWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipousoperffiscalww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoUsoPerfFiscalWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoUsoPerfFiscalWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipousoww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoUsoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoUsoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipoww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehtipozonariesgoww",
+      "nombre": "Cotizacion.Configuraciones.cttVehTipoZonaRiesgoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehTipoZonaRiesgoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttvehusoww",
+      "nombre": "Cotizacion.Configuraciones.cttVehUsoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttVehUsoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-configuraciones-cttzonagranizoww",
+      "nombre": "Cotizacion.Configuraciones.cttZonaGranizoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Configuraciones.cttZonaGranizoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-contexto-condicionww",
+      "nombre": "Cotizacion.Contexto.CondicionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Contexto.CondicionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-contexto-eventoww",
+      "nombre": "Cotizacion.Contexto.EventoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Contexto.EventoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-contexto-plantillaww",
+      "nombre": "Cotizacion.Contexto.PlantillaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Contexto.PlantillaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-aviso-cotizarwp",
+      "nombre": "Cotizacion.Cotizador.Aviso.CotizarWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Aviso.CotizarWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-aviso-endososww",
+      "nombre": "Cotizacion.Cotizador.Aviso.EndososWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Aviso.EndososWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-aviso-refacturacionesww",
+      "nombre": "Cotizacion.Cotizador.Aviso.RefacturacionesWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Aviso.RefacturacionesWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-aviso-renovacionesww",
+      "nombre": "Cotizacion.Cotizador.Aviso.RenovacionesWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Aviso.RenovacionesWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-consulta",
+      "nombre": "Cotizacion.Cotizador.Consulta abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Consulta",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-cthpromocionww",
+      "nombre": "Cotizacion.Cotizador.cthPromocionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.cthPromocionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-cttpromocondicionww",
+      "nombre": "Cotizacion.Cotizador.cttPromoCondicionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.cttPromoCondicionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-excepcion-pruebacond",
+      "nombre": "Cotizacion.Cotizador.Excepcion.pruebacond abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Excepcion.pruebacond",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-lote-pruebalote",
+      "nombre": "Cotizacion.Cotizador.Lote.PruebaLote abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Lote.PruebaLote",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-promocion-pruebacond",
+      "nombre": "Cotizacion.Cotizador.Promocion.pruebacond abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Promocion.pruebacond",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-pruebabarcode",
+      "nombre": "Cotizacion.Cotizador.pruebaBarcode abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.pruebaBarcode",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-pruebacond",
+      "nombre": "Cotizacion.Cotizador.pruebacond abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.pruebacond",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-pruebamlp",
+      "nombre": "Cotizacion.Cotizador.PruebaMLP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.PruebaMLP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-solicitud-consulta",
+      "nombre": "Cotizacion.Cotizador.Solicitud.Consulta abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Solicitud.Consulta",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-cotizador-vehiculo-pruebaapicotizar_vehiculovalidar",
+      "nombre": "Cotizacion.Cotizador.Vehiculo.PruebaApiCotizar_VehiculoValidar abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.Cotizador.Vehiculo.PruebaApiCotizar_VehiculoValidar",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-noautorizado",
+      "nombre": "Cotizacion.NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-pruebaale",
+      "nombre": "Cotizacion.PruebaAle abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.PruebaAle",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-pruebacotizacion",
+      "nombre": "Cotizacion.PruebaCotizacion abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.PruebaCotizacion",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cotizacion-pruebaguido",
+      "nombre": "Cotizacion.PruebaGuido abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cotizacion.PruebaGuido",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "nombre": "Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "login",
+      "nombre": "Login abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Login",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "Upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Upload",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}

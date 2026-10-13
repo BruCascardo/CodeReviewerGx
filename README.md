@@ -25,7 +25,7 @@ Todo corre dentro de una transacción que **al final se deshace** (rollback): po
 
 | Pantalla | Para qué |
 |---|---|
-| **Explorar** | Elegir un objeto, completar su entrada, ejecutarlo y ver la salida. Desde acá se guardan los casos. |
+| **Explorar** | Elegir un objeto, completar su entrada, ejecutarlo y ver la salida. Desde acá se guardan los casos. También lista los Web Panels y Web Components: su vista previa (funcionando, sin Tomcat y sin grabar nada), su revisión, su navegación y el plan de sus consultas. |
 | **Suites** | Los casos guardados: correrlos, ver qué falló y aprobar salidas nuevas. |
 | **Historial** | Todas las corridas, con su detalle (se descargan en JUnit XML o JSON). |
 | **Revisión** | Buenas prácticas del fuente GX, lo más reciente primero. |
@@ -47,6 +47,23 @@ Todo corre dentro de una transacción que **al final se deshace** (rollback): po
 
 - **+ consulta** agrega un `select` que corre **después** del objeto, en la misma transacción: ve lo que grabó antes de que se deshaga.
 - **SQL previo** corre **antes** del objeto, por ejemplo `delete from tabla;` para probar con la tabla vacía. **Copiar de una suite…** trae el script previo de una suite. También se deshace al final.
+
+**Si el objeto graba con un Business Component** cuya transacción hace algo solo desde la pantalla (una regla que usa variables del form, una regla `[web]`, el evento After Trn), arriba aparece un aviso con lo que el objeto no ejecuta: por ejemplo, la validación del CBU de `gnhPerEntFinanciera`. Es la regla [`logica-solo-en-pantalla`](#revisor-de-buenas-prácticas).
+
+### Web Panels y Web Components
+
+Los filtros **Web Panels** y **Web Components** (apagados por defecto) los suman a la lista. En su detalle:
+
+- **Vista previa:** la pantalla funcionando dentro de Explorar, con el Java compilado de la KB, **sin Tomcat ni login**. Se puede filtrar, paginar, apretar botones y seguir links (a una transacción, a un View); los eventos van al motor. **Nada se graba de verdad**: los `Commit` de la pantalla quedan como un savepoint y **⟲ Deshacer todo** vuelve todo atrás. Detalles:
+  - Corre en un **motor aparte** (otra JVM por KB), así no se mezcla con Explorar ni con las suites. La primera vez tarda unos segundos en arrancar.
+  - Los parámetros se escriben arriba y se cifran como en un `link()`. **Con todos los permisos** hace que WorkWithPlus muestre todas las acciones (Insertar, Modificar, Eliminar); **Sin permisos** muestra la pantalla como la vería alguien sin ningún permiso.
+  - Un **Web Component** no se abre solo (GeneXus no lo deja): se elige la pantalla que lo contiene y se le pasan los parámetros que se llaman igual.
+  - Lo que graba una pantalla deja filas bloqueadas para Tomcat, las suites u otra ventana de GxPruebas (la master page de WorkWithPlus graba en `WWP_WebClient` en cada pantalla). Por eso se deshace solo después de `vistaDeshacerMin` minutos sin uso (3 por defecto, en `config.json`), y si una pantalla espera más de 10 segundos un bloqueo de otro, falla en vez de quedarse esperando.
+  - Si la pantalla da una excepción, aparece «⚠ la pantalla dio una excepción» con la traza. **↗ Pestaña nueva** abre la misma vista previa en el navegador.
+  - Lo que corre en una nueva unidad de trabajo (`prcLog`) tampoco se graba. No hay notificaciones (websocket) ni subida de archivos.
+- **● Grabar caso:** convierte lo que hacés en la pantalla en un **caso de prueba que corre solo después de cada build**. Deshace todo, vuelve a abrir la pantalla y graba cada pedido de la página (abrirla, cada evento, cada recarga de grilla, los links a otras pantallas). Con **■ Terminar grabación** se elige la suite y qué pasos guardar. Cada paso compara lo que responde la pantalla (las filas de la grilla, los valores, los mensajes, a dónde redirige, qué se muestra u oculta) con lo que se vio al grabar; al guardar se corre una vez más para marcar lo que cambia solo. Por ejemplo: filtrar el WW de monedas, entrar a DOLARES, cambiar el símbolo, confirmar y volver a la lista: el último paso controla que la grilla muestre el símbolo nuevo. Ver [Casos de pantalla](#casos-de-pantalla).
+- **Buenas prácticas:** las reglas del [revisor](#revisor-de-buenas-prácticas) sobre su fuente, por ejemplo las llamadas que se hacen por cada fila de una grilla (`llamadas-por-fila`). **Ver fuente con los hallazgos** muestra el fuente GX con cada hallazgo en su línea.
+- **Navegación:** la consulta de cada grilla (tabla base, índice, filtros, los For Each de adentro) y el **plan de ejecución** de sus sentencias, incluido el conteo de páginas de la grilla.
 
 ### Guardar como caso
 
@@ -85,7 +102,8 @@ Una **suite** (`suites\<KB>\<nombre>.json`) tiene **casos**. Un caso prueba **un
    - 🟢 **OK**: sigue funcionando igual.
    - 🔴 **Falla**: hacé clic. **Qué cambió** muestra las diferencias agrupadas («`Registros[*].Importe`: 100 → 110 en 12 de 40 elementos»).
    - 🟣 **Error**: el objeto dio una excepción (pestaña *Excepción*).
-4. Si falló, decidí:
+4. Cada caso que no anda indica qué le pasó **desde la corrida anterior de la suite**: **Nueva** (andaba y ahora falla: lo que hay que mirar primero), **Ya fallaba** o **Arreglada**. Un caso que se corre por primera vez no se marca. En el **Historial** se filtra por suite, **Solo con fallas** y **Solo con fallas nuevas**; al abrir una corrida, **Solo las fallas nuevas** esconde el resto. Después de un build, la notificación y la consola cuentan las nuevas y las muestran primero.
+5. Si falló, decidí:
    - **El cambio es correcto** (lo cambiaste a propósito): **Sí: aceptar esta salida**.
    - **Es un campo que no importa**: **No comparar** ese campo.
    - **Es un error**: corregilo en GeneXus, compilá y volvé a correr. No aceptes la salida.
@@ -110,6 +128,25 @@ En **Suites → Más → Opciones**:
   - **Cada caso arranca de cero** (recomendado): ningún caso ve lo que hicieron los anteriores. Podés correr uno solo o en cualquier orden.
   - **Cada caso sigue de lo que dejó el anterior** (`"casosEncadenados": true`): el caso 1 crea un cupón y el 2 lo usa con `${cupon}`. El orden importa: si corrés solo algunos, los que dependen de otros pueden fallar.
 - **Variables** (para todos los casos) y **Preparación** (pasos al principio de cada caso).
+
+### Casos de pantalla
+
+Un paso con `"pantalla"` repite un pedido de una pantalla en el motor de pantallas (ver [Web Panels y Web Components](#web-panels-y-web-components)). Se arman grabando en la vista previa, pero se pueden editar:
+
+```json
+{"nombre": "Abrir gntMonedaWW", "pantalla": "Generales.Comunes.Monedas.gntMonedaWW", "parametros": []}
+{"nombre": "gntMonedaWW: recargar la grilla Grid", "pantalla": "...gntMonedaWW", "accion": "gxajaxGridRefresh_Grid",
+ "valores": {"MonNombre1": "DOL", "GridState": {...}, ...}}
+{"nombre": "gntMoneda: evento ENTER", "pantalla": "...gntMoneda", "evento": "ENTER",
+ "valores": {"vMODE": "UPD", "vMONID": "2"}, "pedido": {"fullPost": {"MONSIMBOLO": "U$Z", ...}}}
+```
+
+- `parametros` abre la pantalla como un `link()` (se cifran al ejecutar). En `valores` van los parámetros del evento o de la recarga con su nombre: se pueden cambiar o poner `${variables}`. Lo que el usuario escribió en el formulario de una transacción está en `pedido.fullPost`.
+- La salida que se compara es un resumen: `grillas` (las filas), `valores` y `ocultos` (las variables), `mensajes`, `comandos` (redirecciones, cerrar) y `propiedades` (Visible, Enabled, Caption).
+- **Todo el caso corre en el motor de pantallas**, también sus pasos `sql` y `objeto` (la misma conexión: un `select` después de confirmar ve lo que grabó la pantalla). Arranca y termina deshaciendo todo; los `Commit` de la pantalla son simulados, así que nunca graba de verdad aunque la suite diga `commit`.
+- Todavía no usa el **script previo** de la suite (la pantalla corre en otra conexión): para preparar datos, poné pasos `sql` al principio del caso.
+
+**Prueba rápida de todas las pantallas:** `python gxpruebas.py generar --kb Generales --pantallas` arma `suites\Generales\auto-pantallas.json`, con un caso por Web Panel que se abre sin parámetros. Corre después de cada build con las demás suites y falla si una pantalla da una excepción o un error HTTP: avisa si un cambio rompió una pantalla que nadie abrió (en Generales son 65 pantallas, unos 10 segundos). Sin salida aprobada solo controla que abra; aprobándola (`correr Generales/auto-pantallas --grabar`) también compara la estructura de lo que muestra.
 
 ---
 
@@ -413,8 +450,12 @@ python gxpruebas.py revisar --kb Generales --cambiados                      :: s
 | Regla | Qué controla |
 |---|---|
 | `sin-commit-rollback` | Solo los Web Panels y Web Components confirman. Marca `Commit`, `Rollback`, llamadas a `prcCommit`/`prcRollback` y **Commit on exit = Yes** en cualquier otro objeto. |
-| `salida-ok-mensajes` | Un `sdtOutput` de salida devuelve `Ok` y mensajes coherentes: un Error con `Ok = True`, `Ok = False` sin mensaje de Error, `Ok` sin asignar, o `Ok = True` sin mensaje de éxito (`Type = MessageTypes.Debug`). También se controla en cada ejecución real (avisos «Buenas practicas» del paso). |
+| `salida-ok-mensajes` | Un `sdtOutput` de salida devuelve `Ok` y mensajes coherentes: un Error con `Ok = True`, `Ok = False` sin mensaje de Error, `Ok` sin asignar, o `Ok = True` sin mensaje de éxito (`Type = MessageTypes.Debug`; esto último es advertencia, no error). También se controla en cada ejecución real (avisos «Buenas practicas» del paso). |
 | `alta-devuelve-id` | Un procedimiento que crea una entidad con un Business Component devuelve su clave, si el que llama no la conoce (autonumerados, numeradores). Es heurística: advertencia. |
+| `variables-sin-usar` | Un procedimiento declara una variable que no usa (ni en una sentencia ni como parámetro). Advertencia. |
+| `variables-sin-declarar` | Un procedimiento usa en una sentencia una variable que no declaró. Advertencia. |
+| `llamadas-por-fila` | Un Web Panel o Web Component llama a un procedimiento o Data Provider, hace un For Each o carga un Business Component **por cada fila de una grilla** (N+1). Corre por fila todo el `Load` de una grilla con tabla base y, en una sin tabla base, el bucle que llama a `Grid.Load()`; sigue los `Do`. Parámetro `permitidos`: objetos que se pueden llamar por fila. Advertencia. |
+| `logica-solo-en-pantalla` | La pantalla de una transacción valida o graba algo que su Business Component no hace, así que una API que graba con el BC no lo ejecuta: llamadas a procedimientos que graban, validaciones seguidas de un error y mensajes de error de las reglas. Compara el Java de la pantalla (`x_impl.java`) con el del BC (`x_bc.java`); lo de solo lectura (combos, textos) no se informa. Advertencia. |
 
 **NUEVO** marca lo que introdujo la última modificación del objeto; solo eso hace fallar el build. Las reglas y las excepciones se configuran en `revisor.json` (`reglas`, `ignorar`, `excepciones` con un **motivo obligatorio**).
 
@@ -426,7 +467,7 @@ python gxpruebas.py revisar --kb Generales --cambiados                      :: s
 - **Grafo:** quién usa a quién en todas las KBs, qué objetos de un módulo se usan desde afuera, dependencias circulares y lo que está solo en la versión publicada (`.jar`) del módulo. Consola: `python gxpruebas.py grafo --objeto ...`.
   - Lo que viene de **otras KBs** se resalta: en el dibujo va arriba, con relleno fuerte y el nombre de la KB (lo de la misma KB queda atenuado; con «Dibujar solo otras KBs» se oculta), y en el panel va primero, en su propio recuadro. Si un objeto tiene tantos usos que no entran ni agrupados por módulo, se agrupan por KB. En la consola, las de otras KBs van primero, marcadas con `>`.
   - **Servicios (`vía sitServicio`):** los procedimientos de Servicios no se llaman directamente sino pasando el id del servicio (un valor del dominio `ServicioTipo`); la tabla `sitServicio` dice a qué procedimiento apunta (`SerEndPoint`). El grafo busca esos ids como literal en el Java de cada objeto (sin contar los combos) y los resuelve con la tabla, que lee de la base de Sistema después de cada build y recuerda en `.cache/grafo/servicios.json`. Se configura en `config.json`, clave `grafoServicios` (`"kb": ""` lo desactiva).
-- **Plan de ejecución:** en Explorar → **Navegación** → **Calcular plan de ejecución** (o `gxpruebas.py plan`): el `EXPLAIN` de las sentencias SQL del objeto, con recomendaciones de índices (búsquedas sin índice, `LIKE '%...'`, For Each anidados…).
+- **Plan de ejecución:** en Explorar → **Navegación** → **Calcular plan de ejecución** (o `gxpruebas.py plan`): el `EXPLAIN` de las sentencias SQL del objeto, con recomendaciones de índices (búsquedas sin índice, `LIKE '%...'`, For Each anidados…). También en los Web Panels y Web Components (la consulta de cada grilla y su conteo de páginas) y en los procedimientos expuestos como servicio: en todos ellos las sentencias están en `x_impl.java`.
 
 ---
 

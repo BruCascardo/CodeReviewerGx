@@ -131,7 +131,7 @@ function teclas(ev) {
     (E.vista === "suites" ? $("#buscar-suite") : E.vista === "grafo" ? $("#grafo-buscar") : E.vista === "revision" ? $("#rv-buscar") : $("#buscar-objeto")).focus();
   }
   if ((ev.ctrlKey || ev.metaKey) && ev.key === "Enter") {
-    if (E.vista === "explorar" && E.obj) { ev.preventDefault(); ejecutarObjeto(); }
+    if (E.vista === "explorar" && E.obj && !esWeb(E.obj)) { ev.preventDefault(); ejecutarObjeto(); }
     if (E.vista === "sql") { ev.preventDefault(); correrSql(); }
   }
 }
@@ -140,7 +140,7 @@ function teclas(ev) {
 async function refrescarMotor() {
   let est;
   try { est = await GET("/api/estado"); } catch { $("#motor-texto").textContent = "sin conexión"; $("#motor").dataset.estado = "error"; return; }
-  const m = est.motores.find((x) => x.kb === E.kb);
+  const m = est.motores.find((x) => x.kb === E.kb && !x.rol);
   const chip = $("#motor");
   const estado = m ? m.estado : "apagado";
   chip.dataset.estado = estado;
@@ -231,13 +231,19 @@ function marcarReciente(nombre) {
   almacen.guardar(`recientes.${E.kb}`, r.slice(0, 30));
 }
 
+// Los Web Panels y Web Components no se ejecutan: se ven su navegación, el plan de sus consultas y la revisión.
+const TIPOS_EXPLORAR = ["Procedure", "DataProvider", "WebPanel", "WebComponent"];
+const SIGLA_TIPO = { DataProvider: "DP", WebPanel: "WP", WebComponent: "WC" };
+const NOMBRE_TIPO = { Procedure: "Procedimiento", DataProvider: "Data Provider", WebPanel: "Web Panel", WebComponent: "Web Component" };
+const esWeb = (o) => o?.tipo === "WebPanel" || o?.tipo === "WebComponent";
+
 function pintarListaObjetos() {
   const q = $("#buscar-objeto").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
   const rec = recientes();
   let lista = E.objetos.filter((o) => {
     if (E.filtros.has("recientes") && !rec.includes(o.nombre)) return false;
     if (E.filtros.has("errores") && !o.errores) return false;
-    const tipos = ["Procedure", "DataProvider"].filter((t) => E.filtros.has(t));
+    const tipos = TIPOS_EXPLORAR.filter((t) => E.filtros.has(t));
     if (tipos.length && !tipos.includes(o.tipo)) return false;
     const n = (o.nombre + " " + o.descripcion).toLowerCase();
     return q.every((p) => n.includes(p));
@@ -249,7 +255,7 @@ function pintarListaObjetos() {
   vaciar(cont, lista.length ? lista.map((o) => h("div", {
     class: `item ${E.obj?.nombre === o.nombre ? "activo" : ""}`, title: o.nombre, onclick: () => seleccionarObjeto(o.nombre),
   }, h("div", { style: { flex: 1, minWidth: 0 } },
-    h("div", { class: "t" }, corto(o.nombre), " ", o.tipo === "DataProvider" ? pill("DP", "acento") : null, o.errores ? pill("errores", "falla") : null),
+    h("div", { class: "t" }, corto(o.nombre), " ", SIGLA_TIPO[o.tipo] ? pill(SIGLA_TIPO[o.tipo], "acento") : null, o.errores ? pill("errores", "falla") : null),
     h("div", { class: "s" }, modulo(o.nombre) || "(raíz)", " · ", o.parametros.map((p) => `${p.io}:${p.nombre}`).join(", ") || "sin parámetros"))))
     : h("div", { class: "vacio" }, "No hay objetos que coincidan."),
   total > lista.length ? h("div", { class: "pie" }, `Mostrando 400 de ${total}. Afiná la búsqueda.`) : h("div", { class: "pie" }, `${total} objetos`));
@@ -268,6 +274,11 @@ async function seleccionarObjeto(nombre) {
   almacen.guardar(`obj.${E.kb}`, E.obj.nombre);
   marcarReciente(E.obj.nombre);
   pintarListaObjetos();
+  if (esWeb(E.obj)) {
+    E.revisionObj = null;
+    pintarObjeto();
+    return;
+  }
   const borrador = almacen.leer(`entrada.${E.kb}.${E.obj.nombre}`, null);
   E.entrada = borrador || {};
   E.sqlDespues = almacen.leer(`sql.${E.kb}.${E.obj.nombre}`, []);
@@ -306,38 +317,49 @@ function pintarObjeto() {
   const o = E.obj;
   const det = $("#detalle-objeto");
   const params = E.desc?.parametros || o.parametros;
+  const web = esWeb(o);
   const cab = h("div", null,
     h("h2", { class: "titulo" }, o.nombre),
     h("div", { class: "subtitulo" },
-      pill(o.tipo === "DataProvider" ? "Data Provider" : "Procedimiento", "acento"),
+      pill(NOMBRE_TIPO[o.tipo] || o.tipo, "acento"),
       o.descripcion && o.descripcion !== corto(o.nombre) ? h("span", null, o.descripcion) : null,
       o.errores ? pill(`${o.errores} error(es) de especificación`, "falla") : null,
       o.warnings ? pill(`${o.warnings} warning(s)`, "aviso") : null,
-      o.haceCommit ? h("span", { class: "pill aviso", title: "El Java del objeto llama a commit: el rollback de GxPruebas no deshace sus cambios" }, "⚠ hace commit") : null,
+      o.haceCommit && !web ? h("span", { class: "pill aviso", title: "El Java del objeto llama a commit: el rollback de GxPruebas no deshace sus cambios" }, "⚠ hace commit") : null,
       h("span", { class: "mono chico muted", title: o.fuenteJava, style: { cursor: "pointer" }, onclick: () => copiar(o.claseJava) }, o.claseJava)));
 
   const avisos = [];
   if (E.desc?.error) avisos.push(h("div", { class: "error-caja" }, "No se pudo preparar el objeto en el motor Java:\n" + E.desc.error));
   if (E.desc?.aviso) avisos.push(h("div", { class: "aviso-caja" }, "⚠ ", E.desc.aviso));
   if (o.errores) avisos.push(h("div", { class: "aviso-caja" }, "⚠ El objeto tiene errores de especificación: puede que el Java compilado no corresponda a la versión actual."));
+  for (const b of o.bcsSoloEnPantalla || []) avisos.push(avisoBcSoloEnPantalla(b));
 
   const tablaParams = h("table", { class: "tabla" },
-    h("thead", null, h("tr", null, h("th", null, "#"), h("th", null, "Dirección"), h("th", null, "Parámetro"), h("th", null, "Tipo"))),
+    h("thead", null, h("tr", null, h("th", null, "#"), h("th", null, "Dirección"), h("th", null, "Parámetro"), web ? null : h("th", null, "Tipo"))),
     h("tbody", null, params.length ? params.map((p, i) => h("tr", null,
       h("td", { class: "muted" }, i + 1), h("td", null, pill(p.io, `io-${p.io}`)),
       h("td", { class: "mono" }, (p.atributo ? "" : "&") + p.nombre),
-      h("td", { class: "mono" }, p.tipoJava || (E.desc ? "?" : cargando(""))))) : h("tr", null, h("td", { colspan: 4, class: "muted" }, "Sin parámetros"))));
+      web ? null : h("td", { class: "mono" }, p.tipoJava || (E.desc ? "?" : cargando(""))))) : h("tr", null, h("td", { colspan: 4, class: "muted" }, "Sin parámetros"))));
 
-  const pests = subpestanas([
+  // Los Web Panels y Web Components no se ejecutan: en lugar de Ejecutar, la revisión de buenas prácticas.
+  if (web && !E.revisionObj) cargarRevisionObjeto();
+  const lista = web ? [
+    { id: "vista", texto: "Vista previa", render: panelVistaPrevia },
+    { id: "revision", texto: "Buenas prácticas", n: E.revisionObj?.hallazgos?.length, render: panelRevisionObjeto },
+    { id: "navegacion", texto: "Navegación", n: contarNiveles(o.niveles), render: panelNavegacion },
+    { id: "mensajes", texto: "Mensajes", n: (o.warnings || 0) + (o.errores || 0), render: panelMensajes },
+  ] : [
     { id: "ejecutar", texto: "Ejecutar", render: panelEjecutar },
     { id: "navegacion", texto: "Navegación", n: contarNiveles(o.niveles), render: panelNavegacion },
     { id: "mensajes", texto: "Mensajes", n: (o.warnings || 0) + (o.errores || 0), render: panelMensajes },
-  ], almacen.leer("subpestanaObjeto", "ejecutar"));
+  ];
+  const clave = web ? "subpestanaWeb" : "subpestanaObjeto";
+  const pests = subpestanas(lista, almacen.leer(clave, lista[0].id));
+  // Cuando llega el clic, la barra ya se volvio a dibujar (el boton no esta mas en ella): se busca por el texto.
   pests.querySelector(".subpestanas").addEventListener("click", (ev) => {
     const b = ev.target.closest("button"); if (!b) return;
-    const ids = ["ejecutar", "navegacion", "mensajes"];
-    const i = Array.from(b.parentNode.children).indexOf(b);
-    almacen.guardar("subpestanaObjeto", ids[i]);
+    const p = lista.find((x) => b.textContent.startsWith(x.texto));
+    if (p) almacen.guardar(clave, p.id);
   });
 
   vaciar(det, cab, avisos,
@@ -1113,6 +1135,247 @@ function panelMensajes() {
   return h("table", { class: "tabla" }, h("tbody", null, es.map((m) => fila(m, "error")), ws.map((m) => fila(m, "warning"))));
 }
 
+// ---------------------------------------------------------------------- Web Panels y Web Components
+// Vista previa: la pantalla corre en el motor de pantallas de la KB (sin Tomcat ni login) y nada se confirma
+// en la base (gxp/vista.py). Una sesión por pestaña del navegador.
+const SESION_VISTA = "v" + Math.random().toString(36).slice(2, 10);
+
+function panelVistaPrevia() {
+  const o = E.obj;
+  if (o.master) return h("div", { class: "muted", style: { padding: "10px 0" } },
+    "Es una master page: no se abre sola (tampoco en Tomcat). Se ve en la vista previa de cualquier pantalla que la use.");
+  const esWc = o.tipo === "WebComponent";
+  // Lo que se abre: el objeto o, si es un Web Component (GeneXus no deja abrirlo solo), la pantalla que lo contiene.
+  let objetivo = esWc ? null : o.nombre;
+  let entradas = esWc ? [] : (o.parametros || []).filter((p) => p.io !== "out");
+  let campos = [];
+  const cajaCampos = h("span", { class: "fila", style: { flexWrap: "wrap", gap: "8px" } });
+  const guardados = () => ({ ...almacen.leer(`vistaParams.${E.kb}.${o.nombre}`, {}), ...(objetivo && objetivo !== o.nombre ? almacen.leer(`vistaParams.${E.kb}.${objetivo}`, {}) : {}) });
+  const pintarCampos = () => {
+    const g = guardados();
+    campos = entradas.map((p) => h("input", { type: "text", class: "mono", value: g[p.nombre] ?? "", placeholder: "&" + p.nombre,
+      style: { width: "160px" }, onkeydown: (ev) => { if (ev.key === "Enter") abrir(); } }));
+    vaciar(cajaCampos, entradas.map((p, i) => h("label", { class: "fila chico", style: { gap: "4px" } }, h("span", { class: "mono" }, "&" + p.nombre), campos[i])));
+  };
+  const contenedor = h("select", { style: { maxWidth: "340px" }, title: "La pantalla donde se ve el Web Component" });
+  const permisos = h("select", { title: "Lo que responde WorkWithPlus a «¿tiene permiso?» (no hay login de GAM)" },
+    h("option", { value: "todos" }, "Con todos los permisos"), h("option", { value: "ninguno" }, "Sin permisos"));
+  permisos.value = almacen.leer("vistaPermisos", "todos");
+  const marco = h("iframe", { class: "vista-previa", title: `Vista previa de ${o.nombre}` });
+  const aviso = h("div", { class: "muted chico" });
+  const estado = h("div", { class: "fila chico", style: { margin: "6px 0" } });
+  let url = null;
+
+  if (esWc) {
+    vaciar(aviso, cargando("Buscando las pantallas que usan este Web Component…"));
+    GET("/api/vista/contenedores", { kb: E.kb, objeto: o.nombre }).then((lista) => {
+      if (!lista.length) {
+        vaciar(aviso, h("span", { class: "texto-error" }, "Ninguna pantalla de la KB usa este Web Component: GeneXus no deja abrirlo solo."));
+        return;
+      }
+      vaciar(contenedor, lista.map((c) => h("option", { value: c.nombre }, `en ${corto(c.nombre)}${c.tipo === "WebComponent" ? " (WC)" : ""}`)));
+      const elegir = () => {
+        const c = lista.find((x) => x.nombre === contenedor.value);
+        objetivo = c.nombre;
+        entradas = c.parametros;
+        pintarCampos();
+      };
+      contenedor.addEventListener("change", elegir);
+      contenedor.value = almacen.leer(`vistaContenedor.${E.kb}.${o.nombre}`, lista[0].nombre);
+      if (!lista.some((c) => c.nombre === contenedor.value)) contenedor.value = lista[0].nombre;
+      elegir();
+      vaciar(aviso, "Un Web Component no se abre solo: se ve dentro de la pantalla que lo usa. Los parámetros que se llaman igual se completan con los del componente.");
+    }).catch((e) => vaciar(aviso, h("span", { class: "texto-error" }, e.message)));
+  } else {
+    pintarCampos();
+  }
+
+  async function abrir() {
+    if (!objetivo) return;
+    E.vistaUsada = true;
+    const valores = {};
+    entradas.forEach((p, i) => { valores[p.nombre] = campos[i].value; });
+    almacen.guardar(`vistaParams.${E.kb}.${o.nombre}`, { ...almacen.leer(`vistaParams.${E.kb}.${o.nombre}`, {}), ...valores });
+    if (objetivo !== o.nombre) {
+      almacen.guardar(`vistaParams.${E.kb}.${objetivo}`, valores);
+      almacen.guardar(`vistaContenedor.${E.kb}.${o.nombre}`, objetivo);
+    }
+    almacen.guardar("vistaPermisos", permisos.value);
+    vaciar(aviso, cargando("Abriendo la pantalla en el motor (la primera vez tarda unos segundos)…"));
+    try {
+      url = (await POST("/api/vista/url", { kb: E.kb, objeto: objetivo, sesion: SESION_VISTA, permisos: permisos.value,
+        parametros: entradas.map((p) => valores[p.nombre]) })).url;
+    } catch (e) { vaciar(aviso, h("span", { class: "texto-error" }, e.message)); return; }
+    vaciar(aviso);
+    marco.src = url;
+  }
+
+  async function deshacer() {
+    try {
+      const r = await POST("/api/vista/reiniciar", { kb: E.kb });
+      toast(r.errores?.length ? `Deshecho con errores: ${r.errores.join(" · ")}` : "Se deshizo todo lo que grabaron las pantallas", r.errores?.length ? "error" : "ok");
+    } catch (e) { toast(e.message, "error"); return; }
+    if (url) marco.src = url;
+    refrescar();
+  }
+
+  async function refrescar() {
+    let r;
+    try { r = await GET("/api/vista/estado", { kb: E.kb }); } catch { return; }
+    if (grabando) {
+      try { const g = await GET("/api/vista/grabacion", { kb: E.kb, sesion: SESION_VISTA }); pintarGrabar(g.pedidos); } catch { /* sigue */ }
+    }
+    const ex = r.ultimaExcepcion;
+    vaciar(estado,
+      pill(r.motor.estado === "apagado" ? "motor de pantallas apagado" : `motor de pantallas ${r.motor.estado}`, r.motor.estado === "error" ? "error" : ""),
+      h("span", { class: "muted" }, `${r.pedidos} pedido(s)`),
+      r.commits ? h("span", { class: "pill aviso", title: "Los commit de las pantallas no llegan a la base: quedan como un savepoint hasta «Deshacer todo»" }, `${r.commits} commit(s) simulado(s)`) : null,
+      r.deshechoSolo ? h("span", { class: "pill", title: "Lo que graba una pantalla deja filas bloqueadas para Tomcat y las suites: se deshace solo después de un rato sin uso (vistaDeshacerMin en config.json)" },
+        `se deshizo todo tras ${r.deshacerMin} min sin uso`) : null,
+      ex ? h("a", { href: "#", class: "texto-error", onclick: (ev) => {
+        ev.preventDefault();
+        modal({ titulo: `Excepción en ${ex.ruta}`, ancho: true, cuerpo: h("pre", { class: "bloque", style: { maxHeight: "60vh" } }, ex.traza), botones: [{ texto: "Cerrar", prim: true }] });
+      } }, "⚠ la pantalla dio una excepción") : null);
+  }
+
+  // Grabar: lo que se hace en la pantalla queda como un caso de prueba (cada pedido de la pagina es un paso, con
+  // lo que se vio como salida aprobada). Antes de empezar se deshace todo y se vuelve a abrir la pantalla.
+  let grabando = false;
+  const botonGrabar = h("button", { class: "btn", title: "Lo que hagas en la pantalla queda como un caso de prueba que corre solo después de cada build" }, "● Grabar caso");
+  const pintarGrabar = (n) => {
+    botonGrabar.textContent = grabando ? `■ Terminar grabación${n ? ` (${n} pedido${n === 1 ? "" : "s"})` : ""}` : "● Grabar caso";
+    botonGrabar.classList.toggle("grabando", grabando);
+  };
+  botonGrabar.addEventListener("click", async () => {
+    try {
+      if (!grabando) {
+        if (!url) await abrir();
+        if (!url) return;
+        await POST("/api/vista/grabar", { kb: E.kb, sesion: SESION_VISTA, accion: "empezar" });
+        grabando = true;
+        pintarGrabar(0);
+        marco.src = url;
+        toast("Grabando: usá la pantalla como en la aplicación y después tocá «Terminar grabación».", "ok");
+      } else {
+        await POST("/api/vista/grabar", { kb: E.kb, sesion: SESION_VISTA, accion: "detener" });
+        grabando = false;
+        pintarGrabar(0);
+        guardarGrabacion(o);
+      }
+    } catch (e) { toast(e.message, "error"); }
+  });
+
+  marco.addEventListener("load", refrescar);
+  const reloj = setInterval(() => { if (!document.body.contains(marco)) clearInterval(reloj); else if (!document.hidden) refrescar(); }, 4000);
+  // Se abre sola solo si ya se abrio alguna en esta pestaña: no arranca el motor ni graba en la base al entrar.
+  if (!esWc && !entradas.length && E.vistaUsada) setTimeout(abrir, 0);
+  refrescar();
+
+  return h("div", null,
+    h("div", { class: "fila", style: { flexWrap: "wrap", gap: "8px", margin: "4px 0 6px" } },
+      esWc ? contenedor : null,
+      cajaCampos,
+      permisos,
+      h("button", { class: "btn prim", onclick: abrir }, "▶ Abrir"),
+      botonGrabar,
+      h("button", { class: "btn", onclick: deshacer, title: "Rollback de todo lo que grabaron las pantallas de esta KB (nunca se confirmó nada)" }, "⟲ Deshacer todo"),
+      h("button", { class: "btn fantasma", onclick: () => { if (url) window.open(url, "_blank"); }, title: "La misma vista previa en una pestaña del navegador" }, "↗ Pestaña nueva")),
+    aviso, estado, marco,
+    h("div", { class: "muted chico", style: { marginTop: "6px" } },
+      "La pantalla corre en un motor aparte, con el Java compilado de la KB y sin Tomcat ni login. Lo que graba no se confirma: ",
+      "queda en una transacción abierta hasta «Deshacer todo» (o hasta que el motor se apaga). Los links a otras pantallas abren dentro del marco."));
+}
+
+/** Guardar lo grabado en la vista previa como un caso de una suite. */
+async function guardarGrabacion(o) {
+  let info;
+  const espera = toast(cargando("Armando los pasos de lo grabado…"), "", 0);
+  try { info = await POST("/api/vista/pasos", { kb: E.kb, sesion: SESION_VISTA }); }
+  catch (e) { toast(e.message, "error"); return; }
+  finally { espera.remove(); }
+  if (!info.pasos.length) { toast("No se grabó nada: abrí la pantalla y usala mientras graba.", "error"); return; }
+  const { sel: selSuite, nombre: nombreSuite, filaNueva } = await selectorSuite();
+  const nombreCaso = h("input", { type: "text", value: info.nombre });
+  const marcas = info.pasos.map(() => { const c = h("input", { type: "checkbox" }); c.checked = true; return c; });
+  const detalle = (p) => p.parametros ? (p.parametros.length ? `(${p.parametros.join(", ")})` : "")
+    // De los valores, los que dicen algo: textos que no son booleanos, números ni nombres de programa.
+    : p.valores ? Object.entries(p.valores).filter(([, v]) => typeof v === "string" && v.trim() && !/^(true|false|-?\d+([.,]\d+)?)$/.test(v.trim()) && !v.includes("."))
+      .slice(0, 4).map(([k, v]) => `${k}=${v.trim().slice(0, 30)}`).join(", ")
+      : (p.query || "");
+  const lista = h("div", { style: { display: "flex", flexDirection: "column", gap: "3px", maxHeight: "260px", overflow: "auto" } },
+    info.pasos.map((p, i) => h("label", { class: "chk" }, marcas[i], h("span", null, `${i + 1}. ${p.nombre} `, h("span", { class: "muted chico mono" }, detalle(p))))));
+  modal({
+    titulo: "Guardar lo grabado como caso de prueba",
+    cuerpo: h("div", { class: "form-grid" },
+      h("label", null, "Suite"), selSuite, filaNueva,
+      h("label", null, "Nombre del caso"), nombreCaso,
+      h("label", null, "Pasos"), h("div", null, lista,
+        h("div", { class: "muted chico", style: { marginTop: "4px" } },
+          "Cada paso repite un pedido de la página (abrirla, un evento, cargar una grilla) y compara lo que responde con lo que se vio al grabar. ",
+          "Al guardar se corre una vez más para marcar lo que cambia solo (fechas, ids). Corre en el motor de pantallas y al final se deshace todo."))),
+    botones: [{ texto: "Descartar" }, {
+      texto: "Guardar", prim: true, accion: async () => {
+        const nuevo = selSuite.value === "__nueva";
+        if (nuevo && !nombreSuite.value.trim()) { toast("Poné un nombre para la suite", "error"); return false; }
+        const id = nuevo ? `${E.kb}/${slug(nombreSuite.value)}` : selSuite.value;
+        const omitir = marcas.map((m, i) => (m.checked ? null : i)).filter((x) => x !== null);
+        const espera2 = toast(cargando("Guardando: se ejecuta una vez más para ver qué valores cambian solos…"), "", 0);
+        try {
+          const r = await POST("/api/vista/caso", { kb: E.kb, sesion: SESION_VISTA, id, nombreSuite: nombreSuite.value.trim(), nombre: nombreCaso.value, omitir });
+          almacen.guardar(`ultimaSuite.${E.kb}`, r.id);
+          const vol = Object.values(r.volatiles || {}).flat();
+          const t = toast(h("span", null, "Caso guardado en ", h("b", null, r.id), ". ",
+            h("a", { href: "#", onclick: (ev) => { ev.preventDefault(); t.remove(); irA("suites"); abrirSuite(r.id); } }, "Abrir la suite"),
+            vol.length ? h("div", { class: "chico" }, `${vol.length} valor(es) cambian solos: se controla que existan y su tipo.`) : null,
+            (r.avisos || []).map((a) => h("div", { class: "chico" }, "⚠ ", a))), (r.avisos || []).length ? "error" : "ok", (r.avisos || []).length ? 0 : 9000);
+          cargarSuites();
+        } catch (e) { toast(e.message, "error"); return false; }
+        finally { espera2.remove(); }
+      },
+    }],
+  });
+}
+
+async function cargarRevisionObjeto() {
+  const nombre = E.obj.nombre, kb = E.kb;
+  E.revisionObj = { cargando: true };
+  let r;
+  try { r = await GET("/api/revision/fuente", { kb, objeto: nombre }); } catch (e) { r = { error: e.message }; }
+  if (E.obj?.nombre !== nombre || E.kb !== kb) return;
+  E.revisionObj = r;
+  pintarObjeto();
+}
+
+function panelRevisionObjeto() {
+  const r = E.revisionObj;
+  if (!r || r.cargando) return h("div", { class: "muted", style: { padding: "10px 0" } }, cargando("Revisando las buenas prácticas…"));
+  if (r.error) return h("div", { class: "error-caja" }, r.error);
+  return h("div", null,
+    h("div", { class: "fila", style: { margin: "4px 0 8px" } },
+      h("b", null, r.hallazgos.length ? `${r.hallazgos.length} hallazgo(s)` : "Cumple todas las reglas activas"),
+      h("span", { class: "espacio" }),
+      h("button", { class: "btn chico", onclick: () => verFuenteRevision(E.kb, E.obj.nombre) }, "Ver fuente con los hallazgos"),
+      h("button", { class: "btn chico fantasma", onclick: () => { E.revisionObj = null; pintarObjeto(); } }, "↻ Revisar de nuevo")),
+    hallazgosSinRepetir(r.hallazgos),
+    r.excepcionados.length ? h("div", { class: "muted chico", style: { margin: "6px 0" } },
+      `${r.excepcionados.length} hallazgo(s) cubiertos por excepciones de revisor.json: ${[...new Set(r.excepcionados.map((x) => x.motivo))].join(" · ")}`) : null,
+    h("div", { class: "muted chico", style: { marginTop: "8px" } }, "Las reglas activas de revisor.json sobre el fuente de la especificación. ",
+      h("code", null, "llamadas-por-fila"), " marca lo que corre una vez por cada fila de una grilla. El plan de las consultas de la grilla está en Navegación."));
+}
+
+/** Aviso de Explorar: el objeto graba con el BC de una transacción cuya pantalla valida o graba algo que el BC no. */
+function avisoBcSoloEnPantalla(b) {
+  const que = (d) => d.tipo === "error" ? ["da el error «", d.mensaje, "»"]
+    : [d.tipo === "graba" ? "graba con " : "valida con ", h("code", null, d.objeto)];
+  return h("div", { class: "aviso-caja" },
+    "⚠ Graba con el Business Component de ", h("b", null, b.transaccion),
+    ". La pantalla de esa transacción hace esto y el BC no, así que este objeto no lo ejecuta:",
+    h("ul", { style: { margin: "4px 0", paddingLeft: "20px" } },
+      b.diferencias.map((d) => h("li", null, que(d), h("span", { class: "muted chico" }, ` (${d.lugar})`)))),
+    h("div", { class: "chico muted" }, "Regla logica-solo-en-pantalla del revisor. Si es propio de la pantalla (subir un archivo, por ejemplo), ",
+      "agregá en revisor.json una excepción de esa regla para la transacción."));
+}
+
 function kbActual() { return E.kbs.find((k) => k.nombre === E.kb); }
 
 // ---------------------------------------------------------------------- guardar como caso
@@ -1390,13 +1653,13 @@ function estadoCaso(caso) {
   const actuales = ids.map((i) => E.resultados[i]).filter(Boolean);
   if (actuales.length) {
     const es = actuales.map((r) => r.estado);
-    return { estado: es.includes("error") ? "error" : es.includes("falla") ? "falla" : es.every((x) => x === "omitido") ? "omitido" : "ok", ms: actuales.reduce((a, r) => a + (r.ms || 0), 0), actual: true };
+    return { estado: es.includes("error") ? "error" : es.includes("falla") ? "falla" : es.every((x) => x === "omitido") ? "omitido" : "ok", ms: actuales.reduce((a, r) => a + (r.ms || 0), 0), actual: true, cambio: cambioDe(actuales) };
   }
   const est = E.suite._estado || {};
   const previos = ids.map((i) => est[i]).filter(Boolean);
   if (!previos.length) return null;
   const es = previos.map((r) => r.estado);
-  return { estado: es.includes("error") ? "error" : es.includes("falla") ? "falla" : "ok", ms: previos.reduce((a, r) => a + (r.ms || 0), 0), fecha: previos[0].fecha, corrida: previos[0].corrida };
+  return { estado: es.includes("error") ? "error" : es.includes("falla") ? "falla" : "ok", ms: previos.reduce((a, r) => a + (r.ms || 0), 0), fecha: previos[0].fecha, corrida: previos[0].corrida, cambio: cambioDe(previos) };
 }
 
 function pintarSuite() {
@@ -1410,7 +1673,7 @@ function pintarSuite() {
   const corriendo = !!E.trabajo;
   const visibles = () => s.casos.filter((c) => {
     const f = (E.filtroCasos || "").toLowerCase();
-    if (f && !(c.nombre + " " + c.id + " " + c.pasos.map((p) => p.objeto || p.sql || "").join(" ")).toLowerCase().includes(f)) return false;
+    if (f && !(c.nombre + " " + c.id + " " + c.pasos.map((p) => p.objeto || p.pantalla || p.sql || "").join(" ")).toLowerCase().includes(f)) return false;
     if (E.etiquetaCasos && !(c.etiquetas || []).includes(E.etiquetaCasos)) return false;
     return true;
   });
@@ -1429,13 +1692,15 @@ function pintarSuite() {
   const filaCaso = (c) => {
     const est = estadoCaso(c);
     const abierto = E.abiertos.has(c.id);
-    const pasos = c.pasos.map((p) => p.objeto ? corto(p.objeto) : "SQL").join(" → ");
+    // Los pasos seguidos de una misma pantalla (abrirla y sus eventos) van una sola vez.
+    const pasos = c.pasos.map((p) => p.objeto ? corto(p.objeto) : p.pantalla ? corto(p.pantalla) : "SQL")
+      .filter((x, i, l) => !(i && x === l[i - 1] && c.pasos[i].pantalla)).join(" → ");
     const actuales = idsResultado(c).map((i) => E.resultados[i]).filter(Boolean);
     const motivo = est && est.estado !== "ok" && actuales.length ? motivoFalla(actuales) : "";
     const controla = resumenControles(c);
     const tr = h("tr", { class: `clic ${abierto ? "sel" : ""}` },
       h("td", { onclick: (ev) => ev.stopPropagation() }, h("input", { type: "checkbox", checked: seleccion.has(c.id), onchange: (ev) => { ev.target.checked ? seleccion.add(c.id) : seleccion.delete(c.id); actualizarBotones(); } })),
-      h("td", null, est ? h("span", { class: "fila", style: { gap: "6px" } }, h("span", { class: `punto-estado ${est.estado}` }), h("span", { class: "chico" }, NOMBRE_ESTADO[est.estado]), est.actual ? null : h("span", { class: "muted chico", title: `Resultado del ${fmtFecha(est.fecha)}` }, "·")) : h("span", { class: "muted chico" }, c.omitir ? "omitido" : "sin correr"),
+      h("td", null, est ? h("span", { class: "fila", style: { gap: "6px" } }, h("span", { class: `punto-estado ${est.estado}` }), h("span", { class: "chico" }, NOMBRE_ESTADO[est.estado]), pillCambio(est.cambio), est.actual ? null : h("span", { class: "muted chico", title: `Resultado del ${fmtFecha(est.fecha)}` }, "·")) : h("span", { class: "muted chico" }, c.omitir ? "omitido" : "sin correr"),
         E.sinCorrer.has(c.id) ? h("div", { class: "chico", style: { color: "var(--aviso)" }, title: "Cambiaste lo que controla: el estado es de antes" }, "cambiado, sin correr") : null),
       h("td", null, h("div", null, h("b", null, c.nombre), c.omitir ? [" ", pill("omitido")] : null),
         motivo ? h("div", { class: "chico", style: { color: "var(--falla)", marginTop: "1px" } }, motivo) : null,
@@ -1992,10 +2257,26 @@ async function pintarHistorial() {
   let lista;
   try { lista = await GET("/api/corridas"); } catch (e) { vaciar(cont, h("div", { class: "error-caja" }, e.message)); return; }
   const soloKb = h("input", { type: "checkbox", checked: almacen.leer("historialSoloKb", true) });
+  const soloFallas = h("input", { type: "checkbox", checked: almacen.leer("historialSoloFallas", false) });
+  const soloNuevas = h("input", { type: "checkbox", checked: almacen.leer("historialSoloNuevas", false) });
+  const selSuite = h("select", null);
   const tabla = h("div");
+  const deLaKb = () => lista.filter((c) => !soloKb.checked || c.kb === E.kb);
+  const llenarSuites = () => {
+    const previa = selSuite.value;
+    // Con varias KBs hay suites con el mismo nombre: se distinguen por la KB.
+    const nombre = (c) => soloKb.checked ? c.suiteNombre : `${c.suiteNombre} (${c.kb})`;
+    const suites = [...new Map(deLaKb().map((c) => [c.suite, nombre(c)])).entries()].sort((a, b) => a[1].localeCompare(b[1]));
+    vaciar(selSuite, h("option", { value: "" }, "Todas las suites"), suites.map(([id, nombre]) => h("option", { value: id }, nombre)));
+    selSuite.value = suites.some(([id]) => id === previa) ? previa : "";
+  };
   const pintar = () => {
     almacen.guardar("historialSoloKb", soloKb.checked);
-    const ls = lista.filter((c) => !soloKb.checked || c.kb === E.kb);
+    almacen.guardar("historialSoloFallas", soloFallas.checked);
+    almacen.guardar("historialSoloNuevas", soloNuevas.checked);
+    const ls = deLaKb().filter((c) => (!selSuite.value || c.suite === selSuite.value)
+      && (!soloFallas.checked || (c.totales?.falla || 0) + (c.totales?.error || 0) > 0)
+      && (!soloNuevas.checked || (c.cambios?.nueva || 0) > 0));
     vaciar(tabla, ls.length ? h("table", { class: "tabla" },
       h("thead", null, h("tr", null, h("th", null, "Fecha"), h("th", null, "Suite"), h("th", null, "KB"), h("th", null, "Resultado"), h("th", null, "Duración"), h("th", null, ""))),
       h("tbody", null, ls.map((c) => {
@@ -2004,14 +2285,18 @@ async function pintarHistorial() {
           h("td", null, fmtFecha(c.fin || c.inicio)),
           h("td", null, h("b", null, c.suiteNombre), h("div", { class: "muted mono chico" }, c.suite)),
           h("td", null, c.kb),
-          h("td", null, h("div", { class: "contadores" }, pill(`${t.ok || 0} ok`, "ok"), t.falla ? pill(`${t.falla} fallas`, "falla") : null, t.error ? pill(`${t.error} errores`, "error") : null, t.omitido ? pill(`${t.omitido} omitidos`) : null, c.grabar ? pill("aprobó salidas", "aviso") : null, c.origen === "build" ? pill("después del build", "acento") : null)),
+          h("td", null, h("div", { class: "contadores" }, pill(`${t.ok || 0} ok`, "ok"), t.falla ? pill(`${t.falla} fallas`, "falla") : null, t.error ? pill(`${t.error} errores`, "error") : null, c.cambios?.nueva ? pill(`${c.cambios.nueva} nueva${c.cambios.nueva > 1 ? "s" : ""}`, "falla") : null, c.cambios?.arreglada ? pill(`${c.cambios.arreglada} arreglada${c.cambios.arreglada > 1 ? "s" : ""}`, "ok") : null, t.omitido ? pill(`${t.omitido} omitidos`) : null, c.grabar ? pill("aprobó salidas", "aviso") : null, c.origen === "build" ? pill("después del build", "acento") : null)),
           h("td", { class: "muted" }, fmtMs(c.ms)),
           h("td", null, h("a", { href: `/api/junit?id=${encodeURIComponent(c.id)}`, onclick: (ev) => ev.stopPropagation(), title: "Descargar JUnit XML" }, "JUnit")));
       }))) : h("div", { class: "vacio-grande" }, h("h3", null, "Todavía no hay corridas")));
   };
-  soloKb.addEventListener("change", pintar);
+  soloKb.addEventListener("change", () => { llenarSuites(); pintar(); });
+  for (const f of [soloFallas, soloNuevas, selSuite]) f.addEventListener("change", pintar);
+  llenarSuites();
   vaciar(cont, h("h2", { class: "titulo" }, "Historial de corridas"),
-    h("div", { class: "subtitulo" }, h("label", { class: "chk" }, soloKb, `Solo ${E.kb}`), h("span", { class: "muted chico" }, "Se conservan las últimas 300 en la carpeta resultados.")),
+    h("div", { class: "subtitulo" }, h("label", { class: "chk" }, soloKb, `Solo ${E.kb}`), selSuite,
+      h("label", { class: "chk" }, soloFallas, "Solo con fallas"),
+      h("label", { class: "chk", title: "Corridas donde algún caso andaba en la corrida anterior de su suite y ahora falla" }, soloNuevas, "Solo con fallas nuevas"), h("span", { class: "muted chico" }, "Se conservan las últimas 300 en la carpeta resultados.")),
     h("div", { class: "tarjeta" }, h("div", { class: "cuerpo", style: { padding: 0 } }, tabla)));
   pintar();
 }
@@ -2021,16 +2306,24 @@ async function verCorrida(id) {
   try { c = await obtenerCorrida(id); } catch (e) { toast(e.message, "error"); return; }
   const t = c.totales || {};
   const lista = h("div");
-  c.casos.forEach((r) => {
+  const hayCambios = c.casos.some((r) => r.cambio);
+  const soloCambios = h("input", { type: "checkbox", checked: hayCambios && !!c.cambios?.nueva });
+  const pintarLista = () => {
+    vaciar(lista);
+    c.casos.filter((r) => !soloCambios.checked || r.cambio === "nueva").forEach((r) => lista.append(...filaResultado(r)));
+  };
+  const filaResultado = (r) => {
     const det = h("div", { style: { display: "none", padding: "8px 0 4px 18px" } });
     const fila = h("div", { class: "fila", style: { padding: "6px 0", borderBottom: "1px solid var(--borde)", cursor: "pointer" } },
-      h("span", { class: `punto-estado ${r.estado}` }), h("b", null, r.nombre), pillEstado(r.estado), h("span", { class: "espacio" }), h("span", { class: "muted chico" }, fmtMs(r.ms)));
+      h("span", { class: `punto-estado ${r.estado}` }), h("b", null, r.nombre), pillEstado(r.estado), pillCambio(r.cambio), h("span", { class: "espacio" }), h("span", { class: "muted chico" }, fmtMs(r.ms)));
     fila.addEventListener("click", () => {
       if (!det.childNodes.length) det.appendChild(vistaResultado(r));
       det.style.display = det.style.display === "none" ? "block" : "none";
     });
-    lista.append(fila, det);
-  });
+    return [fila, det];
+  };
+  soloCambios.addEventListener("change", pintarLista);
+  pintarLista();
   const fallidos = [...new Set(c.casos.filter((r) => ["falla", "error"].includes(r.estado)).map((r) => r.casoId))];
   modal({
     titulo: `${c.suiteNombre} · ${fmtFecha(c.fin)}`, ancho: true,
@@ -2040,6 +2333,10 @@ async function verCorrida(id) {
         h("a", { class: "btn chico", href: `/api/junit?id=${encodeURIComponent(c.id)}` }, "Descargar JUnit"),
         h("button", { class: "btn chico", onclick: () => descargar(`${c.id}.json`, json(c)) }, "Descargar JSON")),
       vistaScript(c.scriptPrevio),
+      hayCambios ? h("div", { class: "fila", style: { marginBottom: "6px" } },
+        h("label", { class: "chk", title: "Casos que andaban en la corrida anterior de esta suite y ahora fallan" }, soloCambios, "Solo las fallas nuevas"),
+        c.cambios?.arreglada ? h("span", { class: "muted chico" }, `${c.cambios.arreglada} arreglada${c.cambios.arreglada > 1 ? "s" : ""}`) : null,
+        c.cambios?.sigue ? h("span", { class: "muted chico" }, `${c.cambios.sigue} ya fallaba${c.cambios.sigue > 1 ? "n" : ""}`) : null) : null,
       lista),
     botones: [
       ...(fallidos.length ? [{ texto: `Volver a correr los ${fallidos.length} fallidos`, accion: async () => { irA("suites"); await abrirSuite(c.suite); correrSuite({ casos: fallidos }); } }] : []),

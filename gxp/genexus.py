@@ -121,7 +121,7 @@ def estado_kbs():
             ultimo[(t.kb, t.accion)] = t
     res = []
     for k in kbs():
-        fila = dict(k, enIde=os.path.normpath(k["carpeta"]).lower() in abiertas)
+        fila = dict(k, enIde=os.path.normpath(k["carpeta"]).lower() in abiertas, grupo=Path(k["raiz"]).name.lower())
         for accion in ACCIONES:
             t = ultimo.get((k["nombre"], accion))
             fila[accion] = t.resumen() if t else None
@@ -286,7 +286,7 @@ def _soltar_jars(t):
         from . import kbs as kbs_java, motor
         k = kbs_java.descubrir().get(t.kb)
         if k:
-            motor.motor(k).detener("build de GeneXus")
+            motor.detener_kb(k, "build de GeneXus")
             t.agregar("Motor Java de la KB detenido (se reinicia solo en el proximo uso).")
     except Exception as e:
         t.agregar(f"Aviso: no pude detener el motor Java: {e}")

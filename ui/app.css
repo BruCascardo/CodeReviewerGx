@@ -474,3 +474,8 @@ kbd { font-family: var(--mono); font-size: 11.5px; border: 1px solid var(--borde
 .rv-nota { padding: 2px 8px 4px 6.5ch; font-size: 12px; }
 .rv-nota.error { color: var(--error); background: var(--error-2); }
 .rv-nota.advertencia { color: var(--aviso); background: var(--aviso-2); }
+
+/* Vista previa de Web Panels (Explorar) */
+iframe.vista-previa { width: 100%; height: max(520px, calc(100vh - 300px)); border: 1px solid var(--borde); border-radius: 6px; background: #fff; }
+.texto-error { color: var(--error); }
+.btn.grabando { color: var(--error); border-color: var(--error); }

@@ -8,7 +8,7 @@ from . import almacen, resultados
 from .ejecucion import correr_caso
 from .grabacion import aplicar_grabacion, segunda_ejecucion
 from .script import Entorno
-from .reportes import totales
+from .reportes import cambio, cambios, totales
 from .. import efectos, kbs
 from ..config import CFG
 from ..util import slug
@@ -56,6 +56,7 @@ def correr_suite(suite_id, casos_ids=None, etiqueta=None, filtro=None, grabar=Fa
         progreso(corrida)
     t0 = time.time()
     grabadas = 0
+    previo = resultados.estado_suite(suite["_id"])  # el estado de cada caso antes de esta corrida
     # Con script previo o casos encadenados, toda la corrida es una transaccion (ver script.py).
     with Entorno(kb, suite, opciones) as entorno:
         if entorno.activo:
@@ -77,6 +78,8 @@ def correr_suite(suite_id, casos_ids=None, etiqueta=None, filtro=None, grabar=Fa
                     # Se corre dos veces: lo que da distinto con la misma entrada (fechas, ids nuevos) es volatil.
                     segunda, motivo = segunda_ejecucion(kb, suite, caso, opciones, t_caso, entorno)
                     grabadas += _grabar(caso, rs, segunda, motivo, opciones)
+            for r in rs:
+                r["cambio"] = cambio((previo.get(r["id"]) or {}).get("estado"), r["estado"])
             corrida["casos"].extend(rs)
             if entorno.resultado:
                 corrida["scriptPrevio"] = entorno.resultado  # se vuelve a correr si un caso lo pierde
@@ -99,6 +102,7 @@ def correr_suite(suite_id, casos_ids=None, etiqueta=None, filtro=None, grabar=Fa
     corrida["fin"] = dt.datetime.now().isoformat(timespec="seconds")
     corrida["ms"] = int((time.time() - t0) * 1000)
     corrida["totales"] = totales(corrida["casos"])
+    corrida["cambios"] = cambios(corrida["casos"])
     t = corrida["totales"]
     corrida["estado"] = "cancelada" if cancelado() else ("ok" if t["falla"] == 0 and t["error"] == 0 else "falla")
     corrida["lineasBaseGrabadas"] = grabadas

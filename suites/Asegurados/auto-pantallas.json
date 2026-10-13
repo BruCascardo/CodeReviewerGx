@@ -1,0 +1,612 @@
+{
+  "nombre": "Auto - Pantallas de Asegurados",
+  "kb": "Asegurados",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "asegurados-configuracion-astlavarchivoww",
+      "nombre": "Asegurados.Configuracion.astLavArchivoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Configuracion.astLavArchivoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-configuracion-astlavsubtituloww",
+      "nombre": "Asegurados.Configuracion.astLavSubTituloWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Configuracion.astLavSubTituloWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-configuracion-astlavtituloww",
+      "nombre": "Asegurados.Configuracion.astLavTituloWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Configuracion.astLavTituloWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-configuracion-eventoww",
+      "nombre": "Asegurados.Configuracion.EventoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Configuracion.EventoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-configuracion-lavado",
+      "nombre": "Asegurados.Configuracion.Lavado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Configuracion.Lavado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-configuracion-migracionusuarios",
+      "nombre": "Asegurados.Configuracion.MigracionUsuarios abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Configuracion.MigracionUsuarios",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-configuracion-plantillaww",
+      "nombre": "Asegurados.Configuracion.PlantillaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Configuracion.PlantillaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-datoscontacto",
+      "nombre": "Asegurados.DatosContacto abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.DatosContacto",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-global-polizadocumentacionnotificacion",
+      "nombre": "Asegurados.Global.PolizaDocumentacionNotificacion abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Global.PolizaDocumentacionNotificacion",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-home",
+      "nombre": "Asegurados.Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-inicio",
+      "nombre": "Asegurados.Inicio abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Inicio",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-mercadopago-ashmppreferenceww",
+      "nombre": "Asegurados.MercadoPago.ashMPPreferenceWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.MercadoPago.ashMPPreferenceWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-mercadopago-mercadopagoresultado",
+      "nombre": "Asegurados.MercadoPago.MercadoPagoResultado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.MercadoPago.MercadoPagoResultado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-mercadopago-mppreferenceww",
+      "nombre": "Asegurados.MercadoPago.MPPreferenceWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.MercadoPago.MPPreferenceWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-mercadopago-pagarcuotas",
+      "nombre": "Asegurados.MercadoPago.PagarCuotas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.MercadoPago.PagarCuotas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-mercadopago-pruebagmfromjsonmp",
+      "nombre": "Asegurados.MercadoPago.PruebaGMFromJsonMP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.MercadoPago.PruebaGMFromJsonMP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-noautorizado",
+      "nombre": "Asegurados.NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-notificacionespush_all",
+      "nombre": "Asegurados.NotificacionesPush_All abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.NotificacionesPush_All",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-oficinas",
+      "nombre": "Asegurados.Oficinas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Oficinas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-persona-cambiopassword",
+      "nombre": "Asegurados.Persona.CambioPassword abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Persona.CambioPassword",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-persona-mediospago",
+      "nombre": "Asegurados.Persona.MediosPago abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Persona.MediosPago",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-persona-perfilusuario",
+      "nombre": "Asegurados.Persona.PerfilUsuario abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Persona.PerfilUsuario",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-persona-userpersonaww",
+      "nombre": "Asegurados.Persona.UserPersonaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Persona.UserPersonaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-persona-userpersonaww_web",
+      "nombre": "Asegurados.Persona.UserPersonaWW_Web abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Persona.UserPersonaWW_Web",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-poliza-clausulas",
+      "nombre": "Asegurados.Poliza.Clausulas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Poliza.Clausulas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-poliza-polizas",
+      "nombre": "Asegurados.Poliza.Polizas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Poliza.Polizas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-prueba",
+      "nombre": "Asegurados.Prueba abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Prueba",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-pruebaemailcuotas",
+      "nombre": "Asegurados.PruebaEmailCuotas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.PruebaEmailCuotas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-pruebamap1",
+      "nombre": "Asegurados.PruebaMap1 abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.PruebaMap1",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-publico-mercadopago-failure",
+      "nombre": "Asegurados.Publico.Mercadopago.Failure abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Publico.Mercadopago.Failure",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-publico-mercadopago-pending",
+      "nombre": "Asegurados.Publico.Mercadopago.Pending abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Publico.Mercadopago.Pending",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-publico-mercadopago-success",
+      "nombre": "Asegurados.Publico.Mercadopago.Success abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Publico.Mercadopago.Success",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-serviciosasistencia",
+      "nombre": "Asegurados.ServiciosAsistencia abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.ServiciosAsistencia",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-siniestro-consulta",
+      "nombre": "Asegurados.Siniestro.Consulta abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Siniestro.Consulta",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-siniestro-nuevo",
+      "nombre": "Asegurados.Siniestro.Nuevo abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Siniestro.Nuevo",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-siniestro-seguimientos-consulta",
+      "nombre": "Asegurados.Siniestro.Seguimientos.Consulta abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Siniestro.Seguimientos.Consulta",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "asegurados-siniestros",
+      "nombre": "Asegurados.Siniestros abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Asegurados.Siniestros",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "login",
+      "nombre": "Login abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Login",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "pruebamlp",
+      "nombre": "PruebaMLP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "PruebaMLP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "Upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Upload",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}

@@ -266,6 +266,12 @@ def por_explain(sent, plan, meta, previos):
 
 # ---------------------------------------------------------------------- navegacion GX
 
+def _en_linea(n):
+    """' (línea 12)', o '' si el nivel no tiene línea (la grilla de un Web Panel viene con línea 0)."""
+    linea = str(n.get("linea") or "").strip()
+    return f" (línea {linea})" if linea and linea != "0" else ""
+
+
 def anidadas(niveles, meta):
     """For Each adentro de otro For Each (sobre otra tabla): una consulta por cada registro de afuera."""
     salida = []
@@ -277,8 +283,7 @@ def anidadas(niveles, meta):
                 nivel = "medio" if filas is not None and filas >= MUCHAS else "bajo"
                 salida.append(_hallazgo(
                     "consulta-anidada", nivel, sub["tabla"],
-                    f"Por cada registro de {n['tabla']} (línea {n.get('linea')}) se consulta {sub['tabla']} "
-                    f"(línea {sub.get('linea')})",
+                    f"Por cada registro de {n['tabla']}{_en_linea(n)} se consulta {sub['tabla']}{_en_linea(sub)}",
                     f"{n.get('tipo') or 'For Each'} con un {sub.get('tipo') or 'For Each'} adentro: son 1 + N consultas "
                     f"({n['tabla']}: {_filas_txt(filas)} en la base local).",
                     "Es lo normal para recorrer un detalle; si el de adentro solo trae un dato, puede ir en el mismo "

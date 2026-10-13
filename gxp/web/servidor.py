@@ -2,14 +2,15 @@
 127.0.0.1 y solo acepta pedidos a la API de la propia interfaz."""
 import json
 import mimetypes
+import re
 import threading
 import traceback
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 from . import api  # noqa: F401  (registra las rutas)
 from .rutas import RUTAS, Archivo, ErrorApi
-from .. import VERSION, automatico, compartido, grafo, motor
+from .. import VERSION, automatico, compartido, grafo, kbs, motor, vista
 from ..config import CFG, UI
 
 _LOCALES = ("127.0.0.1", "localhost")
@@ -86,10 +87,44 @@ class Manejador(BaseHTTPRequestHandler):
             tipo += "; charset=utf-8"
         self._responder(200, archivo.read_bytes(), tipo)
 
+    def _vista(self, metodo, u):
+        """/vista/<KB>/<sesion>/<ruta>: la vista previa de una pantalla (gxp/vista.py). Las pantallas van al motor
+        de pantallas de la KB; lo demas (js, css, imagenes) son archivos de la KB."""
+        if not self._origen_permitido():
+            return self._json(403, {"error": "Origen no permitido"})
+        partes = u.path.split("/", 4)
+        if len(partes) < 5 or not re.match(r"^[A-Za-z0-9_-]{1,40}$", partes[3]):
+            return self._responder(404, b"No existe", "text/plain; charset=utf-8")
+        try:
+            k = kbs.obtener(unquote(partes[2]))
+        except KeyError as e:
+            return self._responder(404, str(e).encode("utf-8"), "text/plain; charset=utf-8")
+        sesion, ruta = partes[3], unquote(partes[4])
+        if vista.es_pantalla(k, ruta):
+            largo = int(self.headers.get("Content-Length") or 0)
+            cuerpo = self.rfile.read(largo) if largo else b""
+            try:
+                estado, cabeceras, datos = vista.pedido(k, sesion, metodo, ruta, u.query, cuerpo, dict(self.headers.items()),
+                                                        self.headers.get("Host") or "127.0.0.1")
+            except motor.MotorError as e:
+                return self._responder(502, str(e).encode("utf-8"), "text/plain; charset=utf-8")
+            tipo = cabeceras.pop("Content-Type", None) or "text/html; charset=utf-8"
+            cabeceras.pop("Cache-Control", None)
+            return self._responder(estado, datos, tipo, cabeceras)
+        f = vista.archivo(k, ruta)
+        if f is None:
+            return self._responder(404, f"No existe en la KB: {ruta}".encode("utf-8"), "text/plain; charset=utf-8")
+        tipo = mimetypes.guess_type(str(f))[0] or "application/octet-stream"
+        if tipo.startswith("text/") or tipo == "application/javascript":
+            tipo += "; charset=utf-8"
+        self._responder(200, f.read_bytes(), tipo)
+
     def _manejar(self, metodo):
         u = urlparse(self.path)
         if u.path.startswith("/api/"):
             return self._api(metodo, u.path, {k: v[0] for k, v in parse_qs(u.query).items()})
+        if u.path.startswith("/vista/"):
+            return self._vista(metodo, u)
         self._estatico(u.path)
 
     def do_GET(self):

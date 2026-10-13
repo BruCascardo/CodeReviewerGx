@@ -3,16 +3,20 @@
 Un caso corre una vez por fila de 'datos', con el motor tomado en exclusiva y dentro de una transaccion que
 al final se deshace (o se confirma, si el caso o la suite dicen "transaccion": "commit"). Si la suite tiene
 script previo, cada fila arranca de la base que deja el script y al terminar vuelve a ella (ver script.py).
-Cada paso ejecuta un objeto o una consulta SQL (una o varias sentencias) y despues se controla, en este orden:
-el error esperado, lo 'esperado', las 'verificaciones' y la salida aprobada ('lineaBase'). Las ${variables} se
-reemplazan en todos ellos (en la salida aprobada, las que no estan definidas quedan como texto).
+Cada paso ejecuta un objeto, una consulta SQL (una o varias sentencias) o un pedido a una pantalla (lo que se
+grabo en la vista previa, ver gxp/pantallas_pasos.py) y despues se controla, en este orden: el error esperado, lo
+'esperado', las 'verificaciones' y la salida aprobada ('lineaBase'). Las ${variables} se reemplazan en todos ellos
+(en la salida aprobada, las que no estan definidas quedan como texto).
+
+Un caso con pasos de pantalla corre entero en el motor de pantallas (tambien sus objetos y consultas: la misma
+conexion), arranca y termina deshaciendo todo y nunca confirma: ahi los commit son simulados.
 """
 import re
 import time
 
 from .script import Entorno, bloques, correr_sql
 from .variables import VariableIndefinida, calculadas, con_variables, mensaje_error, sustituir, variables_base
-from .. import catalogo
+from .. import catalogo, pantallas_pasos
 from ..comparacion import Opciones, aprobada, clave, obtener, parcial, resumir, sugerir, verificar
 from ..config import CFG
 from ..efectos import efectos_actuales, separar
@@ -24,7 +28,11 @@ MAX_DIFERENCIAS = 200  # en el resultado; el resumen las cuenta todas
 
 
 def nombre_paso(paso):
-    return paso.get("nombre") or paso.get("objeto") or "SQL"
+    return paso.get("nombre") or paso.get("objeto") or paso.get("pantalla") or "SQL"
+
+
+_CAMPOS_PANTALLA = ("pantalla", "parametros", "query", "evento", "valores", "pedido", "metodo", "formulario",
+                    "tipoContenido", "permisos", "accion", "cabeceras")
 
 
 def linea_base_de(paso, fila_idx):
@@ -44,21 +52,31 @@ def _paso_omitido(paso):
 # ---------------------------------------------------------------------- un paso
 
 def _ejecutar(kb, paso, vars_, opciones, res):
-    """Corre el objeto o la consulta del paso. Devuelve (respuesta del motor, datos)."""
+    """Corre el objeto, la consulta o el pedido a la pantalla del paso. Devuelve (respuesta del motor, datos)."""
+    rol = opciones.get("_rol", "")
+    if paso.get("pantalla"):
+        p = sustituir({k: paso[k] for k in _CAMPOS_PANTALLA if k in paso}, vars_)
+        res.update({"tipo": "pantalla", "pantalla": p["pantalla"], **({"evento": p["evento"]} if p.get("evento") else {})})
+        if rol != pantallas_pasos.ROL:
+            raise ValueError("Un paso de pantalla tiene que correr dentro de su caso (ver pantallas_pasos.CasoDePantallas)")
+        r, datos = pantallas_pasos.ejecutar_paso(kb, p, opciones.get("timeoutMs"))
+        if r.get("commits"):
+            res["commitsSimulados"] = r["commits"]  # sin aviso: WorkWithPlus confirma al abrir cualquier pantalla
+        return r, datos
     if paso.get("objeto"):
         entrada = sustituir(paso.get("entrada") or {}, vars_)
         res.update({"tipo": "objeto", "objeto": paso["objeto"], "entrada": entrada})
-        r, datos, info = ejecutar_objeto(kb, sustituir(paso["objeto"], vars_), entrada, opciones.get("timeoutMs"))
+        r, datos, info = ejecutar_objeto(kb, sustituir(paso["objeto"], vars_), entrada, opciones.get("timeoutMs"), rol)
         res["objeto"] = info["nombre"]
-        if (opciones.get("transaccion", "rollback") == "rollback" and not opciones.get("_commitSimulado")
+        if (opciones.get("transaccion", "rollback") == "rollback" and not opciones.get("_commitSimulado") and not rol
                 and catalogo.hace_commit(kb, info["nombre"])):
             res["advertencias"].append(f"{info['nombre']} hace commit por su cuenta: sus cambios NO se deshacen con el rollback.")
         return r, datos
     if paso.get("sql"):
         q = sustituir(paso["sql"], vars_)
         res.update({"tipo": "sql", "sql": q, "ds": paso.get("ds", "")})
-        return correr_sql(kb, sustituir(paso.get("ds", ""), vars_), q, opciones.get("timeoutMs"), paso.get("max", 1000))
-    raise ValueError("El paso no tiene 'objeto' ni 'sql'")
+        return correr_sql(kb, sustituir(paso.get("ds", ""), vars_), q, opciones.get("timeoutMs"), paso.get("max", 1000), rol)
+    raise ValueError("El paso no tiene 'objeto', 'sql' ni 'pantalla'")
 
 
 def _error_esperado(paso, r, res):
@@ -255,7 +273,9 @@ def _correr_fila(kb, suite, caso, opciones, fi, fila, grabar, cancelado, entorno
         entorno.despues("rollback")
         return res
     try:
-        if _preparacion(kb, suite, vars_, opciones, res):
+        if pantallas_pasos.es_de_pantallas(caso):
+            _con_pantallas(kb, suite, caso, vars_, opciones, fi_idx, grabar, cancelado, res, modo, entorno)
+        elif _preparacion(kb, suite, vars_, opciones, res):
             _pasos(kb, caso, vars_, opciones, fi_idx, grabar, cancelado, res)
         entorno.recordar(vars_, [k for p in [*(suite.get("preparacion") or []), *caso["pasos"]] for k in (p.get("guardar") or {})])
     finally:
@@ -269,6 +289,22 @@ def _correr_fila(kb, suite, caso, opciones, fi, fila, grabar, cancelado, entorno
         res["estado"] = "falla"
     res["ms"] = int((time.time() - t0) * 1000)
     return res
+
+
+def _con_pantallas(kb, suite, caso, vars_, opciones, fi_idx, grabar, cancelado, res, modo, entorno):
+    """Un caso con pasos de pantalla: todo (preparacion, objetos, consultas) en el motor de pantallas, que arranca
+    y termina sin cambios. El script previo de la suite corre en el otro motor: la pantalla no lo veria."""
+    if entorno.bloques:
+        res["pasos"].append({"nombre": "Pantallas", "estado": "error", "verificaciones": [], "diferencias": [], "advertencias": [],
+                             "error": "Un caso con pasos de pantalla todavia no puede usar el script previo de la suite (la pantalla "
+                                      "corre en otra conexion y no lo veria). Carga los datos con pasos 'sql' en el mismo caso."})
+        return
+    if modo == "commit":
+        res["advertencias"].append("Un caso con pasos de pantalla nunca confirma: corrio con rollback.")
+    opciones = {**opciones, "_rol": pantallas_pasos.ROL}
+    with pantallas_pasos.CasoDePantallas(kb):
+        if _preparacion(kb, suite, vars_, opciones, res):
+            _pasos(kb, caso, vars_, opciones, fi_idx, grabar, cancelado, res)
 
 
 def _pista_variables(suite, caso, entorno, res):

@@ -152,6 +152,21 @@ function cerrarMenu() { menuAbierto?.remove(); menuAbierto = null; document.remo
 function pill(texto, clase = "") { return h("span", { class: `pill ${clase}` }, texto); }
 const NOMBRE_ESTADO = { ok: "OK", falla: "Falla", error: "Error", omitido: "Omitido", corriendo: "Corriendo" };
 function pillEstado(e) { return pill(NOMBRE_ESTADO[e] || e, e === "ok" ? "ok" : e === "falla" ? "falla" : e === "error" ? "error" : ""); }
+// Que le paso a un caso respecto de su corrida anterior (gxp/suites/reportes.py: nueva, arreglada, sigue).
+const NOMBRE_CAMBIO = { nueva: "Nueva", arreglada: "Arreglada", sigue: "Ya fallaba" };
+const AYUDA_CAMBIO = { nueva: "Andaba en la corrida anterior y ahora no", arreglada: "Fallaba en la corrida anterior y ahora anda", sigue: "Ya fallaba en la corrida anterior" };
+const CLASE_CAMBIO = { nueva: "falla", arreglada: "ok", sigue: "" };
+function pillCambio(cambio) {
+  if (!cambio) return null;
+  const p = pill(NOMBRE_CAMBIO[cambio], CLASE_CAMBIO[cambio]);
+  p.title = AYUDA_CAMBIO[cambio];
+  return p;
+}
+// El cambio de un caso con varias filas de datos: el que mas importa (una nueva falla tapa lo demas).
+function cambioDe(resultados) {
+  const cs = resultados.map((r) => r.cambio).filter(Boolean);
+  return ["nueva", "arreglada", "sigue"].find((c) => cs.includes(c)) || null;
+}
 function cargando(texto = "Cargando…") { return h("span", { class: "muted" }, h("span", { class: "cargando" }), " ", texto); }
 
 function subpestanas(pestanas, inicial) {

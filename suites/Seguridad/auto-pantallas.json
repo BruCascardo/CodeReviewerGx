@@ -1,0 +1,267 @@
+{
+  "nombre": "Auto - Pantallas de Seguridad",
+  "kb": "Seguridad",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "login",
+      "nombre": "Login abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Login",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-b2b-permisos-aplicacionpermisowp",
+      "nombre": "Seguridad.B2B.Permisos.AplicacionPermisoWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.B2B.Permisos.AplicacionPermisoWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-cache",
+      "nombre": "Seguridad.Cache abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.Cache",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-configuracion-eventoww",
+      "nombre": "Seguridad.Configuracion.EventoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.Configuracion.EventoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-configuracion-plantillaww",
+      "nombre": "Seguridad.Configuracion.PlantillaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.Configuracion.PlantillaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-devops-usuarios-seguserrestaurargamww",
+      "nombre": "Seguridad.DevOps.Usuarios.segUserRestaurarGAMWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.DevOps.Usuarios.segUserRestaurarGAMWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-home",
+      "nombre": "Seguridad.Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-noautorizado",
+      "nombre": "Seguridad.NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-preferencias-segpreferenciaww",
+      "nombre": "Seguridad.Preferencias.segPreferenciaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.Preferencias.segPreferenciaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-preferencias-seguserfiltroww",
+      "nombre": "Seguridad.Preferencias.segUserFiltroWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.Preferencias.segUserFiltroWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-preferencias-seguserpreferenciaww",
+      "nombre": "Seguridad.Preferencias.segUserPreferenciaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.Preferencias.segUserPreferenciaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-rolesporpermiso",
+      "nombre": "Seguridad.RolesPorPermiso abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.RolesPorPermiso",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-segappmenuexport",
+      "nombre": "Seguridad.segAppMenuExport abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.segAppMenuExport",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-segapppermissionexportar",
+      "nombre": "Seguridad.segAppPermissionExportar abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.segAppPermissionExportar",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-casos-linkafeed",
+      "nombre": "Seguridad.Usuarios.Casos.LinkAFeed abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.Usuarios.Casos.LinkAFeed",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "seguridad-usuarios-segusuarioww",
+      "nombre": "Seguridad.Usuarios.segUsuarioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Seguridad.Usuarios.segUsuarioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "Upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Upload",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}

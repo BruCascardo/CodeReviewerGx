@@ -53,8 +53,9 @@ def _entrada_param(entrada, nombre):
     return None, False
 
 
-def ejecutar_objeto(kb, objeto, entrada, timeout_ms):
-    """Ejecuta un objeto y devuelve (respuesta del motor, {parametro de salida: valor}, info del objeto)."""
+def ejecutar_objeto(kb, objeto, entrada, timeout_ms, rol=""):
+    """Ejecuta un objeto y devuelve (respuesta del motor, {parametro de salida: valor}, info del objeto). rol
+    "pantallas": en el motor de pantallas (un caso con pasos de pantalla: la misma conexion que la pantalla)."""
     info = _info_ejecutable(kb, objeto)
     args = []
     for p in info["parametros"]:
@@ -63,7 +64,7 @@ def ejecutar_objeto(kb, objeto, entrada, timeout_ms):
         if hay and p["io"] != "out":
             a["valor"] = v
         args.append(a)
-    r = motor(kb).pedir("ejecutar", timeout_ms=timeout_ms, clase=kb.clase_java(info["nombre"]), args=args)
+    r = motor(kb, rol).pedir("ejecutar", timeout_ms=timeout_ms, clase=kb.clase_java(info["nombre"]), args=args)
     datos = {}
     salidas = r.get("salidas") or []
     for i, p in enumerate(info["parametros"]):
@@ -72,9 +73,9 @@ def ejecutar_objeto(kb, objeto, entrada, timeout_ms):
     return r, datos, info
 
 
-def ejecutar_sql(kb, ds, query, timeout_ms, maximo=1000):
+def ejecutar_sql(kb, ds, query, timeout_ms, maximo=1000, rol=""):
     """Consulta en la conexion del motor. (respuesta, {filas, cantidad, columnas, truncado} o {actualizadas})."""
-    r = motor(kb).pedir("sql", timeout_ms=timeout_ms, ds=ds or "", query=query, max=maximo)
+    r = motor(kb, rol).pedir("sql", timeout_ms=timeout_ms, ds=ds or "", query=query, max=maximo)
     if not r.get("ok"):
         return r, {}
     if "filas" in r:

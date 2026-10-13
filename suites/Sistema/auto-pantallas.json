@@ -1,0 +1,1362 @@
+{
+  "nombre": "Auto - Pantallas de Sistema",
+  "kb": "Sistema",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cachetest",
+      "nombre": "cacheTest abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "cacheTest",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-afip-pruebas",
+      "nombre": "Sistema.AFIP.Pruebas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.AFIP.Pruebas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-afip-pruebas_cae",
+      "nombre": "Sistema.AFIP.Pruebas_CAE abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.AFIP.Pruebas_CAE",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-asincronicos-sihasincronicoww",
+      "nombre": "Sistema.Asincronicos.sihAsincronicoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Asincronicos.sihAsincronicoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-blob-descargar",
+      "nombre": "Sistema.Blob.Descargar abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Blob.Descargar",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-blob-ittstorageww",
+      "nombre": "Sistema.Blob.ittStorageWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Blob.ittStorageWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-blob-sihblobww",
+      "nombre": "Sistema.Blob.sihBlobWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Blob.sihBlobWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-cache-cacheclear",
+      "nombre": "Sistema.Cache.CacheClear abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Cache.CacheClear",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-cache-gestioncache",
+      "nombre": "Sistema.Cache.GestionCache abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Cache.GestionCache",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-sihcasoplanaccionww",
+      "nombre": "Sistema.Caso.sihCasoPlanAccionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Caso.sihCasoPlanAccionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-sihcasoww",
+      "nombre": "Sistema.Caso.sihCasoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Caso.sihCasoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-sitbandejaww",
+      "nombre": "Sistema.Caso.sitBandejaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Caso.sitBandejaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-sitbandusuarioww",
+      "nombre": "Sistema.Caso.sitBandUsuarioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Caso.sitBandUsuarioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-caso-sitcasotipoww",
+      "nombre": "Sistema.Caso.sitCasoTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Caso.sitCasoTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-chatbots-sihchatww",
+      "nombre": "Sistema.ChatBots.sihChatWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.ChatBots.sihChatWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-chatbots-sitchatbotservicioww",
+      "nombre": "Sistema.ChatBots.sitChatbotServicioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.ChatBots.sitChatbotServicioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-chatbots-sitchatbotww",
+      "nombre": "Sistema.ChatBots.sitChatbotWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.ChatBots.sitChatbotWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-pruebalistadeevaluacion",
+      "nombre": "Sistema.Comprobantes.PruebaListaDeEvaluacion abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Comprobantes.PruebaListaDeEvaluacion",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-sihcompfiscaldetalleww",
+      "nombre": "Sistema.Comprobantes.sihCompFiscalDetalleWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Comprobantes.sihCompFiscalDetalleWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-sihcompfiscalww",
+      "nombre": "Sistema.Comprobantes.sihCompFiscalWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Comprobantes.sihCompFiscalWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-comprobantes-tipos-sitcompfiscaltipoww",
+      "nombre": "Sistema.Comprobantes.Tipos.sitCompFiscalTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Comprobantes.Tipos.sitCompFiscalTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-eventos-siteventoww",
+      "nombre": "Sistema.Contexto.Eventos.sitEventoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Contexto.Eventos.sitEventoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-notificaciones-ithnotifdifusionww",
+      "nombre": "Sistema.Contexto.Notificaciones.ithNotifDifusionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Contexto.Notificaciones.ithNotifDifusionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-contexto-plantillas-plantillaww",
+      "nombre": "Sistema.Contexto.Plantillas.PlantillaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Contexto.Plantillas.PlantillaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-diagnostico-dashsistema",
+      "nombre": "Sistema.Diagnostico.DashSistema abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Diagnostico.DashSistema",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-diagnostico-health",
+      "nombre": "Sistema.Diagnostico.health abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Diagnostico.health",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-diagnostico-servicioswp",
+      "nombre": "Sistema.Diagnostico.ServiciosWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Diagnostico.ServiciosWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-diagnostico-sitdemonioestadoww",
+      "nombre": "Sistema.Diagnostico.sitDemonioEstadoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Diagnostico.sitDemonioEstadoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-diagnostico-valorsistemawp",
+      "nombre": "Sistema.Diagnostico.ValorSistemaWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Diagnostico.ValorSistemaWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-diagnostico-wptestsistema",
+      "nombre": "Sistema.Diagnostico.WPTestSistema abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Diagnostico.WPTestSistema",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-elasticsearch-probadorelastic",
+      "nombre": "Sistema.ElasticSearch.ProbadorElastic abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.ElasticSearch.ProbadorElastic",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-eventstream-sitconsumertopicprocesadorww",
+      "nombre": "Sistema.EventStream.sitConsumerTopicProcesadorWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.EventStream.sitConsumerTopicProcesadorWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-accesoportalintermediarios",
+      "nombre": "Sistema.Global.AccesoPortalIntermediarios abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.AccesoPortalIntermediarios",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-feriado-sitferiadoww",
+      "nombre": "Sistema.Global.Feriado.sitFeriadoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.Feriado.sitFeriadoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-parser-sitparserww",
+      "nombre": "Sistema.Global.Parser.sitParserWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.Parser.sitParserWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-pd4ml",
+      "nombre": "Sistema.Global.PD4ML abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.PD4ML",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sihaccesologww",
+      "nombre": "Sistema.Global.sihAccesoLogWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sihAccesoLogWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sihejecucionww",
+      "nombre": "Sistema.Global.sihEjecucionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sihEjecucionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sihlogpgmtopicoww",
+      "nombre": "Sistema.Global.sihLogPgmTopicoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sihLogPgmTopicoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sihlogww",
+      "nombre": "Sistema.Global.sihLogWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sihLogWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sihpgmtourww",
+      "nombre": "Sistema.Global.sihPgmTourWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sihPgmTourWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sihwebserlogww",
+      "nombre": "Sistema.Global.sihWebSerLogWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sihWebSerLogWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sitaplicacionww",
+      "nombre": "Sistema.Global.sitAplicacionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitAplicacionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sithostww",
+      "nombre": "Sistema.Global.sitHostWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitHostWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sitloggrupoemailww",
+      "nombre": "Sistema.Global.sitLogGrupoEmailWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitLogGrupoEmailWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sitloggrupotopicoww",
+      "nombre": "Sistema.Global.sitLogGrupoTopicoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitLogGrupoTopicoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sitlogpgmexceptuadosww",
+      "nombre": "Sistema.Global.sitLogPgmExceptuadosWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitLogPgmExceptuadosWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sitplanejecucionww",
+      "nombre": "Sistema.Global.sitPlanEjecucionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitPlanEjecucionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sitprocesoww",
+      "nombre": "Sistema.Global.sitProcesoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitProcesoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sitservicioww",
+      "nombre": "Sistema.Global.sitServicioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitServicioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sitvalorsistemaww",
+      "nombre": "Sistema.Global.sitValorSistemaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitValorSistemaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-sitwebserlogww",
+      "nombre": "Sistema.Global.sitWebSerLogWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.sitWebSerLogWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-global-testingziptools",
+      "nombre": "Sistema.Global.TestingZipTools abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Global.TestingZipTools",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-grupos-sitgrupousuarioww",
+      "nombre": "Sistema.Grupos.sitGrupoUsuarioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Grupos.sitGrupoUsuarioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-grupos-sitgrupoww",
+      "nombre": "Sistema.Grupos.sitGrupoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Grupos.sitGrupoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-home",
+      "nombre": "Sistema.Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-input-sihinputww",
+      "nombre": "Sistema.Input.sihInputWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Input.sihInputWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-kafka-kfkbufferadmin",
+      "nombre": "Sistema.Kafka.kfkBufferAdmin abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Kafka.kfkBufferAdmin",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-mantenimiento-pruebamantenimiento",
+      "nombre": "Sistema.Mantenimiento.PruebaMantenimiento abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Mantenimiento.PruebaMantenimiento",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-mantenimiento-sitmantenimientoww",
+      "nombre": "Sistema.Mantenimiento.sitMantenimientoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Mantenimiento.sitMantenimientoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-noautorizado",
+      "nombre": "Sistema.NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-notificaciones-ithnotificacionww",
+      "nombre": "Sistema.Notificaciones.ithNotificacionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Notificaciones.ithNotificacionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-notificaciones-ittnotifconfiguracionww",
+      "nombre": "Sistema.Notificaciones.ittNotifConfiguracionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Notificaciones.ittNotifConfiguracionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-notificaciones-ittremitenteww",
+      "nombre": "Sistema.Notificaciones.IttRemitenteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Notificaciones.IttRemitenteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-notificaciones-ittremservidorww",
+      "nombre": "Sistema.Notificaciones.ittRemServidorWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Notificaciones.ittRemServidorWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-notificacionespush_all",
+      "nombre": "Sistema.NotificacionesPush_All abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.NotificacionesPush_All",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-novedades-novedadconsulta",
+      "nombre": "Sistema.Novedades.NovedadConsulta abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Novedades.NovedadConsulta",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-novedades-sihnovedadww",
+      "nombre": "Sistema.Novedades.sihNovedadWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Novedades.sihNovedadWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-opendata-bin-odtbinww",
+      "nombre": "Sistema.OpenData.Bin.odtBINWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.OpenData.Bin.odtBINWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-opendata-bin-probadorbin",
+      "nombre": "Sistema.OpenData.Bin.ProbadorBIN abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.OpenData.Bin.ProbadorBIN",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-panel_testeo",
+      "nombre": "Sistema.panel_testeo abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.panel_testeo",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-probador",
+      "nombre": "Sistema.Probador abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Probador",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-pruebaagv",
+      "nombre": "Sistema.PruebaAGV abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.PruebaAGV",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-pruebareca",
+      "nombre": "Sistema.PruebaRecA abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.PruebaRecA",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-recursos-manuales",
+      "nombre": "Sistema.Recursos.Manuales abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Recursos.Manuales",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-recursos-sitrecarchivoww",
+      "nombre": "Sistema.Recursos.sitRecArchivoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Recursos.sitRecArchivoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-recursos-sitrecsubtituloww",
+      "nombre": "Sistema.Recursos.sitRecSubTituloWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Recursos.sitRecSubTituloWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-recursos-sitrectituloww",
+      "nombre": "Sistema.Recursos.sitRecTituloWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Recursos.sitRecTituloWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-recursos-tutoriales",
+      "nombre": "Sistema.Recursos.Tutoriales abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Recursos.Tutoriales",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-reparaciones-sitreparacionww",
+      "nombre": "Sistema.Reparaciones.sitReparacionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Reparaciones.sitReparacionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-reparaciones-sitrephistorialww",
+      "nombre": "Sistema.Reparaciones.sitRepHistorialWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.Reparaciones.sitRepHistorialWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-usercontrols-dropzonetest",
+      "nombre": "Sistema.UserControls.DropzoneTest abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.UserControls.DropzoneTest",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-usercontrols-pruebaamchart",
+      "nombre": "Sistema.UserControls.PruebaAmChart abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.UserControls.PruebaAmChart",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-workingon-mig",
+      "nombre": "Sistema.WorkingOn.mig abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.WorkingOn.mig",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-workingon-migblobgetweb",
+      "nombre": "Sistema.WorkingOn.migBlobGetWeb abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.WorkingOn.migBlobGetWeb",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-workingon-migwpnotificacionput",
+      "nombre": "Sistema.WorkingOn.migWpNotificacionPut abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.WorkingOn.migWpNotificacionPut",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-workingon-pruebas_mma",
+      "nombre": "Sistema.WorkingOn.Pruebas_mma abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.WorkingOn.Pruebas_mma",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-workingon-stresstestmongo",
+      "nombre": "Sistema.WorkingOn.StressTestMongo abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.WorkingOn.StressTestMongo",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "sistema-workingon-webpanelparapruebas",
+      "nombre": "Sistema.WorkingOn.webPanelParaPruebas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Sistema.WorkingOn.webPanelParaPruebas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "Upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Upload",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}

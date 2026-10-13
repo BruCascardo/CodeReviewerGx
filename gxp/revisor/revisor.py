@@ -9,8 +9,9 @@ import json
 import os
 from pathlib import Path
 
-from . import configuracion, fuente, lineabase, sdts, transacciones
+from . import configuracion, fuente, lineabase, pantalla_bc, sdts, transacciones
 from .reglas import SEVERIDADES, cargar as cargar_reglas
+from .. import catalogo
 from ..config import RESULTADOS
 
 DIR = RESULTADOS / "revisiones"
@@ -59,6 +60,23 @@ class Contexto:
         """True si el Java del objeto hace commit, False si no, None si no hay Java."""
         t = self.java(objeto)
         return None if t is None else "commitDataStores" in t
+
+    def loads_con_tabla(self, objeto):
+        """Eventos Load del objeto que corren por cada registro de una grilla con tabla base (en minusculas:
+        'grid.load'), segun su navegacion; None si no hay navegacion."""
+        try:
+            return catalogo.loads_con_tabla(catalogo.buscar(self.kb, objeto)["nvg"])
+        except Exception:
+            return None
+
+    def tiene_grilla(self, objeto):
+        """True si el Web Panel tiene alguna grilla, segun su Java (False si no esta generado)."""
+        t = self.java(objeto)
+        return t is not None and "GXWebGrid" in t
+
+    def diferencias_bc(self, objeto):
+        """Lo que la pantalla de la transaccion hace y su Business Component no (ver pantalla_bc.py)."""
+        return pantalla_bc.diferencias(self.kb, objeto)
 
 
 def reglas_activas(conf, ids=None):

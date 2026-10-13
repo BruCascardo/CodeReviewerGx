@@ -21,6 +21,9 @@ DEFECTO = {
     # Minutos sin uso tras los que se apaga el motor de una KB (libera conexiones a la base).
     "motorInactivoMin": 15,
     "timeoutMsDefecto": 120000,
+    # Minutos sin uso tras los que la vista previa de pantallas deshace todo (ver gxp/vista.py): lo que graba
+    # una pantalla deja filas bloqueadas para Tomcat, las suites y otras ventanas hasta que se deshace.
+    "vistaDeshacerMin": 3,
     # Pruebas automaticas despues de cada build (ver gxp/automatico). Funcionan mientras la interfaz
     # esta abierta, o con 'gxpruebas.py vigilar'.
     "despuesDelBuild": {

@@ -29,7 +29,8 @@ def _imprimir_progreso(detalle):
             veces[0] = sp.get("veces", 1)
             print(_texto_script(sp))
         for caso in cor["casos"][vistos[0]:]:
-            print(f"  {marcas[caso['estado']]} {caso['nombre']}  {c(str(caso['ms']) + ' ms', 'gris')}")
+            nota = {"nueva": c("  NUEVA", "rojo"), "arreglada": c("  arreglada", "verde")}.get(caso.get("cambio"), "")
+            print(f"  {marcas[caso['estado']]} {caso['nombre']}  {c(str(caso['ms']) + ' ms', 'gris')}{nota}")
             if caso["estado"] in ("falla", "error") or (detalle and caso["estado"] != "omitido"):
                 det = suites.texto_fallas(caso)
                 if det:
@@ -130,6 +131,17 @@ def cmd_generar(a):
     else:
         error("Indica --kb (se puede repetir) o --todas.")
         return 2
+    if a.pantallas:
+        from ..generacion import pantallas
+        for kb in lista:
+            try:
+                pantallas.generar_kb(kb, log=lambda t: print(t, flush=True))
+            except motor.MotorError as e:
+                print(c(f"{kb.nombre}: no se pudo generar: {e}", "rojo"), file=sys.stderr)
+            motor.detener_kb(kb, "fin de la generacion")
+        print(c("\nCada caso controla que la pantalla abra sin excepcion. Para comparar ademas la estructura de lo que "
+                "muestra, aprobala con: python gxpruebas.py correr <KB>/auto-pantallas --grabar", "amarillo"))
+        return 0
     analisis = Analisis()
     for kb in lista:
         try:
@@ -165,6 +177,8 @@ def registrar(sub):
     p.add_argument("--kb", action="append", help="KB (se puede repetir)")
     p.add_argument("--todas", action="store_true", help="todas las KBs")
     p.add_argument("--solo", help="regenera solo los objetos cuyo nombre contiene este texto")
+    p.add_argument("--pantallas", action="store_true",
+                   help="la suite auto-pantallas: un caso por Web Panel que abre sin parametros (que no de excepcion)")
     p.set_defaults(fn=cmd_generar)
 
     p = sub.add_parser("suites", help="lista las suites")

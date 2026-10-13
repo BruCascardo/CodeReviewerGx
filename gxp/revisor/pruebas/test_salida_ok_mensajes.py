@@ -118,7 +118,7 @@ class Estatica(unittest.TestCase):
 
     def test_ok_true_sin_mensaje_de_exito(self):
         self.assertEqual(revisar(fuente(ok(1, True))),
-                         [(1, "error", "Termina con Ok = True sin mensaje de exito (Type Debug)")])
+                         [(1, "advertencia", "Termina con Ok = True sin mensaje de exito (Type Debug)")])
 
     def test_bandera_booleana(self):
         # El error prende una bandera y al final Ok se decide con ella: los dos caminos son coherentes.

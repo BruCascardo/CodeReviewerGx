@@ -1,0 +1,282 @@
+{
+  "nombre": "Auto - Pantallas de Soporte",
+  "kb": "Soporte",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cache",
+      "nombre": "Cache abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cache",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cachetest",
+      "nombre": "CacheTest abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "CacheTest",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "nombre": "Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-eventoww",
+      "nombre": "Soporte.Config.EventoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.Config.EventoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-grupos-sptgrupoww",
+      "nombre": "Soporte.Config.Grupos.sptGrupoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.Config.Grupos.sptGrupoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-plantillaww",
+      "nombre": "Soporte.Config.PlantillaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.Config.PlantillaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-sphsopeventoww",
+      "nombre": "Soporte.Config.sphSopEventoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.Config.sphSopEventoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-sptsopmotivoww",
+      "nombre": "Soporte.Config.sptSopMotivoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.Config.sptSopMotivoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-config-sptsoptipocasotipoww",
+      "nombre": "Soporte.Config.sptSopTipoCasoTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.Config.sptSopTipoCasoTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-global-polizadocumentacionnotificacion",
+      "nombre": "Soporte.Global.PolizaDocumentacionNotificacion abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.Global.PolizaDocumentacionNotificacion",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-home",
+      "nombre": "Soporte.Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-mantenimiento",
+      "nombre": "Soporte.Mantenimiento abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.Mantenimiento",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-migracionsptsopmotivo",
+      "nombre": "Soporte.MigracionSptSopMotivo abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.MigracionSptSopMotivo",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-noautorizado",
+      "nombre": "Soporte.NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-personaswp",
+      "nombre": "Soporte.PersonasWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.PersonasWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-pruebaale",
+      "nombre": "Soporte.PruebaAle abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.PruebaAle",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "soporte-sphsoporteww",
+      "nombre": "Soporte.sphSoporteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Soporte.sphSoporteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "upload",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}

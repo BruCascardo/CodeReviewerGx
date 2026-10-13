@@ -25,6 +25,8 @@ def texto_resumen(res):
         partes = [f"{t['ok']} ok"]
         if t["falla"]:
             partes.append(f"{t['falla']} con fallas")
+        if res.get("nuevas"):
+            partes.append(f"{res['nuevas']} nueva{'s' if res['nuevas'] > 1 else ''} desde el build anterior")
         if t["error"]:
             partes.append(f"{t['error']} con errores")
         if res["errores"]:
@@ -39,7 +41,8 @@ def lineas_consola(res):
     marca = {"ok": "OK", "falla": "FALLAS", "sin_pruebas": "SIN PRUEBAS"}.get(res["estado"], res["estado"].upper())
     lineas = [f"[despues del build] {res['kb']}: {marca} - {res['texto']}"]
     for f in res["fallas"][:10]:
-        lineas.append(f"  {f['estado'].upper():5} {f['suite']} > {f['caso']}")
+        nueva = " (NUEVA)" if f.get("cambio") == "nueva" else ""
+        lineas.append(f"  {f['estado'].upper():5} {f['suite']} > {f['caso']}{nueva}")
         lineas.extend("        " + l for l in f["detalle"].splitlines()[:8])
     if len(res["fallas"]) > 10:
         lineas.append(f"  ... y {len(res['fallas']) - 10} casos mas")
@@ -56,7 +59,7 @@ def lineas_consola(res):
             lineas.append(f"  buenas practicas: {rev['revisados']} objetos del build revisados; {n['error']} errores y "
                           f"{n['advertencia']} advertencias nuevos" + (f" ({ya} que ya estaban)" if ya else ""))
             for h in rev["primeros"]:
-                donde = f"linea {h['linea']}" if h["linea"] else "propiedad"
+                donde = f"linea {h['linea']}" if h["linea"] else ("reglas" if h.get("regla") == "logica-solo-en-pantalla" else "propiedad")
                 lineas.append(f"    NUEVO {h['severidad'].upper():11} {h['objeto']} {donde}: {h['mensaje']}")
             lineas.extend(f"    no se pudo revisar {e}" for e in rev.get("errores", []))
             if rev.get("archivo"):

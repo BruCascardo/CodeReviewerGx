@@ -6,7 +6,7 @@
 """
 from .operaciones import (NoEjecutable, consulta_suelta, describir, ejecutar_objeto, ejecutar_sql,
                           fin_transaccion, marcar, avanzar, volver)
-from .proceso import Motor, MotorError, detener_todos, motor, motores
+from .proceso import Motor, MotorError, detener_kb, detener_todos, motor, motores
 
 __all__ = ["NoEjecutable", "consulta_suelta", "describir", "ejecutar_objeto", "ejecutar_sql", "fin_transaccion",
-           "marcar", "avanzar", "volver", "Motor", "MotorError", "detener_todos", "motor", "motores"]
+           "marcar", "avanzar", "volver", "Motor", "MotorError", "detener_kb", "detener_todos", "motor", "motores"]

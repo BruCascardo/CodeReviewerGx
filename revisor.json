@@ -26,6 +26,16 @@
         "Sistema.Output.AddMessages": {"tipo": null, "salida": 2}
       }
     },
+    "variables-sin-usar": {
+      "activa": true,
+      "severidad": "advertencia",
+      "tipos": ["proc", "mnproc"]
+    },
+    "variables-sin-declarar": {
+      "activa": true,
+      "severidad": "advertencia",
+      "tipos": ["proc", "mnproc"]
+    },
     "alta-devuelve-id": {
       "activa": true,
       "severidad": "advertencia",
@@ -33,6 +43,15 @@
       "nombresAlta": "^(set|put|crear|alta|agregar|insert|nuev[oa]|registrar|guardar|grabar|new|add)|(set|put|crear|alta|agregar|insert|nuev[oa]|registrar|guardar|grabar|new|add)\\d*$",
       "nombresOtraOperacion": "(get|lista|obtener|buscar|consulta|actualizar|modificar|update|delete|eliminar|borrar|baja|cambiar|cambio|mover|marcar|leido|procesar|check|enviar|validar|calcular|importar|carga|migra|confirmar)",
       "entidadesExcluidas": "(hist|historial|history|log|bitacora|auditoria)(_bc)?$"
+    },
+    "llamadas-por-fila": {
+      "activa": true,
+      "severidad": "advertencia",
+      "permitidos": []
+    },
+    "logica-solo-en-pantalla": {
+      "activa": true,
+      "severidad": "advertencia"
     }
   },
   "excepciones": [

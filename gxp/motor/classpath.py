@@ -187,22 +187,49 @@ def jar_de_classpath(kb, rutas):
     return destino
 
 
-def compilar_gxmotor(kb, cp_jar):
-    """Compila GxMotor.java contra el classpath de la KB (si cambio el fuente). Devuelve la carpeta de la clase."""
-    destino = carpeta_kb(kb) / "motor"
-    clase = destino / "GxMotor.class"
-    if clase.exists() and clase.stat().st_mtime >= MOTOR_FUENTE.stat().st_mtime:
+def fuentes_motor(pantallas=False):
+    """Los .java del motor: GxMotor.java y Pantallas.java; con pantallas, tambien los reemplazos de motor/pantallas
+    (van primero en el classpath del motor de pantallas)."""
+    base = [MOTOR_FUENTE, MOTOR_FUENTE.with_name("Pantallas.java")]
+    return base + sorted(MOTOR_FUENTE.parent.joinpath("pantallas").glob("*.java")) if pantallas else base
+
+
+def fecha_fuentes():
+    """La fecha mas reciente de los .java del motor (si cambia, los motores se reinician)."""
+    try:
+        return max(f.stat().st_mtime_ns for f in fuentes_motor(True))
+    except (OSError, ValueError):
+        return None
+
+
+def _compilar(destino, fuentes, cp, que):
+    marca = destino / ".compilado"
+    if marca.exists() and marca.stat().st_mtime >= max(f.stat().st_mtime for f in fuentes):
         return destino
     destino.mkdir(parents=True, exist_ok=True)
-    r = subprocess.run([CFG["javac"], "-nowarn", "-encoding", "utf8", "-cp", str(cp_jar), "-d", str(destino), str(MOTOR_FUENTE)],
+    r = subprocess.run([CFG["javac"], "-nowarn", "-encoding", "utf8", "-cp", cp, "-d", str(destino), *map(str, fuentes)],
                        capture_output=True, text=True, encoding="utf-8", errors="replace", creationflags=SIN_VENTANA)
     if r.returncode:
-        raise ErrorClasspath("No se pudo compilar GxMotor.java:\n" + (r.stdout + r.stderr)[-4000:])
+        raise ErrorClasspath(f"No se pudo compilar {que}:\n" + (r.stdout + r.stderr)[-4000:])
+    marca.touch()
     return destino
 
 
-def preparar(kb, log):
-    """Deja todo listo para lanzar la JVM de la KB y devuelve su classpath. 'log' recibe lineas para el log."""
+def compilar_gxmotor(kb, cp_jar):
+    """Compila GxMotor.java y Pantallas.java contra el classpath de la KB (si cambio el fuente). Devuelve la
+    carpeta de las clases."""
+    return _compilar(carpeta_kb(kb) / "motor", fuentes_motor(), str(cp_jar), "GxMotor.java")
+
+
+def compilar_reemplazos(kb, cp_jar):
+    """Compila los reemplazos del motor de pantallas (motor/pantallas/*.java) en su propia carpeta."""
+    fuentes = fuentes_motor(True)[2:]
+    return _compilar(carpeta_kb(kb) / "pantallas", fuentes, str(cp_jar), "los reemplazos de motor/pantallas")
+
+
+def preparar(kb, log, pantallas=False):
+    """Deja todo listo para lanzar la JVM de la KB y devuelve su classpath. 'log' recibe lineas para el log.
+    Con pantallas, el del motor de la vista previa: los reemplazos de motor/pantallas van primero."""
     jars = copiar_jars(kb)
     try:
         borrados, liberados = limpiar_cache_jars()
@@ -211,4 +238,7 @@ def preparar(kb, log):
     except Exception as e:  # la limpieza nunca impide arrancar
         log(f"[gxpruebas] no se pudo limpiar la cache de jars: {e}")
     cp_jar = jar_de_classpath(kb, [str(kb.clases)] + jars)
-    return os.pathsep.join([str(compilar_gxmotor(kb, cp_jar)), str(cp_jar)])
+    partes = [str(compilar_gxmotor(kb, cp_jar)), str(cp_jar)]
+    if pantallas:
+        partes.insert(0, str(compilar_reemplazos(kb, cp_jar)))
+    return os.pathsep.join(partes)

@@ -1,0 +1,108 @@
+{
+  "nombre": "Integraciones Prueba WP",
+  "kb": "Cobranzas",
+  "casos": [
+    {
+      "nombre": "LoteProbador (2 eventos)",
+      "etiquetas": [
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir LoteProbador",
+          "pantalla": "Cobranzas.Integraciones.LoteProbador",
+          "parametros": [],
+          "lineaBase": {
+            "estado": 200,
+            "titulo": "Lote Probador",
+            "valores": {
+              "vPGMNAME": "Cobranzas.Integraciones.LoteProbador",
+              "vENTRECID_DATA": [
+                {
+                  "ID": "1",
+                  "T": "BANELCO",
+                  "C": []
+                }
+              ],
+              "vLOTEID": "0"
+            }
+          }
+        },
+        {
+          "nombre": "LoteProbador: evento 'DOGENERARLOTE'",
+          "pantalla": "Cobranzas.Integraciones.LoteProbador",
+          "evento": "'DOGENERARLOTE'",
+          "valores": {
+            "vENTRECID": 1,
+            "vPGMNAME": "Cobranzas.Integraciones.LoteProbador"
+          },
+          "query": "gxfullajaxEvt,qysnKFThJMkTk45Rp5ipIoOzb1WYN4ftQEEpYV-6BUrwx6rvl0Ps7Z1Cs4fOc0KFVe8K69talSKPjrgVn0YV7A,gx-no-cache=1791571681448",
+          "pedido": {
+            "MPage": false,
+            "cmpCtx": "",
+            "hsh": [
+              {
+                "hsh": "gxpruebas",
+                "row": ""
+              }
+            ],
+            "objClass": "cobranzas.integraciones.loteprobador",
+            "pkgName": "com.cobranzas",
+            "grids": {}
+          },
+          "lineaBase": {
+            "estado": 200,
+            "valores": {
+              "AV10OkGenerar": true,
+              "AV12LoteId": "2"
+            },
+            "mensajes": [
+              {
+                "id": "",
+                "text": "{\"title\":\"Éxito\",\"text\":\"Se generó el lote 2\",\"type\":\"success\",\"hide\":true,\"desktop\": {\"desktop\":false,}}",
+                "type": 0,
+                "att": ""
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "LoteProbador: evento 'DOENVIARLOTE'",
+          "pantalla": "Cobranzas.Integraciones.LoteProbador",
+          "evento": "'DOENVIARLOTE'",
+          "valores": {
+            "vLOTEID": 2
+          },
+          "query": "gxfullajaxEvt,qysnKFThJMkTk45Rp5ipIoOzb1WYN4ftQEEpYV-6BUrwx6rvl0Ps7Z1Cs4fOc0KFVe8K69talSKPjrgVn0YV7A,gx-no-cache=1791571688913",
+          "pedido": {
+            "MPage": false,
+            "cmpCtx": "",
+            "hsh": [],
+            "objClass": "cobranzas.integraciones.loteprobador",
+            "pkgName": "com.cobranzas",
+            "grids": {}
+          },
+          "lineaBase": {
+            "estado": 200,
+            "valores": {
+              "AV11OkEnviar": true
+            },
+            "mensajes": [
+              {
+                "id": "",
+                "text": "{\"title\":\"Éxito\",\"text\":\"Se envió el lote 2\",\"type\":\"success\",\"hide\":true,\"desktop\": {\"desktop\":false,}}",
+                "type": 0,
+                "att": ""
+              }
+            ]
+          }
+        }
+      ],
+      "id": "loteprobador-2-eventos"
+    }
+  ],
+  "descripcion": "",
+  "opciones": {},
+  "variables": {},
+  "preparacion": []
+}

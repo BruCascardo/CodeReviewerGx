@@ -4,11 +4,14 @@
 
 Los XML vienen en Windows-1252 sin declararlo: se decodifican a mano."""
 import os
+import re
 import threading
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 EJECUTABLES = {"Procedure", "DataProvider", "Data Provider"}
+# Los que lista Explorar: los ejecutables y las pantallas (para su navegacion, el plan y la revision).
+WEB = {"WebPanel", "WebComponent"}
 
 _lock = threading.Lock()
 _cache = {}  # kb -> {ruta: (mtime, datos)}
@@ -70,6 +73,41 @@ def _parametros(raiz):
     return ps
 
 
+def _web_comp(ruta_nvg: Path) -> str:
+    """La propiedad WEB_COMP de un Web Panel: 'Yes' (Web Component), 'Master' (master page) o 'No'. El NVG no
+    lo dice: sale de su especificacion (GEN*/<Modulo>/<Objeto>.sp0, al lado de GEN*/NVG/...), que la tiene al
+    principio del archivo."""
+    partes = ruta_nvg.parts
+    try:
+        i = len(partes) - 1 - partes[::-1].index("NVG")
+    except ValueError:
+        return "No"
+    carpeta = Path(*partes[:i], *partes[i + 1:-1])
+    specs = []
+    for r in carpeta.glob(ruta_nvg.stem + ".sp[0-9]"):
+        try:
+            specs.append((r.stat().st_mtime, r))
+        except OSError:
+            continue
+    if not specs:
+        return "No"
+    try:
+        with open(max(specs)[1], "rb") as f:
+            cabeza = f.read(1 << 17)
+    except OSError:
+        return "No"
+    m = re.search(rb"WEB_COMP','(\w+)'", cabeza)
+    return m.group(1).decode() if m else "No"
+
+
+def _tipo(tipo, web_comp):
+    if tipo == "Data Provider":
+        return "DataProvider"
+    if tipo == "Web Panel":
+        return "WebComponent" if web_comp == "Yes" else "WebPanel"
+    return tipo
+
+
 def leer_objeto(ruta: Path):
     raiz = _xml(ruta)
     if raiz.tag != "ObjectSpec":
@@ -77,10 +115,13 @@ def leer_objeto(ruta: Path):
     o = raiz.find("Object")
     tipo = (o.findtext("ObjClsName") or "").strip()
     nombre = (o.findtext("ObjName") or "").strip()
+    web_comp = _web_comp(Path(ruta)) if tipo == "Web Panel" else ""
     return {
         "nombre": nombre,
         "descripcion": (o.findtext("ObjDesc") or "").strip(),
-        "tipo": "DataProvider" if tipo == "Data Provider" else tipo,
+        "tipo": _tipo(tipo, web_comp),
+        # Las master pages son Web Panels que no se abren solos: se ven en las pantallas que las usan.
+        **({"master": True} if web_comp == "Master" else {}),
         "ejecutable": tipo in EJECUTABLES,
         "resultado": (raiz.findtext("Result") or "").strip(),
         "parametros": _parametros(raiz),
@@ -106,7 +147,8 @@ def _nivel(lv):
         "join": sorted({t.findtext("TableName") or "" for t in lv.findall("NavigationTree//Table")} - {""}),
         "actualiza": sorted({t.findtext("TableName") or "" for t in lv.findall("TablesToUpdate//Table")} - {""}),
         "optimizaciones": [(x.findtext("Type") or "") for x in lv.findall("Optimizations/Optimization")],
-        "subniveles": [_nivel(s) for s in lv.findall("Levels/Level")],
+        # En los Web Panels, los For Each de un Load con tabla base cuelgan directo del ImplicitForEach.
+        "subniveles": [_nivel(s) for s in lv.findall("Levels/Level") + lv.findall("Level")],
     }
     return d
 
@@ -117,8 +159,33 @@ def detalle(ruta: str):
     return {
         "listaWarnings": _mensajes(raiz, "Warning"),
         "listaErrores": _mensajes(raiz, "Error"),
-        "niveles": [_nivel(lv) for lv in raiz.findall("Levels/Level")],
+        "niveles": [_nivel(lv) for lv in raiz.findall("Levels/Level")] + _niveles_eventos(raiz),
     }
+
+
+def _niveles_eventos(raiz):
+    """En los Web Panels: la consulta de cada grilla con tabla base (el For Each implicito de su Load), con
+    el evento como tipo, y los For Each de los eventos."""
+    salida = []
+    for ev in raiz.findall("Event"):
+        nombre = (ev.findtext("EventName") or "").strip()
+        for imp in ev.findall("ImplicitForEach"):
+            n = _nivel(imp)
+            n["tipo"] = f"Grilla (Event {nombre})"
+            salida.append(n)
+        for lv in ev.findall("Levels/Level") + ev.findall("Level"):
+            n = _nivel(lv)
+            n["tipo"] = f"{n['tipo'] or 'Nivel'} (Event {nombre})"
+            salida.append(n)
+    return salida
+
+
+def loads_con_tabla(ruta: str):
+    """Nombres (en minusculas) de los eventos Load de un Web Panel que GeneXus corre una vez por cada registro:
+    los de una grilla con tabla base (<ImplicitForEach> en la navegacion). El Load de una grilla sin tabla base
+    corre una vez y carga las filas con Grid.Load()."""
+    raiz = _xml(Path(ruta))
+    return {(e.findtext("EventName") or "").strip().lower() for e in raiz.iter("Event") if e.find("ImplicitForEach") is not None}
 
 
 def _carpetas_nvg(kb):
@@ -156,7 +223,9 @@ def _leer_cacheado(cache, clave, mt):
     return datos
 
 
-def objetos(kb, solo_ejecutables=False):
+def objetos(kb, solo_ejecutables=False, con_web=False):
+    """Objetos de la KB. solo_ejecutables: procedimientos y Data Providers generados; con con_web, tambien
+    los Web Panels y Web Components generados (los que lista Explorar)."""
     with _lock:
         previo = _cache.setdefault(kb.nombre, {})
         nuevo = {}
@@ -171,14 +240,15 @@ def objetos(kb, solo_ejecutables=False):
     lista = sorted(unicos.values(), key=lambda d: d["nombre"].lower())
     if solo_ejecutables:
         # 'nogenspc': GeneXus no lo genera (por ejemplo, "Object is unreachable"): no hay Java para ejecutar.
-        lista = [d for d in lista if d["ejecutable"] and d["resultado"] != "nogenspc"]
+        lista = [d for d in lista if (d["ejecutable"] or (con_web and d["tipo"] in WEB)) and d["resultado"] != "nogenspc"]
     return lista
 
 
 def motivo_no_ejecutable(kb, info):
     """Texto que explica por que no se puede ejecutar el objeto, o None si se puede."""
     if not info["ejecutable"]:
-        return f"{info['nombre']} es un {info['tipo']}: solo se pueden ejecutar procedimientos y Data Providers"
+        tipo = {"WebPanel": "Web Panel", "WebComponent": "Web Component"}.get(info["tipo"], info["tipo"])
+        return f"{info['nombre']} es un {tipo}: solo se pueden ejecutar procedimientos y Data Providers"
     if info["resultado"] == "nogenspc":
         return (f"GeneXus no genera {info['nombre']} (la especificacion lo marca como no generado, "
                 "por ejemplo 'Object is unreachable'): no hay Java para ejecutar.")
@@ -230,7 +300,7 @@ def buscar(kb, nombre: str):
 
 def hace_commit(kb, objeto: str) -> bool:
     """True si el Java del objeto confirma la transaccion por su cuenta (Commit on exit = Yes o Commit explicito)."""
-    f = kb.fuente_java(objeto)
+    f = kb.fuente_logica(objeto)
     try:
         return "commitDataStores" in f.read_text(encoding="utf-8", errors="ignore")
     except OSError:

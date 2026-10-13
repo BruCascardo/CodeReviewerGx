@@ -5,8 +5,11 @@
 - Despues de un rato sin uso se apaga para liberar las conexiones a la base (Gestor).
 - 'lock' es reentrante: quien necesita varios pedidos seguidos sin que se mezclen otros (un caso de
   prueba completo, con su transaccion) lo toma durante todo el trabajo.
+- Cada KB puede tener dos: el de Explorar y las suites, y el de pantallas (rol "pantallas"), que ejecuta Web
+  Panels para la vista previa con una transaccion propia que nunca se confirma (ver motor/Pantallas.java).
 """
 import json
+import os
 import queue
 import subprocess
 import threading
@@ -14,7 +17,7 @@ import time
 from collections import deque
 
 from . import classpath
-from ..config import CFG, MOTOR_FUENTE
+from ..config import CFG
 from ..util import SIN_VENTANA
 
 MARCA = "\x01GXR "  # prefijo de las lineas del protocolo en el stdout de GxMotor
@@ -25,15 +28,13 @@ class MotorError(Exception):
 
 
 def _fecha_fuente():
-    try:
-        return MOTOR_FUENTE.stat().st_mtime_ns
-    except OSError:
-        return None
+    return classpath.fecha_fuentes()
 
 
 class Motor:
-    def __init__(self, kb):
+    def __init__(self, kb, rol=""):
         self.kb = kb
+        self.rol = rol
         self.proc = None
         self.estado = "apagado"
         self.lock = threading.RLock()
@@ -64,9 +65,10 @@ class Motor:
             try:
                 self.firma = self.kb.firma_build()
                 self.fuente_motor = _fecha_fuente()
-                cp = classpath.preparar(self.kb, self.log.append)
-                cmd = [CFG["java"], *CFG["opcionesJvm"], "-cp", cp, "GxMotor", self.kb.ns,
-                       ",".join(d["nombre"] for d in self.kb.datasources)]
+                cp = classpath.preparar(self.kb, self.log.append, pantallas=self.rol == "pantallas")
+                # gxp.padre: el motor se cierra solo si muere este proceso (ver GxMotor.vigilarPadre).
+                cmd = [CFG["java"], *CFG["opcionesJvm"], f"-Dgxp.padre={os.getpid()}", "-cp", cp, "GxMotor", self.kb.ns,
+                       ",".join(d["nombre"] for d in self.kb.datasources), *([self.rol] if self.rol else [])]
                 self.log.append(f"[gxpruebas] iniciando motor: cwd={self.kb.web}")
                 self.cola = queue.Queue()
                 self.proc = subprocess.Popen(cmd, cwd=str(self.kb.web), stdin=subprocess.PIPE, stdout=subprocess.PIPE,
@@ -202,6 +204,7 @@ class Motor:
     def info(self):
         return {
             "kb": self.kb.nombre,
+            "rol": self.rol,
             "estado": self.estado,
             "pid": self.proc.pid if self.vivo() else None,
             "inicio": self.inicio if self.vivo() else None,
@@ -220,11 +223,11 @@ class Gestor:
         self.lock = threading.Lock()
         threading.Thread(target=self._vigilar, daemon=True, name="gxp-motores").start()
 
-    def motor(self, kb):
+    def motor(self, kb, rol=""):
         with self.lock:
-            m = self.motores.get(kb.nombre)
+            m = self.motores.get((kb.nombre, rol))
             if m is None:
-                m = self.motores[kb.nombre] = Motor(kb)
+                m = self.motores[(kb.nombre, rol)] = Motor(kb, rol)
             return m
 
     def _vigilar(self):
@@ -260,9 +263,17 @@ def gestor():
         return _gestor
 
 
-def motor(kb):
-    """El motor de una KB (no lo inicia: arranca solo con el primer pedido)."""
-    return gestor().motor(kb)
+def motor(kb, rol=""):
+    """El motor de una KB (no lo inicia: arranca solo con el primer pedido). rol "pantallas": el de la vista
+    previa de Web Panels."""
+    return gestor().motor(kb, rol)
+
+
+def detener_kb(kb, motivo):
+    """Detiene los motores de la KB (el de Explorar y el de pantallas), si estan creados."""
+    for m in motores():
+        if m.kb.nombre == kb.nombre:
+            m.detener(motivo)
 
 
 def motores():

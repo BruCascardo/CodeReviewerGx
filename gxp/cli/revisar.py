@@ -80,7 +80,7 @@ def _imprimir_hallazgos(hs, detalle):
         print(c(f"\n{obj}  ({lista[0]['tipo']})", "negrita"))
         explicados = set()  # el "como se arregla" se muestra una vez por objeto
         for h in sorted(lista, key=lambda x: x["linea"]):
-            donde = f"linea {h['linea']}" if h["linea"] else "propiedad"
+            donde = f"linea {h['linea']}" if h["linea"] else ("reglas" if h["regla"] == "logica-solo-en-pantalla" else "propiedad")
             marca = c("NUEVO ", "negrita") if h.get("nuevo") else ""
             print(f"  {c(h['severidad'].upper(), SEV_COLOR[h['severidad']]):11} {donde:10} {marca}{h['mensaje']}  {c('[' + h['regla'] + ']', 'gris')}")
             if h["codigo"]:

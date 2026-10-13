@@ -184,8 +184,9 @@ def _escribir_suites(kb, grupos):
                               "casos": sorted(casos, key=lambda c: c["id"])})
         escritas.add(sid)
         total += len(casos)
+    from .pantallas import suite_id
     for sid in almacen.ids_de(kb.nombre, PREFIJO):
-        if sid not in escritas:
+        if sid not in escritas and sid != suite_id(kb):  # la de pantallas la escribe 'generar --pantallas'
             almacen.borrar(sid)
     return escritas, total
 

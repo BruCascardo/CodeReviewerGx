@@ -31,6 +31,9 @@ import java.util.concurrent.*;
  *   {"id":4, "cmd":"sql", "ds":"GENERALES", "query":"select ...", "max":500}
  *   {"id":5, "cmd":"rollback"}   {"id":6, "cmd":"commit"}   {"id":7, "cmd":"salir"}
  *   {"id":8, "cmd":"marcar", "ds":["GENERALES"], "otros":["SISTEMA"]}   {"id":9, "cmd":"volver"}   {"id":10, "cmd":"avanzar"}
+ *   Solo el motor de pantallas (argumento "pantallas", ver Pantallas.java):
+ *   {"id":11, "cmd":"pantalla", "sesion":"s1", "metodo":"GET", "ruta":"servlet/com.x.y", "query":"", "cuerpo":"<base64>", ...}
+ *   {"id":12, "cmd":"pantalla_reiniciar", "sesiones":true}   {"id":13, "cmd":"pantalla_query", "clase":"com.x.y", "parametros":["2"]}
  *
  * La transaccion queda abierta entre pedidos: el que llama decide cuando hacer rollback o commit. Asi un
  * escenario puede ejecutar varios objetos, consultar la base con SQL (ve los cambios sin confirmar,
@@ -61,6 +64,8 @@ public class GxMotor {
       return t;
    });
    static Date fechaNula;
+   static boolean modoPantallas;  // motor de la vista previa de pantallas (ver la clase Pantallas)
+   static Class<?> clasesCfg;
 
    public static void main(String[] args) throws Exception {
       proto = new PrintStream(new FileOutputStream(FileDescriptor.out), true, StandardCharsets.UTF_8);
@@ -79,14 +84,19 @@ public class GxMotor {
       System.setOut(captura);
       System.setErr(captura);
 
+      vigilarPadre();
       ns = args[0];
       if (args.length > 1 && !args[1].isBlank()) dataSources.addAll(Arrays.asList(args[1].split(",")));
+      modoPantallas = args.length > 2 && "pantallas".equals(args[2]);
 
       long t0 = System.nanoTime();
       try {
          Class<?> cfg = Class.forName(ns + ".GXcfg");
+         clasesCfg = cfg;
+         if (modoPantallas) Pantallas.instalarDriver();
          ApplicationContext.getInstance().setCurrentLocation("");
          Application.init(cfg);
+         if (modoPantallas) Pantallas.sinLogin();
          ctx = new ModelContext(cfg);
          // Un solo handle para todo: cada handle nuevo abre conexiones que no se liberan.
          rh = Application.getNewRemoteHandle(ctx);
@@ -183,6 +193,10 @@ public class GxMotor {
          case "commit": return finTransaccion(true);
          case "marcar": return marcar(req.optJSONArray("ds"), req.optJSONArray("otros"));
          case "volver": return terminarCaso(true);
+         case "pantalla": return Pantallas.pedido(req);
+         case "pantalla_reiniciar": return Pantallas.reiniciar(req.optBoolean("sesiones", true));
+         case "pantalla_query": return Pantallas.query(req);
+         case "pantalla_parametros": return Pantallas.parametrosDeQuery(req);
          case "avanzar": return terminarCaso(false);
          case "salir": {
             JSONObject r = new JSONObject();
@@ -768,6 +782,19 @@ public class GxMotor {
    }
 
    // ------------------------------------------------------------------ utilidades
+
+   /**
+    * Si muere el proceso que lanzo el motor (-Dgxp.padre=<pid>: la interfaz o la consola de GxPruebas), el motor
+    * se cierra: si no, quedaria vivo con sus conexiones (y, el de pantallas, con filas bloqueadas). No alcanza con
+    * el fin de stdin: en Windows el lanzador de java puede quedar con el pipe abierto.
+    */
+   static void vigilarPadre() {
+      long padre = Long.getLong("gxp.padre", -1L);
+      if (padre <= 0) return;
+      guardian.scheduleAtFixedRate(() -> {
+         if (!ProcessHandle.of(padre).map(ProcessHandle::isAlive).orElse(false)) Runtime.getRuntime().halt(0);
+      }, 3, 3, TimeUnit.SECONDS);
+   }
 
    static void enviar(JSONObject r) {
       synchronized (proto) {

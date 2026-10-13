@@ -1,0 +1,881 @@
+{
+  "nombre": "Pantallas Monedas",
+  "kb": "Generales",
+  "casos": [
+    {
+      "nombre": "Cambiar el simbolo de una moneda desde la lista",
+      "etiquetas": [
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir gntMonedaWW",
+          "pantalla": "Generales.Comunes.Monedas.gntMonedaWW",
+          "parametros": [],
+          "lineaBase": {
+            "estado": 200,
+            "titulo": "Monedas",
+            "grillas": {
+              "Grid": [
+                [
+                  "<i class=\"fa-regular fa-pen-to-square\"></i>",
+                  "<i class=\"fa-regular fa-trash-can\"></i>",
+                  "1",
+                  "PESOS",
+                  "PESOS",
+                  "NAC",
+                  "ARS",
+                  "$",
+                  "A"
+                ],
+                [
+                  "<i class=\"fa-regular fa-pen-to-square\"></i>",
+                  "<i class=\"fa-regular fa-trash-can\"></i>",
+                  "2",
+                  "DOLARES",
+                  "DOLARES",
+                  "EXT",
+                  "USD",
+                  "US$",
+                  "A"
+                ],
+                [
+                  "<i class=\"fa-regular fa-pen-to-square\"></i>",
+                  "<i class=\"fa-regular fa-trash-can\"></i>",
+                  "3",
+                  "REAL",
+                  "R",
+                  "EXT",
+                  "BRL",
+                  "R$",
+                  "A"
+                ]
+              ]
+            },
+            "valores": {
+              "vPGMNAME": "Generales.Comunes.Monedas.gntMonedaWW",
+              "vISAUTHORIZED_UPDATE": true,
+              "vISAUTHORIZED_DELETE": true,
+              "vISAUTHORIZED_MONNOMBRE": true,
+              "vISAUTHORIZED_INSERT": true,
+              "vMANAGEFILTERSDATA": [
+                {
+                  "Icon": "",
+                  "Icon_GXI": "",
+                  "FontIcon": "fa fa-times-circle",
+                  "Title": "Limpiar filtros",
+                  "Tooltip": "",
+                  "Link": "",
+                  "EventKey": "<#Clean#>",
+                  "IsDivider": false,
+                  "JSonclickEvent": "WWPDynFilterHideAll_AL('TABLEDYNAMICFILTERS', 2, 0)",
+                  "ThemeClass": ""
+                },
+                {
+                  "Icon": "",
+                  "Icon_GXI": "",
+                  "FontIcon": "fa fa-save",
+                  "Title": "Guardar filtro como...",
+                  "Tooltip": "",
+                  "Link": "",
+                  "EventKey": "<#Save#>",
+                  "IsDivider": false,
+                  "JSonclickEvent": "",
+                  "ThemeClass": ""
+                }
+              ],
+              "vGRIDCURRENTPAGE": "1",
+              "vGRIDPAGECOUNT": "1",
+              "vGRIDAPPLIEDFILTERS": "",
+              "vMANAGEFILTERSEXECUTIONSTEP": "0",
+              "vDYNAMICFILTERSENABLED2": false,
+              "vGRIDSTATE": {
+                "CurrentPage": 1,
+                "OrderedBy": 0,
+                "OrderedDsc": false,
+                "HidingSearch": 0,
+                "PageSize": "        10",
+                "CollapsedRecords": "",
+                "GroupBy": "",
+                "DynamicFilters": []
+              },
+              "vDYNAMICFILTERSIGNOREFIRST": false,
+              "vDYNAMICFILTERSREMOVING": false
+            }
+          }
+        },
+        {
+          "nombre": "gntMonedaWW: recargar la grilla Grid",
+          "pantalla": "Generales.Comunes.Monedas.gntMonedaWW",
+          "accion": "gxajaxGridRefresh_Grid",
+          "valores": {
+            "subGrid_Rows": "10",
+            "cmbavDynamicfiltersselector1.combo": {
+              "s": "MONNOMBRE",
+              "v": [
+                [
+                  "MONNOMBRE",
+                  "Nombre"
+                ],
+                [
+                  "MONORIGEN",
+                  "Origen"
+                ]
+              ]
+            },
+            "DynamicFiltersSelector1": "MONNOMBRE",
+            "MonNombre1": "DOL",
+            "cmbavMonorigen1.combo": {
+              "s": "",
+              "v": [
+                [
+                  "",
+                  "Todos"
+                ],
+                [
+                  "NAC",
+                  "Nacional"
+                ],
+                [
+                  "EXT",
+                  "Extranjera"
+                ]
+              ]
+            },
+            "MonOrigen1": "",
+            "cmbavDynamicfiltersselector2.combo": {
+              "s": "MONNOMBRE",
+              "v": [
+                [
+                  "MONNOMBRE",
+                  "Nombre"
+                ],
+                [
+                  "MONORIGEN",
+                  "Origen"
+                ]
+              ]
+            },
+            "DynamicFiltersSelector2": "MONNOMBRE",
+            "MonNombre2": "",
+            "cmbavMonorigen2.combo": {
+              "s": "",
+              "v": [
+                [
+                  "",
+                  "Todos"
+                ],
+                [
+                  "NAC",
+                  "Nacional"
+                ],
+                [
+                  "EXT",
+                  "Extranjera"
+                ]
+              ]
+            },
+            "MonOrigen2": "",
+            "ManageFiltersExecutionStep": "0",
+            "Pgmname": "Generales.Comunes.Monedas.gntMonedaWW",
+            "DynamicFiltersEnabled2": "false",
+            "GridState": {
+              "CurrentPage": 1,
+              "OrderedBy": 0,
+              "OrderedDsc": false,
+              "HidingSearch": 0,
+              "PageSize": "        10",
+              "CollapsedRecords": "",
+              "GroupBy": "",
+              "DynamicFilters": []
+            },
+            "DynamicFiltersIgnoreFirst": "false",
+            "DynamicFiltersRemoving": "false",
+            "IsAuthorized_Update": "true",
+            "IsAuthorized_Delete": "true",
+            "IsAuthorized_MonNombre": "true",
+            "IsAuthorized_Insert": "true"
+          },
+          "cabeceras": {
+            "GxAjaxRequest": "1",
+            "X-Gx-Tabid": "1c705e57-55b4-4cfd-a3e4-e095fed6668c"
+          },
+          "lineaBase": {
+            "estado": 200,
+            "valores": {
+              "AV106DynamicFiltersSelector1": "MONNOMBRE",
+              "AV110MonOrigen1": "",
+              "AV114DynamicFiltersSelector2": "MONNOMBRE",
+              "AV118MonOrigen2": "",
+              "AV96IsAuthorized_Update": true,
+              "AV98IsAuthorized_Delete": true,
+              "AV104IsAuthorized_Insert": true,
+              "AV93GridCurrentPage": "1",
+              "AV94GridPageCount": "1",
+              "AV155GridAppliedFilters": "Filtrando por Nombre (DOL)",
+              "AV43ManageFiltersData": [],
+              "AV11GridState": {
+                "CurrentPage": 1,
+                "OrderedBy": 0,
+                "OrderedDsc": false,
+                "HidingSearch": 0,
+                "PageSize": "        10",
+                "CollapsedRecords": "",
+                "GroupBy": "",
+                "DynamicFilters": [
+                  {
+                    "Selected": "MONNOMBRE",
+                    "d": "Nombre",
+                    "Value": "DOL",
+                    "ValueDsc": "DOL",
+                    "Operator": 0,
+                    "ValueTo": "",
+                    "ValueToDsc": ""
+                  }
+                ]
+              },
+              "vUPDATE_0001": "<i class=\"fa-regular fa-pen-to-square\"></i>",
+              "vDELETE_0001": "<i class=\"fa-regular fa-trash-can\"></i>"
+            },
+            "ocultos": {
+              "vPGMNAME": "Generales.Comunes.Monedas.gntMonedaWW",
+              "vISAUTHORIZED_UPDATE": true,
+              "vISAUTHORIZED_DELETE": true,
+              "vISAUTHORIZED_MONNOMBRE": true,
+              "vISAUTHORIZED_INSERT": true,
+              "GRID_nEOF": "1"
+            },
+            "grillas": {
+              "Grid": [
+                {
+                  "vUPDATE": "",
+                  "vDELETE": "",
+                  "MONID": "2",
+                  "MONNOMBRE": "DOLARES",
+                  "MONNOMBRECORTO": "DOLARES",
+                  "{'isset': True, 's': 'EXT', 'v': [['NAC', 'Nacional'], ['EXT', 'Extranjera']]}": "MONORIGEN_0001",
+                  "MONCODIGOISO": "",
+                  "MONSIMBOLO": "",
+                  "{'isset': True, 's': 'A', 'v': [['A', 'Activo'], ['B', 'Bloqueado']]}": "MONESTADO_0001"
+                }
+              ],
+              "Grid (datos)": [
+                []
+              ]
+            }
+          }
+        },
+        {
+          "nombre": "Abrir gntMoneda",
+          "pantalla": "Generales.Comunes.Monedas.gntMoneda",
+          "parametros": [
+            "UPD",
+            "2"
+          ],
+          "lineaBase": {
+            "estado": 200,
+            "titulo": "Monedas",
+            "valores": {
+              "vMODE": "UPD",
+              "vTRNCONTEXT": {
+                "CallerObject": "Generales.Comunes.Monedas.gntMonedaWW",
+                "CallerOnDelete": true,
+                "CallerURL": "com.generales.generales.comunes.monedas.gntmonedaww?VicTQTESjkF_uJj4Low39iESE-5h3aXvgJaIE0X9XRFXTNhIQJGLSUwU_V1BxjlSB5zORBzYp5S4cvvJw5Ko2w",
+                "TransactionName": "Generales.Comunes.Monedas.gntMoneda"
+              },
+              "vMONID": "2"
+            }
+          }
+        },
+        {
+          "nombre": "gntMoneda: evento ENTER (MONSIMBOLO: US$ → U$Z)",
+          "pantalla": "Generales.Comunes.Monedas.gntMoneda",
+          "evento": "ENTER",
+          "valores": {
+            "vMODE": "UPD",
+            "vMONID": 2
+          },
+          "query": "gxfullajaxEvt,VicTQTESjkF_uJj4Low39iESE-5h3aXvgJaIE0X9XRFXTNhIQJGLSUwU_V1BxjlS75rfB9JhamvnAZYYI5Rsag,gx-no-cache=1791570507467",
+          "pedido": {
+            "MPage": false,
+            "cmpCtx": "",
+            "hsh": [
+              {
+                "hsh": "gxpruebas",
+                "row": ""
+              },
+              {
+                "hsh": "gxpruebas",
+                "row": ""
+              }
+            ],
+            "objClass": "generales.comunes.monedas.gntmoneda",
+            "pkgName": "com.generales",
+            "fullPost": {
+              "vTEXTOBUSQUEDA_MPAGE": "",
+              "MONNOMBRE": "DOLARES",
+              "MONNOMBRECORTO": "DOLARES",
+              "MONORIGEN": "EXT",
+              "MONCODIGOISO": "USD",
+              "MONSIMBOLO": "U$Z",
+              "MONESTADO": "A",
+              "BTNTRN_CANCEL": "Cancelar",
+              "BTNTRN_ENTER": "Confirmar",
+              "BTNTRN_DELETE": "Eliminar",
+              "MONID": "2",
+              "vHTML_MPAGE": "",
+              "vPICKERDUMMYVARIABLE_MPAGE": "  /  /  ",
+              "GXState": "{\"gxhash_vMONID\":\"gxpruebas\",\"vHTML_MPAGE_Enabled\":\"0\",\"LAYOUTMAINTABLE_MPAGE_Class\":\"MainContainerWithFooter\",\"WWPDATEPICKER_MPAGE_Minyear\":\"1926\",\"WWPDATEPICKER_MPAGE_Maxyear\":\"2126\",\"IMGHEADER_MPAGE_Link\":\"http://www.elnorte.com.ar\",\"IMGHEADER_MPAGE_Linktarget\":\"_blank\",\"LOGODSC_MPAGE_Link\":\"http://www.elnorte.com.ar\",\"LOGODSC_MPAGE_Linktarget\":\"_blank\",\"LOGODSC_MPAGE_Bitmap\":\"https://en-recursos.s3.sa-east-1.amazonaws.com/core/Logo.svg\",\"LOGODSC_MPAGE_Srcset\":\"\",\"IMGHEADER_MPAGE_Bitmap\":\"https://en-recursos.s3.sa-east-1.amazonaws.com/core/LOGO_MASTERPAGE_SMALL.svg\",\"IMGHEADER_MPAGE_Srcset\":\"\",\"MASTERHEADER_MPAGE_Class\":\"MasterHeaderCell CellTableBlue\",\"DDC_ADMINAG_MPAGE_Caption\":\"\",\"DDC_ADMINAG_MPAGE_Icontype\":\"FontIcon\",\"DDC_ADMINAG_MPAGE_Icon\":\"SearchIcon fa-regular fa-user\",\"TEXTBLOCKFOOTER_MPAGE_Caption\":\"xiku © 2026 \\u2022 Compañía de Seguros EL NORTE S.A. \\u2022 Todos los Derechos Reservados.\",\"WEBFOOTER_MPAGE_Caption\":\"www.elnorte.com.ar\",\"WEBFOOTER_MPAGE_Link\":\"http://www.elnorte.com.ar\",\"WEBFOOTER_MPAGE_Linktarget\":\"_blank\",\"UCAUTOCOMPLETE_MPAGE_Attachcontrol\":\"vTEXTOBUSQUEDA_MPAGE\",\"UCAUTOCOMPLETE_MPAGE_Url\":\"https://cloudibmdesa.elnorte.com.ar/servicios/rest/Servicios/Global/OS_FullTextSearchWS\",\"UCAUTOCOMPLETE_MPAGE_Gamoauthtoken\":\"3d6f97a2-9bd1-4fb9-9a0b-7af13b75784d!j4tZ9TBPp1NLAbkarlgh8YM6egKAjwGRDPbRc6JQMr8GmJo36KZBl17tMi9sx2JKInbYh7vK6HUCzN\",\"UCAUTOCOMPLETE_MPAGE_Overlay\":\"true\",\"UCAUTOCOMPLETE_MPAGE_Parametros\":\"{\\\"Anio\\\":0,\\\"RamaId\\\":0,\\\"UserGUID\\\":\\\"\\\"}\",\"LAYOUTMAINTABLE_Class\":\"Table EditForm\",\"MONID_Visible\":\"0\",\"BTNTRN_DELETE_Enabled\":\"0\",\"MONID_Enabled\":\"0\",\"BTNTRN_ENTER_Enabled\":\"1\",\"BTNTRN_DELETE_Visible\":\"0\",\"TEXTBLOCKTITLE_MPAGE_Caption\":\"Monedas\",\"gxhash_vBREADCRUMB_MPAGE\":\"gxpruebas\",\"SUBTITLE_MPAGE_Caption\":\"<span class=\\\"BreadCrumb\\\">Monedas<\\/span>\",\"CELLTOUR_MPAGE_Visible\":\"0\",\"_EventName\":\"\",\"_EventGridId\":\"\",\"_EventRowId\":\"\",\"FORM_Class\":\"form-horizontal Form\",\"MONORIGEN_Values\":\"{\\\"isset\\\":true,\\\"s\\\":\\\"EXT\\\",\\\"v\\\":[[\\\"NAC\\\",\\\"Nacional\\\"],[\\\"EXT\\\",\\\"Extranjera\\\"]]}\",\"MONESTADO_Values\":\"{\\\"isset\\\":true,\\\"s\\\":\\\"A\\\",\\\"v\\\":[[\\\"A\\\",\\\"Activo\\\"],[\\\"B\\\",\\\"Bloqueado\\\"]]}\",\"MPW0105\":\"\",\"vOUTTOUR_MPAGE\":{\"Steps\":[]},\"gxhash_vOUTTOUR_MPAGE\":\"gxpruebas\",\"vBREADCRUMB_MPAGE\":\"\",\"vDVELOP_MENU_MPAGE\":[],\"vDVELOP_MENU_USERDATA_MPAGE\":{\"PhotoUri\":\"\",\"FirstLine\":\"\",\"SecondLine\":\"\"},\"vNOTIFICATIONSCOUNT_MPAGE\":\"0\",\"vDOREFRESH_MPAGE\":false,\"vWCTABLENAME_MPAGE\":\"\",\"vUSUARIO_MPAGE\":{\"Usuario\":{\"UserName\":\"\",\"GUID\":\"\",\"Nombre\":\"\",\"Apellido\":\"\",\"Email\":\"\"}},\"vINCANTIDADPENDIENTES_MPAGE\":{\"RepositoryGUID\":\"\",\"UserGUID\":\"\",\"ConversacionTipo\":\"\",\"ConversacionEntidad\":\"\"},\"vCONVERSACIONESCOUNT_MPAGE\":\"0\",\"vNOTIFICATIONINFO_MPAGE\":{\"Id\":\"\",\"Object\":\"\",\"Message\":\"\"},\"vOUTLOGUEADO_MPAGE\":{},\"DDC_CONVERSACIONES_MPAGE_Icontype\":\"FontIcon\",\"DDC_CONVERSACIONES_MPAGE_Icon\":\"fa-regular fa-comments\",\"DDC_CONVERSACIONES_MPAGE_Caption\":\"0\",\"DDC_CONVERSACIONES_MPAGE_Cls\":\"DropDownNotification\",\"DDC_NOTIFICATIONSWC_MPAGE_Icontype\":\"FontIcon\",\"DDC_NOTIFICATIONSWC_MPAGE_Icon\":\"fa-regular fa-bell\",\"DDC_NOTIFICATIONSWC_MPAGE_Caption\":\"0\",\"DDC_NOTIFICATIONSWC_MPAGE_Cls\":\"DropDownNotification\",\"DDC_ADMINAG_MPAGE_Cls\":\"DropDownOptionsNoBackHover\",\"DDC_ADMINAG_MPAGE_Componentwidth\":\"260\",\"DDC_MOBILEACTIONS_MPAGE_Icontype\":\"FontIcon\",\"DDC_MOBILEACTIONS_MPAGE_Icon\":\"fas fa-bars\",\"UCMENU_MPAGE_Searchserviceurl\":\"xxx\",\"UCMENU_MPAGE_Searchminchars\":\"0\",\"UCMENU_MPAGE_Searchhelperdescription\":\"WWP_SearchMenuOption\",\"UCMENU_MPAGE_Sidebarmainclass\":\"page-sidebar sidebar-fixed sidebar-back-image\",\"UCMENU_MPAGE_Scrollwidth\":\"5\",\"UCMENU_MPAGE_Scrollalwaysvisible\":\"true\",\"UCMENU_MPAGE_Hidescrollincompactmenu\":\"false\",\"UCMENU_MPAGE_Firstlevelisgrouping\":\"true\",\"UCMESSAGE_MPAGE_Stylingtype\":\"lighttheme\",\"UCMESSAGE_MPAGE_Stoponerror\":\"true\",\"WWPUTILITIES_MPAGE_Enablefixobjectfitcover\":\"true\",\"WWPUTILITIES_MPAGE_Empowertabs\":\"true\",\"WWPUTILITIES_MPAGE_Enableupdaterowselectionstatus\":\"true\",\"WWPUTILITIES_MPAGE_Enableconvertcombotobootstrapselect\":\"true\",\"WWPUTILITIES_MPAGE_Allowcolumndragging\":\"true\",\"WWPUTILITIES_MPAGE_Pagbarincludegoto\":\"true\",\"WWPUTILITIES_MPAGE_Comboloadtype\":\"InfiniteScrolling\",\"vOUTTOUR_MPAGE_Steps\":[],\"FORM_MPAGE_Caption\":\"Monedas\",\"vNOTIFICATIONINFO_MPAGE_Message\":\"\",\"GX_AUTH_GENERALES.XIKUMASTERPAGE\":\"gxpruebas\",\"hsh\":\"Pp1VBSqUrEukE8xomtH5KXiNFta0PY8F/QwYcOtWTZTzmaZqjBWaCtzHvYCBaEcPQDVuprib63GaM4F8j1ImZw==\",\"Z23MonId\":\"2\",\"Z177MonUsrIns\":\"\",\"Z178MonDateIns\":\"    /  /   00:00:00\",\"Z179MonUsrUpd\":\"admin\",\"Z180MonDateUpd\":\"2026/04/29 09:36:21\",\"Z173MonNombreCorto\":\"DOLARES\",\"Z172MonNombre\":\"DOLARES\",\"Z176MonOrigen\":\"EXT\",\"Z174MonCodigoISO\":\"USD\",\"Z175MonSimbolo\":\"US$\",\"Z1046MonEstado\":\"A\",\"O176MonOrigen\":\"EXT\",\"IsConfirmed\":\"0\",\"IsModified\":\"0\",\"Mode\":\"UPD\",\"gxhash_Mode\":\"gxpruebas\",\"vMODE\":\"UPD\",\"gxhash_vMODE\":\"gxpruebas\",\"vTRNCONTEXT\":{\"CallerObject\":\"Generales.Comunes.Monedas.gntMonedaWW\",\"CallerOnDelete\":true,\"CallerURL\":\"com.generales.generales.comunes.monedas.gntmonedaww?VicTQTESjkF_uJj4Low39iESE-5h3aXvgJaIE0X9XRFXTNhIQJGLSUwU_V1BxjlSB5zORBzYp5S4cvvJw5Ko2w\",\"TransactionName\":\"Generales.Comunes.Monedas.gntMoneda\"},\"gxhash_vTRNCONTEXT\":\"gxpruebas\",\"vMONID\":\"2\",\"MONUSRINS\":\"\",\"MONDATEINS\":\"    /  /   00:00:00\",\"MONUSRUPD\":\"admin\",\"MONDATEUPD\":\"2026/04/29 09:36:21\",\"DVPANEL_TABLEATTRIBUTES_Objectcall\":\"\",\"DVPANEL_TABLEATTRIBUTES_Enabled\":\"false\",\"DVPANEL_TABLEATTRIBUTES_Width\":\"100%\",\"DVPANEL_TABLEATTRIBUTES_Autowidth\":\"false\",\"DVPANEL_TABLEATTRIBUTES_Autoheight\":\"true\",\"DVPANEL_TABLEATTRIBUTES_Cls\":\"PanelCard_GrayTitle\",\"DVPANEL_TABLEATTRIBUTES_Title\":\"Información General\",\"DVPANEL_TABLEATTRIBUTES_Collapsible\":\"false\",\"DVPANEL_TABLEATTRIBUTES_Collapsed\":\"false\",\"DVPANEL_TABLEATTRIBUTES_Showcollapseicon\":\"false\",\"DVPANEL_TABLEATTRIBUTES_Iconposition\":\"Right\",\"DVPANEL_TABLEATTRIBUTES_Autoscroll\":\"false\",\"GX_FocusControl\":\"MONNOMBRE\",\"GX_AJAX_KEY\":\"FFFF370A23FF08FF3BFFFF22FFFF68FF\",\"GX_AJAX_IV\":\"8722E2EA52FD44F599D35D1534485D8E\",\"AJAX_SECURITY_TOKEN\":\"a6df24d23727e004075e803839c80bcee4df97103c3a84e52e56e33c87e62b1c3f0e08e0eb160d3021894ad8a11a6878\",\"GX_AUTH_GENERALES.COMUNES.MONEDAS.GNTMONEDA\":\"gxpruebas\",\"GX_CMP_OBJS\":{},\"GX_SRV_COMMANDS\":[{\"ucmethod\":{\"CmpContext\":\"\",\"IsMasterPage\":true,\"Control\":\"DDC_NOTIFICATIONSWC_MPAGEContainer\",\"Method\":\"Update\",\"Output\":\"\",\"Parms\":[\"\",\"fa-regular fa-bell\"]}},{\"ucmethod\":{\"CmpContext\":\"\",\"IsMasterPage\":true,\"Control\":\"DDC_CONVERSACIONES_MPAGEContainer\",\"Method\":\"Update\",\"Output\":\"\",\"Parms\":[\"\",\"fa-regular fa-comments\"]}},{\"exomethod\":{\"CmpContext\":\"\",\"IsMasterPage\":true,\"ObjectName\":\"gx.core.ds\",\"Method\":\"setOption\",\"Parms\":[\"base-color\",\"Custom\"],\"IsEvent\":false}},{\"exomethod\":{\"CmpContext\":\"\",\"IsMasterPage\":true,\"ObjectName\":\"gx.core.ds\",\"Method\":\"setOption\",\"Parms\":[\"background-color\",\"Light\"],\"IsEvent\":false}},{\"exomethod\":{\"CmpContext\":\"\",\"IsMasterPage\":true,\"ObjectName\":\"gx.core.ds\",\"Method\":\"setOption\",\"Parms\":[\"menu-color\",\"Light\"],\"IsEvent\":false}},{\"exomethod\":{\"CmpContext\":\"\",\"IsMasterPage\":true,\"ObjectName\":\"WWPActions\",\"Method\":\"EmpoweredGrids_Refresh\",\"Parms\":[],\"IsEvent\":false}}],\"sCallerURL\":\"@@VISTA@@/servlet/com.generales.generales.comunes.monedas.gntmonedaww?VicTQTESjkF_uJj4Low39iESE-5h3aXvgJaIE0X9XRFXTNhIQJGLSUwU_V1BxjlSB5zORBzYp5S4cvvJw5Ko2w\",\"GX_WEBSOCKET_ID\":\"1fa6068f-32f7-4a51-b356-d59b23f941de\",\"GX_CLI_NAV\":\"true\",\"GX_THEME\":\"DesignSystem.ClienteDS\"}",
+              "gxhash_vMONID": "gxpruebas",
+              "vHTML_MPAGE_Enabled": "0",
+              "LAYOUTMAINTABLE_MPAGE_Class": "MainContainerWithFooter",
+              "WWPDATEPICKER_MPAGE_Minyear": "1926",
+              "WWPDATEPICKER_MPAGE_Maxyear": "2126",
+              "IMGHEADER_MPAGE_Link": "http://www.elnorte.com.ar",
+              "IMGHEADER_MPAGE_Linktarget": "_blank",
+              "LOGODSC_MPAGE_Link": "http://www.elnorte.com.ar",
+              "LOGODSC_MPAGE_Linktarget": "_blank",
+              "LOGODSC_MPAGE_Bitmap": "https://en-recursos.s3.sa-east-1.amazonaws.com/core/Logo.svg",
+              "LOGODSC_MPAGE_Srcset": "",
+              "IMGHEADER_MPAGE_Bitmap": "https://en-recursos.s3.sa-east-1.amazonaws.com/core/LOGO_MASTERPAGE_SMALL.svg",
+              "IMGHEADER_MPAGE_Srcset": "",
+              "MASTERHEADER_MPAGE_Class": "MasterHeaderCell CellTableBlue",
+              "DDC_ADMINAG_MPAGE_Caption": "",
+              "DDC_ADMINAG_MPAGE_Icontype": "FontIcon",
+              "DDC_ADMINAG_MPAGE_Icon": "SearchIcon fa-regular fa-user",
+              "TEXTBLOCKFOOTER_MPAGE_Caption": "xiku © 2026 • Compañía de Seguros EL NORTE S.A. • Todos los Derechos Reservados.",
+              "WEBFOOTER_MPAGE_Caption": "www.elnorte.com.ar",
+              "WEBFOOTER_MPAGE_Link": "http://www.elnorte.com.ar",
+              "WEBFOOTER_MPAGE_Linktarget": "_blank",
+              "UCAUTOCOMPLETE_MPAGE_Attachcontrol": "vTEXTOBUSQUEDA_MPAGE",
+              "UCAUTOCOMPLETE_MPAGE_Url": "https://cloudibmdesa.elnorte.com.ar/servicios/rest/Servicios/Global/OS_FullTextSearchWS",
+              "UCAUTOCOMPLETE_MPAGE_Gamoauthtoken": "3d6f97a2-9bd1-4fb9-9a0b-7af13b75784d!j4tZ9TBPp1NLAbkarlgh8YM6egKAjwGRDPbRc6JQMr8GmJo36KZBl17tMi9sx2JKInbYh7vK6HUCzN",
+              "UCAUTOCOMPLETE_MPAGE_Overlay": 1,
+              "UCAUTOCOMPLETE_MPAGE_Parametros": "{\"Anio\":0,\"RamaId\":0,\"UserGUID\":\"\"}",
+              "LAYOUTMAINTABLE_Class": "Table EditForm",
+              "MONID_Visible": "0",
+              "BTNTRN_DELETE_Enabled": "0",
+              "MONID_Enabled": "0",
+              "BTNTRN_ENTER_Enabled": "1",
+              "BTNTRN_DELETE_Visible": "0",
+              "TEXTBLOCKTITLE_MPAGE_Caption": "Monedas",
+              "gxhash_vBREADCRUMB_MPAGE": "gxpruebas",
+              "SUBTITLE_MPAGE_Caption": "<span class=\"BreadCrumb\">Monedas</span>",
+              "CELLTOUR_MPAGE_Visible": "0",
+              "_EventName": "EENTER.",
+              "_EventGridId": "",
+              "_EventRowId": "",
+              "FORM_Class": "form-horizontal Form",
+              "MONORIGEN_Values": "{\"isset\":true,\"s\":\"EXT\",\"v\":[[\"NAC\",\"Nacional\"],[\"EXT\",\"Extranjera\"]]}",
+              "MONESTADO_Values": "{\"isset\":true,\"s\":\"A\",\"v\":[[\"A\",\"Activo\"],[\"B\",\"Bloqueado\"]]}",
+              "MPW0105": "",
+              "vOUTTOUR_MPAGE": {
+                "Steps": []
+              },
+              "gxhash_vOUTTOUR_MPAGE": "gxpruebas",
+              "vBREADCRUMB_MPAGE": "",
+              "vDVELOP_MENU_USERDATA_MPAGE": {
+                "PhotoUri": "",
+                "FirstLine": "",
+                "SecondLine": ""
+              },
+              "vNOTIFICATIONSCOUNT_MPAGE": "0",
+              "vDOREFRESH_MPAGE": false,
+              "vWCTABLENAME_MPAGE": "",
+              "vUSUARIO_MPAGE": {
+                "Usuario": {
+                  "UserName": "",
+                  "GUID": "",
+                  "Nombre": "",
+                  "Apellido": "",
+                  "Email": ""
+                }
+              },
+              "vINCANTIDADPENDIENTES_MPAGE": {
+                "RepositoryGUID": "",
+                "UserGUID": "",
+                "ConversacionTipo": "",
+                "ConversacionEntidad": ""
+              },
+              "vCONVERSACIONESCOUNT_MPAGE": "0",
+              "vNOTIFICATIONINFO_MPAGE": {
+                "Id": "",
+                "Object": "",
+                "Message": ""
+              },
+              "vOUTLOGUEADO_MPAGE": {},
+              "DDC_CONVERSACIONES_MPAGE_Icontype": "FontIcon",
+              "DDC_CONVERSACIONES_MPAGE_Icon": "fa-regular fa-comments",
+              "DDC_CONVERSACIONES_MPAGE_Caption": "",
+              "DDC_CONVERSACIONES_MPAGE_Cls": "DropDownNotification",
+              "DDC_NOTIFICATIONSWC_MPAGE_Icontype": "FontIcon",
+              "DDC_NOTIFICATIONSWC_MPAGE_Icon": "fa-regular fa-bell",
+              "DDC_NOTIFICATIONSWC_MPAGE_Caption": "",
+              "DDC_NOTIFICATIONSWC_MPAGE_Cls": "DropDownNotification",
+              "DDC_ADMINAG_MPAGE_Cls": "DropDownOptionsNoBackHover",
+              "DDC_ADMINAG_MPAGE_Componentwidth": 260,
+              "DDC_MOBILEACTIONS_MPAGE_Icontype": "FontIcon",
+              "DDC_MOBILEACTIONS_MPAGE_Icon": "fas fa-bars",
+              "UCMENU_MPAGE_Searchserviceurl": "xxx",
+              "UCMENU_MPAGE_Searchminchars": 0,
+              "UCMENU_MPAGE_Searchhelperdescription": "WWP_SearchMenuOption",
+              "UCMENU_MPAGE_Sidebarmainclass": "page-sidebar sidebar-fixed sidebar-back-image",
+              "UCMENU_MPAGE_Scrollwidth": 5,
+              "UCMENU_MPAGE_Scrollalwaysvisible": 1,
+              "UCMENU_MPAGE_Hidescrollincompactmenu": 0,
+              "UCMENU_MPAGE_Firstlevelisgrouping": 1,
+              "UCMESSAGE_MPAGE_Stylingtype": "lighttheme",
+              "UCMESSAGE_MPAGE_Stoponerror": 1,
+              "WWPUTILITIES_MPAGE_Enablefixobjectfitcover": 1,
+              "WWPUTILITIES_MPAGE_Empowertabs": 1,
+              "WWPUTILITIES_MPAGE_Enableupdaterowselectionstatus": 1,
+              "WWPUTILITIES_MPAGE_Enableconvertcombotobootstrapselect": 1,
+              "WWPUTILITIES_MPAGE_Allowcolumndragging": 1,
+              "WWPUTILITIES_MPAGE_Pagbarincludegoto": 1,
+              "WWPUTILITIES_MPAGE_Comboloadtype": "InfiniteScrolling",
+              "vOUTTOUR_MPAGE_Steps": [],
+              "FORM_MPAGE_Caption": "Monedas",
+              "vNOTIFICATIONINFO_MPAGE_Message": "",
+              "GX_AUTH_GENERALES.XIKUMASTERPAGE": "gxpruebas",
+              "hsh": "Pp1VBSqUrEukE8xomtH5KXiNFta0PY8F/QwYcOtWTZTzmaZqjBWaCtzHvYCBaEcPQDVuprib63GaM4F8j1ImZw==",
+              "Z23MonId": "2",
+              "Z177MonUsrIns": "",
+              "Z178MonDateIns": "    /  /   00:00:00",
+              "Z179MonUsrUpd": "admin",
+              "Z180MonDateUpd": "2026/04/29 09:36:21",
+              "Z173MonNombreCorto": "DOLARES",
+              "Z172MonNombre": "DOLARES",
+              "Z176MonOrigen": "EXT",
+              "Z174MonCodigoISO": "USD",
+              "Z175MonSimbolo": "US$",
+              "Z1046MonEstado": "A",
+              "O176MonOrigen": "EXT",
+              "IsConfirmed": "0",
+              "IsModified": "1",
+              "Mode": "UPD",
+              "gxhash_Mode": "gxpruebas",
+              "vMODE": "UPD",
+              "gxhash_vMODE": "gxpruebas",
+              "vTRNCONTEXT": {
+                "CallerObject": "Generales.Comunes.Monedas.gntMonedaWW",
+                "CallerOnDelete": true,
+                "CallerURL": "com.generales.generales.comunes.monedas.gntmonedaww?VicTQTESjkF_uJj4Low39iESE-5h3aXvgJaIE0X9XRFXTNhIQJGLSUwU_V1BxjlSB5zORBzYp5S4cvvJw5Ko2w",
+                "TransactionName": "Generales.Comunes.Monedas.gntMoneda"
+              },
+              "gxhash_vTRNCONTEXT": "gxpruebas",
+              "vMONID": "2",
+              "MONUSRINS": "",
+              "MONDATEINS": "    /  /   00:00:00",
+              "MONUSRUPD": "admin",
+              "MONDATEUPD": "2026/04/29 09:36:21",
+              "DVPANEL_TABLEATTRIBUTES_Objectcall": "",
+              "DVPANEL_TABLEATTRIBUTES_Enabled": 1,
+              "DVPANEL_TABLEATTRIBUTES_Width": "100%",
+              "DVPANEL_TABLEATTRIBUTES_Autowidth": 0,
+              "DVPANEL_TABLEATTRIBUTES_Autoheight": 1,
+              "DVPANEL_TABLEATTRIBUTES_Cls": "PanelCard_GrayTitle",
+              "DVPANEL_TABLEATTRIBUTES_Title": "Información General",
+              "DVPANEL_TABLEATTRIBUTES_Collapsible": 0,
+              "DVPANEL_TABLEATTRIBUTES_Collapsed": 0,
+              "DVPANEL_TABLEATTRIBUTES_Showcollapseicon": 0,
+              "DVPANEL_TABLEATTRIBUTES_Iconposition": "Right",
+              "DVPANEL_TABLEATTRIBUTES_Autoscroll": 0,
+              "GX_FocusControl": "MONNOMBRE",
+              "GX_AJAX_KEY": "FFFF370A23FF08FF3BFFFF22FFFF68FF",
+              "GX_AJAX_IV": "8722E2EA52FD44F599D35D1534485D8E",
+              "AJAX_SECURITY_TOKEN": "a6df24d23727e004075e803839c80bcee4df97103c3a84e52e56e33c87e62b1c3f0e08e0eb160d3021894ad8a11a6878",
+              "GX_AUTH_GENERALES.COMUNES.MONEDAS.GNTMONEDA": "gxpruebas",
+              "GX_CMP_OBJS": {},
+              "GX_SRV_COMMANDS": [
+                {
+                  "ucmethod": {
+                    "CmpContext": "",
+                    "IsMasterPage": true,
+                    "Control": "DDC_NOTIFICATIONSWC_MPAGEContainer",
+                    "Method": "Update",
+                    "Output": "",
+                    "Parms": [
+                      "",
+                      "fa-regular fa-bell"
+                    ]
+                  }
+                },
+                {
+                  "ucmethod": {
+                    "CmpContext": "",
+                    "IsMasterPage": true,
+                    "Control": "DDC_CONVERSACIONES_MPAGEContainer",
+                    "Method": "Update",
+                    "Output": "",
+                    "Parms": [
+                      "",
+                      "fa-regular fa-comments"
+                    ]
+                  }
+                },
+                {
+                  "exomethod": {
+                    "CmpContext": "",
+                    "IsMasterPage": true,
+                    "ObjectName": "gx.core.ds",
+                    "Method": "setOption",
+                    "Parms": [
+                      "base-color",
+                      "Custom"
+                    ],
+                    "IsEvent": false
+                  }
+                },
+                {
+                  "exomethod": {
+                    "CmpContext": "",
+                    "IsMasterPage": true,
+                    "ObjectName": "gx.core.ds",
+                    "Method": "setOption",
+                    "Parms": [
+                      "background-color",
+                      "Light"
+                    ],
+                    "IsEvent": false
+                  }
+                },
+                {
+                  "exomethod": {
+                    "CmpContext": "",
+                    "IsMasterPage": true,
+                    "ObjectName": "gx.core.ds",
+                    "Method": "setOption",
+                    "Parms": [
+                      "menu-color",
+                      "Light"
+                    ],
+                    "IsEvent": false
+                  }
+                },
+                {
+                  "exomethod": {
+                    "CmpContext": "",
+                    "IsMasterPage": true,
+                    "ObjectName": "WWPActions",
+                    "Method": "EmpoweredGrids_Refresh",
+                    "Parms": [],
+                    "IsEvent": false
+                  }
+                }
+              ],
+              "sCallerURL": "@@VISTA@@/servlet/com.generales.generales.comunes.monedas.gntmonedaww?VicTQTESjkF_uJj4Low39iESE-5h3aXvgJaIE0X9XRFXTNhIQJGLSUwU_V1BxjlSB5zORBzYp5S4cvvJw5Ko2w",
+              "GX_WEBSOCKET_ID": "1fa6068f-32f7-4a51-b356-d59b23f941de",
+              "GX_CLI_NAV": "true",
+              "GX_THEME": "DesignSystem.ClienteDS",
+              "_MODE": "UPD",
+              "DDC_CONVERSACIONES_MPAGE_Class": "",
+              "DDC_CONVERSACIONES_MPAGE_Enabled": 1,
+              "DDC_CONVERSACIONES_MPAGE_Tooltip": "",
+              "DDC_CONVERSACIONES_MPAGE_Componentwidth": 400,
+              "DDC_CONVERSACIONES_MPAGE_Titlecontrolalign": "Automatic",
+              "DDC_CONVERSACIONES_MPAGE_Dropdownoptionstype": "Component",
+              "DDC_CONVERSACIONES_MPAGE_Bodytype": "WebComponent",
+              "DDC_CONVERSACIONES_MPAGE_Visible": 1,
+              "DDC_CONVERSACIONES_MPAGE_Result": "",
+              "DDC_CONVERSACIONES_MPAGE_Titlecontrolidtoreplace": "",
+              "DDC_CONVERSACIONES_MPAGE_Showloading": 1,
+              "DDC_CONVERSACIONES_MPAGE_Load": "OnEveryClick",
+              "DDC_CONVERSACIONES_MPAGE_Keepopened": 0,
+              "DDC_CONVERSACIONES_MPAGE_Trigger": "Click",
+              "DDC_CONVERSACIONES_MPAGE_Modulesupportfiles": "[]",
+              "DDC_CONVERSACIONES_MPAGE_Modulesharedsupportfiles": "[]",
+              "DDC_NOTIFICATIONSWC_MPAGE_Class": "",
+              "DDC_NOTIFICATIONSWC_MPAGE_Enabled": 1,
+              "DDC_NOTIFICATIONSWC_MPAGE_Tooltip": "",
+              "DDC_NOTIFICATIONSWC_MPAGE_Componentwidth": 400,
+              "DDC_NOTIFICATIONSWC_MPAGE_Titlecontrolalign": "Automatic",
+              "DDC_NOTIFICATIONSWC_MPAGE_Dropdownoptionstype": "Component",
+              "DDC_NOTIFICATIONSWC_MPAGE_Bodytype": "WebComponent",
+              "DDC_NOTIFICATIONSWC_MPAGE_Visible": 1,
+              "DDC_NOTIFICATIONSWC_MPAGE_Result": "",
+              "DDC_NOTIFICATIONSWC_MPAGE_Titlecontrolidtoreplace": "",
+              "DDC_NOTIFICATIONSWC_MPAGE_Showloading": 1,
+              "DDC_NOTIFICATIONSWC_MPAGE_Load": "OnEveryClick",
+              "DDC_NOTIFICATIONSWC_MPAGE_Keepopened": 0,
+              "DDC_NOTIFICATIONSWC_MPAGE_Trigger": "Click",
+              "DDC_NOTIFICATIONSWC_MPAGE_Modulesupportfiles": "[]",
+              "DDC_NOTIFICATIONSWC_MPAGE_Modulesharedsupportfiles": "[]",
+              "DDC_ADMINAG_MPAGE_Class": "",
+              "DDC_ADMINAG_MPAGE_Enabled": 1,
+              "DDC_ADMINAG_MPAGE_Tooltip": "",
+              "DDC_ADMINAG_MPAGE_Titlecontrolalign": "Automatic",
+              "DDC_ADMINAG_MPAGE_Dropdownoptionstype": "Component",
+              "DDC_ADMINAG_MPAGE_Bodytype": "WebComponent",
+              "DDC_ADMINAG_MPAGE_Visible": 1,
+              "DDC_ADMINAG_MPAGE_Result": "",
+              "DDC_ADMINAG_MPAGE_Titlecontrolidtoreplace": "",
+              "DDC_ADMINAG_MPAGE_Showloading": 1,
+              "DDC_ADMINAG_MPAGE_Load": "OnEveryClick",
+              "DDC_ADMINAG_MPAGE_Keepopened": 0,
+              "DDC_ADMINAG_MPAGE_Trigger": "Click",
+              "DDC_ADMINAG_MPAGE_Modulesupportfiles": "[]",
+              "DDC_ADMINAG_MPAGE_Modulesharedsupportfiles": "[]",
+              "DDC_MOBILEACTIONS_MPAGE_Class": "",
+              "DDC_MOBILEACTIONS_MPAGE_Enabled": 1,
+              "DDC_MOBILEACTIONS_MPAGE_Caption": "",
+              "DDC_MOBILEACTIONS_MPAGE_Tooltip": "",
+              "DDC_MOBILEACTIONS_MPAGE_Cls": "",
+              "DDC_MOBILEACTIONS_MPAGE_Componentwidth": 400,
+              "DDC_MOBILEACTIONS_MPAGE_Titlecontrolalign": "Automatic",
+              "DDC_MOBILEACTIONS_MPAGE_Dropdownoptionstype": "Component",
+              "DDC_MOBILEACTIONS_MPAGE_Bodytype": "WebComponent",
+              "DDC_MOBILEACTIONS_MPAGE_Visible": 1,
+              "DDC_MOBILEACTIONS_MPAGE_Result": "",
+              "DDC_MOBILEACTIONS_MPAGE_Titlecontrolidtoreplace": "",
+              "DDC_MOBILEACTIONS_MPAGE_Showloading": 1,
+              "DDC_MOBILEACTIONS_MPAGE_Load": "OnEveryClick",
+              "DDC_MOBILEACTIONS_MPAGE_Keepopened": 0,
+              "DDC_MOBILEACTIONS_MPAGE_Trigger": "Click",
+              "DDC_MOBILEACTIONS_MPAGE_Modulesupportfiles": "[]",
+              "DDC_MOBILEACTIONS_MPAGE_Modulesharedsupportfiles": "[]",
+              "UCMENU_MPAGE_Class": "",
+              "UCMENU_MPAGE_Enabled": 1,
+              "UCMENU_MPAGE_Selecteditem": 0,
+              "UCMENU_MPAGE_Gamoauthtoken": "",
+              "UCMENU_MPAGE_Allmenuitemsvisibleatload": 0,
+              "UCMENU_MPAGE_Includetogglebutton": 0,
+              "UCMENU_MPAGE_Togglebuttonposition": "Top",
+              "UCMENU_MPAGE_Headerclass": "sidebar-header-wrapper",
+              "UCMENU_MPAGE_Searchinputclass": "searchinput",
+              "UCMENU_MPAGE_Searchiconclass": "searchicon fa fa-search",
+              "UCMENU_MPAGE_Searchhelperclass": "searchhelper",
+              "UCMENU_MPAGE_Sidebarmenuclass": "nav sidebar-menu",
+              "UCMENU_MPAGE_Togglebuttonclass": "fa fa-bars",
+              "UCMENU_MPAGE_Visible": 1,
+              "UCMENU_MPAGE_Modulesupportfiles": "[]",
+              "UCMENU_MPAGE_Modulesharedsupportfiles": "[]",
+              "UCMESSAGE_MPAGE_Class": "",
+              "UCMESSAGE_MPAGE_Enabled": 1,
+              "UCMESSAGE_MPAGE_Width": "300px",
+              "UCMESSAGE_MPAGE_Minheight": "16px",
+              "UCMESSAGE_MPAGE_Defaultmessagetype": "notice",
+              "UCMESSAGE_MPAGE_Titleescape": 0,
+              "UCMESSAGE_MPAGE_Textescape": 0,
+              "UCMESSAGE_MPAGE_Changenewlinestobrs": 1,
+              "UCMESSAGE_MPAGE_Hide": 1,
+              "UCMESSAGE_MPAGE_Delayuntilhide": 8000,
+              "UCMESSAGE_MPAGE_Mousehidereset": 1,
+              "UCMESSAGE_MPAGE_Messageadditionalclasses": "",
+              "UCMESSAGE_MPAGE_Messagecornerclass": "",
+              "UCMESSAGE_MPAGE_Shadow": 1,
+              "UCMESSAGE_MPAGE_Opacity": "1",
+              "UCMESSAGE_MPAGE_Stackverticalfirstpos": 15,
+              "UCMESSAGE_MPAGE_Stackhorizontalfirstpos": 15,
+              "UCMESSAGE_MPAGE_Stackverticalspacing": 15,
+              "UCMESSAGE_MPAGE_Stackhorizontalspacing": 15,
+              "UCMESSAGE_MPAGE_Effectin": "fade",
+              "UCMESSAGE_MPAGE_Effectout": "fade",
+              "UCMESSAGE_MPAGE_Animationspeed": 600,
+              "UCMESSAGE_MPAGE_Startposition": "TopRight",
+              "UCMESSAGE_MPAGE_Nextmessageposition": "down",
+              "UCMESSAGE_MPAGE_Closer": 1,
+              "UCMESSAGE_MPAGE_Closerhover": 1,
+              "UCMESSAGE_MPAGE_Sticker": 0,
+              "UCMESSAGE_MPAGE_Stickerhover": 1,
+              "UCMESSAGE_MPAGE_Labelclosebutton": "Close",
+              "UCMESSAGE_MPAGE_Labelstickbutton": "Stick",
+              "UCMESSAGE_MPAGE_Showevenonnonblock": 0,
+              "UCMESSAGE_MPAGE_Nonblock": 0,
+              "UCMESSAGE_MPAGE_Nonblockopacity": ".2",
+              "UCMESSAGE_MPAGE_Enablehistory": 1,
+              "UCMESSAGE_MPAGE_Menu": 0,
+              "UCMESSAGE_MPAGE_Fixedmenu": 1,
+              "UCMESSAGE_MPAGE_Maxonscreen": "Infinity",
+              "UCMESSAGE_MPAGE_Labelredisplay": "Redisplay",
+              "UCMESSAGE_MPAGE_Labelall": "All",
+              "UCMESSAGE_MPAGE_Labellast": "Last",
+              "UCMESSAGE_MPAGE_Visible": 1,
+              "UCMESSAGE_MPAGE_Modulesupportfiles": "[]",
+              "UCMESSAGE_MPAGE_Modulesharedsupportfiles": "[]",
+              "UCTOOLTIP_MPAGE_Class": "",
+              "UCTOOLTIP_MPAGE_Enabled": 1,
+              "UCTOOLTIP_MPAGE_Classselector": "BootstrapTooltip",
+              "UCTOOLTIP_MPAGE_Defaultposition": "bottom",
+              "UCTOOLTIP_MPAGE_Labelsshowdelay": 300,
+              "UCTOOLTIP_MPAGE_Buttonsshowdelay": 300,
+              "UCTOOLTIP_MPAGE_Inputsshowdelay": 300,
+              "UCTOOLTIP_MPAGE_Imagesshowdelay": 0,
+              "UCTOOLTIP_MPAGE_Hidedelay": 0,
+              "UCTOOLTIP_MPAGE_Visible": 1,
+              "UCTOOLTIP_MPAGE_Modulesupportfiles": "[]",
+              "UCTOOLTIP_MPAGE_Modulesharedsupportfiles": "[]",
+              "WWPUTILITIES_MPAGE_Class": "",
+              "WWPUTILITIES_MPAGE_Enabled": 1,
+              "WWPUTILITIES_MPAGE_Ucsbaselibrary": "Bootstrap3",
+              "WWPUTILITIES_MPAGE_Enableautoupdatefromdocumenttitle": 0,
+              "WWPUTILITIES_MPAGE_Enablefloatinglabels": 0,
+              "WWPUTILITIES_MPAGE_Currenttab_returnurl": "",
+              "WWPUTILITIES_MPAGE_Allowcolumnresizing": 0,
+              "WWPUTILITIES_MPAGE_Allowcolumnreordering": 0,
+              "WWPUTILITIES_MPAGE_Allowcolumnsrestore": 0,
+              "WWPUTILITIES_MPAGE_Restorecolumnsiconclass": "fas fa-undo",
+              "WWPUTILITIES_MPAGE_Infinitescrollingpage": 10,
+              "WWPUTILITIES_MPAGE_Updatebuttontext": "WWP_ColumnsSelectorButton",
+              "WWPUTILITIES_MPAGE_Addnewoption": "WWP_AddNewOption",
+              "WWPUTILITIES_MPAGE_Onlyselectedvalues": "WWP_OnlySelectedValues",
+              "WWPUTILITIES_MPAGE_Multiplevaluesseparator": ", ",
+              "WWPUTILITIES_MPAGE_Selectall": "WWP_SelectAll",
+              "WWPUTILITIES_MPAGE_Sortasc": "WWP_TSSortASC",
+              "WWPUTILITIES_MPAGE_Sortdsc": "WWP_TSSortDSC",
+              "WWPUTILITIES_MPAGE_Allowgrouptext": "WWP_GroupByOption",
+              "WWPUTILITIES_MPAGE_Fixlefttext": "WWP_TSFixLeft",
+              "WWPUTILITIES_MPAGE_Fixrighttext": "WWP_TSFixRight",
+              "WWPUTILITIES_MPAGE_Loadingdata": "WWP_TSLoading",
+              "WWPUTILITIES_MPAGE_Cleanfilter": "WWP_TSCleanFilter",
+              "WWPUTILITIES_MPAGE_Rangefilterfrom": "WWP_TSFrom",
+              "WWPUTILITIES_MPAGE_Rangefilterto": "WWP_TSTo",
+              "WWPUTILITIES_MPAGE_Rangepickerinvitemessage": "WWP_TSRangePickerInviteMessage",
+              "WWPUTILITIES_MPAGE_Noresultsfound": "WWP_TSNoResults",
+              "WWPUTILITIES_MPAGE_Searchbuttontext": "WWP_TSSearchButtonCaption",
+              "WWPUTILITIES_MPAGE_Searchmultiplevaluesbuttontext": "WWP_FilterSelected",
+              "WWPUTILITIES_MPAGE_Columnselectorfixedleftcategory": "WWP_ColumnSelectorFixedLeftCategory",
+              "WWPUTILITIES_MPAGE_Columnselectorfixedrightcategory": "WWP_ColumnSelectorFixedRightCategory",
+              "WWPUTILITIES_MPAGE_Columnselectornotfixedcategory": "WWP_ColumnSelectorNotFixedCategory",
+              "WWPUTILITIES_MPAGE_Columnselectornocategorytext": "WWP_ColumnSelectorNoCategoryText",
+              "WWPUTILITIES_MPAGE_Columnselectorfixedempty": "WWP_ColumnSelectorFixedEmpty",
+              "WWPUTILITIES_MPAGE_Columnselectorrestoretooltip": "WWP_SelectColumns_RestoreDefault",
+              "WWPUTILITIES_MPAGE_Pagbargotocaption": "WWP_PaginationBarGoToCaption",
+              "WWPUTILITIES_MPAGE_Pagbargotoiconclass": "fas fa-redo",
+              "WWPUTILITIES_MPAGE_Pagbargototooltip": "WWP_PaginationBarGoToTooltip",
+              "WWPUTILITIES_MPAGE_Includelineseparator": 0,
+              "WWPUTILITIES_MPAGE_Visible": 1,
+              "WWPUTILITIES_MPAGE_Modulesupportfiles": "[]",
+              "WWPUTILITIES_MPAGE_Modulesharedsupportfiles": "[]",
+              "WWPDATEPICKER_MPAGE_Class": "",
+              "WWPDATEPICKER_MPAGE_Enabled": 1,
+              "WWPDATEPICKER_MPAGE_Style": "Light",
+              "WWPDATEPICKER_MPAGE_Visible": 1,
+              "WWPDATEPICKER_MPAGE_Modulesupportfiles": "[]",
+              "WWPDATEPICKER_MPAGE_Modulesharedsupportfiles": "[]",
+              "UCAUTOCOMPLETE_MPAGE_Class": "",
+              "UCAUTOCOMPLETE_MPAGE_Enabled": 1,
+              "UCAUTOCOMPLETE_MPAGE_Noredirect": 0,
+              "UCAUTOCOMPLETE_MPAGE_Datos": "",
+              "UCAUTOCOMPLETE_MPAGE_Visible": 1,
+              "UCAUTOCOMPLETE_MPAGE_Modulesupportfiles": "[]",
+              "UCAUTOCOMPLETE_MPAGE_Modulesharedsupportfiles": "[]",
+              "UCTOUR_MPAGE_Class": "",
+              "UCTOUR_MPAGE_Enabled": 1,
+              "UCTOUR_MPAGE_Visible": 1,
+              "UCTOUR_MPAGE_Modulesupportfiles": "[]",
+              "UCTOUR_MPAGE_Modulesharedsupportfiles": "[]",
+              "DVPANEL_TABLEATTRIBUTES_Class": "",
+              "DVPANEL_TABLEATTRIBUTES_Height": "100",
+              "DVPANEL_TABLEATTRIBUTES_Showheader": 1,
+              "DVPANEL_TABLEATTRIBUTES_Titletype": "Text",
+              "DVPANEL_TABLEATTRIBUTES_Visible": 1,
+              "DVPANEL_TABLEATTRIBUTES_Modulesupportfiles": "[]",
+              "DVPANEL_TABLEATTRIBUTES_Modulesharedsupportfiles": "[]"
+            },
+            "grids": {}
+          },
+          "lineaBase": {
+            "estado": 200,
+            "comandos": [
+              {
+                "close": {
+                  "values": [],
+                  "metadata": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Abrir gntMonedaWW",
+          "pantalla": "Generales.Comunes.Monedas.gntMonedaWW",
+          "parametros": [],
+          "lineaBase": {
+            "estado": 200,
+            "titulo": "Monedas",
+            "grillas": {
+              "Grid": [
+                [
+                  "<i class=\"fa-regular fa-pen-to-square\"></i>",
+                  "<i class=\"fa-regular fa-trash-can\"></i>",
+                  "2",
+                  "DOLARES",
+                  "DOLARES",
+                  "EXT",
+                  "USD",
+                  "U$Z",
+                  "A"
+                ]
+              ]
+            },
+            "valores": {
+              "vPGMNAME": "Generales.Comunes.Monedas.gntMonedaWW",
+              "vISAUTHORIZED_UPDATE": true,
+              "vISAUTHORIZED_DELETE": true,
+              "vISAUTHORIZED_MONNOMBRE": true,
+              "vISAUTHORIZED_INSERT": true,
+              "vMANAGEFILTERSDATA": [
+                {
+                  "Icon": "",
+                  "Icon_GXI": "",
+                  "FontIcon": "fa fa-times-circle",
+                  "Title": "Limpiar filtros",
+                  "Tooltip": "",
+                  "Link": "",
+                  "EventKey": "<#Clean#>",
+                  "IsDivider": false,
+                  "JSonclickEvent": "WWPDynFilterHideAll_AL('TABLEDYNAMICFILTERS', 2, 0)",
+                  "ThemeClass": ""
+                },
+                {
+                  "Icon": "",
+                  "Icon_GXI": "",
+                  "FontIcon": "fa fa-save",
+                  "Title": "Guardar filtro como...",
+                  "Tooltip": "",
+                  "Link": "",
+                  "EventKey": "<#Save#>",
+                  "IsDivider": false,
+                  "JSonclickEvent": "",
+                  "ThemeClass": ""
+                }
+              ],
+              "vGRIDCURRENTPAGE": "1",
+              "vGRIDPAGECOUNT": "1",
+              "vGRIDAPPLIEDFILTERS": "Filtrando por Nombre (DOL)",
+              "vMANAGEFILTERSEXECUTIONSTEP": "0",
+              "vDYNAMICFILTERSENABLED2": false,
+              "vGRIDSTATE": {
+                "CurrentPage": 1,
+                "OrderedBy": 0,
+                "OrderedDsc": false,
+                "HidingSearch": 0,
+                "PageSize": "        10",
+                "CollapsedRecords": "",
+                "GroupBy": "",
+                "DynamicFilters": [
+                  {
+                    "Selected": "MONNOMBRE",
+                    "d": "Nombre",
+                    "Value": "DOL",
+                    "ValueDsc": "DOL",
+                    "Operator": 0,
+                    "ValueTo": "",
+                    "ValueToDsc": ""
+                  }
+                ]
+              },
+              "vDYNAMICFILTERSIGNOREFIRST": false,
+              "vDYNAMICFILTERSREMOVING": false
+            }
+          }
+        }
+      ],
+      "id": "cambiar-el-simbolo-de-una-moneda-desde-la-lista"
+    }
+  ],
+  "descripcion": "",
+  "opciones": {},
+  "variables": {},
+  "preparacion": []
+}

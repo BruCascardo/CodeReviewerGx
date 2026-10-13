@@ -3,6 +3,7 @@ import datetime as dt
 
 from .resumen import texto_resumen
 from .. import suites
+from ..suites.reportes import NUEVA
 from ..revisor import revisor
 
 
@@ -11,7 +12,7 @@ def correr_kb(kb, etiqueta=""):
     todas = suites.almacen.listar(kb.nombre)
     lista = [s for s in todas if not s.get("error") and (not etiqueta or etiqueta in s.get("etiquetas", []))]
     res = {"kb": kb.nombre, "etiqueta": etiqueta, "inicio": dt.datetime.now().isoformat(timespec="seconds"),
-           "corridas": [], "totales": {"ok": 0, "falla": 0, "error": 0, "omitido": 0}, "errores": [], "fallas": []}
+           "corridas": [], "totales": {"ok": 0, "falla": 0, "error": 0, "omitido": 0}, "errores": [], "fallas": [], "nuevas": 0}
     # Una suite con el JSON roto no se puede correr: se informa en vez de saltearla en silencio.
     for s in todas:
         if s.get("error") and s["id"].lower().startswith(kb.nombre.lower() + "/"):
@@ -29,7 +30,11 @@ def correr_kb(kb, etiqueta=""):
         for caso in cor["casos"]:
             if caso["estado"] in ("falla", "error"):
                 res["fallas"].append({"suite": cor["suiteNombre"], "caso": caso["nombre"], "estado": caso["estado"],
-                                      "corrida": cor["id"], "detalle": suites.texto_fallas(caso, 12)})
+                                      "cambio": caso.get("cambio"), "corrida": cor["id"],
+                                      "detalle": suites.texto_fallas(caso, 12)})
+    # Lo que se rompio con este build primero: es lo que hay que mirar antes que lo que ya fallaba.
+    res["fallas"].sort(key=lambda f: f["cambio"] != NUEVA)
+    res["nuevas"] = sum(f["cambio"] == NUEVA for f in res["fallas"])
     res["fin"] = dt.datetime.now().isoformat(timespec="seconds")
     t = res["totales"]
     if not lista and not res["errores"]:

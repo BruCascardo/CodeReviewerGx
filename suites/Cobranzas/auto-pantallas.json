@@ -1,0 +1,597 @@
+{
+  "nombre": "Auto - Pantallas de Cobranzas",
+  "kb": "Cobranzas",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cobranzas-cargos-cbhcargoww",
+      "nombre": "Cobranzas.Cargos.cbhCargoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Cargos.cbhCargoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-conciliacion-cbtctabancariaww",
+      "nombre": "Cobranzas.Conciliacion.cbtCtaBancariaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Conciliacion.cbtCtaBancariaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-cupones-estadodedeudaprueba",
+      "nombre": "Cobranzas.Cupones.EstadoDeDeudaPrueba abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Cupones.EstadoDeDeudaPrueba",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-global-cbtcobarchtipoww",
+      "nombre": "Cobranzas.Global.cbtCobArchTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Global.cbtCobArchTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbhingresoww",
+      "nombre": "Cobranzas.Ingresos.cbhIngresoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbhIngresoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbtcajaingtipoww",
+      "nombre": "Cobranzas.Ingresos.cbtCajaIngTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbtCajaIngTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbtcajausuarioww",
+      "nombre": "Cobranzas.Ingresos.cbtCajaUsuarioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbtCajaUsuarioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbtcajaww",
+      "nombre": "Cobranzas.Ingresos.cbtCajaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbtCajaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbtconceptoww",
+      "nombre": "Cobranzas.Ingresos.cbtConceptoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbtConceptoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbtingtipoconceptoww",
+      "nombre": "Cobranzas.Ingresos.cbtIngTipoConceptoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbtIngTipoConceptoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbtingtipovalorarchtipoww",
+      "nombre": "Cobranzas.Ingresos.cbtIngTipoValorArchTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbtIngTipoValorArchTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbtingtipovalormonedaww",
+      "nombre": "Cobranzas.Ingresos.cbtIngTipoValorMonedaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbtIngTipoValorMonedaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbtingtipovalorww",
+      "nombre": "Cobranzas.Ingresos.cbtIngTipoValorWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbtIngTipoValorWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-cbtingtipoww",
+      "nombre": "Cobranzas.Ingresos.cbtIngTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.cbtIngTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-ingresos-pruebamlp",
+      "nombre": "Cobranzas.Ingresos.PruebaMLP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Ingresos.PruebaMLP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-interfases-interfaseww",
+      "nombre": "Cobranzas.Integraciones.Interfases.InterfaseWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Integraciones.Interfases.InterfaseWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-loteprobador",
+      "nombre": "Cobranzas.Integraciones.LoteProbador abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Integraciones.LoteProbador",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-cbhloteww",
+      "nombre": "Cobranzas.Integraciones.Lotes.cbhLoteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Integraciones.Lotes.cbhLoteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-integraciones-lotes-probadorloteslineas",
+      "nombre": "Cobranzas.Integraciones.Lotes.ProbadorLotesLineas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Integraciones.Lotes.ProbadorLotesLineas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-noautorizado",
+      "nombre": "Cobranzas.NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cbtplanpagocondicionww",
+      "nombre": "Cobranzas.PlanesPago.cbtPlanPagoCondicionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.cbtPlanPagoCondicionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cbtplanpagodetalleww",
+      "nombre": "Cobranzas.PlanesPago.cbtPlanPagoDetalleWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.cbtPlanPagoDetalleWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cbtplanpagodetplazocuotaww",
+      "nombre": "Cobranzas.PlanesPago.cbtPlanPagoDetPlazoCuotaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.cbtPlanPagoDetPlazoCuotaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cbtplanpagodetplazoww",
+      "nombre": "Cobranzas.PlanesPago.cbtPlanPagoDetPlazoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.cbtPlanPagoDetPlazoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cbtplanpagovencimientoww",
+      "nombre": "Cobranzas.PlanesPago.cbtPlanPagoVencimientoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.cbtPlanPagoVencimientoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cbtplanpagoww",
+      "nombre": "Cobranzas.PlanesPago.cbtPlanPagoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.cbtPlanPagoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cbtrecescalatramoww",
+      "nombre": "Cobranzas.PlanesPago.cbtRecEscalaTramoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.cbtRecEscalaTramoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cbtrecescalavigenciaww",
+      "nombre": "Cobranzas.PlanesPago.cbtRecEscalaVigenciaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.cbtRecEscalaVigenciaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-cbtrecescalaww",
+      "nombre": "Cobranzas.PlanesPago.cbtRecEscalaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.cbtRecEscalaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-planespago-probador",
+      "nombre": "Cobranzas.PlanesPago.Probador abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.PlanesPago.Probador",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-recaudadoras-cbtentrecaudadoraww",
+      "nombre": "Cobranzas.Recaudadoras.cbtEntRecaudadoraWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Recaudadoras.cbtEntRecaudadoraWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-recaudadoras-cbtentreccanalww",
+      "nombre": "Cobranzas.Recaudadoras.cbtEntRecCanalWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Recaudadoras.cbtEntRecCanalWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-recaudadoras-cbtentrecentfinancieraww",
+      "nombre": "Cobranzas.Recaudadoras.cbtEntRecEntFinancieraWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Recaudadoras.cbtEntRecEntFinancieraWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-recaudadoras-cbtentrecrechazoww",
+      "nombre": "Cobranzas.Recaudadoras.cbtEntRecRechazoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Recaudadoras.cbtEntRecRechazoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-valores-cbhvalorww",
+      "nombre": "Cobranzas.Valores.cbhValorWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Valores.cbhValorWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-valores-cbtvalortipoww",
+      "nombre": "Cobranzas.Valores.cbtValorTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Valores.cbtValorTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "cobranzas-valores-pruebacontexto",
+      "nombre": "Cobranzas.Valores.PruebaContexto abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Cobranzas.Valores.PruebaContexto",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "nombre": "Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "Upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Upload",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}

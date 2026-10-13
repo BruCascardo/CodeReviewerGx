@@ -1,0 +1,1467 @@
+{
+  "nombre": "Auto - Pantallas de Intermediarios",
+  "kb": "Intermediarios",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cachetest",
+      "nombre": "cachetest abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "cachetest",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "nombre": "Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-avisos-modificaravisowp",
+      "nombre": "Intermediarios.Avisos.ModificarAvisoWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Avisos.ModificarAvisoWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-b2b-api",
+      "nombre": "Intermediarios.B2B.API abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.B2B.API",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-borrar",
+      "nombre": "Intermediarios.borrar abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.borrar",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cardpruebaswpgrilla",
+      "nombre": "Intermediarios.CardPruebasWPGrilla abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.CardPruebasWPGrilla",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cobranzas-cuotasporcategorias",
+      "nombre": "Intermediarios.Cobranzas.CuotasPorCategorias abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Cobranzas.CuotasPorCategorias",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cobranzas-rechazosww",
+      "nombre": "Intermediarios.Cobranzas.RechazosWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Cobranzas.RechazosWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cobranzas-rendiciones-creditosobranteww",
+      "nombre": "Intermediarios.Cobranzas.Rendiciones.CreditoSobranteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Cobranzas.Rendiciones.CreditoSobranteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cobranzas-rendiciones-pruebaevento",
+      "nombre": "Intermediarios.Cobranzas.Rendiciones.PruebaEvento abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Cobranzas.Rendiciones.PruebaEvento",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-comisiones-cuentacorrientewp",
+      "nombre": "Intermediarios.Comisiones.CuentaCorrienteWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Comisiones.CuentaCorrienteWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-comisiones-ordenespagowp",
+      "nombre": "Intermediarios.Comisiones.OrdenesPagoWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Comisiones.OrdenesPagoWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-comisiones-periodoswp",
+      "nombre": "Intermediarios.Comisiones.PeriodosWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Comisiones.PeriodosWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-comisiones-retencioneswp",
+      "nombre": "Intermediarios.Comisiones.RetencionesWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Comisiones.RetencionesWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-configuracion-intermediariosusuario",
+      "nombre": "Intermediarios.Configuracion.IntermediariosUsuario abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Configuracion.IntermediariosUsuario",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-configuracion-intintermediarioww",
+      "nombre": "Intermediarios.Configuracion.intIntermediarioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Configuracion.intIntermediarioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-configuracion-permisoconceptoww",
+      "nombre": "Intermediarios.Configuracion.PermisoConceptoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Configuracion.PermisoConceptoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-configuracion-userusuariocreadoww",
+      "nombre": "Intermediarios.Configuracion.UserUsuarioCreadoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Configuracion.UserUsuarioCreadoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-configuracion-usuariosasociadosww",
+      "nombre": "Intermediarios.Configuracion.UsuariosAsociadosWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Configuracion.UsuariosAsociadosWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-configuracion-usuariosww",
+      "nombre": "Intermediarios.Configuracion.UsuariosWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Configuracion.UsuariosWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-configuracion-usuarioww",
+      "nombre": "Intermediarios.Configuracion.UsuarioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Configuracion.UsuarioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-eventoww",
+      "nombre": "Intermediarios.Contexto.EventoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Contexto.EventoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-contexto-plantillaww",
+      "nombre": "Intermediarios.Contexto.PlantillaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Contexto.PlantillaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-cotizar",
+      "nombre": "Intermediarios.Cotizacion.Cotizar abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Cotizacion.Cotizar",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-excepcion-excepcionww",
+      "nombre": "Intermediarios.Cotizacion.Excepcion.ExcepcionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Cotizacion.Excepcion.ExcepcionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-heredados",
+      "nombre": "Intermediarios.Cotizacion.heredados abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Cotizacion.heredados",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-cotizacion-promocion-promocionww",
+      "nombre": "Intermediarios.Cotizacion.Promocion.PromocionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Cotizacion.Promocion.PromocionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-diagnostico-borrarcache",
+      "nombre": "Intermediarios.Diagnostico.BorrarCache abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Diagnostico.BorrarCache",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-diagnostico-descargarblob",
+      "nombre": "Intermediarios.Diagnostico.DescargarBlob abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Diagnostico.DescargarBlob",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-formularios",
+      "nombre": "Intermediarios.Documentacion.Formularios abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Documentacion.Formularios",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-formularioslavado",
+      "nombre": "Intermediarios.Documentacion.FormulariosLavado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Documentacion.FormulariosLavado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-herramientas",
+      "nombre": "Intermediarios.Documentacion.Herramientas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Documentacion.Herramientas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-intdocarchivoww",
+      "nombre": "Intermediarios.Documentacion.intDocArchivoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Documentacion.intDocArchivoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-intdocsubtituloww",
+      "nombre": "Intermediarios.Documentacion.intDocSubTituloWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Documentacion.intDocSubTituloWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-intdoctituloww",
+      "nombre": "Intermediarios.Documentacion.intDocTituloWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Documentacion.intDocTituloWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-marketing",
+      "nombre": "Intermediarios.Documentacion.Marketing abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Documentacion.Marketing",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-normativauif",
+      "nombre": "Intermediarios.Documentacion.NormativaUIF abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Documentacion.NormativaUIF",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-documentacion-tutoriales",
+      "nombre": "Intermediarios.Documentacion.Tutoriales abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Documentacion.Tutoriales",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-manualproductos",
+      "nombre": "Intermediarios.Emision.ManualProductos abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.ManualProductos",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-modificacion-modificaciones",
+      "nombre": "Intermediarios.Emision.Modificacion.Modificaciones abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.Modificacion.Modificaciones",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-modificacion-modificacionww",
+      "nombre": "Intermediarios.Emision.Modificacion.ModificacionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.Modificacion.ModificacionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-panelbonor",
+      "nombre": "Intermediarios.Emision.PanelBonor abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.PanelBonor",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polizadocumentacionnotificacion",
+      "nombre": "Intermediarios.Emision.PolizaDocumentacionNotificacion abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.PolizaDocumentacionNotificacion",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polizaslista",
+      "nombre": "Intermediarios.Emision.PolizasLista abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.PolizasLista",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polizasv",
+      "nombre": "Intermediarios.Emision.PolizasV abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.PolizasV",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-polizasww",
+      "nombre": "Intermediarios.Emision.PolizasWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.PolizasWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-tomadoresvigentes",
+      "nombre": "Intermediarios.Emision.TomadoresVigentes abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.TomadoresVigentes",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-vehiculosmercado",
+      "nombre": "Intermediarios.Emision.VehiculosMercado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.VehiculosMercado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-emision-wpconsultainfoauto",
+      "nombre": "Intermediarios.Emision.WPConsultaInfoAuto abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Emision.WPConsultaInfoAuto",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-librosfoliado",
+      "nombre": "Intermediarios.Global.LibrosFoliado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Global.LibrosFoliado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-global-pruebamultiselect",
+      "nombre": "Intermediarios.Global.PruebaMultiSelect abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Global.PruebaMultiSelect",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-noautorizado",
+      "nombre": "Intermediarios.NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-notificacionespush_all",
+      "nombre": "Intermediarios.NotificacionesPush_All abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.NotificacionesPush_All",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-novedades-inhnovedadww",
+      "nombre": "Intermediarios.Novedades.inhNovedadWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Novedades.inhNovedadWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-novedades-novedad_consulta",
+      "nombre": "Intermediarios.Novedades.Novedad_Consulta abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Novedades.Novedad_Consulta",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-persona-cambiopassword",
+      "nombre": "Intermediarios.Persona.CambioPassword abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Persona.CambioPassword",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-persona-recuperarcontraseniapaso1",
+      "nombre": "Intermediarios.Persona.RecuperarContraseniaPaso1 abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Persona.RecuperarContraseniaPaso1",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-probadortag",
+      "nombre": "Intermediarios.ProbadorTag abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.ProbadorTag",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-pruebamc",
+      "nombre": "Intermediarios.PruebaMC abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.PruebaMC",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-pruebamlp",
+      "nombre": "Intermediarios.PruebaMLP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.PruebaMLP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-adminlotes_link",
+      "nombre": "Intermediarios.Redirecciones.AdminLotes_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.AdminLotes_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-comisionesdetalle_link",
+      "nombre": "Intermediarios.Redirecciones.ComisionesDetalle_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.ComisionesDetalle_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-consultasrechazos_link",
+      "nombre": "Intermediarios.Redirecciones.ConsultasRechazos_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.ConsultasRechazos_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-cotizacionesconsulta_link",
+      "nombre": "Intermediarios.Redirecciones.CotizacionesConsulta_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.CotizacionesConsulta_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-cotizadorprendario_link",
+      "nombre": "Intermediarios.Redirecciones.CotizadorPrendario_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.CotizadorPrendario_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-cuotasporcobrar_link",
+      "nombre": "Intermediarios.Redirecciones.CuotasPorCobrar_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.CuotasPorCobrar_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-cuotasvencidasavencer_link",
+      "nombre": "Intermediarios.Redirecciones.CuotasVencidasAVencer_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.CuotasVencidasAVencer_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-facturacion_link",
+      "nombre": "Intermediarios.Redirecciones.Facturacion_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.Facturacion_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-granizobonor_link",
+      "nombre": "Intermediarios.Redirecciones.GranizoBonor_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.GranizoBonor_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-librooperaciones_link",
+      "nombre": "Intermediarios.Redirecciones.LibroOperaciones_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.LibroOperaciones_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-modificacionconsultar_link",
+      "nombre": "Intermediarios.Redirecciones.ModificacionConsultar_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.ModificacionConsultar_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-modificacionoperar_link",
+      "nombre": "Intermediarios.Redirecciones.ModificacionOperar_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.ModificacionOperar_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-pagarpormercadopago_link",
+      "nombre": "Intermediarios.Redirecciones.PagarPorMercadopago_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.PagarPorMercadopago_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-paspro",
+      "nombre": "Intermediarios.Redirecciones.PASPRO abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.PASPRO",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-prorrogasauto_link",
+      "nombre": "Intermediarios.Redirecciones.ProrrogasAuto_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.ProrrogasAuto_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-rendiciones_link",
+      "nombre": "Intermediarios.Redirecciones.Rendiciones_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.Rendiciones_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-renovacionesauto_link",
+      "nombre": "Intermediarios.Redirecciones.RenovacionesAuto_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.RenovacionesAuto_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-renovacionesrv_link",
+      "nombre": "Intermediarios.Redirecciones.RenovacionesRV_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.RenovacionesRV_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-retencionesdetalle_link",
+      "nombre": "Intermediarios.Redirecciones.RetencionesDetalle_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.RetencionesDetalle_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-redirecciones-solicitudesconsulta_link",
+      "nombre": "Intermediarios.Redirecciones.SolicitudesConsulta_link abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Redirecciones.SolicitudesConsulta_link",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-retenciones-detalle",
+      "nombre": "Intermediarios.Retenciones.Detalle abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Retenciones.Detalle",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-seguridad-func",
+      "nombre": "Intermediarios.Seguridad.func abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Seguridad.func",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-consultawp",
+      "nombre": "Intermediarios.Siniestros.ConsultaWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Siniestros.ConsultaWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-documentos",
+      "nombre": "Intermediarios.Siniestros.Documentos abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Siniestros.Documentos",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-nuevo",
+      "nombre": "Intermediarios.Siniestros.Nuevo abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Siniestros.Nuevo",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-panel_testeo",
+      "nombre": "Intermediarios.Siniestros.Panel_Testeo abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Siniestros.Panel_Testeo",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-prestadoreswp",
+      "nombre": "Intermediarios.Siniestros.PrestadoresWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Siniestros.PrestadoresWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-reclamosterceros",
+      "nombre": "Intermediarios.Siniestros.ReclamosTerceros abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Siniestros.ReclamosTerceros",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-seguimientos-pruebapopup",
+      "nombre": "Intermediarios.Siniestros.Seguimientos.PruebaPopup abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Siniestros.Seguimientos.PruebaPopup",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-siniestros-seguimientos-seguimientowp",
+      "nombre": "Intermediarios.Siniestros.Seguimientos.SeguimientoWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Siniestros.Seguimientos.SeguimientoWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-soporte-crearpedidowp",
+      "nombre": "Intermediarios.Soporte.CrearPedidoWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Soporte.CrearPedidoWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-soporte-soporteww",
+      "nombre": "Intermediarios.Soporte.SoporteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Soporte.SoporteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-buscar",
+      "nombre": "Intermediarios.Usuario.Buscar abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Usuario.Buscar",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "intermediarios-usuario-ingresoseleccionusuario",
+      "nombre": "Intermediarios.Usuario.IngresoSeleccionUsuario abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Intermediarios.Usuario.IngresoSeleccionUsuario",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "login",
+      "nombre": "Login abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Login",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "politicaprivacidad",
+      "nombre": "PoliticaPrivacidad abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "PoliticaPrivacidad",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "Upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Upload",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}

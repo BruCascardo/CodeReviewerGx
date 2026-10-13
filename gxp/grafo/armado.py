@@ -164,7 +164,9 @@ class ArmadoKB:
 
     def _nodos_especificados(self):
         for clave, o in self.especificados.items():
-            nid = self.nodo(self.kb.nombre, clave, clave.rpartition(".")[2], False, "L", o["tipo"])
+            # El grafo no separa los Web Components de los Web Panels.
+            tipo = "Web Panel" if o["tipo"] in catalogo.WEB else o["tipo"]
+            nid = self.nodo(self.kb.nombre, clave, clave.rpartition(".")[2], False, "L", tipo)
             self.nodos[nid].update(nombre=o["nombre"], descripcion=o["descripcion"])
 
     def _relaciones_locales(self, memoria):

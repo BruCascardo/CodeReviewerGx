@@ -5,6 +5,8 @@
 const GX = {
   sel: new Set(almacen.leer("gx.sel", [])),   // KBs tildadas
   forzar: almacen.leer("gx.forzar", false),   // Build: rehacer todo
+  filtro: almacen.leer("gx.filtro", "core"),  // core | fixes | todas: que KBs se muestran y se procesan
+  btnFiltro: {},
   kbs: [],
   trabajos: [],
   error: null,
@@ -39,6 +41,9 @@ function armarGx() {
       "Una KB hace una cosa a la vez; KBs distintas corren en paralelo. Una KB abierta en el IDE no se puede procesar."),
     h("div", { class: "error-caja", id: "gx-error", hidden: true }),
     h("div", { class: "subtitulo" },
+      h("span", { class: "muted chico" }, "Mostrar:"),
+      ...["core", "fixes", "todas"].map((f) => (GX.btnFiltro[f] = h("button", { class: "btn chico", onclick: () => cambiarFiltroGx(f) }, f === "todas" ? "Todas" : f[0].toUpperCase() + f.slice(1)))),
+      h("span", { class: "espacio" }),
       h("button", { class: "btn prim", id: "gx-update", onclick: () => ejecutarGx("update"), title: "UpdateFromServer: trae los cambios del servidor" }, "Update"),
       h("button", { class: "btn prim", id: "gx-build", onclick: () => ejecutarGx("build"), title: "BuildAll: especifica, genera y compila lo desactualizado" }, "Build"),
       h("label", { class: "chk", title: "ForceRebuild: rehace todo en vez de solo lo desactualizado" }, forzar, "Build completo (rebuild)"),
@@ -47,8 +52,8 @@ function armarGx() {
     h("div", { class: "tabla-scroll", style: { maxHeight: "none" } },
       h("table", { class: "tabla" },
         h("thead", null, h("tr", null,
-          h("th", { style: { width: "28px" } }, h("input", { type: "checkbox", id: "gx-todas", title: "Todas / ninguna", onchange: (ev) => {
-            GX.sel = ev.target.checked ? new Set(GX.kbs.filter(seleccionableGx).map((k) => k.nombre)) : new Set();
+          h("th", { style: { width: "28px" } }, h("input", { type: "checkbox", id: "gx-todas", title: "Todas / ninguna (de las visibles)", onchange: (ev) => {
+            for (const k of GX.kbs.filter(visibleGx).filter(seleccionableGx)) ev.target.checked ? GX.sel.add(k.nombre) : GX.sel.delete(k.nombre);
             guardarSelGx(); pintarTablaGx();
           } })),
           h("th", null, "KB"), h("th", null, "Update"), h("th", null, "Build"))),
@@ -60,14 +65,27 @@ function armarGx() {
 }
 
 const seleccionableGx = (k) => !k.enIde;
+const visibleGx = (k) => GX.filtro === "todas" || k.grupo === GX.filtro;
+const seleccionadasGx = () => GX.kbs.filter((k) => visibleGx(k) && GX.sel.has(k.nombre)).map((k) => k.nombre);
 function guardarSelGx() { almacen.guardar("gx.sel", [...GX.sel]); }
+
+// Cambiar de filtro limpia la seleccion: asi no quedan KBs tildadas que no se ven.
+function cambiarFiltroGx(f) {
+  if (f === GX.filtro) return;
+  GX.filtro = f; almacen.guardar("gx.filtro", f);
+  GX.sel = new Set(); guardarSelGx();
+  pintarTablaGx();
+}
 
 async function refrescarGx() {
   try {
     const r = await GET("/api/gx/estado");
     GX.kbs = r.kbs; GX.trabajos = r.trabajos; GX.error = r.error;
-    const mias = new Set(GX.kbs.map((k) => k.nombre));
-    for (const n of [...GX.sel]) if (!mias.has(n)) GX.sel.delete(n);
+    // Se destildan las KBs que ya no existen o que están abiertas en el IDE (no se pueden elegir).
+    const elegibles = new Set(GX.kbs.filter(seleccionableGx).map((k) => k.nombre));
+    const antes = GX.sel.size;
+    for (const n of [...GX.sel]) if (!elegibles.has(n)) GX.sel.delete(n);
+    if (GX.sel.size !== antes) guardarSelGx();
   } catch (e) {
     GX.error = e.message;
   }
@@ -94,7 +112,9 @@ function pintarTablaGx() {
   if (!filas) return;
   const err = $("#gx-error");
   err.hidden = !GX.error; err.textContent = GX.error || "";
-  vaciar(filas, ...GX.kbs.map((k) => {
+  for (const f in GX.btnFiltro) GX.btnFiltro[f].className = `btn chico${f === GX.filtro ? " prim" : ""}`;
+  const visibles = GX.kbs.filter(visibleGx);
+  vaciar(filas, ...visibles.map((k) => {
     const chk = h("input", { type: "checkbox", checked: GX.sel.has(k.nombre), disabled: !seleccionableGx(k) });
     chk.addEventListener("change", () => { chk.checked ? GX.sel.add(k.nombre) : GX.sel.delete(k.nombre); guardarSelGx(); pintarTablaGx(); });
     return h("tr", { class: GX.sel.has(k.nombre) ? "sel" : "" },
@@ -104,16 +124,16 @@ function pintarTablaGx() {
       h("td", null, celdaTrabajoGx(k, "update")),
       h("td", null, celdaTrabajoGx(k, "build")));
   }));
-  const posibles = GX.kbs.filter(seleccionableGx);
+  const posibles = visibles.filter(seleccionableGx);
   $("#gx-todas").checked = posibles.length > 0 && posibles.every((k) => GX.sel.has(k.nombre));
-  const n = GX.sel.size;
+  const n = seleccionadasGx().length;
   $("#gx-update").disabled = $("#gx-build").disabled = n === 0 || !!GX.error;
   const activos = GX.trabajos.filter(activoGx).length;
   $("#gx-info").textContent = `${n} KB${n === 1 ? "" : "s"} elegida${n === 1 ? "" : "s"}${activos ? ` · ${activos} trabajo${activos === 1 ? "" : "s"} activo${activos === 1 ? "" : "s"}` : ""}`;
 }
 
 async function ejecutarGx(accion) {
-  const kbs = [...GX.sel];
+  const kbs = seleccionadasGx();
   if (!kbs.length) return;
   if (accion === "build" && GX.forzar && !await confirmar(`Rebuild completo de ${kbs.length} KB${kbs.length === 1 ? "" : "s"}: puede tardar mucho. ¿Seguir?`, { si: "Rebuild" })) return;
   try {

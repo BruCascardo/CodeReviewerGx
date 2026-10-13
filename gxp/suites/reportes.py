@@ -4,6 +4,28 @@ from xml.sax.saxutils import escape, quoteattr
 from ..comparacion import describir, texto_grupo
 
 
+NUEVA, ARREGLADA, SIGUE = "nueva", "arreglada", "sigue"
+_MAL = ("falla", "error")
+
+
+def cambio(anterior, actual):
+    """Que le paso a un caso respecto de su corrida anterior, segun el estado de antes y el de ahora:
+    NUEVA (andaba y ahora no), ARREGLADA (no andaba y ahora si), SIGUE (seguia sin andar) o None (sin cambio, o sin
+    un estado anterior con el que comparar: un caso que se corre por primera vez no es una falla nueva)."""
+    if actual in _MAL:
+        return NUEVA if anterior == "ok" else SIGUE if anterior in _MAL else None
+    return ARREGLADA if actual == "ok" and anterior in _MAL else None
+
+
+def cambios(casos):
+    """Cuantos casos de la corrida tienen cada cambio: {"nueva": n, "arreglada": n, "sigue": n}."""
+    t = dict.fromkeys((NUEVA, ARREGLADA, SIGUE), 0)
+    for c in casos:
+        if c.get("cambio"):
+            t[c["cambio"]] += 1
+    return t
+
+
 def totales(casos):
     t = {"ok": 0, "falla": 0, "error": 0, "omitido": 0}
     for c in casos:

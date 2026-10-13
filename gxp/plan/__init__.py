@@ -108,7 +108,7 @@ def calcular(kb, nombre, timeout_ms=60000):
     hallazgos. Los hallazgos llevan cursor (o None si salen de la navegacion) y estan ordenados por nivel."""
     t0 = time.time()
     info = catalogo.buscar(kb, nombre)  # KeyError si no existe
-    fuente = kb.fuente_java(info["nombre"])
+    fuente = kb.fuente_logica(info["nombre"])
     if not fuente.exists():
         raise SinFuente(f"No encuentro el Java generado de {info['nombre']} ({fuente.name}): hace Build en GeneXus.")
     lista = sentencias.de_java(fuente.read_text(encoding="utf-8", errors="ignore"))

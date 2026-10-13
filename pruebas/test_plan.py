@@ -72,6 +72,64 @@ class Sentencias(unittest.TestCase):
                                 "(`AgrNivelNombre` like CONCAT('%', ?)) ORDER BY `AgrNivelNombre` LIMIT ?, ?")
         self.assertEqual(s.like_inicial, [("", "AgrNivelNombre")])
 
+    def test_dinamica_de_web_panel_con_columnas_en_dos_lineas_y_conteo(self):
+        java = r'''
+final  class gntmonedaww__default extends DataStoreHelperBase implements ILocalDataStoreHelper
+{
+   protected Object[] conditional_H00502( ModelContext context , String AV1MonNombre )
+   {
+      sSelectString = " T1.`MonId`, T1.`MonNombre`," ;
+      sSelectString += " T2.`PaisNombre`" ;
+      sFromString = " FROM (`gntMoneda` T1 INNER JOIN `gntPais` T2 ON T2.`PaisId` = T1.`PaisId`)" ;
+      sOrderString = "" ;
+      if ( ! (GXutil.strcmp("", AV1MonNombre)==0) )
+      {
+         addWhere(sWhereString, "(T1.`MonNombre` like ?)");
+      }
+      sOrderString += " ORDER BY T1.`MonId`" ;
+      scmdbuf = "SELECT " + sSelectString + sFromString + sWhereString + sOrderString + "" + " LIMIT " + "?" + ", " + "?" ;
+      GXv_Object10[0] = scmdbuf ;
+      return GXv_Object10 ;
+   }
+
+   protected Object[] conditional_H00503( ModelContext context , String AV1MonNombre )
+   {
+      scmdbuf = "SELECT COUNT(*) FROM (`gntMoneda` T1 INNER JOIN `gntPais` T2 ON T2.`PaisId`" ;
+      scmdbuf += " = T1.`PaisId`)" ;
+      addWhere(sWhereString, "("+GXutil.toValueList("mysql", AV9Lista, "T1.`MonId` IN (", ")")+" or (? = 0))");
+      if ( ! (GXutil.strcmp("", AV1MonNombre)==0) )
+      {
+         addWhere(sWhereString, "(`MonNombre` like ?)");
+      }
+      scmdbuf += sWhereString ;
+      scmdbuf += " ORDER BY T1.`MonId`" ;
+      GXv_Object12[0] = scmdbuf ;
+      return GXv_Object12 ;
+   }
+
+   public Cursor[] getCursors( )
+   {
+      return new Cursor[] {
+          new ForEachCursor("H00502", "scmdbuf",false, GX_NOMASK + GX_MASKLOOPLOCK, false, this,11, GxCacheFrequency.OFF,false )
+         ,new ForEachCursor("H00503", "scmdbuf",false, GX_NOMASK + GX_MASKLOOPLOCK, false, this,1, GxCacheFrequency.OFF,false )
+      };
+   }
+
+   public String getDataStoreName( )
+   {
+      return "GENERALES";
+   }
+}
+'''
+        ss = {s.cursor: s for s in sentencias.de_java(java)}
+        self.assertEqual(ss["H00502"].sql, "SELECT  T1.`MonId`, T1.`MonNombre`, T2.`PaisNombre` FROM (`gntMoneda` T1 INNER JOIN "
+                                           "`gntPais` T2 ON T2.`PaisId` = T1.`PaisId`) WHERE (T1.`MonNombre` like ?) "
+                                           "ORDER BY T1.`MonId` LIMIT ?, ?")
+        self.assertEqual(ss["H00503"].sql, "SELECT COUNT(*) FROM (`gntMoneda` T1 INNER JOIN `gntPais` T2 ON T2.`PaisId` = "
+                                           "T1.`PaisId`) WHERE (T1.`MonId` IN (?) or (? = 0)) and (`MonNombre` like ?) "
+                                           "ORDER BY T1.`MonId`")
+        self.assertTrue(ss["H00503"].dinamica)
+
     def test_join_tablas_condiciones_y_orden(self):
         s = self.ss["P014M3"]
         self.assertEqual(s.tablas, {"T1": "gntAgrNivelClave", "T2": "gntAgrupacion"})

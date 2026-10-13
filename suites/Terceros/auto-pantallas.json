@@ -1,0 +1,342 @@
+{
+  "nombre": "Auto - Pantallas de Terceros",
+  "kb": "Terceros",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "terceros-configuracion-eventoww",
+      "nombre": "Terceros.Configuracion.EventoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Configuracion.EventoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-configuracion-plantillaww",
+      "nombre": "Terceros.Configuracion.PlantillaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Configuracion.PlantillaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-configuracion-trtarchconfiguracionwp",
+      "nombre": "Terceros.Configuracion.trtArchConfiguracionWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Configuracion.trtArchConfiguracionWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-configuracion-trtarchtipoww",
+      "nombre": "Terceros.Configuracion.trtArchTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Configuracion.trtArchTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-configuracion-trtdanioww",
+      "nombre": "Terceros.Configuracion.trtDanioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Configuracion.trtDanioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-datospreviosdenuncia",
+      "nombre": "Terceros.Denuncias.DatosPreviosDenuncia abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Denuncias.DatosPreviosDenuncia",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-panel_testeo",
+      "nombre": "Terceros.Denuncias.panel_testeo abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Denuncias.panel_testeo",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-pruebadenuncia",
+      "nombre": "Terceros.Denuncias.PruebaDenuncia abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Denuncias.PruebaDenuncia",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-denuncias-sntdenarchtipoww",
+      "nombre": "Terceros.Denuncias.sntDenArchTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Denuncias.sntDenArchTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-home",
+      "nombre": "Terceros.Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-noautorizado",
+      "nombre": "Terceros.NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-personas-personanueva",
+      "nombre": "Terceros.Personas.PersonaNueva abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Personas.PersonaNueva",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-consultar",
+      "nombre": "Terceros.Reclamos.Consultar abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Reclamos.Consultar",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-home",
+      "nombre": "Terceros.Reclamos.Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Reclamos.Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-nuevosessionperdida",
+      "nombre": "Terceros.Reclamos.NuevoSessionPerdida abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Reclamos.NuevoSessionPerdida",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-trhrclgestorasignarwp",
+      "nombre": "Terceros.Reclamos.trhRclGestorAsignarWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Reclamos.trhRclGestorAsignarWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-trhrclmensajewp",
+      "nombre": "Terceros.Reclamos.trhRclMensajeWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Reclamos.trhRclMensajeWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-trhreclamonuevadocwp",
+      "nombre": "Terceros.Reclamos.trhReclamoNuevaDocWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Reclamos.trhReclamoNuevaDocWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-trhreclamoww",
+      "nombre": "Terceros.Reclamos.trhReclamoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Reclamos.trhReclamoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-reclamos-wpdatospruebareclamopdf",
+      "nombre": "Terceros.Reclamos.WPDatosPruebaReclamoPdf abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.Reclamos.WPDatosPruebaReclamoPdf",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "terceros-workingon-wpmig",
+      "nombre": "Terceros.WorkingOn.wpMig abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Terceros.WorkingOn.wpMig",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "Upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Upload",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}

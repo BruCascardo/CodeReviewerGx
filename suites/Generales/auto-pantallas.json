@@ -1,0 +1,987 @@
+{
+  "nombre": "Auto - Pantallas de Generales",
+  "kb": "Generales",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "generales-actualizadordatos",
+      "nombre": "Generales.ActualizadorDatos abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.ActualizadorDatos",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-agrupacion-gntagrnivelclaveww",
+      "nombre": "Generales.Agrupacion.gntAgrNivelClaveWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Agrupacion.gntAgrNivelClaveWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-agrupacion-gntagrniveldatoww",
+      "nombre": "Generales.Agrupacion.gntAgrNivelDatoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Agrupacion.gntAgrNivelDatoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-agrupacion-gntagrnivelww",
+      "nombre": "Generales.Agrupacion.gntAgrNivelWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Agrupacion.gntAgrNivelWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-agrupacion-gntagrupacionww",
+      "nombre": "Generales.Agrupacion.gntAgrupacionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Agrupacion.gntAgrupacionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-cifrado-gntcifradoww",
+      "nombre": "Generales.Comunes.Cifrado.gntCifradoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Comunes.Cifrado.gntCifradoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-cifrado-probadorcifrado",
+      "nombre": "Generales.Comunes.Cifrado.ProbadorCifrado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Comunes.Cifrado.ProbadorCifrado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-gntindiceww",
+      "nombre": "Generales.Comunes.gntIndiceWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Comunes.gntIndiceWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-gntindvalorww",
+      "nombre": "Generales.Comunes.gntIndValorWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Comunes.gntIndValorWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-monedas-gntmonedaww",
+      "nombre": "Generales.Comunes.Monedas.gntMonedaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Comunes.Monedas.gntMonedaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-comunes-tags-gnttagww",
+      "nombre": "Generales.Comunes.Tags.gntTagWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Comunes.Tags.gntTagWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-empresas-gntctabancariaww",
+      "nombre": "Generales.Empresas.gntCtaBancariaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Empresas.gntCtaBancariaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-empresas-gntempareaww",
+      "nombre": "Generales.Empresas.gntEmpAreaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Empresas.gntEmpAreaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-empresas-gntempresaww",
+      "nombre": "Generales.Empresas.gntEmpresaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Empresas.gntEmpresaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-empresas-probadorempresasget",
+      "nombre": "Generales.Empresas.ProbadorEmpresasGet abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Empresas.ProbadorEmpresasGet",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-actualizarhashtarjetaswp",
+      "nombre": "Generales.EntidadesFinancieras.ActualizarHashTarjetasWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.EntidadesFinancieras.ActualizarHashTarjetasWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-excluidos",
+      "nombre": "Generales.EntidadesFinancieras.Excluidos abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.EntidadesFinancieras.Excluidos",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-gntentidadfinancieraww",
+      "nombre": "Generales.EntidadesFinancieras.gntEntidadFinancieraWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.EntidadesFinancieras.gntEntidadFinancieraWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-mediosdepagoreferenciaww",
+      "nombre": "Generales.EntidadesFinancieras.MediosDePagoReferenciaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.EntidadesFinancieras.MediosDePagoReferenciaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-entidadesfinancieras-tarjetas-bin-bintest",
+      "nombre": "Generales.EntidadesFinancieras.Tarjetas.BIN.bintest abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.EntidadesFinancieras.Tarjetas.BIN.bintest",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-codigospostales-codigopostalwp",
+      "nombre": "Generales.Geograficos.Distritos.CodigosPostales.CodigoPostalWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Geograficos.Distritos.CodigosPostales.CodigoPostalWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-distritos-paises-gntpaisww",
+      "nombre": "Generales.Geograficos.Distritos.Paises.gntPaisWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Geograficos.Distritos.Paises.gntPaisWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-geograficos-zonas-gntzonausoww",
+      "nombre": "Generales.Geograficos.Zonas.gntZonaUsoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Geograficos.Zonas.gntZonaUsoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-home",
+      "nombre": "Generales.Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-gntactividadfiscalww",
+      "nombre": "Generales.Impuestos.gntActividadFiscalWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Impuestos.gntActividadFiscalWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-gntimpinsdocumentoww",
+      "nombre": "Generales.Impuestos.gntImpInsDocumentoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Impuestos.gntImpInsDocumentoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-gntimpuestoww",
+      "nombre": "Generales.Impuestos.gntImpuestoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Impuestos.gntImpuestoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-gntvincfiscategoriaww",
+      "nombre": "Generales.Impuestos.gntVincFisCategoriaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Impuestos.gntVincFisCategoriaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-gntvincfisinscripcionww",
+      "nombre": "Generales.Impuestos.gntVincFisInscripcionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Impuestos.gntVincFisInscripcionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-impuestos-padrones-gntpadronww",
+      "nombre": "Generales.Impuestos.Padrones.gntPadronWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Impuestos.Padrones.gntPadronWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-gntinterfase_importar",
+      "nombre": "Generales.Interfases.gntInterfase_Importar abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Interfases.gntInterfase_Importar",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-gntinterfaseww",
+      "nombre": "Generales.Interfases.gntInterfaseWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Interfases.gntInterfaseWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-gntitfambitoww",
+      "nombre": "Generales.Interfases.gntItfAmbitoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Interfases.gntItfAmbitoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-probadorparsersalida",
+      "nombre": "Generales.Interfases.ProbadorParserSalida abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Interfases.ProbadorParserSalida",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-interfases-probadorparsersalidacuotas",
+      "nombre": "Generales.Interfases.ProbadorParserSalidaCuotas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Interfases.ProbadorParserSalidaCuotas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-panelpruebas",
+      "nombre": "Generales.PanelPruebas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.PanelPruebas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-gnhpersonaww",
+      "nombre": "Generales.Personas.gnhPersonaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.gnhPersonaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-gnhpertagww",
+      "nombre": "Generales.Personas.gnhPerTagWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.gnhPerTagWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-gntdocumentotipoww",
+      "nombre": "Generales.Personas.gntDocumentoTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.gntDocumentoTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-gntpersubtipoww",
+      "nombre": "Generales.Personas.gntPerSubTipoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.gntPerSubTipoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-gntpertipodocumentoww",
+      "nombre": "Generales.Personas.gntPerTipoDocumentoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.gntPerTipoDocumentoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-gntrelacionww",
+      "nombre": "Generales.Personas.gntRelacionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.gntRelacionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-importarwp",
+      "nombre": "Generales.Personas.ImportarWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.ImportarWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-opendata-odtcontribuyenteww",
+      "nombre": "Generales.Personas.OpenData.odtContribuyenteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.OpenData.odtContribuyenteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-opendata-odtsociedadww",
+      "nombre": "Generales.Personas.OpenData.odtSociedadWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.OpenData.odtSociedadWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-opendata-odtversionww",
+      "nombre": "Generales.Personas.OpenData.odtVersionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.OpenData.odtVersionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-parser-pruebasparser",
+      "nombre": "Generales.Personas.Parser.PruebasParser abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.Parser.PruebasParser",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-prueba1",
+      "nombre": "Generales.Personas.Prueba1 abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.Prueba1",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-roles-gntrolpertipodocumentoww",
+      "nombre": "Generales.Personas.Roles.gntRolPerTipoDocumentoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.Roles.gntRolPerTipoDocumentoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-personas-roles-gntrolww",
+      "nombre": "Generales.Personas.Roles.gntRolWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Personas.Roles.gntRolWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-probadorapi",
+      "nombre": "Generales.ProbadorAPI abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.ProbadorAPI",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-cuestionario-gntcuesseccionwp",
+      "nombre": "Generales.Propiedades.Cuestionario.gntCuesSeccionWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Propiedades.Cuestionario.gntCuesSeccionWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-cuestionario-gntcuesseccionww",
+      "nombre": "Generales.Propiedades.Cuestionario.gntCuesSeccionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Propiedades.Cuestionario.gntCuesSeccionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-cuestionario-gntcuestionarioww",
+      "nombre": "Generales.Propiedades.Cuestionario.gntCuestionarioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Propiedades.Cuestionario.gntCuestionarioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-gntpropambitoww",
+      "nombre": "Generales.Propiedades.gntPropAmbitoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Propiedades.gntPropAmbitoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-gntpropgrupoww",
+      "nombre": "Generales.Propiedades.gntPropGrupoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Propiedades.gntPropGrupoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-gntpropiedadww",
+      "nombre": "Generales.Propiedades.gntPropiedadWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Propiedades.gntPropiedadWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-selector-gntselectorww",
+      "nombre": "Generales.Propiedades.Selector.gntSelectorWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Propiedades.Selector.gntSelectorWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-selector-gntsellistacharww",
+      "nombre": "Generales.Propiedades.Selector.gntSelListaCharWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Propiedades.Selector.gntSelListaCharWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-propiedades-selector-gntsellistanumww",
+      "nombre": "Generales.Propiedades.Selector.gntSelListaNumWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.Propiedades.Selector.gntSelListaNumWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-validaciondatos-mascaras-gntmascaraww",
+      "nombre": "Generales.ValidacionDatos.Mascaras.gntMascaraWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.ValidacionDatos.Mascaras.gntMascaraWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-validaciondatos-regex-gntregexww",
+      "nombre": "Generales.ValidacionDatos.RegEx.gntRegExWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.ValidacionDatos.RegEx.gntRegExWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "generales-validaciondatos-validaciones-gntvalidaciondatosww",
+      "nombre": "Generales.ValidacionDatos.Validaciones.gntValidacionDatosWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Generales.ValidacionDatos.Validaciones.gntValidacionDatosWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "noautorizado",
+      "nombre": "NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "Upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Upload",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}

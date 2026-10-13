@@ -33,6 +33,8 @@ def actualizar_estado(corrida):
         s = est.setdefault(corrida["suite"], {})
         for c in corrida["casos"]:
             s[c["id"]] = {"estado": c["estado"], "fecha": corrida["fin"], "ms": c["ms"], "corrida": corrida["id"]}
+            if c.get("cambio"):
+                s[c["id"]]["cambio"] = c["cambio"]
             if c.get("variablesGuardadas"):
                 s[c["id"]]["variables"] = _acotar(c["variablesGuardadas"])
         s["_resumen"] = {"fecha": corrida["fin"], "totales": corrida["totales"], "corrida": corrida["id"], "estado": corrida["estado"]}
@@ -67,7 +69,7 @@ def listar_corridas(limite=200):
             if c is None:
                 continue
             r = _resumenes[p.name] = {k: c.get(k) for k in ("id", "suite", "suiteNombre", "kb", "inicio", "fin", "ms",
-                                                              "totales", "estado", "grabar", "origen")}
+                                                              "totales", "cambios", "estado", "grabar", "origen")}
         salida.append(r)
     return salida
 

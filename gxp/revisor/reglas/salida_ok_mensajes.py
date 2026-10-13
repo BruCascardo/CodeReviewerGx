@@ -8,8 +8,8 @@ Aplica a los procedimientos con un parametro out o inout que es un sdtOutput o l
   - si Ok es False, tiene que haber un mensaje de tipo Error;
   - Ok tiene que asignarse: un Boolean de GX arranca en False, asi que sin Ok = True devuelve False aunque
     todo salga bien;
-  - si termina con Ok = True, tiene que haber un mensaje de exito, que es Type = MessageTypes.Debug. Un Info
-    en su lugar es advertencia: se toma como exito, pero hay que cambiarlo a Debug;
+  - si termina con Ok = True, tiene que haber un mensaje de exito, que es Type = MessageTypes.Debug. Sin mensaje
+    de exito, o con un Info en su lugar, es advertencia (no error);
   - los mensajes no se agregan a un sdtOutput propio del objeto que despues no se copia a la salida.
 
 Los caminos que no se pueden seguir (la salida pasada a otro objeto, mensajes de tipo desconocido, lo que
@@ -122,7 +122,7 @@ class SalidaOkMensajes(Regla):
                 if e.exito is None:
                     yield from una_vez(("sin-exito", e.ok_s), self.hallazgo(
                         fu, e.ok_s, f"Termina con Ok = True sin mensaje de exito (Type Debug){donde}",
-                        detalle=D_SIN_EXITO, ctx=ctx))
+                        detalle=D_SIN_EXITO, severidad="advertencia", ctx=ctx))
                 elif e.exito == "info":
                     yield from una_vez(("info", e.exito_s), self.hallazgo(
                         fu, e.exito_s, "El mensaje de exito es de tipo Info: tiene que ser Debug",

@@ -170,8 +170,9 @@ function tarjetaPaso(ctx, def, pr, i, res, total) {
   const estado = pr ? pr.estado : "sin-correr";
   const cab = h("div", { class: "cab" },
     h("span", { class: "num-paso" }, i + 1),
-    h("span", { class: "nombre" }, def.nombre || corto(def.objeto) || "Consulta"),
-    def.sql !== undefined ? pill("SQL", "acento") : h("span", { class: "muted mono chico" }, def.objeto),
+    h("span", { class: "nombre" }, def.nombre || corto(def.objeto || def.pantalla) || "Consulta"),
+    def.sql !== undefined ? pill("SQL", "acento") : def.pantalla ? [pill("Pantalla", "acento"), " ", h("span", { class: "muted mono chico" }, def.pantalla)]
+      : h("span", { class: "muted mono chico" }, def.objeto),
     pr ? pillEstado(pr.estado) : pill("sin correr"),
     verifMal ? pill(`✖ ${verifMal} verificación${verifMal > 1 ? "es" : ""}`, "falla") : null,
     grupos.length ? pill(`${grupos.length} cambio${grupos.length > 1 ? "s" : ""}`, "falla") : null,
@@ -205,7 +206,7 @@ function tarjetaPaso(ctx, def, pr, i, res, total) {
 
 function controlesPaso(ctx, def, pr, i, res) {
   const cambiar = (mutar, mensaje) => ctx.guardar((caso) => mutar(caso.pasos[i]), mensaje);
-  const nombrePaso = def.nombre || corto(def.objeto) || "Consulta";
+  const nombrePaso = def.nombre || corto(def.objeto || def.pantalla) || "Consulta";
   const filas = [];
   const fila = (titulo, ayuda, ...contenido) => filas.push(h("div", { class: "control" },
     h("div", { class: "control-t" }, titulo, ayuda ? h("span", { class: "ayuda", title: ayuda }, "?") : null),

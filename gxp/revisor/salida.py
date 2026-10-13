@@ -4,7 +4,7 @@ La regla estatica (reglas/salida_ok_mensajes.py) no juzga los caminos que no pue
 que el objeto devolvio de verdad, cada vez que un paso de una suite (o Explorar) lo ejecuta:
 
   - Ok = false: tiene que venir al menos un mensaje de tipo Error;
-  - Ok = true: ningun Error y un mensaje de exito (Debug). Si el exito es un Info, advertencia.
+  - Ok = true: ningun Error y un mensaje de exito (Debug). Sin exito, o con un Info, advertencia.
 
 Un sdtOutput se reconoce en el JSON como un objeto con 'Ok' booleano y 'Messages', 'Errores' o 'Log'
 (GeneXus omite las colecciones vacias). No hace fallar el caso: deja avisos en el paso.
@@ -59,7 +59,7 @@ def problemas(d):
         return []
     if "info" in tipos:
         return [("advertencia", "el mensaje de exito es de tipo Info (2): tiene que ser Debug (3)")]
-    return [("error", "Ok = true sin mensaje de exito (Type Debug)")]
+    return [("advertencia", "Ok = true sin mensaje de exito (Type Debug)")]
 
 
 def controlar(kb_nombre, objeto, datos, conf=None):

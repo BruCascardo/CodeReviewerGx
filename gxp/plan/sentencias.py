@@ -86,6 +86,26 @@ def de_java(texto):
     return salida
 
 
+# Piezas de una concatenacion Java: un literal, una lista de valores, un + o cualquier otra expresion.
+_PIEZA = re.compile(_JSTR + r'|GXutil\.toValueList\(\s*"\w+"\s*,\s*\w+\s*,\s*' + _JSTR + r"\s*,\s*" + _JSTR
+                    + r"\s*\)|\+|[^\"+]+")
+
+
+def _expresion(expr):
+    """El texto de una condicion de addWhere: un literal o una concatenacion. Un filtro por una lista de valores
+    (GXutil.toValueList(dbms, &lista, "T1.`PerId` IN (", ")")) queda como T1.`PerId` IN (?); lo demas que no
+    es literal, como ?."""
+    partes = []
+    for m in _PIEZA.finditer(expr):
+        if m.group(1) is not None:
+            partes.append(_java(m.group(1)))
+        elif m.group(2) is not None:
+            partes.append(_java(m.group(2)) + "?" + _java(m.group(3)))
+        elif m.group(0) != "+" and m.group(0).strip():
+            partes.append("?")
+    return "".join(partes)
+
+
 def _dinamica(texto, cursor):
     """SQL de un cursor dinamico, armado con su metodo conditional_<cursor> con todos los filtros."""
     m = re.search(r"Object\[\]\s+conditional_" + re.escape(cursor) + r"\s*\(", texto)
@@ -95,14 +115,36 @@ def _dinamica(texto, cursor):
     cuerpo = texto[m.end(): fin if fin > 0 else len(texto)]
     sel = re.search(r"sSelectString\s*=\s*" + _JSTR, cuerpo)
     frm = re.search(r"sFromString\s*=\s*" + _JSTR, cuerpo)
-    if not sel or not frm:
+    # El conteo de registros de una grilla paginada arma el SELECT entero de una vez:
+    #   scmdbuf = "SELECT COUNT(*) FROM `gntMoneda`" ;  ...  scmdbuf += sWhereString ;
+    fijo = re.search(r"scmdbuf\s*=\s*" + _JSTR + r"\s*;", cuerpo)
+    if not (sel and frm) and not fijo:
         return ""
     wheres = []
-    for w in re.finditer(r"addWhere\(\s*sWhereString\s*,\s*" + _JSTR, cuerpo):
-        if _java(w.group(1)) not in wheres:
-            wheres.append(_java(w.group(1)))
+    for w in re.finditer(r"addWhere\(\s*sWhereString\s*,\s*(.*)\)\s*;\s*$", cuerpo, re.M):
+        cond = _expresion(w.group(1))
+        if cond not in wheres:
+            wheres.append(cond)
     orden = re.search(r"sOrderString\s*\+=\s*" + _JSTR, cuerpo)
-    sql = "SELECT " + _java(sel.group(1)) + _java(frm.group(1))
+    if sel and frm:
+        # Una lista de columnas larga sigue en otra linea: sSelectString += " T1.`X`, T2.`Y`" ;
+        seguir = lambda var: "".join(_java(x) for x in re.findall(var + r"\s*\+=\s*" + _JSTR, cuerpo))  # noqa: E731
+        sql = "SELECT " + _java(sel.group(1)) + seguir("sSelectString") + _java(frm.group(1)) + seguir("sFromString")
+    else:
+        # ... y sigue con scmdbuf += ...: lo de antes del += sWhereString (el resto del FROM) va antes del WHERE y
+        # lo de despues (el ORDER BY), despues.
+        antes, despues, cola = [], [], None
+        for m in re.finditer(r"scmdbuf\s*\+=\s*(?:" + _JSTR + r"|(sWhereString))\s*;", cuerpo):
+            if m.group(2):
+                cola = despues
+            elif cola is None:
+                antes.append(_java(m.group(1)))
+            elif not (m.group(1).lstrip().upper().startswith("ORDER BY") and any("ORDER BY" in d.upper() for d in despues)):
+                despues.append(_java(m.group(1)))  # de los ORDER BY alternativos (If / Else) queda el primero
+        sql = _java(fijo.group(1)) + "".join(antes)
+        if wheres:
+            sql += " WHERE " + " and ".join(wheres)
+        return sql + "".join(despues)
     if wheres:
         sql += " WHERE " + " and ".join(wheres)
     if orden:

@@ -13,13 +13,14 @@ python gxpruebas.py describir --kb Generales --objeto Generales.Interfases.Regis
 python gxpruebas.py ejecutar  --kb Generales --objeto Generales.Interfases.Registro.Get --entrada "{\"inGet\":{\"ItfId\":1,\"RegTipo\":\"DETALLE\"}}"
 python gxpruebas.py ejecutar  --kb Generales --objeto ... --entrada @archivo.json --sql "GENERALES: select ..."
 python gxpruebas.py sql       --kb Generales --ds GENERALES "select ..."
-python gxpruebas.py plan      --kb Generales --objeto Generales.Empresas.Get [--detalle]   :: EXPLAIN de sus sentencias SQL y recomendaciones de indices
+python gxpruebas.py plan      --kb Generales --objeto Generales.Empresas.Get [--detalle]   :: EXPLAIN de sus sentencias SQL y recomendaciones de indices (tambien Web Panels: sus grillas)
 python gxpruebas.py correr    [suite] [--kb KB] [--filtro texto] [--etiqueta e] [--detalle]
 python gxpruebas.py correr    <suite> --grabar        :: aprueba las salidas: solo si el usuario confirma que son las correctas
 python gxpruebas.py validaciones --kb Generales --objeto ... --entrada @ok.json [--caso]   :: filas de validacion (campo vacio, dominio, id que no existe) con lo que devuelve hoy cada una
 python gxpruebas.py objetos   --kb Generales --buscar texto
 python gxpruebas.py grafo     --objeto Generales.Interfases.Registro.Get   :: quien lo usa y que usa, en todas las KBs
 python gxpruebas.py generar   --kb Generales [--solo texto]   :: suites auto-* de regresion (solo lectura); --todas para todas las KBs
+python gxpruebas.py generar   --kb Generales --pantallas      :: suite auto-pantallas: cada Web Panel sin parametros abre sin excepcion
 python gxpruebas.py revisar   --kb Generales --objeto Generales.Interfases.Registro.Set --fuente    :: fuente GX real del objeto
 python gxpruebas.py revisar   --kb Generales --objeto Generales.Interfases.Registro.Set --detalle   :: buenas practicas
 ```
@@ -29,6 +30,7 @@ python gxpruebas.py revisar   --kb Generales --objeto Generales.Interfases.Regis
 - Los avisos «Buenas practicas (...)» en un paso de `ejecutar` o `correr` vienen del control del `sdtOutput` devuelto (Ok y mensajes, éxito = `Type` Debug). No hacen fallar el caso: mostráselos al usuario igual.
 - **Después de un build**, `revisar --kb X --cambiados` revisa lo que el build volvió a especificar y marca **NUEVO** lo que no estaba antes. Si la vigilancia del build está activa, eso ya corrió: mirá la revisión más reciente en `resultados\revisiones\` (`"origen": "build"`). Mostrale al usuario primero los hallazgos nuevos.
 
+- **Antes de escribir una API que grabe con un Business Component**, corré `revisar --objeto <transacción>` y mirá la regla `logica-solo-en-pantalla`: lo que la pantalla valida o graba y el BC no (reglas con variables del form o `[web]`, el After Trn) tu API no lo ejecuta. Mostráselo al usuario.
 - **Antes de cambiar un objeto compartido**, mirá con `grafo --objeto` quién lo usa (también desde otras KBs) para saber qué puede romperse. Las relaciones marcadas «solo en la versión publicada» existen en el `.jar` publicado del módulo pero no en la KB local.
 - Las suites `suites\<KB>\auto-*.json` (etiqueta `auto`) las genera `generar`: no las edites a mano salvo para `omitir`. Si un caso `auto` falla después de un build, es que cambió la salida de un objeto de solo lectura: mostrale al usuario la diferencia, no la vuelvas a grabar. Si queda en error con «ya no es de solo lectura», el objeto empezó a escribir o hacer commit: confirmalo con el usuario y regenerá.
 
@@ -71,8 +73,14 @@ Si `.env` (o el entorno) define `GXP_DB_HOST`, las suites, `revisor.json` y `opc
 - Por defecto cada caso arranca de la base del script, sin lo que hicieron los anteriores. Con `"opciones": {"casosEncadenados": true}` cada caso sigue de lo que dejó el anterior (el caso 1 crea un cupón, el 2 lo usa): ahí el orden de los casos importa y correr solo algunos (`--filtro`, `--etiqueta`) puede hacer fallar a los que dependen de otros. Preferí casos aislados salvo que el usuario quiera probar un flujo de varios pasos entre casos. Con casos encadenados, lo que un caso guarda con `guardar` llega como `${variable}` a los casos siguientes; con casos aislados, solo a los pasos siguientes del mismo caso.
 - Con `ejecutar`, `--sql-previo "DS: delete from ...; ..."` corre esas sentencias antes del objeto, igual que el script previo.
 
+## Pantallas (Web Panels, Web Components, transacciones)
+
+- Un caso con pasos `"pantalla"` (README, «Casos de pantalla») corre en el **motor de pantallas**: nada se confirma, todo se deshace al final del caso. Sus pasos `sql` corren en la misma conexión: usalos para verificar lo que grabó la pantalla.
+- Se arman grabando en Explorar → Vista previa → **Grabar caso**. Para cambiar lo que se manda, editá `valores` (o `pedido.fullPost` en una transacción), no `pedido.parms`.
+- Si falla un caso `auto` de `auto-pantallas`, la pantalla no abre después del build: mostrale al usuario la excepción del paso.
+
 ## Limitaciones
 
 - Trabaja contra el **Java compilado**. Si el usuario no compiló, se prueba la versión anterior. `describir` avisa si la especificación y el Java tienen distinta cantidad de parámetros.
 - Los objetos con `Commit on exit = Yes` graban igual: el resultado lo avisa con «hace commit por su cuenta». Con script previo (o `--sql-previo`) no: el motor simula su commit con un savepoint y el caso lo avisa.
-- No ejecuta Web Panels ni transacciones con su pantalla. Una transacción se prueba a través de un procedimiento que use su Business Component.
+- Los Web Panels y las transacciones con su pantalla se prueban solo con pasos `"pantalla"` grabados (no con `ejecutar`). Un Web Component no se abre solo: se graba dentro de la pantalla que lo contiene.

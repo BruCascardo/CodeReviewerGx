@@ -1,0 +1,1317 @@
+{
+  "nombre": "Auto - Pantallas de Servicios",
+  "kb": "Servicios",
+  "descripcion": "Generada por 'gxpruebas.py generar --pantallas': un caso por Web Panel que se abre sin parametros. Lo abre en el motor de pantallas (sin grabar nada) y falla si da una excepcion o un error HTTP. Para dejar uno afuera, marcalo con 'omitir' (no lo borres: al regenerar vuelve).",
+  "opciones": {
+    "transaccion": "rollback"
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "cachetest",
+      "nombre": "cacheTest abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "cacheTest",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "probadorinterbanking",
+      "nombre": "ProbadorInterbanking abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "ProbadorInterbanking",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-accesosdirectos",
+      "nombre": "Servicios.AccesosDirectos abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.AccesosDirectos",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-afip-consulta",
+      "nombre": "Servicios.Areas.AFIP.Consulta abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.AFIP.Consulta",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-afip-prueba",
+      "nombre": "Servicios.Areas.AFIP.Prueba abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.AFIP.Prueba",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-bancos-cbhbcoctamovimientoww",
+      "nombre": "Servicios.Areas.Cobranza.Bancos.cbhBcoCtaMovimientoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Bancos.cbhBcoCtaMovimientoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-bancos-cbtbancoww",
+      "nombre": "Servicios.Areas.Cobranza.Bancos.cbtBancoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Bancos.cbtBancoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-contados",
+      "nombre": "Servicios.Areas.Cobranza.Contados abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Contados",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-mercadopago-cbhmppreferenceww",
+      "nombre": "Servicios.Areas.Cobranza.MercadoPago.cbhMPPreferenceWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.MercadoPago.cbhMPPreferenceWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-mercadopago-cbhmppreforderpaymentww",
+      "nombre": "Servicios.Areas.Cobranza.MercadoPago.cbhMPPrefOrderPaymentWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.MercadoPago.cbhMPPrefOrderPaymentWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-mercadopago-cbhmppreforderww",
+      "nombre": "Servicios.Areas.Cobranza.MercadoPago.cbhMPPrefOrderWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.MercadoPago.cbhMPPrefOrderWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-mercadopago-crearpreferencia",
+      "nombre": "Servicios.Areas.Cobranza.MercadoPago.CrearPreferencia abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.MercadoPago.CrearPreferencia",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-mercadopago-failure",
+      "nombre": "Servicios.Areas.Cobranza.MercadoPago.Failure abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.MercadoPago.Failure",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-mercadopago-mercadopagoresultado",
+      "nombre": "Servicios.Areas.Cobranza.MercadoPago.MercadoPagoResultado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.MercadoPago.MercadoPagoResultado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-mercadopago-pending",
+      "nombre": "Servicios.Areas.Cobranza.MercadoPago.Pending abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.MercadoPago.Pending",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-mercadopago-success",
+      "nombre": "Servicios.Areas.Cobranza.MercadoPago.Success abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.MercadoPago.Success",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-avisovencimiento",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.AvisoVencimiento abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.AvisoVencimiento",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-cbhchequedevolucionww",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.cbhChequeDevolucionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.cbhChequeDevolucionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-cbhrendcuotaww",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.cbhRendCuotaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.cbhRendCuotaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-cbhrendicionww",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.cbhRendicionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.cbhRendicionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-cbtconcpagoww",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.cbtConcPagoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.cbtConcPagoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-cbtrendcondicionww",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.cbtRendCondicionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.cbtRendCondicionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-creditosobrante_migrarsaldo",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.CreditoSobrante_MigrarSaldo abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.CreditoSobrante_MigrarSaldo",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-cuotadepurargaus",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.CuotaDepurarGAUS abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.CuotaDepurarGAUS",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-procesarrendicion",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.ProcesarRendicion abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.ProcesarRendicion",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-cobranza-rendiciones-pruebaevento",
+      "nombre": "Servicios.Areas.Cobranza.Rendiciones.PruebaEvento abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Cobranza.Rendiciones.PruebaEvento",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-avisos-pruebaeventoaviso",
+      "nombre": "Servicios.Areas.Emision.Avisos.PruebaEventoAviso abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Avisos.PruebaEventoAviso",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-avisos-svhloteavisonuevo",
+      "nombre": "Servicios.Areas.Emision.Avisos.svhLoteAvisoNuevo abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Avisos.svhLoteAvisoNuevo",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-avisos-svhloteavisooperacionww",
+      "nombre": "Servicios.Areas.Emision.Avisos.svhLoteAvisoOperacionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Avisos.svhLoteAvisoOperacionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-avisos-svhloteavisoww",
+      "nombre": "Servicios.Areas.Emision.Avisos.svhLoteAvisoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Avisos.svhLoteAvisoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-condicionww",
+      "nombre": "Servicios.Areas.Emision.CondicionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.CondicionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-dashprint",
+      "nombre": "Servicios.Areas.Emision.Documentos.DashPrint abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.DashPrint",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-partemigracionexportarpanel",
+      "nombre": "Servicios.Areas.Emision.Documentos.parteMigracionExportarPanel abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.parteMigracionExportarPanel",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-partemigracionimportarpanel",
+      "nombre": "Servicios.Areas.Emision.Documentos.parteMigracionImportarPanel abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.parteMigracionImportarPanel",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-plantillasexportarwp",
+      "nombre": "Servicios.Areas.Emision.Documentos.PlantillasExportarWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.PlantillasExportarWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-plantillatextoview",
+      "nombre": "Servicios.Areas.Emision.Documentos.plantillaTextoView abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.plantillaTextoView",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-suplementonuevowc",
+      "nombre": "Servicios.Areas.Emision.Documentos.SuplementoNuevoWC abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.SuplementoNuevoWC",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-suplementoww",
+      "nombre": "Servicios.Areas.Emision.Documentos.SuplementoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.SuplementoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-svhimpresionpesosww",
+      "nombre": "Servicios.Areas.Emision.Documentos.svhImpresionPesosWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.svhImpresionPesosWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-svhinsumoenvioww",
+      "nombre": "Servicios.Areas.Emision.Documentos.svhInsumoEnvioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.svhInsumoEnvioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-svhloteaccionww",
+      "nombre": "Servicios.Areas.Emision.Documentos.svhLoteAccionWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.svhLoteAccionWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-svtimpresorasww",
+      "nombre": "Servicios.Areas.Emision.Documentos.svtImpresorasWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.svtImpresorasWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-svtmovtipoparteww",
+      "nombre": "Servicios.Areas.Emision.Documentos.svtMovTipoParteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.svtMovTipoParteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-svtpartegrupowp",
+      "nombre": "Servicios.Areas.Emision.Documentos.svtParteGrupoWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.svtParteGrupoWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-svtparteplantillaww",
+      "nombre": "Servicios.Areas.Emision.Documentos.svtPartePlantillaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.svtPartePlantillaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-svtparteww",
+      "nombre": "Servicios.Areas.Emision.Documentos.svtParteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.svtParteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-documentos-svtramaparteww",
+      "nombre": "Servicios.Areas.Emision.Documentos.svtRamaParteWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Documentos.svtRamaParteWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-emhagrocampaniaww",
+      "nombre": "Servicios.Areas.Emision.emhAgroCampaniaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.emhAgroCampaniaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-emtramaww",
+      "nombre": "Servicios.Areas.Emision.emtRamaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.emtRamaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-eventoww",
+      "nombre": "Servicios.Areas.Emision.EventoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.EventoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-modificacion-modificaciones",
+      "nombre": "Servicios.Areas.Emision.Modificacion.Modificaciones abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Modificacion.Modificaciones",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-modificacion-pruebacond",
+      "nombre": "Servicios.Areas.Emision.Modificacion.pruebaCond abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.Modificacion.pruebaCond",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-plantillaww",
+      "nombre": "Servicios.Areas.Emision.PlantillaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.PlantillaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-emision-probadorconsultas",
+      "nombre": "Servicios.Areas.Emision.ProbadorConsultas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Emision.ProbadorConsultas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-especiales-asincronicos-asincronicoww",
+      "nombre": "Servicios.Areas.Especiales.Asincronicos.AsincronicoWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Especiales.Asincronicos.AsincronicoWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-especiales-opensearch_cargamanual",
+      "nombre": "Servicios.Areas.Especiales.Opensearch_CargaManual abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.Especiales.Opensearch_CargaManual",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-areas-general-personas-percompplaww",
+      "nombre": "Servicios.Areas.General.Personas.PerCompPlaWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Areas.General.Personas.PerCompPlaWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-b2b-b2banalisisusuarios",
+      "nombre": "Servicios.B2B.B2BAnalisisUsuarios abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.B2B.B2BAnalisisUsuarios",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-b2b-bbhuserlogww",
+      "nombre": "Servicios.B2B.bbhUserLogWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.B2B.bbhUserLogWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-b2b-bbtendpointww",
+      "nombre": "Servicios.B2B.bbtEndpointWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.B2B.bbtEndpointWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-b2b-bbtintegradorww",
+      "nombre": "Servicios.B2B.bbtIntegradorWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.B2B.bbtIntegradorWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-b2b-bbtusuarioww",
+      "nombre": "Servicios.B2B.bbtUsuarioWW abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.B2B.bbtUsuarioWW",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-b2b-cifradoaes_probador",
+      "nombre": "Servicios.B2B.CifradoAES_Probador abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.B2B.CifradoAES_Probador",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-b2b-cotizaciones-vehiculos-solicitudpruebawp",
+      "nombre": "Servicios.B2B.Cotizaciones.Vehiculos.SolicitudPruebaWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.B2B.Cotizaciones.Vehiculos.SolicitudPruebaWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-b2b-revisionestado",
+      "nombre": "Servicios.B2B.RevisionEstado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.B2B.RevisionEstado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-global-cachemostrarcontenido",
+      "nombre": "Servicios.Global.CacheMostrarContenido abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Global.CacheMostrarContenido",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-home",
+      "nombre": "Servicios.Home abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Home",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-noautorizado",
+      "nombre": "Servicios.NoAutorizado abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.NoAutorizado",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-polizadocumentacionnotificacion",
+      "nombre": "Servicios.PolizaDocumentacionNotificacion abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.PolizaDocumentacionNotificacion",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-probadorautocomplete",
+      "nombre": "Servicios.ProbadorAutoComplete abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.ProbadorAutoComplete",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-probadorpartes",
+      "nombre": "Servicios.ProbadorPartes abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.ProbadorPartes",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-probadorpolizas",
+      "nombre": "Servicios.ProbadorPolizas abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.ProbadorPolizas",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-probadorquery",
+      "nombre": "Servicios.ProbadorQuery abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.ProbadorQuery",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-prueba",
+      "nombre": "Servicios.Prueba abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.Prueba",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-pruebagm",
+      "nombre": "Servicios.PruebaGM abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.PruebaGM",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-pruebago",
+      "nombre": "Servicios.PruebaGO abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.PruebaGO",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-pruebaigd",
+      "nombre": "Servicios.PruebaIGD abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.PruebaIGD",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-pruebamlp",
+      "nombre": "Servicios.PruebaMLP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.PruebaMLP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-pruebamma",
+      "nombre": "Servicios.PruebaMMA abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.PruebaMMA",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-pruebaserv",
+      "nombre": "Servicios.PruebaServ abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.PruebaServ",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-pruebasl",
+      "nombre": "Servicios.PruebaSL abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.PruebaSL",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_emision-impresion-confirmarloteimpresionwp",
+      "nombre": "Servicios.WS_Emision.Impresion.ConfirmarLoteImpresionWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.WS_Emision.Impresion.ConfirmarLoteImpresionWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_emision-polizas-consultas-os_polizasvigentes",
+      "nombre": "Servicios.WS_Emision.Polizas.Consultas.OS_polizasVigentes abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.WS_Emision.Polizas.Consultas.OS_polizasVigentes",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_general-personas-importarwp",
+      "nombre": "Servicios.WS_General.Personas.ImportarWP abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.WS_General.Personas.ImportarWP",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "servicios-ws_general-personas-pruebasorigendatos",
+      "nombre": "Servicios.WS_General.Personas.PruebasOrigenDatos abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Servicios.WS_General.Personas.PruebasOrigenDatos",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "nombre": "Upload abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "Upload",
+          "parametros": []
+        }
+      ]
+    },
+    {
+      "id": "wpservicios",
+      "nombre": "wpservicios abre",
+      "etiquetas": [
+        "auto",
+        "pantalla"
+      ],
+      "pasos": [
+        {
+          "nombre": "Abrir",
+          "pantalla": "wpservicios",
+          "parametros": []
+        }
+      ]
+    }
+  ]
+}
