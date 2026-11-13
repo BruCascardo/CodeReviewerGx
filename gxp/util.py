@@ -68,3 +68,18 @@ def slug(texto: str) -> str:
 
 # Para subprocess en Windows: sin abrir una ventana de consola.
 SIN_VENTANA = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+
+
+def powershell(args, timeout):
+    """Corre PowerShell y devuelve (codigo, stdout, stderr) como texto.
+    Escribe en UTF-8 o en la pagina OEM (cp850) segun la consola de quien lo lanza: se prueba UTF-8 y si no, OEM."""
+    r = subprocess.run(["powershell.exe", "-NoProfile", "-NonInteractive", *args], capture_output=True,
+                       stdin=subprocess.DEVNULL, timeout=timeout, creationflags=SIN_VENTANA)
+    return r.returncode, _texto_consola(r.stdout), _texto_consola(r.stderr)
+
+
+def _texto_consola(crudo):
+    try:
+        return crudo.decode("utf-8")
+    except UnicodeDecodeError:
+        return crudo.decode("oem" if os.name == "nt" else "cp850", errors="replace")

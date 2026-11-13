@@ -1,0 +1,5087 @@
+{
+  "nombre": "Interfases - formato JSON (J) en ParserEntradaLinea",
+  "kb": "Generales",
+  "descripcion": "Casos de Interfases-Fuentes\\Json\\DatosPrueba\\casos_json.txt. Necesita las interfases que crea DatosPrueba\\interfases_json.sql (AVISO PAGO MERCADOPAGO, PRUEBA JSON, PRUEBA JSON USAID, PRUEBA JSON RUTA MAL): se buscan por nombre. Solo lee: corre con rollback.",
+  "opciones": {
+    "transaccion": "rollback",
+    "recortarEspacios": true
+  },
+  "variables": {},
+  "preparacion": [],
+  "casos": [
+    {
+      "id": "p1",
+      "nombre": "P1. Webhook de MercadoPago",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "AVISO",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"type\":\"payment\",\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "AVISO",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){2}\\}$",
+              "descripcion": "trae 2 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.tipo\":\"payment\"",
+              "descripcion": "aviso.tipo = 'payment'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p2",
+      "nombre": "P2. Respuesta de GET /v1/payments/1234567890",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p3",
+      "nombre": "P3. P2 con sangría y saltos de línea (como lo manda un proveedor)",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\n  \"id\": 1234567890,\n  \"status\": \"approved\",\n  \"status_detail\": \"accredited\",\n  \"transaction_amount\": 15250.5,\n  \"currency_id\": \"ARS\",\n  \"date_approved\": \"2026-10-15T10:20:30.000-03:00\",\n  \"external_reference\": \"48213\",\n  \"payer\": {\n    \"email\": \"x@y.com\",\n    \"identification\": {\n      \"type\": \"DNI\",\n      \"number\": \"12345678\"\n    }\n  },\n  \"fee_details\": [\n    {\n      \"type\": \"mercadopago_fee\",\n      \"amount\": 610.02\n    }\n  ]\n}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b1",
+      "nombre": "B1. Ruta inexistente: sin external_reference",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"\"",
+              "descripcion": "aviso.referencia = ''"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Advertencia"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "external_reference"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "La ruta \"external_reference\" no existe en el mensaje"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "nombre": "B2a. null en un texto",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":null,\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"\"",
+              "descripcion": "aviso.referencia = ''"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "nombre": "B2b. null en un número",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":null,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"\"",
+              "descripcion": "aviso.importe = ''"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "nombre": "B3a. Número como texto con 2 decimales",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":\"15250.50\",\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "nombre": "B3b. Número como texto con 1 decimal",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":\"15250.5\",\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3c",
+      "nombre": "B3c. Número como texto con separador de miles",
+      "etiquetas": [
+        "json",
+        "mercadopago",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":\"1,234.50\",\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "transaction_amount"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Valor no numerico"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3d",
+      "nombre": "B3d. Boolean en un campo numérico",
+      "etiquetas": [
+        "json",
+        "mercadopago",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":true,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "transaction_amount"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Valor no numerico"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3e",
+      "nombre": "B3e. Número negativo",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":-10.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"-10.50\"",
+              "descripcion": "aviso.importe = '-10.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "nombre": "B4a. Fecha con Z cerca de la medianoche",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T23:30:00Z\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "nombre": "B4b. Fecha sin hora",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4c",
+      "nombre": "B4c. Fecha ISO que no existe",
+      "etiquetas": [
+        "json",
+        "mercadopago",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-02-30T10:00:00Z\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "date_approved"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Fecha invalida (aaaa-mm-dd con un dia o mes que no existe)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4d",
+      "nombre": "B4d. Fecha que no es ISO (la interfase no tiene formato de fecha)",
+      "etiquetas": [
+        "json",
+        "mercadopago",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"15/10/2026\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "date_approved"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Fecha invalida: se espera aaaa-mm-dd"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "nombre": "B5a. id numérico de 13 dígitos",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890123,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890123\"",
+              "descripcion": "aviso.idexterno = '1234567890123'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "nombre": "B5b. id numérico de 23 dígitos",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":12345678901234567890123,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"12345678901234567890123\"",
+              "descripcion": "aviso.idexterno = '12345678901234567890123'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b6",
+      "nombre": "B6. Estado sin conversión (y sin conversiones en general)",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"pending\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"pending\"",
+              "descripcion": "aviso.estado = 'pending'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7a",
+      "nombre": "B7a. JSON mal formado: sin cerrar",
+      "etiquetas": [
+        "json",
+        "mercadopago",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\""
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "FORMATO"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Expected a ',' or '}' at 36"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7b",
+      "nombre": "B7b. JSON mal formado: texto después del objeto",
+      "etiquetas": [
+        "json",
+        "mercadopago",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890} basura"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "FORMATO"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "hay texto despues del objeto JSON"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7c",
+      "nombre": "B7c. JSON que no es un objeto",
+      "etiquetas": [
+        "json",
+        "mercadopago",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "[{\"id\":1234567890}]"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "FORMATO"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "el mensaje no es un objeto JSON"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7d",
+      "nombre": "B7d. JSON con una clave repetida",
+      "etiquetas": [
+        "json",
+        "mercadopago",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1,\"id\":2}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "FORMATO"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Duplicate key \"id\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7e",
+      "nombre": "B7e. Mensaje vacío",
+      "etiquetas": [
+        "json",
+        "mercadopago",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": ""
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "FORMATO"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Missing value at 0"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b11",
+      "nombre": "B11. Más decimales que el campo",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.555,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.56\"",
+              "descripcion": "aviso.importe = '15250.56'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\"",
+              "descripcion": "aviso.referencia = '48213'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Advertencia"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "transaction_amount"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "El valor tiene mas decimales que el campo (2): se redondea"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b16",
+      "nombre": "B16. Texto con comillas escapadas y unicode",
+      "etiquetas": [
+        "json",
+        "mercadopago"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"Ref \\\"48213\\\" ñandú\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "CONFIRMA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){6}\\}$",
+              "descripcion": "trae 6 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\"",
+              "descripcion": "aviso.estado = 'approved'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\"",
+              "descripcion": "aviso.importe = '15250.50'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\"",
+              "descripcion": "aviso.fecha = '2026-10-15'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"Ref \\\"48213\\\" ñandú\"",
+              "descripcion": "aviso.referencia = 'Ref \"48213\" ñandú'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\"",
+              "descripcion": "aviso.moneda = 'ARS'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b9",
+      "nombre": "B9. Rutas anidadas, índice de arreglo y constante",
+      "etiquetas": [
+        "json",
+        "rutas"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "ANIDADOS",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "ANIDADOS",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){5}\\}$",
+              "descripcion": "trae 5 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"pagador.documento\":\"12345678\"",
+              "descripcion": "pagador.documento = '12345678'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"pagador.email\":\"x@y.com\"",
+              "descripcion": "pagador.email = 'x@y.com'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision.importe\":\"610.02\"",
+              "descripcion": "comision.importe = '610.02'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision.tipo\":\"mercadopago_fee\"",
+              "descripcion": "comision.tipo = 'mercadopago_fee'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision2.importe\":\"\"",
+              "descripcion": "comision2.importe = ''"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Advertencia"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "fee_details[1].amount"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "no existe en el mensaje"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b15",
+      "nombre": "B15. Constante que no coincide",
+      "etiquetas": [
+        "json",
+        "rutas"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "ANIDADOS",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"pending_contingency\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "ANIDADOS",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){5}\\}$",
+              "descripcion": "trae 5 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"pagador.documento\":\"12345678\"",
+              "descripcion": "pagador.documento = '12345678'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"pagador.email\":\"x@y.com\"",
+              "descripcion": "pagador.email = 'x@y.com'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision.importe\":\"610.02\"",
+              "descripcion": "comision.importe = '610.02'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision.tipo\":\"mercadopago_fee\"",
+              "descripcion": "comision.tipo = 'mercadopago_fee'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision2.importe\":\"\"",
+              "descripcion": "comision2.importe = ''"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 2,
+              "descripcion": "2 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Advertencia"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "fee_details[1].amount"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "no existe en el mensaje"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Severidad",
+              "op": "igual",
+              "valor": "Advertencia"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Campo",
+              "op": "igual",
+              "valor": "status_detail"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Mensaje",
+              "op": "contiene",
+              "valor": "Se esperaba el texto fijo \"accredited\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b13",
+      "nombre": "B13. Boolean y número en campos de texto",
+      "etiquetas": [
+        "json",
+        "rutas"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "BOOLEANO",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"type\":\"payment\",\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "BOOLEANO",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){3}\\}$",
+              "descripcion": "trae 3 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.productivo\":\"true\"",
+              "descripcion": "aviso.productivo = 'true'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.notificacion\":\"12345\"",
+              "descripcion": "aviso.notificacion = '12345'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.notificacionnum\":\"12345\"",
+              "descripcion": "aviso.notificacionnum = '12345'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b8",
+      "nombre": "B8. Ruta que llega a un objeto y a un arreglo",
+      "etiquetas": [
+        "json",
+        "rutas",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "OBJETO",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "OBJETO",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 2,
+              "descripcion": "2 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "payer"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "La ruta llega a un objeto JSON"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Campo",
+              "op": "igual",
+              "valor": "fee_details"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Mensaje",
+              "op": "contiene",
+              "valor": "La ruta llega a un arreglo JSON"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[1].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b14",
+      "nombre": "B14. Campo sin ruta (Nombre vacío)",
+      "etiquetas": [
+        "json",
+        "rutas",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "SINRUTA",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "SINRUTA",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "CONFIGURACION"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "El campo no tiene ruta"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b12a",
+      "nombre": "B12a. UsaId: se identifica PAGO por type = payment",
+      "etiquetas": [
+        "json",
+        "usaid"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"type\":\"payment\",\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "PAGO",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){1}\\}$",
+              "descripcion": "trae 1 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b12b",
+      "nombre": "B12b. UsaId: se identifica ORDEN por type = merchant_order",
+      "etiquetas": [
+        "json",
+        "usaid"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"type\":\"merchant_order\",\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "ORDEN",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){1}\\}$",
+              "descripcion": "trae 1 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"orden.id\":\"1234567890\"",
+              "descripcion": "orden.id = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b12c",
+      "nombre": "B12c. UsaId: type que no corresponde a ningún registro",
+      "etiquetas": [
+        "json",
+        "usaid",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"type\":\"chargebacks\",\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "NO_IDENTIFICADO"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Ningun registro de la interfase corresponde a la linea"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b12d",
+      "nombre": "B12d. UsaId: sin type",
+      "etiquetas": [
+        "json",
+        "usaid",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "NO_IDENTIFICADO"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Ningun registro de la interfase corresponde a la linea"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b10",
+      "nombre": "B10. Ruta con sintaxis inválida en la configuración",
+      "etiquetas": [
+        "json",
+        "rutas",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON RUTA MAL'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "AVISO",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"type\":\"payment\",\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "CONFIGURACION"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Rutas con sintaxis invalida en el Nombre de los campos: 'data..id'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a1",
+      "nombre": "A1. Rutas en mayúsculas (como las guarda la pantalla): leen igual que en minúsculas",
+      "etiquetas": [
+        "json",
+        "mayusculas",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Rutas en mayusculas",
+          "ds": "GENERALES",
+          "sql": "update gntItfRegCampo set ItfRegCampoNombre = upper(ItfRegCampoNombre) where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "ANIDADOS",
+              "NroLinea": 1,
+              "Linea": "{\"id\":1234567890,\"status\":\"approved\",\"status_detail\":\"accredited\",\"transaction_amount\":15250.5,\"currency_id\":\"ARS\",\"date_approved\":\"2026-10-15T10:20:30.000-03:00\",\"external_reference\":\"48213\",\"payer\":{\"email\":\"x@y.com\",\"identification\":{\"type\":\"DNI\",\"number\":\"12345678\"}},\"fee_details\":[{\"type\":\"mercadopago_fee\",\"amount\":610.02}]}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "ANIDADOS",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){5}\\}$",
+              "descripcion": "trae 5 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"pagador.documento\":\"12345678\"",
+              "descripcion": "pagador.documento = '12345678'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"pagador.email\":\"x@y.com\"",
+              "descripcion": "pagador.email = 'x@y.com'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision.importe\":\"610.02\"",
+              "descripcion": "comision.importe = '610.02'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision.tipo\":\"mercadopago_fee\"",
+              "descripcion": "comision.tipo = 'mercadopago_fee'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision2.importe\":\"\"",
+              "descripcion": "comision2.importe = ''"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "1 error(es)/advertencia(s)"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Advertencia"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "FEE_DETAILS[1].AMOUNT"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "no existe en el mensaje"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Linea",
+              "op": "igual",
+              "valor": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a2a",
+      "nombre": "A2a. Claves que sólo se distinguen por mayúsculas: la ruta exacta lee la suya",
+      "etiquetas": [
+        "json",
+        "mayusculas",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "AVISO",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"type\":\"payment\",\"TYPE\":\"otro\",\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.tipo\":\"payment\"",
+              "descripcion": "toma type, no TYPE"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a2b",
+      "nombre": "A2b. Claves que sólo se distinguen por mayúsculas: la ruta que no es exacta es ambigua",
+      "etiquetas": [
+        "json",
+        "mayusculas",
+        "error",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Ruta Type",
+          "ds": "GENERALES",
+          "sql": "update gntItfRegCampo set ItfRegCampoNombre = 'Type' where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'} and ItfRegTipo = 'AVISO' and ItfRegCampoNombre = 'type'"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "AVISO",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"type\":\"payment\",\"TYPE\":\"otro\",\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error, sin excepción"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "largo",
+              "valor": 1
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Severidad",
+              "op": "igual",
+              "valor": "Error"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "FORMATO"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "solo se distinguen por mayusculas y la ruta no coincide exacta con ninguna: 'Type'"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a3",
+      "nombre": "A3. UsaId con las rutas en mayúsculas: se identifica PAGO por TYPE = payment",
+      "etiquetas": [
+        "json",
+        "usaid",
+        "mayusculas",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Rutas en mayusculas",
+          "ds": "GENERALES",
+          "sql": "update gntItfRegCampo set ItfRegCampoNombre = upper(ItfRegCampoNombre) where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Parser",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "",
+              "NroLinea": 1,
+              "Linea": "{\"action\":\"payment.updated\",\"api_version\":\"v1\",\"data\":{\"id\":\"1234567890\"},\"date_created\":\"2026-10-15T13:20:11Z\",\"id\":12345,\"live_mode\":true,\"type\":\"payment\",\"user_id\":\"44444\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "PAGO",
+              "descripcion": "registro con que se leyó"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "regex",
+              "valor": "^\\{(\"[^\"]+\":\"(?:[^\"\\\\]|\\\\.)*\",?){1}\\}$",
+              "descripcion": "trae 1 datos"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\"",
+              "descripcion": "aviso.idexterno = '1234567890'"
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a4",
+      "nombre": "A4. ParserSalidaLinea rechaza un formato desconocido",
+      "etiquetas": [
+        "salida",
+        "error",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Formato desconocido",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S', ItfFormato = 'X' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "X",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "ANIDADOS",
+              "DatosJson": "{}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Output.Messages[0].Texto",
+              "op": "contiene",
+              "valor": "tiene un formato desconocido ('X'): la salida arma lineas de posiciones fijas (F), delimitadas (D) o JSON (J)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a5",
+      "nombre": "A5. Interfase.Set con el Ambito relleno con espacios (Get -> Set)",
+      "etiquetas": [
+        "api",
+        "ambito",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Get",
+          "objeto": "Generales.Interfases.Get",
+          "entrada": {
+            "inGet": {
+              "ItfId": "${existente.ItfId|ItfNombre='PAGO MIS CUENTAS COBRANZAS'}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outGet.Output.Ok",
+              "op": "igual",
+              "valor": true
+            }
+          ]
+        },
+        {
+          "nombre": "Set",
+          "objeto": "Generales.Interfases.Set",
+          "entrada": {
+            "inSet": {
+              "Id": "${get.outGet.Interfase.Id}",
+              "Ambito": "COB       ",
+              "Nombre": "${get.outGet.Interfase.Nombre}",
+              "Tipo": "${get.outGet.Interfase.Tipo}",
+              "Formato": "${get.outGet.Interfase.Formato}",
+              "CampoDelimitador": "${get.outGet.Interfase.CampoDelimitador}",
+              "TextoDelimitador": "${get.outGet.Interfase.TextoDelimitador}",
+              "DecimalSeparador": "${get.outGet.Interfase.DecimalSeparador}",
+              "FechaSeparador": "${get.outGet.Interfase.FechaSeparador}",
+              "NumNegFormato": "${get.outGet.Interfase.NumNegFormato}",
+              "PrimeraFila": "${get.outGet.Interfase.PrimeraFila}",
+              "FormatoFecha1": "${get.outGet.Interfase.FormatoFecha1}",
+              "FormatoFecha2": "${get.outGet.Interfase.FormatoFecha2}",
+              "FormatoFecha3": "${get.outGet.Interfase.FormatoFecha3}",
+              "UsaIdentificador": "${get.outGet.Interfase.UsaIdentificador}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outSet.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "graba con el Ambito relleno"
+            },
+            {
+              "ruta": "outSet.ItfId",
+              "op": "igual",
+              "valor": "${get.outGet.Interfase.Id}",
+              "descripcion": "la misma interfase"
+            }
+          ]
+        }
+      ],
+      "omitir": true,
+      "descripcion": "Omitido el 2026-10-19: el Trim de Ambito (Json\u0004, puntos 3 y 4) no se aplica por ahora."
+    },
+    {
+      "id": "a6",
+      "nombre": "A6. Interfase.List con el Ambito relleno con espacios trae las mismas interfases",
+      "etiquetas": [
+        "api",
+        "ambito",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Sin espacios",
+          "objeto": "Generales.Interfases.List",
+          "entrada": {
+            "inList": {
+              "Ambito": "COB"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outList.Interfases",
+              "op": "largo_min",
+              "valor": 1,
+              "descripcion": "hay interfases COB"
+            }
+          ]
+        },
+        {
+          "nombre": "Con espacios",
+          "objeto": "Generales.Interfases.List",
+          "entrada": {
+            "inList": {
+              "Ambito": "COB       "
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outList.Interfases[*].Id",
+              "op": "igual",
+              "valor": "${sin_espacios.outList.Interfases[*].Id}",
+              "descripcion": "las mismas que sin espacios"
+            }
+          ]
+        }
+      ],
+      "omitir": true,
+      "descripcion": "Omitido el 2026-10-19: el Trim de Ambito (Json\u0004, puntos 3 y 4) no se aplica por ahora."
+    },
+    {
+      "id": "a7",
+      "nombre": "A7. ParserSalidaLinea clasifica cada error en Errores[].Codigo",
+      "etiquetas": [
+        "salida",
+        "error",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA ENVIARLOTE DEBITO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Tipo",
+              "op": "igual",
+              "valor": "S",
+              "descripcion": "interfase de salida de prueba"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "DET",
+              "DatosJson": "{}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "faltan los datos"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "largo_min",
+              "valor": 1
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[*].Codigo",
+              "op": "igual",
+              "valor": "DATOS",
+              "descripcion": "cada error dice que es del dato",
+              "cada": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a8",
+      "nombre": "A8. ParserSalidaLinea: un campo mal configurado queda con Codigo CONFIGURACION",
+      "etiquetas": [
+        "salida",
+        "error",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Campo con posiciones invertidas",
+          "ds": "GENERALES",
+          "sql": "update gntItfRegCampo set ItfRegCampoPosHasta = 0 where ItfId = ${existente.ItfId|ItfNombre='PRUEBA ENVIARLOTE DEBITO'} and ItfRegTipo = 'DET' and ItfRegCampoId = (select min(c.ItfRegCampoId) from (select * from gntItfRegCampo) c where c.ItfId = ${existente.ItfId|ItfNombre='PRUEBA ENVIARLOTE DEBITO'} and c.ItfRegTipo = 'DET')"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA ENVIARLOTE DEBITO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Tipo",
+              "op": "igual",
+              "valor": "S"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "DET",
+              "DatosJson": "{}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[*].Codigo",
+              "op": "contiene",
+              "valor": "CONFIGURACION",
+              "descripcion": "el campo mal configurado"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[*].Codigo",
+              "op": "contiene",
+              "valor": "DATOS",
+              "descripcion": "y los datos que faltan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s1",
+      "nombre": "S1. Salida J: respuesta de MercadoPago plana (texto, número con decimales y fecha)",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "DatosJson": "{\"Aviso.IdExterno\": \"1234567890\", \"Aviso.Estado\": \"approved\", \"Aviso.Importe\": \"15250.5\", \"Aviso.Fecha\": \"2026-10-15\", \"Aviso.Referencia\": \"48213\", \"Aviso.Moneda\": \"ARS\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "igual",
+              "valor": "{\"id\":\"1234567890\",\"status\":\"approved\",\"transaction_amount\":15250.50,\"date_approved\":\"2026-10-15\",\"external_reference\":\"48213\",\"currency_id\":\"ARS\"}",
+              "descripcion": "el JSON armado"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "nombre": "S2. Salida J: negativo, fecha vacía (null), texto vacío y texto con comillas, barra y ñ",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "DatosJson": "{\"Aviso.IdExterno\": \"1234567890\", \"Aviso.Estado\": \"approved\", \"Aviso.Importe\": \"-15250.5\", \"Aviso.Fecha\": \"\", \"Aviso.Referencia\": \"\", \"Aviso.Moneda\": \"ARS \\\"x\\\" \\\\ ñ\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "igual",
+              "valor": "{\"id\":\"1234567890\",\"status\":\"approved\",\"transaction_amount\":-15250.50,\"date_approved\":null,\"external_reference\":\"\",\"currency_id\":\"ARS \\\"x\\\" \\\\ ñ\"}",
+              "descripcion": "el JSON armado"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "nombre": "S3. Ida y vuelta: lo que arma la salida J lo lee la entrada J con los mismos datos",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19",
+        "ida-y-vuelta"
+      ],
+      "pasos": [
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "DatosJson": "{\"Aviso.IdExterno\": \"1234567890\", \"Aviso.Estado\": \"approved\", \"Aviso.Importe\": \"15250.5\", \"Aviso.Fecha\": \"15/10/2026\", \"Aviso.Referencia\": \"48213\", \"Aviso.Moneda\": \"ARS\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "igual",
+              "valor": "{\"id\":\"1234567890\",\"status\":\"approved\",\"transaction_amount\":15250.50,\"date_approved\":\"2026-10-15\",\"external_reference\":\"48213\",\"currency_id\":\"ARS\"}",
+              "descripcion": "el JSON armado"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        },
+        {
+          "nombre": "De nuevo de entrada",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'E' where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+        },
+        {
+          "nombre": "Configuracion entrada",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Entrada",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion_entrada.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "NroLinea": 1,
+              "Linea": "${salida.outParserSalidaLinea.Linea}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"1234567890\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.estado\":\"approved\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.importe\":\"15250.50\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.fecha\":\"2026-10-15\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.referencia\":\"48213\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.moneda\":\"ARS\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "nombre": "S4. Salida J: rutas anidadas, arreglo de dos elementos, null y constante; ida y vuelta",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19",
+        "ida-y-vuelta"
+      ],
+      "pasos": [
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "ANIDADOS",
+              "DatosJson": "{\"Pagador.Documento\": \"12345678\", \"Pagador.Email\": \"x@y.com\", \"Comision.Importe\": \"610.02\", \"Comision.Tipo\": \"mercadopago_fee\", \"Comision2.Importe\": \"\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "igual",
+              "valor": "{\"payer\":{\"identification\":{\"number\":\"12345678\"},\"email\":\"x@y.com\"},\"fee_details\":[{\"amount\":610.02,\"type\":\"mercadopago_fee\"},{\"amount\":null}],\"status_detail\":\"accredited\"}",
+              "descripcion": "el JSON armado"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        },
+        {
+          "nombre": "De nuevo de entrada",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'E' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+        },
+        {
+          "nombre": "Configuracion entrada",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Entrada",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion_entrada.Interfase}",
+              "RegTipo": "ANIDADOS",
+              "NroLinea": 1,
+              "Linea": "${salida.outParserSalidaLinea.Linea}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true
+            },
+            {
+              "ruta": "outParserEntradaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "la constante coincide"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"pagador.documento\":\"12345678\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision.importe\":\"610.02\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision.tipo\":\"mercadopago_fee\""
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"comision2.importe\":\"\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "nombre": "S5. Salida J: dos campos con la misma ruta es error de configuración",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "BOOLEANO",
+              "DatosJson": "{\"Aviso.Productivo\": \"true\", \"Aviso.Notificacion\": \"1\", \"Aviso.NotificacionNum\": \"1\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve la línea"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "un solo error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "CONFIGURACION"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "id"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Otro campo ya escribe en esta ruta",
+              "descripcion": "el mensaje dice por qué"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "nombre": "S6. Salida J: una ruta necesita un objeto donde otra escribe un valor",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Ruta incompatible",
+          "ds": "GENERALES",
+          "sql": "update gntItfRegCampo set ItfRegCampoNombre = 'payer.identification.number.tipo' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON'} and ItfRegTipo = 'ANIDADOS' and ItfRegCampoNombre = 'payer.email'"
+        },
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "ANIDADOS",
+              "DatosJson": "{\"Pagador.Documento\": \"12345678\", \"Pagador.Email\": \"x@y.com\", \"Comision.Importe\": \"610.02\", \"Comision.Tipo\": \"mercadopago_fee\", \"Comision2.Importe\": \"\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve la línea"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "un solo error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "CONFIGURACION"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "payer.identification.number.tipo"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "escribe un valor en 'payer.identification.number' y esta ruta necesita que sea un objeto",
+              "descripcion": "el mensaje dice por qué"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "nombre": "S7. Salida J: campo sin ruta (Nombre vacío) es error de configuración",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "SINRUTA",
+              "DatosJson": "{\"Aviso.IdExterno\": \"1\", \"Aviso.Estado\": \"approved\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve la línea"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "un solo error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "CONFIGURACION"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Campo",
+              "op": "vacio"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "El campo no tiene ruta",
+              "descripcion": "el mensaje dice por qué"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s8",
+      "nombre": "S8. Salida J: dato faltante es error del dato, como en F y D",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "DatosJson": "{\"Aviso.IdExterno\": \"1234567890\", \"Aviso.Estado\": \"approved\", \"Aviso.Importe\": \"15250.5\", \"Aviso.Fecha\": \"2026-10-15\", \"Aviso.Referencia\": \"48213\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve la línea"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "un solo error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "DATOS"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "currency_id"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "valor para la clave \"Aviso.Moneda\"",
+              "descripcion": "el mensaje dice por qué"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s9",
+      "nombre": "S9. Salida J: ruta con sintaxis inválida es error de configuración del campo",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19",
+        "error"
+      ],
+      "pasos": [
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON RUTA MAL'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON RUTA MAL'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "AVISO",
+              "DatosJson": "{\"Aviso.IdExterno\": \"1\", \"Aviso.Tipo\": \"payment\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": false,
+              "descripcion": "termina con error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve la línea"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "largo",
+              "valor": 1,
+              "descripcion": "un solo error"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Codigo",
+              "op": "igual",
+              "valor": "CONFIGURACION"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Campo",
+              "op": "igual",
+              "valor": "data..id"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Ruta con sintaxis invalida",
+              "descripcion": "el mensaje dice por qué"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "nombre": "S10. Salida J: divisor, constante numérica y constante de texto",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "Divisor y constantes",
+          "ds": "GENERALES",
+          "sql": "update gntItfRegCampo set ItfRegCampoDivisor = 100 where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'} and ItfRegTipo = 'CONFIRMA' and ItfRegCampoNombre = 'transaction_amount'; update gntItfRegCampo set ItfRegCampoMapeo = 'CON', ItfRegCampoTipoDato = 'NUM', ItfRegCampoConstante = '1' where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'} and ItfRegTipo = 'CONFIRMA' and ItfRegCampoNombre = 'currency_id'; update gntItfRegCampo set ItfRegCampoMapeo = 'CON', ItfRegCampoConstante = 'v1' where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'} and ItfRegTipo = 'CONFIRMA' and ItfRegCampoNombre = 'external_reference'"
+        },
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='AVISO PAGO MERCADOPAGO'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "CONFIRMA",
+              "DatosJson": "{\"Aviso.IdExterno\": \"1234567890\", \"Aviso.Estado\": \"approved\", \"Aviso.Importe\": \"15250.5\", \"Aviso.Fecha\": \"2026-10-15\", \"Aviso.Referencia\": \"48213\", \"Aviso.Moneda\": \"ARS\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "igual",
+              "valor": "{\"id\":\"1234567890\",\"status\":\"approved\",\"transaction_amount\":1525050,\"date_approved\":\"2026-10-15\",\"external_reference\":\"v1\",\"currency_id\":1}",
+              "descripcion": "el JSON armado"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "nombre": "S11. Salida J con identificador: escribe el ValorId; ida y vuelta identifica el registro",
+      "etiquetas": [
+        "json",
+        "salida",
+        "arreglo-2026-10-19",
+        "usaid",
+        "ida-y-vuelta"
+      ],
+      "pasos": [
+        {
+          "nombre": "Interfase de salida",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'S' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+        },
+        {
+          "nombre": "Configuracion",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Salida",
+          "objeto": "Generales.Interfases.ParserSalidaLinea",
+          "entrada": {
+            "inParserSalidaLinea": {
+              "Interfase": "${configuracion.Interfase}",
+              "RegTipo": "PAGO",
+              "DatosJson": "{\"Aviso.Tipo\": \"otro\", \"Aviso.IdExterno\": \"99\"}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserSalidaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true,
+              "descripcion": "termina bien"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Linea",
+              "op": "igual",
+              "valor": "{\"type\":\"payment\",\"data\":{\"id\":\"99\"}}",
+              "descripcion": "el JSON armado"
+            },
+            {
+              "ruta": "outParserSalidaLinea.Errores",
+              "op": "vacio",
+              "descripcion": "sin errores ni advertencias"
+            }
+          ]
+        },
+        {
+          "nombre": "De nuevo de entrada",
+          "ds": "GENERALES",
+          "sql": "update gntInterfase set ItfTipo = 'E' where ItfId = ${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+        },
+        {
+          "nombre": "Configuracion entrada",
+          "objeto": "Generales.Interfases.Interfase_Configuracion",
+          "entrada": {
+            "ItfId": "${existente.ItfId|ItfNombre='PRUEBA JSON USAID'}"
+          },
+          "verificaciones": [
+            {
+              "ruta": "Interfase.Formato",
+              "op": "igual",
+              "valor": "J",
+              "descripcion": "la interfase de prueba existe y es JSON"
+            }
+          ]
+        },
+        {
+          "nombre": "Entrada",
+          "objeto": "Generales.Interfases.ParserEntradaLinea",
+          "entrada": {
+            "inParserEntradaLinea": {
+              "Interfase": "${configuracion_entrada.Interfase}",
+              "RegTipo": "",
+              "NroLinea": 1,
+              "Linea": "${salida.outParserSalidaLinea.Linea}"
+            }
+          },
+          "verificaciones": [
+            {
+              "ruta": "outParserEntradaLinea.Output.Ok",
+              "op": "igual",
+              "valor": true
+            },
+            {
+              "ruta": "outParserEntradaLinea.RegTipo",
+              "op": "igual",
+              "valor": "PAGO",
+              "descripcion": "se identifica por type"
+            },
+            {
+              "ruta": "outParserEntradaLinea.DatosJson",
+              "op": "contiene",
+              "valor": "\"aviso.idexterno\":\"99\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s12",
+      "nombre": "S12. ArmarJson: los cuatro tipos, anidado, arreglo e índice salteado",
+      "etiquetas": [
+        "json",
+        "armarjson",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "ArmarJson",
+          "objeto": "Generales.Interfases.ArmarJson",
+          "entrada": {
+            "Valores": [
+              {
+                "Ruta": "data.id",
+                "Valor": "1234567890",
+                "Tipo": "STR"
+              },
+              {
+                "Ruta": "importe",
+                "Valor": "-15250.50",
+                "Tipo": "NUM"
+              },
+              {
+                "Ruta": "aprobado",
+                "Valor": "true",
+                "Tipo": "BOOL"
+              },
+              {
+                "Ruta": "fecha",
+                "Valor": "",
+                "Tipo": "NULL"
+              },
+              {
+                "Ruta": "items[1].monto",
+                "Valor": "10",
+                "Tipo": "NUM"
+              }
+            ]
+          },
+          "verificaciones": [
+            {
+              "ruta": "Json",
+              "op": "igual",
+              "valor": "{\"data\":{\"id\":\"1234567890\"},\"importe\":-15250.50,\"aprobado\":true,\"fecha\":null,\"items\":[null,{\"monto\":10}]}"
+            },
+            {
+              "ruta": "Errores",
+              "op": "vacio"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "nombre": "S13. ArmarJson: valores inválidos son error DATOS y no devuelve el JSON",
+      "etiquetas": [
+        "json",
+        "armarjson",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "ArmarJson",
+          "objeto": "Generales.Interfases.ArmarJson",
+          "entrada": {
+            "Valores": [
+              {
+                "Ruta": "ok",
+                "Valor": "1",
+                "Tipo": "STR"
+              },
+              {
+                "Ruta": "n",
+                "Valor": "1,5",
+                "Tipo": "NUM"
+              },
+              {
+                "Ruta": "b",
+                "Valor": "si",
+                "Tipo": "BOOL"
+              }
+            ]
+          },
+          "verificaciones": [
+            {
+              "ruta": "Json",
+              "op": "vacio",
+              "descripcion": "con errores no devuelve el JSON"
+            },
+            {
+              "ruta": "Errores",
+              "op": "largo",
+              "valor": 2
+            },
+            {
+              "ruta": "Errores[*].Codigo",
+              "op": "igual",
+              "valor": "DATOS",
+              "descripcion": "cada uno es del dato",
+              "cada": true
+            },
+            {
+              "ruta": "Errores[0].Campo",
+              "op": "igual",
+              "valor": "n"
+            },
+            {
+              "ruta": "Errores[0].ValorCrudo",
+              "op": "igual",
+              "valor": "1,5"
+            },
+            {
+              "ruta": "Errores[1].Campo",
+              "op": "igual",
+              "valor": "b"
+            },
+            {
+              "ruta": "Errores[1].Mensaje",
+              "op": "contiene",
+              "valor": "true o false"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "nombre": "S14. ArmarJson: tipo fuera del dominio, OBJ (no se arma) y ruta vacía son error CONFIGURACION",
+      "etiquetas": [
+        "json",
+        "armarjson",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "ArmarJson",
+          "objeto": "Generales.Interfases.ArmarJson",
+          "entrada": {
+            "Valores": [
+              {
+                "Ruta": "a",
+                "Valor": "x",
+                "Tipo": "XX"
+              },
+              {
+                "Ruta": "o",
+                "Valor": "{}",
+                "Tipo": "OBJ"
+              },
+              {
+                "Ruta": "",
+                "Valor": "x",
+                "Tipo": "STR"
+              }
+            ]
+          },
+          "verificaciones": [
+            {
+              "ruta": "Json",
+              "op": "vacio"
+            },
+            {
+              "ruta": "Errores",
+              "op": "largo",
+              "valor": 3
+            },
+            {
+              "ruta": "Errores[*].Codigo",
+              "op": "igual",
+              "valor": "CONFIGURACION",
+              "descripcion": "todos de configuración",
+              "cada": true
+            },
+            {
+              "ruta": "Errores[0].Mensaje",
+              "op": "contiene",
+              "valor": "Tipo de valor no soportado 'XX'"
+            },
+            {
+              "ruta": "Errores[1].Mensaje",
+              "op": "contiene",
+              "valor": "Tipo de valor no soportado 'OBJ'"
+            },
+            {
+              "ruta": "Errores[2].Mensaje",
+              "op": "contiene",
+              "valor": "La ruta esta vacia"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "nombre": "S15. ArmarJson sin valores devuelve un objeto vacío",
+      "etiquetas": [
+        "json",
+        "armarjson",
+        "arreglo-2026-10-19"
+      ],
+      "pasos": [
+        {
+          "nombre": "ArmarJson",
+          "objeto": "Generales.Interfases.ArmarJson",
+          "entrada": {
+            "Valores": []
+          },
+          "verificaciones": [
+            {
+              "ruta": "Json",
+              "op": "igual",
+              "valor": "{}"
+            },
+            {
+              "ruta": "Errores",
+              "op": "vacio"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

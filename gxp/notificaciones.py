@@ -3,7 +3,7 @@ import base64
 import subprocess
 from xml.sax.saxutils import escape, quoteattr
 
-from .util import SIN_VENTANA
+from .util import powershell
 
 _PLANTILLA_PS = """$ErrorActionPreference = 'Stop'
 [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] > $null
@@ -26,10 +26,9 @@ def notificar(titulo, lineas, url=None):
     script = _PLANTILLA_PS.format(xml=xml.replace("\n", " "))
     cod = base64.b64encode(script.encode("utf-16-le")).decode("ascii")
     try:
-        r = subprocess.run(["powershell.exe", "-NoProfile", "-NonInteractive", "-EncodedCommand", cod],
-                           capture_output=True, text=True, timeout=30, creationflags=SIN_VENTANA)
+        codigo, out, err = powershell(["-EncodedCommand", cod], timeout=30)
     except (OSError, subprocess.TimeoutExpired) as e:
         return str(e)
-    if r.returncode:
-        return (r.stderr or r.stdout).strip()[-500:] or f"PowerShell termino con codigo {r.returncode}"
+    if codigo:
+        return (err or out).strip()[-500:] or f"PowerShell termino con codigo {codigo}"
     return None

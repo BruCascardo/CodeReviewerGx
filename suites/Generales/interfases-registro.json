@@ -1,7 +1,7 @@
 {
   "nombre": "Interfases - Registro (ejemplo)",
   "kb": "Generales",
-  "descripcion": "Ejemplo de suite sobre las APIs List/Get/Set/Delete de Generales.Interfases.Registro. Todo corre con rollback: no deja datos en la base.",
+  "descripcion": "Ejemplo de suite sobre las APIs List/Get/Set/Delete de Generales.Interfases.Registro. Todo corre con rollback: no deja datos en la base. Desde 2026-10-19 los mensajes de sdtOutput no llevan Code ni Origen: se verifica Type y Texto.",
   "opciones": {
     "transaccion": "rollback",
     "recortarEspacios": true
@@ -102,7 +102,7 @@
     },
     {
       "id": "list-interfase-inexistente",
-      "nombre": "List de una interfase inexistente da NO_EXISTE",
+      "nombre": "List de una interfase inexistente da error (no existe)",
       "etiquetas": [
         "list",
         "errores"
@@ -130,19 +130,20 @@
               "descripcion": "GeneXus omite la coleccion si nunca se cargo (no devuelve [])"
             },
             {
-              "ruta": "outList.Output.Messages[*].Code",
-              "op": "contiene",
-              "valor": "NO_EXISTE"
-            },
-            {
               "ruta": "outList.Output.Messages[0].Type",
               "op": "igual",
               "valor": 1
             },
             {
-              "ruta": "outList.Output.Messages[0].Origen",
+              "ruta": "outList.Output.Ok",
               "op": "igual",
-              "valor": "Generales.Interfases.Registro.List"
+              "valor": false
+            },
+            {
+              "ruta": "outList.Output.Messages[0].Texto",
+              "op": "igual",
+              "valor": "Interfase 999999 no encontrada.",
+              "descripcion": "no existe la interfase"
             }
           ]
         }
@@ -182,19 +183,20 @@
           },
           "verificaciones": [
             {
-              "ruta": "outSet.Output.Messages[0].Code",
+              "ruta": "outSet.Output.Ok",
               "op": "igual",
-              "valor": "OK"
+              "valor": true
             },
             {
               "ruta": "outSet.Output.Messages[0].Type",
               "op": "igual",
-              "valor": 2
+              "valor": 3,
+              "descripcion": "el exito va con Type Debug"
             },
             {
-              "ruta": "outSet.Output.Messages[0].Code",
-              "op": "igual",
-              "valor": "OK"
+              "ruta": "outSet.Output.Messages[0].Texto",
+              "op": "contiene",
+              "valor": "creado."
             }
           ],
           "guardar": {
@@ -276,7 +278,7 @@
     },
     {
       "id": "set-sin-tipo",
-      "nombre": "Set sin tipo de registro da REQUERIDO",
+      "nombre": "Set sin tipo de registro da error (obligatorio)",
       "etiquetas": [
         "set",
         "errores",
@@ -311,9 +313,19 @@
           },
           "verificaciones": [
             {
-              "ruta": "outSet.Output.Messages[*].Code",
-              "op": "contiene",
-              "valor": "REQUERIDO"
+              "ruta": "outSet.Output.Ok",
+              "op": "igual",
+              "valor": false
+            },
+            {
+              "ruta": "outSet.Output.Messages[0].Type",
+              "op": "igual",
+              "valor": 1
+            },
+            {
+              "ruta": "outSet.Output.Messages[0].Texto",
+              "op": "igual",
+              "valor": "El tipo de registro es obligatorio."
             }
           ]
         }

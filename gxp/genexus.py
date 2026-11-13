@@ -29,6 +29,7 @@ from pathlib import Path
 
 from .compartido import conexion
 from .config import CFG, RESULTADOS
+from .util import powershell
 
 ACCIONES = {"update": "Update", "build": "Build"}
 MSBUILD_X86 = Path(os.environ.get("WINDIR", r"C:\Windows")) / "Microsoft.NET" / "Framework" / "v4.0.30319" / "MSBuild.exe"
@@ -100,10 +101,9 @@ def abiertas_en_ide():
         return valor
     carpetas = set()
     try:
-        out = subprocess.run(
-            ["powershell", "-NoProfile", "-Command",
-             "Get-CimInstance Win32_Process -Filter \"Name='GeneXus.exe'\" | ForEach-Object { $_.CommandLine }"],
-            capture_output=True, text=True, timeout=20, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0)).stdout
+        _, out, _ = powershell(
+            ["-Command", "Get-CimInstance Win32_Process -Filter \"Name='GeneXus.exe'\" | ForEach-Object { $_.CommandLine }"],
+            timeout=20)
         for m in re.finditer(r'/KB:"?([^"\r\n]+?)"?\s*(?:/|$)', out, re.I | re.M):
             carpetas.add(os.path.normpath(m.group(1).strip()).lower())
     except Exception:
